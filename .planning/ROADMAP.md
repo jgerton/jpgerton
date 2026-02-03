@@ -36,10 +36,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   8. GitHub repo has develop branch as default working branch, main branch protected
   9. GitHub Actions runs lint, type-check, and build on every PR
   10. PRs require passing checks before merge to main is allowed
-**Plans**: TBD
+**Plans**: 5 plans in 5 waves
 
 Plans:
-- [ ] 01-01: TBD during planning
+- [ ] 01-01-PLAN.md - Initialize Next.js 14 with Git branching (main/develop)
+- [ ] 01-02-PLAN.md - Create Dockerized development environment with hot reload
+- [ ] 01-03-PLAN.md - Integrate Convex backend with type-safe queries
+- [ ] 01-04-PLAN.md - Configure Tailwind, shadcn/ui, and dark mode toggle
+- [ ] 01-05-PLAN.md - Setup GitHub Actions CI and Vercel deployment
 
 ### Phase 2: Projects & Home
 **Goal**: Visitor can view Jon's portfolio of 6 indie projects with descriptions, tech stacks, and links.
@@ -130,11 +134,11 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Infrastructure | 0/TBD | Not started | - |
+| 1. Infrastructure | 0/5 | Ready to execute | - |
 | 2. Projects & Home | 0/TBD | Not started | - |
 | 3. Services & Contact | 0/TBD | Not started | - |
 | 4. Admin Dashboard | 0/TBD | Not started | - |
