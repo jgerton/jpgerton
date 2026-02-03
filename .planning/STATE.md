@@ -5,35 +5,35 @@
 See: .planning/PROJECT.md (updated 2025-02-03)
 
 **Core value:** Local business owners who need a website can see Jon's work, understand the $500 offer, and book a call in under 2 minutes.
-**Current focus:** Phase 1 - Infrastructure
+**Current focus:** Phase 2 - Projects & Home
 
 ## Current Position
 
-Phase: 1 of 6 (Infrastructure)
-Plan: 4 of 5 (completed Plan 04)
-Status: In progress
-Last activity: 2026-02-03 - Completed 01-04-PLAN.md (Tailwind and UI components)
+Phase: 1 of 6 (Infrastructure) - COMPLETE
+Plan: 5 of 5 (all plans complete)
+Status: Phase 1 verified and complete
+Last activity: 2026-02-03 - Phase 1 Infrastructure complete, verified 10/10 criteria
 
-Progress: [████████░░] 80%
+Progress: [██████████] 100% (Phase 1)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Average duration: 8 min
-- Total execution time: 0.53 hours
+- Total plans completed: 5
+- Average duration: 9 min
+- Total execution time: 0.75 hours
 
 **By Phase:**
 
 | Phase             | Plans | Total | Avg/Plan |
 | ----------------- | ----- | ----- | -------- |
-| 01-infrastructure | 4     | 32min | 8min     |
+| 01-infrastructure | 5     | 45min | 9min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-01 (6min), 01-02 (4min), 01-03 (7min), 01-04 (15min)
-- Trend: Slightly longer for UI work
+- Last 5 plans: 01-01 (6min), 01-02 (4min), 01-03 (7min), 01-04 (15min), 01-05 (10min)
+- Trend: Consistent execution
 
 _Updated after each plan completion_
 
@@ -62,7 +62,9 @@ Recent decisions affecting current work:
 - Tailwind v4 CSS-first approach with @theme directive (01-04)
 - HSL CSS variables for brand colors and theme tokens (01-04)
 - next-themes with class-based dark mode for SSR compatibility (01-04)
-- Disabled react-hooks/set-state-in-effect rule for mounted pattern (01-04)
+- Single CI job 'lint-typecheck-build' for branch protection simplicity (01-05)
+- Vercel deploymentEnabled: main true, develop false (01-05)
+- env_file for Docker instead of shell interpolation (01-05)
 
 ### Pending Todos
 
@@ -74,6 +76,13 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-03 (plan execution)
-Stopped at: Completed 01-04-PLAN.md - Tailwind and UI components with dark mode
+Last session: 2026-02-03 (phase execution)
+Stopped at: Phase 1 Infrastructure complete - all 10 success criteria verified
 Resume file: None
+
+## Deployment Info
+
+- **GitHub:** https://github.com/jgerton/jpgerton
+- **Vercel Production:** https://wp-designer.vercel.app
+- **Convex:** https://amicable-pony-588.convex.cloud
+- **Local Dev:** http://localhost:3400 (via docker compose up)

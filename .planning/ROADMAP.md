@@ -13,7 +13,7 @@ This roadmap transforms Jon Gerton's portfolio vision into a dual-purpose platfo
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Infrastructure** - Foundation setup (Next.js, Convex, Docker, Tailwind, dark mode)
+- [x] **Phase 1: Infrastructure** - Foundation setup (Next.js, Convex, Docker, Tailwind, dark mode)
 - [ ] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
 - [ ] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
 - [ ] **Phase 4: Admin Dashboard** - Content management interface with authentication
@@ -43,11 +43,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 
-- [ ] 01-01-PLAN.md - Initialize Next.js 14 with Git branching (main/develop)
-- [ ] 01-02-PLAN.md - Create Dockerized development environment with hot reload
-- [ ] 01-03-PLAN.md - Integrate Convex backend with type-safe queries
-- [ ] 01-04-PLAN.md - Configure Tailwind, shadcn/ui, and dark mode toggle
-- [ ] 01-05-PLAN.md - Setup GitHub Actions CI and Vercel deployment
+- [x] 01-01-PLAN.md - Initialize Next.js 14 with Git branching (main/develop)
+- [x] 01-02-PLAN.md - Create Dockerized development environment with hot reload
+- [x] 01-03-PLAN.md - Integrate Convex backend with type-safe queries
+- [x] 01-04-PLAN.md - Configure Tailwind, shadcn/ui, and dark mode toggle
+- [x] 01-05-PLAN.md - Setup GitHub Actions CI and Vercel deployment
 
 ### Phase 2: Projects & Home
 
@@ -155,10 +155,10 @@ Plans:
 **Execution Order:**
 Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
-| Phase                        | Plans Complete | Status           | Completed |
-| ---------------------------- | -------------- | ---------------- | --------- |
-| 1. Infrastructure            | 0/5            | Ready to execute | -         |
-| 2. Projects & Home           | 0/TBD          | Not started      | -         |
+| Phase                        | Plans Complete | Status           | Completed  |
+| ---------------------------- | -------------- | ---------------- | ---------- |
+| 1. Infrastructure            | 5/5            | ✓ Complete       | 2026-02-03 |
+| 2. Projects & Home           | 0/TBD          | Ready to plan    | -          |
 | 3. Services & Contact        | 0/TBD          | Not started      | -         |
 | 4. Admin Dashboard           | 0/TBD          | Not started      | -         |
 | 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -         |
