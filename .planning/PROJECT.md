@@ -19,6 +19,7 @@ Everything else (admin dashboard, future features) supports this conversion flow
 ### Active
 
 **Public Site:**
+
 - [ ] Home page with hero, project showcase, and services CTA
 - [ ] Projects page displaying 6 indie projects with screenshots, descriptions, tech stacks, and links
 - [ ] Services page with $500 WordPress offer details, what's included, and Calendly booking
@@ -28,12 +29,14 @@ Everything else (admin dashboard, future features) supports this conversion flow
 - [ ] Full AEO treatment (JSON-LD schema, FAQ sections, speakable markup)
 
 **Admin Dashboard:**
+
 - [ ] Convex Auth for admin authentication
 - [ ] CRUD for projects (add, edit, delete, reorder)
 - [ ] View and manage contact form submissions
 - [ ] Dashboard home showing recent activity
 
 **WordPress Delivery System:**
+
 - [ ] Starter template with pre-configured theme and plugins
 - [ ] Content workflow documentation (intake -> Claude-assisted drafting -> approval)
 - [ ] Local staging setup instructions
@@ -51,23 +54,27 @@ Everything else (admin dashboard, future features) supports this conversion flow
 ## Context
 
 **Background:**
+
 - Jon has 20+ years full-stack experience across oil & gas, aviation, and data analytics
 - Currently focused on indie projects and helping local businesses get online
 - Has 6 projects to showcase: AI Marketing Memer, Flame or Fame, Huedle, DevClose.app, Planr (WIP), Chewie (local AI voice assistant)
 - All project codebases on GitHub with live URLs available
 
 **Target market for $500 service:**
+
 - Local service businesses in Anchorage area (landscapers, cleaners, trades)
 - Businesses with no website, Facebook-only presence, or broken/outdated sites
 - Fixed-scope: 5-7 page site in 5 days
 
 **Why Convex over Supabase:**
+
 - Better DX with reactive queries and TypeScript integration
 - Generous free tier (1M function calls/month)
 - Built-in auth that fits the use case
 - Foundation for future features (client portal, real-time updates)
 
 **AEO (Answer Engine Optimization) priority:**
+
 - Becoming increasingly important for visibility in AI-assisted search
 - Differentiator in the local WordPress market
 - Includes schema.org markup, FAQ sections, conversational content structure
@@ -83,16 +90,17 @@ Everything else (admin dashboard, future features) supports this conversion flow
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-|----------|-----------|---------|
-| Next.js 14 App Router | Modern React patterns, great Vercel integration, familiar stack | - Pending |
-| Convex over Supabase | Better DX, reactive queries, generous free tier, TypeScript-first | - Pending |
-| Convex Auth over Clerk | Keeps auth in same ecosystem, simpler integration | - Pending |
-| Full AEO treatment | Differentiator, future-proofing for AI search | - Pending |
-| Both Calendly + form | Calendly for $500 bookings (qualified), form for everything else | - Pending |
-| Admin dashboard vs Convex UI | Long-term maintainability without touching code | - Pending |
-| Dockerized local dev | Consistent environment, port isolation (3400-3499), reproducible setup | - Pending |
-| Git workflow (develop/main) | Develop branch for work, PRs to main for releases, limits Vercel deploys | - Pending |
+| Decision                     | Rationale                                                                | Outcome   |
+| ---------------------------- | ------------------------------------------------------------------------ | --------- |
+| Next.js 14 App Router        | Modern React patterns, great Vercel integration, familiar stack          | - Pending |
+| Convex over Supabase         | Better DX, reactive queries, generous free tier, TypeScript-first        | - Pending |
+| Convex Auth over Clerk       | Keeps auth in same ecosystem, simpler integration                        | - Pending |
+| Full AEO treatment           | Differentiator, future-proofing for AI search                            | - Pending |
+| Both Calendly + form         | Calendly for $500 bookings (qualified), form for everything else         | - Pending |
+| Admin dashboard vs Convex UI | Long-term maintainability without touching code                          | - Pending |
+| Dockerized local dev         | Consistent environment, port isolation (3400-3499), reproducible setup   | - Pending |
+| Git workflow (develop/main)  | Develop branch for work, PRs to main for releases, limits Vercel deploys | - Pending |
 
 ---
-*Last updated: 2025-02-03 after research*
+
+_Last updated: 2025-02-03 after research_

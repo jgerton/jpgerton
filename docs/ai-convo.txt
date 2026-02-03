@@ -1,0 +1,234 @@
+This is a very strong, well-thought-out plan that’s absolutely compatible with a near‑zero budget start, with a few tweaks to sequencing and scope to keep costs at effectively $0 until you close clients.
+​
+
+What’s already excellent
+Clear niche and offer: fixed‑scope, fixed‑price WordPress “digital business card” sites for local service businesses is focused and easy to pitch.
+​
+
+Tight productized service: 5–7 pages, specific features, clear exclusions, and a 5‑day delivery timeline keep scope creep under control.
+​
+
+Good revenue math and upsells: you’ve identified realistic throughput (2–8 sites/month) and clear upsells like maintenance, copywriting, GBP setup, etc.
+​
+
+Thoughtful lead system: the Google Maps–driven pipeline, hot/warm scoring, and outreach scripts show you understand where clients come from and how to contact them.
+​
+
+You don’t need a big budget to make this work; you mainly need your time and consistency.
+
+Where it’s overbuilt for “day 0”
+The plan reads like a v1.2 of a business, not a day‑zero version. For launch, a few elements are likely unnecessary overhead:
+
+n8n + custom automation stack: setting up n8n hosting, SerpAPI, workflows, scrapers, etc. is great, but overkill before you’ve validated your outreach scripts in your own city with manual work.
+​
+
+Too many tools at once: email tools, CRM, Slack/Discord notifications, and JSON workflow exports add complexity without helping you get your first 3–5 clients.
+​
+
+Full file structure and scripts: scraper.py, website-checker.py, and detailed YAML specs are awesome once you’re scaling, but they’re not needed to close initial deals.
+​
+
+You can still keep all of this in your “Phase 2/3” roadmap, but your day‑zero ops can be much simpler.
+
+How to run this on (almost) zero budget
+You can launch this model with essentially just your time plus a few free tiers.
+
+Core principle: validate by hand first, then automate the parts that are measurably painful.
+
+Low‑budget version:
+
+Prospecting (manual first):
+
+Use Google Maps and Facebook manually for “[service] near [city]” and record leads in a simple Google Sheet with the same columns you defined (name, phone, website status, etc.).
+​
+
+Use your lead scoring logic (no site = hot, Facebook only/broken = warm, decent site = skip) but do it by eye.
+​
+
+Outreach stack (free):
+
+Gmail + simple mail merge (e.g., Google Sheets + Gmail template) is enough before you hit volume limits.
+
+Phone calls and Facebook Messenger are free and already part of your plan.
+​
+
+Delivery stack (free):
+
+Use the free themes/plugins you already chose: Kadence/Astra/GeneratePress, Gutenberg, WPForms Lite, RankMath/Yoast, Wordfence, UpdraftPlus.
+​
+
+Let clients pay directly for hosting on SiteGround or similar; you just help them set it up during the intake call so you don’t front hosting costs.
+​
+
+Admin:
+
+Contracts: use a 1‑page service agreement in Google Docs.
+
+Invoicing: Stripe payment links or Wave (free) like you already suggest.
+​
+
+If you want “$0 until first client,” avoid paying for n8n hosting or SerpAPI at first; manual prospecting + free tiers is enough to test.
+
+A simpler phased roadmap
+Your roadmap is good, but for a low‑budget start I’d compress and reorder it:
+
+Phase 0 (2–3 days): Bare‑bones setup
+Create a simple one‑page credibility site for yourself (can be on yourlifecraft.com as a subpage) that shows 1–2 demo sites, your $500 offer, and a Calendly link (free).
+​
+
+Create:
+
+Google Sheet for leads (columns from your plan).
+
+One email template and one phone script (you already have these written).
+​
+
+Phase 1 (week 1): Manual validation
+Manually find 50 hot/warm leads in your local area (Anchorage and nearby) via Google Maps and Facebook groups, log them in the sheet.
+​
+
+Call/email every lead using your existing scripts and track outcomes in the sheet (not a full CRM yet).
+​
+
+Aim for 1 closed client from those 50. Don’t build any automation before that.
+
+Phase 2 (weeks 2–4): Systematize what worked
+Once you’ve closed 1–3 sites and experienced where the friction is, pick the single worst bottleneck and automate that only:
+
+If it’s “finding businesses without sites”: then start implementing your n8n + Google Places/SerpAPI workflow.
+
+If it’s “following up”: build the outreach tracker workflow first instead.
+​
+
+Reinvest first profits into:
+
+A low‑cost VPS or hosted n8n instance.
+
+A basic email outreach tool if Gmail limits become an issue.
+​
+
+Phase 3 (after 5–10 clients): Improve offer and upsells
+Turn maintenance into a default add‑on ($50–100/mo) and make it easy to accept in the proposal.
+​
+
+Create a standardized intake form and content request document to reduce back‑and‑forth.
+​
+
+Use testimonials and before/after screenshots on your site and in outreach.
+
+A few strategic tweaks to make it “better”
+Given that you’re building AI tools for businesses and have a blog, you can differentiate beyond “just another $500 WordPress shop” without adding cost:
+
+Lean into “fast, AI‑assisted content”: optionally offer to draft their copy using AI based on a 20‑minute call, then have them approve it. You already list copywriting as an upsell; using AI helps you deliver it faster and cheaply.
+​
+
+Build blog content on yourlifecraft.com about your process:
+
+“How I find local businesses who need websites (and what that means for your business)”
+
+“The 5‑day website build: from zero to ‘send me your link’”
+These posts double as marketing collateral you can link in outreach.
+
+Offer a micro‑“audit” freebie:
+
+For businesses with bad sites, send a 3‑bullet Loom video showing issues and how a simple $500 rebuild fixes them. It increases response rate and uses only your time.
+
+If you’d like, next step we can:
+
+Strip this document down into a “Day 0” version,
+
+Then outline exactly what you should do in your first 7 days, hour by hour, on a no‑cash budget.
+
+I plan on using my max claude code subscription to help automate and would also like to use it to build the websites to show the clients
+Using your Max Claude Code subscription as the engine for both automation and site delivery fits this plan perfectly; it can replace a lot of the “Phase 2” complexity you wrote down and keep cash outlay near zero.
+
+How to use Claude Code for automation
+Use Claude Code as your “dev partner” and orchestrator, not as a fully autonomous system at first.
+
+Lead-list building: have it generate and refine Python or JS scripts that scrape/search Google Maps–like directories, then export to CSV/Sheets; this is the same pattern people use for scraping and enrichment workflows.
+​
+
+Workflow glue: once a script works, ask Claude to wrap it in a simple CLI or scheduled job, and to integrate with n8n or HTTP webhooks only after your manual process is validated.
+
+Iterative improvement: use Claude to debug and optimize scripts as you run into issues, instead of investing in complex infrastructure on day one.
+
+This gives you the benefits of your automation vision without paying extra for dev time or SaaS tools early.
+
+How to use Claude Code to build client sites
+Treat Claude as a senior WordPress assistant that works inside your local dev setup.
+
+Local workflow: run WordPress locally (e.g., Local by WP Engine or a Docker setup), open the project in VS Code, and keep a Claude Code session connected to that repo so it can read your theme files, plugins, and configuration.
+
+Theme/customization help: ask Claude to scaffold child themes, create custom templates, or adjust hooks/filters; it’s strong at generating correct WordPress PHP and responsive layouts, though you should still review for performance and security.
+
+AI-assisted content: feed Claude notes from your intake call and have it draft page copy (Home/About/Services/FAQ) that you then lightly edit; this becomes part of your “copywriting assistance” upsell at almost no marginal cost.
+
+You still keep yourself in the loop for visual QA, performance, and avoiding outdated APIs, but your build time per site drops substantially.
+
+A concrete flow for a $0–budget first client
+Prospect manually for 20–30 businesses and log them in a Sheet.
+
+Use Claude Code to:
+
+Generate/refine a small script that checks which of those have missing/bad sites and tags them.
+
+Draft personalized cold emails and call scripts based on that list.
+
+Once someone is interested, spin up a local WordPress site, and ask Claude to:
+
+Propose a layout, generate a starter theme/child theme, and draft initial copy.
+
+Help you tweak CSS and templates until it matches what you want.
+
+Deploy to their host, do a final manual QA, and collect payment; only then think about automating more of the lead-gen workflow.
+
+If you’d like, I can outline a specific “Claude-first” stack and prompt patterns you can reuse for: lead scraping, outreach personalization, and WordPress build steps.
+
+how do I ensure the new clients are going to hold to their $500 obligation and not just take the site and avoid payment?
+You protect yourself with structure: deposits, contracts, and control over launch access.
+
+Concrete protections for a $500 site
+50% upfront, 50% before go‑live
+
+Take a non‑refundable 50% deposit before you start (you already planned this). This filters out non‑serious clients and covers your minimum time.
+
+Make it explicit that the remaining 50% is due “upon completion, prior to launch or transfer of any files.”
+
+Never launch before final payment
+
+Keep the site on your own staging domain or on their host but behind a maintenance page until the final invoice is paid.
+​
+
+Your terms should say you won’t point DNS, remove the maintenance page, or hand over admin credentials until the balance is cleared.
+
+Simple written agreement, every time
+
+Use a short contract or service agreement that clearly states: total fee, what’s included, payment schedule (50/50), what “completion” means, and the “no launch before final payment” rule.
+
+Include what happens if they delay content (e.g., project pauses, restart fee) and what happens if they don’t pay (you keep the site unpublished, late fees optional).
+
+Ownership and access rules
+
+State that you retain rights to the design/build until full payment is received, at which point license/ownership transfers to them.
+
+Do not give them full admin access or downloadable backups until invoices are settled.
+
+Use proper invoicing and easy payment methods
+
+Send invoices through Stripe/Wave/PayPal with clear due dates and automatic reminders; many designers get paid faster just by making it simple to click and pay.
+
+Keep everything in writing (email + signed agreement), so if someone pushes back you can calmly point to the agreed terms.
+
+If you want, I can draft a lean “$500 site” payment clause you can paste into your contract and proposals so this is baked into every project by default.
+
+Related
+
+sample web design contract template for $500 projects
+
+how to host client site on my server until full payment
+
+best invoicing tools for freelancers like Honeybook
+
+what late payment fees to charge clients
+
+how to legally enforce contracts if client doesnt pay

@@ -8,7 +8,7 @@
 
 Infrastructure phase establishes a Dockerized development environment using Bun as the package manager, Next.js 14 App Router with Tailwind CSS and shadcn/ui for the frontend, and Convex for the backend. The stack is production-ready with Vercel deployment, GitHub Actions CI, and modern developer experience patterns.
 
-The standard approach is to use Docker Compose for orchestration with volume mounts for hot reload, next/font for automatic font optimization, next-themes for flicker-free dark mode, and Convex's built-in type generation for end-to-end type safety. The setup requires careful attention to Docker networking, environment variable configuration (especially NEXT_PUBLIC_ prefixes), and proper handling of node_modules volumes to avoid common pitfalls.
+The standard approach is to use Docker Compose for orchestration with volume mounts for hot reload, next/font for automatic font optimization, next-themes for flicker-free dark mode, and Convex's built-in type generation for end-to-end type safety. The setup requires careful attention to Docker networking, environment variable configuration (especially NEXT*PUBLIC* prefixes), and proper handling of node_modules volumes to avoid common pitfalls.
 
 **Primary recommendation:** Use official Docker images (oven/bun:1), leverage Next.js built-in optimizations (next/font, App Router), implement multi-stage Docker builds with proper .dockerignore, configure ConvexProvider in a dedicated client component wrapper, and ensure WATCHPACK_POLLING=true for reliable hot reload in Docker.
 
@@ -17,34 +17,38 @@ The standard approach is to use Docker Compose for orchestration with volume mou
 The established libraries/tools for this domain:
 
 ### Core
-| Library | Version | Purpose | Why Standard |
-|---------|---------|---------|--------------|
-| Next.js | 14+ | React framework with App Router | Industry standard for SSR/SSG React apps, Vercel's primary framework, best-in-class DX |
-| Bun | 1.x | Runtime and package manager | 2-4x faster than npm, drop-in replacement, excellent Docker support |
-| Convex | Latest | Backend and real-time database | Type-safe by design, reactive queries, generous free tier, better DX than Supabase |
-| Tailwind CSS | 3.x/4.x | Utility-first CSS framework | De facto standard for modern React, excellent with shadcn/ui |
-| shadcn/ui | Latest | Component library | Copy-paste approach (not dependency), built on Radix UI, highly customizable |
-| next-themes | Latest | Dark mode management | Zero-flicker implementation, system preference support, localStorage persistence |
+
+| Library      | Version | Purpose                         | Why Standard                                                                           |
+| ------------ | ------- | ------------------------------- | -------------------------------------------------------------------------------------- |
+| Next.js      | 14+     | React framework with App Router | Industry standard for SSR/SSG React apps, Vercel's primary framework, best-in-class DX |
+| Bun          | 1.x     | Runtime and package manager     | 2-4x faster than npm, drop-in replacement, excellent Docker support                    |
+| Convex       | Latest  | Backend and real-time database  | Type-safe by design, reactive queries, generous free tier, better DX than Supabase     |
+| Tailwind CSS | 3.x/4.x | Utility-first CSS framework     | De facto standard for modern React, excellent with shadcn/ui                           |
+| shadcn/ui    | Latest  | Component library               | Copy-paste approach (not dependency), built on Radix UI, highly customizable           |
+| next-themes  | Latest  | Dark mode management            | Zero-flicker implementation, system preference support, localStorage persistence       |
 
 ### Supporting
-| Library | Version | Purpose | When to Use |
-|---------|---------|---------|-------------|
-| Docker | Latest | Containerization | All local development (mandatory per phase requirements) |
-| Docker Compose | Latest | Multi-container orchestration | Dev environment with Next.js + Convex services |
-| TypeScript | 5.x | Type safety | Required for Convex type generation and shadcn/ui |
-| ESLint | Latest | Code linting | Included with Next.js, use eslint-config-next/core-web-vitals |
-| Prettier | Latest | Code formatting | Pairs with ESLint via eslint-config-prettier |
-| Vercel CLI | Latest | Deployment testing | Optional for local preview of production builds |
+
+| Library        | Version | Purpose                       | When to Use                                                   |
+| -------------- | ------- | ----------------------------- | ------------------------------------------------------------- |
+| Docker         | Latest  | Containerization              | All local development (mandatory per phase requirements)      |
+| Docker Compose | Latest  | Multi-container orchestration | Dev environment with Next.js + Convex services                |
+| TypeScript     | 5.x     | Type safety                   | Required for Convex type generation and shadcn/ui             |
+| ESLint         | Latest  | Code linting                  | Included with Next.js, use eslint-config-next/core-web-vitals |
+| Prettier       | Latest  | Code formatting               | Pairs with ESLint via eslint-config-prettier                  |
+| Vercel CLI     | Latest  | Deployment testing            | Optional for local preview of production builds               |
 
 ### Alternatives Considered
-| Instead of | Could Use | Tradeoff |
-|------------|-----------|----------|
-| Bun | npm/yarn/pnpm | Slower installs (90s vs 25-40s for 120 packages), but more mature ecosystem |
-| Convex | Supabase | More control over backend, but lose type generation and reactive queries DX |
-| next-themes | Custom solution | More control, but must handle SSR hydration, FOUC, and storage manually |
-| shadcn/ui | Radix UI directly | More flexibility, but lose pre-styled components and DX |
+
+| Instead of  | Could Use         | Tradeoff                                                                    |
+| ----------- | ----------------- | --------------------------------------------------------------------------- |
+| Bun         | npm/yarn/pnpm     | Slower installs (90s vs 25-40s for 120 packages), but more mature ecosystem |
+| Convex      | Supabase          | More control over backend, but lose type generation and reactive queries DX |
+| next-themes | Custom solution   | More control, but must handle SSR hydration, FOUC, and storage manually     |
+| shadcn/ui   | Radix UI directly | More flexibility, but lose pre-styled components and DX                     |
 
 **Installation:**
+
 ```bash
 # Initialize Next.js project with Bun
 bunx create-next-app@latest --typescript --tailwind --app --no-src-dir
@@ -65,6 +69,7 @@ bunx shadcn@latest add button card input dialog toast avatar badge
 ## Architecture Patterns
 
 ### Recommended Project Structure
+
 ```
 wp-designer/
 ├── app/                 # Next.js App Router (routes, layouts, pages)
@@ -91,12 +96,14 @@ wp-designer/
 ```
 
 ### Pattern 1: Dockerized Development with Hot Reload
+
 **What:** Use Docker Compose with bind mounts for live code updates without rebuilding.
 **When to use:** All local development (mandatory per phase requirements).
 **Example:**
+
 ```yaml
 # docker-compose.yml
-version: '3.8'
+version: "3.8"
 services:
   frontend:
     build:
@@ -106,12 +113,12 @@ services:
     ports:
       - "3400:3000"
     volumes:
-      - .:/app                    # Bind mount entire project
-      - /app/node_modules         # Prevent overwriting installed deps
-      - /app/.next                # Persist Next.js build cache
+      - .:/app # Bind mount entire project
+      - /app/node_modules # Prevent overwriting installed deps
+      - /app/.next # Persist Next.js build cache
     environment:
-      - WATCHPACK_POLLING=true    # Critical for hot reload in Docker
-      - CHOKIDAR_USEPOLLING=true  # Backup polling mechanism
+      - WATCHPACK_POLLING=true # Critical for hot reload in Docker
+      - CHOKIDAR_USEPOLLING=true # Backup polling mechanism
       - NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL}
     networks:
       - jpgerton-network
@@ -142,9 +149,11 @@ volumes:
 ```
 
 ### Pattern 2: ConvexProvider in Client Component Wrapper
+
 **What:** Wrap ConvexProvider and ThemeProvider in a Client Component, imported by Server Component layout.
 **When to use:** Always (required for App Router compatibility).
 **Example:**
+
 ```tsx
 // app/providers.tsx
 "use client";
@@ -185,9 +194,11 @@ export default function RootLayout({ children }) {
 ```
 
 ### Pattern 3: Zero-Flicker Dark Mode with next-themes
+
 **What:** Use next-themes with suppressHydrationWarning to prevent FOUC during SSR hydration.
 **When to use:** Any theme toggle implementation.
 **Example:**
+
 ```tsx
 // components/theme-toggle.tsx
 "use client";
@@ -214,18 +225,20 @@ export function ThemeToggle() {
 ```
 
 ### Pattern 4: Tailwind Custom Colors with CSS Variables (v4)
-**What:** Define custom brand colors using @theme directive with --color-* namespace.
+
+**What:** Define custom brand colors using @theme directive with --color-\* namespace.
 **When to use:** All projects with custom brand palette.
 **Example:**
+
 ```css
 /* app/globals.css */
 @import "tailwindcss";
 
 @theme {
-  --color-corporate-blue: #003F75;
-  --color-tech-blue: #2884BD;
-  --color-turquoise: #0FACB0;
-  --color-soft-black: #1A1A1A;
+  --color-corporate-blue: #003f75;
+  --color-tech-blue: #2884bd;
+  --color-turquoise: #0facb0;
+  --color-soft-black: #1a1a1a;
   --color-graphite: #696969;
 }
 
@@ -235,9 +248,11 @@ export function ThemeToggle() {
 **Note:** If using Tailwind v3, use tailwind.config.ts extend.colors instead.
 
 ### Pattern 5: Inter Font with Automatic Self-Hosting
+
 **What:** Use next/font/google for zero-config self-hosting with layout shift prevention.
 **When to use:** Always for Google Fonts (Inter, Roboto, etc.).
 **Example:**
+
 ```tsx
 // app/layout.tsx
 import { Inter } from "next/font/google";
@@ -269,9 +284,11 @@ export default {
 ```
 
 ### Pattern 6: Convex Type-Safe Queries
+
 **What:** Define schema in convex/schema.ts, Convex generates types automatically.
 **When to use:** Always (enables end-to-end type safety).
 **Example:**
+
 ```typescript
 // convex/schema.ts
 import { defineSchema, defineTable } from "convex/server";
@@ -306,16 +323,18 @@ export default function Home() {
 ```
 
 ### Pattern 7: GitHub Actions CI Workflow
+
 **What:** Lint, type-check, and build on every PR with branch protection.
 **When to use:** All projects with CI requirements.
 **Example:**
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI
 
 on:
   pull_request:
-    branches: ['**']
+    branches: ["**"]
 
 jobs:
   lint-typecheck-build:
@@ -343,9 +362,11 @@ jobs:
 ```
 
 ### Pattern 8: Vercel Deployment (Main Branch Only)
+
 **What:** Auto-deploy to production only on merge to main, not develop.
 **When to use:** Production deployment strategy.
 **Example:**
+
 ```json
 // vercel.json
 {
@@ -370,7 +391,7 @@ Or via Vercel dashboard: Settings > Git > Production Branch = "main", uncheck "A
 - **Don't forget WATCHPACK_POLLING=true** - Hot reload will fail in Docker without this.
 - **Don't mount node_modules from host** - Use named volumes (/app/node_modules) to preserve container-installed deps.
 - **Don't put ConvexProvider in Server Component** - Will cause "use client" boundary errors.
-- **Don't forget NEXT_PUBLIC_ prefix** - Convex URL must be NEXT_PUBLIC_CONVEX_URL or client can't connect.
+- **Don't forget NEXT*PUBLIC* prefix** - Convex URL must be NEXT_PUBLIC_CONVEX_URL or client can't connect.
 - **Don't skip suppressHydrationWarning on html tag** - Will cause hydration mismatch with next-themes.
 - **Don't use eslint-plugin-prettier** - Use eslint-config-prettier only (formatting is Prettier's job, not ESLint's).
 - **Don't copy node_modules into Docker image** - Use .dockerignore to exclude it, install inside container.
@@ -379,117 +400,137 @@ Or via Vercel dashboard: Settings > Git > Production Branch = "main", uncheck "A
 
 Problems that look simple but have existing solutions:
 
-| Problem | Don't Build | Use Instead | Why |
-|---------|-------------|-------------|-----|
-| Dark mode toggle | Custom theme context + localStorage | next-themes | Handles SSR hydration, FOUC prevention, system preference detection, and 15+ edge cases |
-| Font loading | Manual Google Fonts link or self-host | next/font/google | Auto self-hosts, prevents layout shift, optimizes preloading, zero config |
-| Component library | Custom UI components from scratch | shadcn/ui | 40+ accessible components built on Radix UI, customizable via copy-paste, not a dependency |
-| Form validation | Manual field validation | react-hook-form + zod | Industry standard, integrates with shadcn/ui Form component, type-safe schemas |
-| Type-safe API | Custom API routes + manual types | Convex functions | Auto-generates types from schema, reactive queries, optimistic updates built-in |
-| Docker hot reload | Custom file watchers | WATCHPACK_POLLING + volume mounts | Handles Docker filesystem quirks, cross-platform (Mac/Windows/Linux) |
-| Color palette generation | Manual shade calculation | UI Colors, Tints.dev | Generates 11-shade palettes with proper contrast ratios for accessibility |
-| Environment validation | Manual process.env checks | zod + t3-env | Type-safe env vars, build-time validation, distinguishes server/client vars |
+| Problem                  | Don't Build                           | Use Instead                       | Why                                                                                        |
+| ------------------------ | ------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------ |
+| Dark mode toggle         | Custom theme context + localStorage   | next-themes                       | Handles SSR hydration, FOUC prevention, system preference detection, and 15+ edge cases    |
+| Font loading             | Manual Google Fonts link or self-host | next/font/google                  | Auto self-hosts, prevents layout shift, optimizes preloading, zero config                  |
+| Component library        | Custom UI components from scratch     | shadcn/ui                         | 40+ accessible components built on Radix UI, customizable via copy-paste, not a dependency |
+| Form validation          | Manual field validation               | react-hook-form + zod             | Industry standard, integrates with shadcn/ui Form component, type-safe schemas             |
+| Type-safe API            | Custom API routes + manual types      | Convex functions                  | Auto-generates types from schema, reactive queries, optimistic updates built-in            |
+| Docker hot reload        | Custom file watchers                  | WATCHPACK_POLLING + volume mounts | Handles Docker filesystem quirks, cross-platform (Mac/Windows/Linux)                       |
+| Color palette generation | Manual shade calculation              | UI Colors, Tints.dev              | Generates 11-shade palettes with proper contrast ratios for accessibility                  |
+| Environment validation   | Manual process.env checks             | zod + t3-env                      | Type-safe env vars, build-time validation, distinguishes server/client vars                |
 
 **Key insight:** Modern frontend tooling has solved these infrastructure problems with battle-tested solutions. Custom implementations add technical debt without meaningful differentiation.
 
 ## Common Pitfalls
 
 ### Pitfall 1: Docker Hot Reload Doesn't Work
+
 **What goes wrong:** Code changes on host don't reflect in running containers, dev server doesn't restart.
 **Why it happens:** Docker's filesystem events don't propagate to containers by default on Mac/Windows. Next.js uses native filesystem watchers that fail in containers.
 **How to avoid:**
+
 - Set WATCHPACK_POLLING=true and CHOKIDAR_USEPOLLING=true in docker-compose.yml
 - Use bind mounts (./:/app) not COPY in dev stage
 - Add /app/node_modules and /app/.next as anonymous volumes
-**Warning signs:** Editing files has no effect, dev server shows stale code, no "compiled" messages in logs.
+  **Warning signs:** Editing files has no effect, dev server shows stale code, no "compiled" messages in logs.
 
 ### Pitfall 2: ConvexProvider Causes "use client" Error
+
 **What goes wrong:** Error: "createContext only works in Client Components" or "Attempted to call useContext() in a Server Component".
 **Why it happens:** ConvexProvider uses React Context, which requires Client Components. Root layout is a Server Component by default in App Router.
 **How to avoid:**
+
 - Create app/providers.tsx marked with "use client"
 - Import and use <Providers> wrapper in app/layout.tsx (Server Component)
 - Never put "use client" in layout.tsx itself
-**Warning signs:** Build errors mentioning Context, useContext, or "use client" directives.
+  **Warning signs:** Build errors mentioning Context, useContext, or "use client" directives.
 
-### Pitfall 3: NEXT_PUBLIC_ Prefix Missing on Convex URL
-**What goes wrong:** Client-side code can't connect to Convex, gets "undefined" for CONVEX_URL.
-**Why it happens:** Next.js only exposes env vars to browser if prefixed with NEXT_PUBLIC_. Convex client runs in browser and needs the deployment URL.
+### Pitfall 3: NEXT*PUBLIC* Prefix Missing on Convex URL
+
+**What goes wrong:** Client-side code can't connect to Convex, gets "undefined" for CONVEX*URL.
+**Why it happens:** Next.js only exposes env vars to browser if prefixed with NEXT_PUBLIC*. Convex client runs in browser and needs the deployment URL.
 **How to avoid:**
+
 - Name variable NEXT_PUBLIC_CONVEX_URL in .env.local and docker-compose.yml
 - Verify in Network tab that API calls go to correct Convex deployment
 - Use process.env.NEXT_PUBLIC_CONVEX_URL in ConvexProvider initialization
-**Warning signs:** Convex queries fail with connection errors, network requests missing, console shows undefined URL.
+  **Warning signs:** Convex queries fail with connection errors, network requests missing, console shows undefined URL.
 
 ### Pitfall 4: Dark Mode Flickers on Page Load (FOUC)
+
 **What goes wrong:** Page briefly shows wrong theme (usually light) before switching to correct theme, causing visual flash.
 **Why it happens:** SSR generates HTML without knowing user's theme preference. Client-side JavaScript loads theme from localStorage after initial render, triggering re-render.
 **How to avoid:**
+
 - Use next-themes library (handles this automatically)
 - Add suppressHydrationWarning to <html> tag in layout.tsx
 - Set disableTransitionOnChange in ThemeProvider to prevent animation flash
 - Ensure ThemeProvider wraps all themed content
-**Warning signs:** Brief white flash on page load in dark mode, hydration mismatch warnings, theme "pops" after load.
+  **Warning signs:** Brief white flash on page load in dark mode, hydration mismatch warnings, theme "pops" after load.
 
 ### Pitfall 5: node_modules Volume Mismatch
+
 **What goes wrong:** Dependencies missing in container, "Cannot find module" errors, or host's node_modules pollutes container.
 **Why it happens:** Bind mount (./:/app) overwrites container's /app/node_modules with host's (which may be empty or for wrong architecture).
 **How to avoid:**
+
 - Add /app/node_modules as anonymous volume in docker-compose.yml
 - Never COPY package.json and run bun install in dev stage, only in build stage
 - Use .dockerignore to exclude node_modules from build context
 - Run bun install inside container, not on host
-**Warning signs:** "Module not found" errors after docker compose up, missing dependencies, native module errors.
+  **Warning signs:** "Module not found" errors after docker compose up, missing dependencies, native module errors.
 
 ### Pitfall 6: shadcn/ui Components Don't Style Correctly
+
 **What goes wrong:** Components render but have no styles, wrong colors, or broken layouts.
 **Why it happens:** Tailwind CSS not configured properly, missing cn() utility, or components.json paths incorrect.
 **How to avoid:**
+
 - Run bunx shadcn@latest init before adding components (sets up Tailwind config)
 - Verify tailwind.config.ts includes content paths for app/ and components/
 - Ensure lib/utils.ts exports cn() function (auto-created by shadcn init)
 - Check components.json has correct aliases (@/components, @/lib)
-**Warning signs:** Unstyled buttons/cards, missing colors, layout issues, Tailwind classes not applying.
+  **Warning signs:** Unstyled buttons/cards, missing colors, layout issues, Tailwind classes not applying.
 
 ### Pitfall 7: Vercel Deploys develop Branch
+
 **What goes wrong:** Develop branch commits trigger production deployments, main branch not protected.
 **Why it happens:** Vercel defaults to auto-deploying all branches connected to GitHub.
 **How to avoid:**
+
 - Set Production Branch to "main" in Vercel dashboard (Settings > Git)
 - Add vercel.json with git.deploymentEnabled config (see Pattern 8)
 - Enable branch protection on main in GitHub (require PR + passing checks)
 - Set develop as default branch in GitHub (Settings > Branches)
-**Warning signs:** Unexpected production deployments, develop commits go live, main branch can be pushed directly.
+  **Warning signs:** Unexpected production deployments, develop commits go live, main branch can be pushed directly.
 
 ### Pitfall 8: ESLint and Prettier Conflict
+
 **What goes wrong:** Linting fails with contradictory errors, auto-formatting breaks linting, or vice versa.
 **Why it happens:** ESLint formatting rules (e.g., max-len, quotes) conflict with Prettier's decisions.
 **How to avoid:**
+
 - Install eslint-config-prettier and add it LAST in extends array
 - Never use eslint-plugin-prettier (mixes responsibilities)
 - Use Prettier for formatting, ESLint for correctness
 - Run "prettier --write ." before "eslint ."
-**Warning signs:** Linting passes then fails after formatting, contradictory rule errors, formatting wars in PRs.
+  **Warning signs:** Linting passes then fails after formatting, contradictory rule errors, formatting wars in PRs.
 
 ### Pitfall 9: Docker Image Size Bloats
+
 **What goes wrong:** Docker images are 2-5GB+, slow to build and deploy.
 **Why it happens:** Copying unnecessary files (node_modules, .next, .git) into image, no multi-stage build, missing .dockerignore.
 **How to avoid:**
+
 - Use multi-stage Dockerfile (dev, build, production stages)
-- Create .dockerignore excluding node_modules, .next, .git, .env*, README, docs
+- Create .dockerignore excluding node_modules, .next, .git, .env\*, README, docs
 - Only COPY necessary files in production stage
 - Use oven/bun:1-alpine for smaller base image in production
-**Warning signs:** Long build times, huge image sizes, slow deployments, high storage costs.
+  **Warning signs:** Long build times, huge image sizes, slow deployments, high storage costs.
 
 ### Pitfall 10: GitHub Actions Fails but Merge Allowed
+
 **What goes wrong:** PRs can merge to main even when CI checks fail, broken code reaches production.
 **Why it happens:** Branch protection rules not configured, or status checks not marked as required.
 **How to avoid:**
+
 - Enable branch protection on main (Settings > Branches > Add rule)
 - Check "Require status checks to pass before merging"
 - Add CI workflow job name to required checks list (e.g., "lint-typecheck-build")
 - Check "Require branches to be up to date before merging"
-**Warning signs:** Failed CI doesn't block merge, red X on PR but merge button green, broken builds in main.
+  **Warning signs:** Failed CI doesn't block merge, red X on PR but merge button green, broken builds in main.
 
 ## Code Examples
 
@@ -616,9 +657,9 @@ const config: Config = {
       colors: {
         "corporate-blue": "#003F75",
         "tech-blue": "#2884BD",
-        "turquoise": "#0FACB0",
+        turquoise: "#0FACB0",
         "soft-black": "#1A1A1A",
-        "graphite": "#696969",
+        graphite: "#696969",
       },
       borderRadius: {
         lg: "12px",
@@ -651,20 +692,21 @@ gh api repos/:owner/:repo/branches/main/protection \
 
 ## State of the Art
 
-| Old Approach | Current Approach | When Changed | Impact |
-|--------------|------------------|--------------|--------|
-| npm | Bun | 2023-2024 | 2-4x faster installs, native TypeScript, drop-in replacement |
-| Pages Router | App Router | Next.js 13 (2022) | React Server Components, better data fetching, nested layouts |
-| Manual font loading | next/font | Next.js 13 (2022) | Auto self-hosting, zero layout shift, better performance |
-| Styled Components / Emotion | Tailwind CSS + shadcn/ui | 2023-2024 | Smaller bundle, better DX, no runtime CSS-in-JS cost |
-| Firebase / Supabase | Convex | 2024-2025 | Better type safety, reactive by default, simpler DX |
-| Custom dark mode | next-themes | 2021+ (stable) | Zero-flicker SSR, system preference, localStorage, battle-tested |
-| Tailwind config colors | @theme directive | Tailwind v4 (2024) | CSS variables, better DX, easier theming |
-| Manual Docker setup | Docker Compose | Always standard | Multi-service orchestration, reproducible environments |
+| Old Approach                | Current Approach         | When Changed       | Impact                                                           |
+| --------------------------- | ------------------------ | ------------------ | ---------------------------------------------------------------- |
+| npm                         | Bun                      | 2023-2024          | 2-4x faster installs, native TypeScript, drop-in replacement     |
+| Pages Router                | App Router               | Next.js 13 (2022)  | React Server Components, better data fetching, nested layouts    |
+| Manual font loading         | next/font                | Next.js 13 (2022)  | Auto self-hosting, zero layout shift, better performance         |
+| Styled Components / Emotion | Tailwind CSS + shadcn/ui | 2023-2024          | Smaller bundle, better DX, no runtime CSS-in-JS cost             |
+| Firebase / Supabase         | Convex                   | 2024-2025          | Better type safety, reactive by default, simpler DX              |
+| Custom dark mode            | next-themes              | 2021+ (stable)     | Zero-flicker SSR, system preference, localStorage, battle-tested |
+| Tailwind config colors      | @theme directive         | Tailwind v4 (2024) | CSS variables, better DX, easier theming                         |
+| Manual Docker setup         | Docker Compose           | Always standard    | Multi-service orchestration, reproducible environments           |
 
 **Deprecated/outdated:**
+
 - **getServerSideProps / getStaticProps**: Use App Router Server Components and fetch() instead.
-- **_app.tsx / _document.tsx**: Use app/layout.tsx and app/template.tsx in App Router.
+- **\_app.tsx / \_document.tsx**: Use app/layout.tsx and app/template.tsx in App Router.
 - **next/image (old API)**: Next.js 13+ uses simplified <Image> component (same import, different props).
 - **@next/font**: Renamed to next/font in Next.js 13.
 - **Manual Tailwind CSS variable definitions**: Tailwind v4 uses @theme directive instead of extend in config.
@@ -701,6 +743,7 @@ Things that couldn't be fully resolved:
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - [Next.js Docs: App Router](https://nextjs.org/docs/app) - Official Next.js documentation
 - [shadcn/ui Installation](https://ui.shadcn.com/docs/installation/next) - Official shadcn/ui docs
 - [Convex Developer Hub](https://docs.convex.dev/quickstart/nextjs) - Official Convex docs
@@ -711,6 +754,7 @@ Things that couldn't be fully resolved:
 - [GitHub Branch Protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/managing-a-branch-protection-rule) - Official GitHub docs
 
 ### Secondary (MEDIUM confidence)
+
 - [Docker Next.js Hot Reload (2026)](https://thelinuxcode.com/nextjs-docker-images-how-i-build-predictable-fast-deployments-in-2026/) - TheLinuxCode
 - [Next.js ESLint Guide (2026)](https://thelinuxcode.com/nextjs-eslint-a-practical-modern-guide-for-2026/) - TheLinuxCode
 - [Bun Docker Setup (Medium)](https://alireza-farokhi.medium.com/how-to-deploy-a-next-js-app-with-bun-docker-and-postgressql-ee33bf2e9ec8) - Community guide
@@ -721,6 +765,7 @@ Things that couldn't be fully resolved:
 - [Tailwind CSS Colors](https://tailwindcss.com/docs/colors) - Official Tailwind docs
 
 ### Tertiary (LOW confidence)
+
 - Various Stack Overflow threads and GitHub issues for troubleshooting patterns
 - Community blog posts for Docker Compose examples (validated against official docs)
 - Medium articles for real-world implementation experiences (marked for validation)
@@ -728,6 +773,7 @@ Things that couldn't be fully resolved:
 ## Metadata
 
 **Confidence breakdown:**
+
 - Standard stack: HIGH - All libraries verified via official sources, versions current for 2026
 - Architecture: MEDIUM - Patterns validated via official docs and community, some Docker details need testing
 - Pitfalls: MEDIUM - Common issues documented across multiple sources, but project-specific edge cases may exist
@@ -738,6 +784,7 @@ Things that couldn't be fully resolved:
 **Valid until:** 2026-03-03 (30 days - stable ecosystem, Next.js/Convex are mature)
 
 **Verification notes:**
+
 - Next.js 14/15 and App Router patterns confirmed via official docs and multiple sources
 - Bun + Docker integration verified via official Bun docs and 2026 articles
 - Convex integration patterns validated via official Convex Developer Hub
@@ -747,11 +794,12 @@ Things that couldn't be fully resolved:
 - GitHub Actions and Vercel deployment patterns confirmed via official documentation
 
 **Constraints from CONTEXT.md applied:**
+
 - Dark mode behavior: 2-state toggle (light/dark) only, no system return option
 - Component library: Pre-install Button, Card, Input, Form, Dialog, Toast, Avatar, Badge
 - Brand colors: Custom palette with specific hex values defined
 - Port allocation: 3400 (Next.js), 3410 (Convex), within 3400-3499 range
-- Container naming: jpgerton-* prefix for all containers and volumes
+- Container naming: jpgerton-\* prefix for all containers and volumes
 - Network: Single network named jpgerton-network
 - Font: Inter via next/font/google (automatic self-hosting)
 - Border radius: Medium (8-12px) across components

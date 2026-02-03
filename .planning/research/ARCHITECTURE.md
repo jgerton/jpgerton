@@ -9,6 +9,7 @@
 Modern Next.js 14 + Convex applications follow a **strict separation of concerns** pattern where backend logic lives in the `convex/` folder and frontend code lives in `app/` or `src/app/`. The architecture emphasizes server-first rendering with client components for reactive features, unified through a provider-based pattern that maintains a persistent WebSocket connection for real-time data synchronization.
 
 For a portfolio site with admin dashboard, this translates to:
+
 - **Public pages** rendered as Server Components for optimal SEO and performance
 - **Admin dashboard** using Client Components for reactive CRUD operations
 - **Shared data layer** in Convex providing type-safe queries and mutations
@@ -64,30 +65,30 @@ For a portfolio site with admin dashboard, this translates to:
 
 ### 1. Next.js Frontend Layer
 
-| Component | Responsibility | Type | Communicates With |
-|-----------|---------------|------|-------------------|
-| **Public Pages** (`app/`, `app/projects/`, etc.) | Render marketing/portfolio content | Server Components | Convex queries (via preload) |
-| **Admin Pages** (`app/admin/*`) | Provide CRUD interface | Client Components | Convex queries & mutations (via hooks) |
-| **ConvexClientProvider** | Establish WebSocket connection | Client Component | ConvexReactClient |
-| **middleware.ts** | Protect admin routes | Middleware | Convex Auth |
-| **Layout Components** | Shared UI structure | Server or Client | Child components |
+| Component                                        | Responsibility                     | Type              | Communicates With                      |
+| ------------------------------------------------ | ---------------------------------- | ----------------- | -------------------------------------- |
+| **Public Pages** (`app/`, `app/projects/`, etc.) | Render marketing/portfolio content | Server Components | Convex queries (via preload)           |
+| **Admin Pages** (`app/admin/*`)                  | Provide CRUD interface             | Client Components | Convex queries & mutations (via hooks) |
+| **ConvexClientProvider**                         | Establish WebSocket connection     | Client Component  | ConvexReactClient                      |
+| **middleware.ts**                                | Protect admin routes               | Middleware        | Convex Auth                            |
+| **Layout Components**                            | Shared UI structure                | Server or Client  | Child components                       |
 
 ### 2. Convex Backend Layer
 
-| Component | Responsibility | Communicates With |
-|-----------|---------------|-------------------|
-| **schema.ts** | Define data model, validation | All queries/mutations |
-| **queries/** | Read operations with indexes | Database tables |
-| **mutations/** | Write operations with validation | Database tables |
-| **auth.ts** | Authentication configuration | Convex Auth, middleware |
+| Component      | Responsibility                   | Communicates With       |
+| -------------- | -------------------------------- | ----------------------- |
+| **schema.ts**  | Define data model, validation    | All queries/mutations   |
+| **queries/**   | Read operations with indexes     | Database tables         |
+| **mutations/** | Write operations with validation | Database tables         |
+| **auth.ts**    | Authentication configuration     | Convex Auth, middleware |
 
 ### 3. Data Tables
 
-| Table | Purpose | Fields | Relationships |
-|-------|---------|--------|---------------|
-| **projects** | Store portfolio projects | id, title, description, techStack, imageUrl, liveUrl, githubUrl, order, createdAt | None (simple list) |
-| **contactSubmissions** | Store contact form data | id, name, email, message, source (calendly/form), status, createdAt | None |
-| **users** | Admin authentication | id, email, name, role | Managed by Convex Auth |
+| Table                  | Purpose                  | Fields                                                                            | Relationships          |
+| ---------------------- | ------------------------ | --------------------------------------------------------------------------------- | ---------------------- |
+| **projects**           | Store portfolio projects | id, title, description, techStack, imageUrl, liveUrl, githubUrl, order, createdAt | None (simple list)     |
+| **contactSubmissions** | Store contact form data  | id, name, email, message, source (calendly/form), status, createdAt               | None                   |
+| **users**              | Admin authentication     | id, email, name, role                                                             | Managed by Convex Auth |
 
 ## Data Flow Patterns
 
@@ -182,6 +183,7 @@ Returns user-specific data
 **What:** Wrap app with ConvexClientProvider that instantiates ConvexReactClient
 
 **Implementation:**
+
 ```typescript
 // app/ConvexClientProvider.tsx
 "use client";
@@ -215,6 +217,7 @@ export default function RootLayout({ children }) {
 **What:** Keep `query`/`mutation` wrappers thin, put logic in `convex/model/` helpers
 
 **Implementation:**
+
 ```typescript
 // convex/model/projects.ts
 export function validateProject(project) {
@@ -237,6 +240,7 @@ export default mutation(async (ctx, args) => {
 **What:** Use `.withIndex()` instead of `.filter()` for better performance
 
 **Implementation:**
+
 ```typescript
 // Good: indexed query
 const projects = await ctx.db
@@ -249,7 +253,7 @@ const projects = await ctx.db
 const projects = await ctx.db
   .query("projects")
   .collect()
-  .filter(p => p.published === true);
+  .filter((p) => p.published === true);
 ```
 
 **Why:** Orders of magnitude faster, leverages database indexes
@@ -259,6 +263,7 @@ const projects = await ctx.db
 **What:** Use `.take(limit)` instead of `.collect()` for potentially large datasets
 
 **Implementation:**
+
 ```typescript
 // Good: limited results
 const recentSubmissions = await ctx.db
@@ -267,9 +272,7 @@ const recentSubmissions = await ctx.db
   .take(50);
 
 // Risky: unbounded query
-const allSubmissions = await ctx.db
-  .query("contactSubmissions")
-  .collect(); // Could be 10,000+ records
+const allSubmissions = await ctx.db.query("contactSubmissions").collect(); // Could be 10,000+ records
 ```
 
 **Why:** Prevents database bandwidth exhaustion, faster queries
@@ -279,6 +282,7 @@ const allSubmissions = await ctx.db
 **What:** Update UI immediately, then sync with backend
 
 **Implementation:**
+
 ```typescript
 const updateProject = useMutation(api.mutations.updateProject);
 const optimisticUpdate = useOptimisticUpdate();
@@ -298,6 +302,7 @@ function handleSave(projectId, changes) {
 **What:** Using `"use client"` for pages that don't need interactivity
 
 **Why bad:**
+
 - Larger bundle sizes
 - Slower initial page load
 - Missed SEO opportunities
@@ -312,6 +317,7 @@ function handleSave(projectId, changes) {
 **What:** Trying to pass callbacks or functions from Server to Client Components
 
 **Why bad:**
+
 - Functions cannot be serialized
 - React will throw errors
 - Breaks server/client separation
@@ -325,6 +331,7 @@ function handleSave(projectId, changes) {
 **What:** Storing arrays of IDs like `projectIds: [id1, id2, id3]`
 
 **Why bad:**
+
 - Cannot index arrays in Convex
 - Limited to 8192 entries
 - Query performance degrades
@@ -339,6 +346,7 @@ function handleSave(projectId, changes) {
 **What:** Filtering by current time in query functions
 
 **Why bad:**
+
 - Queries don't re-run when time changes
 - Results become stale
 - Users see outdated data
@@ -352,6 +360,7 @@ function handleSave(projectId, changes) {
 **What:** Checking user permissions based on client-provided parameters
 
 **Why bad:**
+
 - Client can manipulate request parameters
 - Security vulnerability
 - No guarantee of identity
@@ -365,6 +374,7 @@ function handleSave(projectId, changes) {
 **What:** Table A references table B, table B references table A (both required)
 
 **Why bad:**
+
 - Schema validation fails
 - Cannot insert initial records
 - Database constraints violated
@@ -376,6 +386,7 @@ function handleSave(projectId, changes) {
 Based on component dependencies and architectural patterns, here's the recommended implementation sequence:
 
 ### Phase 1: Foundation (Week 1)
+
 **Goal:** Establish core architecture and data layer
 
 1. **Convex Setup**
@@ -395,6 +406,7 @@ Based on component dependencies and architectural patterns, here's the recommend
 ---
 
 ### Phase 2: Public Pages (Week 2)
+
 **Goal:** Ship viewable portfolio site
 
 1. **Server Components**
@@ -413,6 +425,7 @@ Based on component dependencies and architectural patterns, here's the recommend
 ---
 
 ### Phase 3: Authentication (Week 2)
+
 **Goal:** Secure admin section
 
 1. **Convex Auth Setup**
@@ -422,7 +435,7 @@ Based on component dependencies and architectural patterns, here's the recommend
 
 2. **Next.js Middleware**
    - Create middleware.ts
-   - Protect /admin/* routes
+   - Protect /admin/\* routes
    - Handle redirects
 
 3. **Sign In Page**
@@ -434,6 +447,7 @@ Based on component dependencies and architectural patterns, here's the recommend
 ---
 
 ### Phase 4: Admin Dashboard (Week 3)
+
 **Goal:** Enable content management
 
 1. **Dashboard Home**
@@ -456,6 +470,7 @@ Based on component dependencies and architectural patterns, here's the recommend
 ---
 
 ### Phase 5: Polish & SEO (Week 4)
+
 **Goal:** Optimize for discoverability
 
 1. **SEO Basics**
@@ -492,34 +507,38 @@ Phase 1 (Foundation)
 
 ## Scalability Considerations
 
-| Concern | At 100 visitors/month | At 10K visitors/month | At 100K visitors/month |
-|---------|----------------------|----------------------|----------------------|
-| **Database** | Free tier sufficient (1M calls) | Free tier likely OK | May need paid tier ($25/month) |
-| **Hosting** | Vercel free tier | Vercel free tier | Vercel Pro ($20/month) |
-| **Images** | Local storage in public/ | Consider Cloudinary/S3 | Required CDN integration |
-| **Contact forms** | Manual review adequate | Need spam filtering | Add CAPTCHA, rate limiting |
-| **Admin users** | Single admin (you) | 2-3 admins | Role-based access control |
+| Concern           | At 100 visitors/month           | At 10K visitors/month  | At 100K visitors/month         |
+| ----------------- | ------------------------------- | ---------------------- | ------------------------------ |
+| **Database**      | Free tier sufficient (1M calls) | Free tier likely OK    | May need paid tier ($25/month) |
+| **Hosting**       | Vercel free tier                | Vercel free tier       | Vercel Pro ($20/month)         |
+| **Images**        | Local storage in public/        | Consider Cloudinary/S3 | Required CDN integration       |
+| **Contact forms** | Manual review adequate          | Need spam filtering    | Add CAPTCHA, rate limiting     |
+| **Admin users**   | Single admin (you)              | 2-3 admins             | Role-based access control      |
 
 **Current architecture supports:** Up to 10K visitors/month without major changes
 
 ## Security Boundaries
 
 ### 1. Authentication Boundary
+
 - **Enforced by:** Next.js middleware + Convex Auth
-- **Protects:** All /admin/* routes
+- **Protects:** All /admin/\* routes
 - **Token flow:** JWT issued by Convex, validated on every request
 
 ### 2. Authorization Boundary
+
 - **Enforced by:** Mutation argument validation + getUserIdentity()
 - **Protects:** Write operations (create/update/delete)
 - **Pattern:** Check auth in every mutation, never trust client input
 
 ### 3. Data Validation Boundary
+
 - **Enforced by:** Convex schema + mutation validators
 - **Protects:** Database integrity
 - **Pattern:** Validate on insert/update, reject invalid data
 
 ### 4. CSRF Protection
+
 - **Enforced by:** Next.js Server Actions + Convex mutations (POST only)
 - **Protects:** State-changing operations
 - **Pattern:** Never perform side effects on GET requests
@@ -527,6 +546,7 @@ Phase 1 (Foundation)
 ## Sources
 
 **High Confidence (Official Documentation):**
+
 - [Next.js Architecture](https://nextjs.org/docs/architecture)
 - [Convex Developer Hub - Next.js](https://docs.convex.dev/client/nextjs/app-router/)
 - [Convex React Client](https://docs.convex.dev/client/react)
@@ -536,6 +556,7 @@ Phase 1 (Foundation)
 - [Backend Components](https://stack.convex.dev/backend-components)
 
 **Medium Confidence (Community & Examples):**
+
 - [Convex Next.js App Router Demo](https://github.com/get-convex/convex-nextjs-app-router-demo)
 - [Next.js Architecture in 2026 - Server-First Patterns](https://www.yogijs.tech/blog/nextjs-project-architecture-app-router)
 - [Convex CRUD Patterns](https://www.freecodecamp.org/news/build-crud-app-react-and-convex/)

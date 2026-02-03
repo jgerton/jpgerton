@@ -66,7 +66,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin Dashboard
 
-- [ ] **ADMIN-01**: Protected admin routes (/admin/*)
+- [ ] **ADMIN-01**: Protected admin routes (/admin/\*)
 - [ ] **ADMIN-02**: Convex Auth with email/password login
 - [ ] **ADMIN-03**: Dashboard home showing recent contact submissions and quick stats
 - [ ] **ADMIN-04**: Projects CRUD (create, read, update, delete)
@@ -121,87 +121,89 @@ Deferred to future release. Tracked but not in current roadmap.
 
 Explicitly excluded. Documented to prevent scope creep.
 
-| Feature | Reason |
-|---------|--------|
-| Every project ever built | Quality over quantity - curated 6 projects sufficient |
-| OAuth login (Google, GitHub) | Email/password sufficient for admin-only auth |
-| E-commerce/payment processing | $500 sites paid via Stripe links outside the site |
-| Mobile app | Web-first approach |
-| Custom booking system | Calendly is proven, tracked, maintained |
-| Social media feed embedding | Performance hit, maintenance burden |
-| Auto-playing videos | Accessibility issue, annoying UX |
-| Real-time chat for MVP | Contact form + Calendly cover the need |
+| Feature                       | Reason                                                |
+| ----------------------------- | ----------------------------------------------------- |
+| Every project ever built      | Quality over quantity - curated 6 projects sufficient |
+| OAuth login (Google, GitHub)  | Email/password sufficient for admin-only auth         |
+| E-commerce/payment processing | $500 sites paid via Stripe links outside the site     |
+| Mobile app                    | Web-first approach                                    |
+| Custom booking system         | Calendly is proven, tracked, maintained               |
+| Social media feed embedding   | Performance hit, maintenance burden                   |
+| Auto-playing videos           | Accessibility issue, annoying UX                      |
+| Real-time chat for MVP        | Contact form + Calendly cover the need                |
 
 ## Traceability
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
-| INFRA-04 | Phase 1 | Pending |
-| INFRA-05 | Phase 1 | Pending |
-| INFRA-06 | Phase 1 | Pending |
-| INFRA-07 | Phase 1 | Pending |
-| INFRA-08 | Phase 1 | Pending |
-| INFRA-09 | Phase 1 | Pending |
-| INFRA-10 | Phase 1 | Pending |
-| INFRA-11 | Phase 1 | Pending |
-| INFRA-12 | Phase 1 | Pending |
-| PROJ-01 | Phase 2 | Pending |
-| PAGE-01 | Phase 2 | Pending |
-| PAGE-02 | Phase 2 | Pending |
-| PAGE-03 | Phase 2 | Pending |
-| PROJ-02 | Phase 2 | Pending |
-| PROJ-03 | Phase 2 | Pending |
-| PAGE-04 | Phase 3 | Pending |
-| SERV-01 | Phase 3 | Pending |
-| SERV-02 | Phase 3 | Pending |
-| SERV-03 | Phase 3 | Pending |
-| SERV-04 | Phase 3 | Pending |
-| SERV-05 | Phase 3 | Pending |
-| PAGE-05 | Phase 3 | Pending |
-| CONT-01 | Phase 3 | Pending |
-| CONT-02 | Phase 3 | Pending |
-| CONT-03 | Phase 3 | Pending |
-| CONT-04 | Phase 3 | Pending |
-| CONT-05 | Phase 3 | Pending |
-| PAGE-06 | Phase 3 | Pending |
-| ADMIN-01 | Phase 4 | Pending |
-| ADMIN-02 | Phase 4 | Pending |
-| ADMIN-03 | Phase 4 | Pending |
-| ADMIN-04 | Phase 4 | Pending |
-| ADMIN-05 | Phase 4 | Pending |
-| ADMIN-06 | Phase 4 | Pending |
-| SEO-01 | Phase 5 | Pending |
-| SEO-02 | Phase 5 | Pending |
-| SEO-03 | Phase 5 | Pending |
-| SEO-04 | Phase 5 | Pending |
-| SEO-05 | Phase 5 | Pending |
-| SEO-06 | Phase 5 | Pending |
-| SEO-07 | Phase 5 | Pending |
-| SEO-08 | Phase 5 | Pending |
-| ANLYT-01 | Phase 5 | Pending |
-| ANLYT-02 | Phase 5 | Pending |
-| ANLYT-03 | Phase 5 | Pending |
-| PERF-01 | Phase 5 | Pending |
-| PERF-02 | Phase 5 | Pending |
-| PERF-03 | Phase 5 | Pending |
-| PERF-04 | Phase 5 | Pending |
-| WPDEL-01 | Phase 6 | Pending |
-| WPDEL-02 | Phase 6 | Pending |
-| WPDEL-03 | Phase 6 | Pending |
-| WPDEL-04 | Phase 6 | Pending |
-| WPDEL-05 | Phase 6 | Pending |
-| WPDEL-06 | Phase 6 | Pending |
+| Requirement | Phase   | Status  |
+| ----------- | ------- | ------- |
+| INFRA-01    | Phase 1 | Pending |
+| INFRA-02    | Phase 1 | Pending |
+| INFRA-03    | Phase 1 | Pending |
+| INFRA-04    | Phase 1 | Pending |
+| INFRA-05    | Phase 1 | Pending |
+| INFRA-06    | Phase 1 | Pending |
+| INFRA-07    | Phase 1 | Pending |
+| INFRA-08    | Phase 1 | Pending |
+| INFRA-09    | Phase 1 | Pending |
+| INFRA-10    | Phase 1 | Pending |
+| INFRA-11    | Phase 1 | Pending |
+| INFRA-12    | Phase 1 | Pending |
+| PROJ-01     | Phase 2 | Pending |
+| PAGE-01     | Phase 2 | Pending |
+| PAGE-02     | Phase 2 | Pending |
+| PAGE-03     | Phase 2 | Pending |
+| PROJ-02     | Phase 2 | Pending |
+| PROJ-03     | Phase 2 | Pending |
+| PAGE-04     | Phase 3 | Pending |
+| SERV-01     | Phase 3 | Pending |
+| SERV-02     | Phase 3 | Pending |
+| SERV-03     | Phase 3 | Pending |
+| SERV-04     | Phase 3 | Pending |
+| SERV-05     | Phase 3 | Pending |
+| PAGE-05     | Phase 3 | Pending |
+| CONT-01     | Phase 3 | Pending |
+| CONT-02     | Phase 3 | Pending |
+| CONT-03     | Phase 3 | Pending |
+| CONT-04     | Phase 3 | Pending |
+| CONT-05     | Phase 3 | Pending |
+| PAGE-06     | Phase 3 | Pending |
+| ADMIN-01    | Phase 4 | Pending |
+| ADMIN-02    | Phase 4 | Pending |
+| ADMIN-03    | Phase 4 | Pending |
+| ADMIN-04    | Phase 4 | Pending |
+| ADMIN-05    | Phase 4 | Pending |
+| ADMIN-06    | Phase 4 | Pending |
+| SEO-01      | Phase 5 | Pending |
+| SEO-02      | Phase 5 | Pending |
+| SEO-03      | Phase 5 | Pending |
+| SEO-04      | Phase 5 | Pending |
+| SEO-05      | Phase 5 | Pending |
+| SEO-06      | Phase 5 | Pending |
+| SEO-07      | Phase 5 | Pending |
+| SEO-08      | Phase 5 | Pending |
+| ANLYT-01    | Phase 5 | Pending |
+| ANLYT-02    | Phase 5 | Pending |
+| ANLYT-03    | Phase 5 | Pending |
+| PERF-01     | Phase 5 | Pending |
+| PERF-02     | Phase 5 | Pending |
+| PERF-03     | Phase 5 | Pending |
+| PERF-04     | Phase 5 | Pending |
+| WPDEL-01    | Phase 6 | Pending |
+| WPDEL-02    | Phase 6 | Pending |
+| WPDEL-03    | Phase 6 | Pending |
+| WPDEL-04    | Phase 6 | Pending |
+| WPDEL-05    | Phase 6 | Pending |
+| WPDEL-06    | Phase 6 | Pending |
 
 **Coverage:**
+
 - v1 requirements: 53 total
 - Mapped to phases: 53
 - Unmapped: 0
 
 ---
-*Requirements defined: 2025-02-03*
-*Last updated: 2025-02-03 after initial definition*
+
+_Requirements defined: 2025-02-03_
+_Last updated: 2025-02-03 after initial definition_

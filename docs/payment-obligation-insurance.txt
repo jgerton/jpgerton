@@ -1,0 +1,49 @@
+how do I ensure the new clients are going to hold to their $500 obligation and not just take the site and avoid payment?
+
+You protect yourself with structure: deposits, contracts, and control over launch access.
+
+Concrete protections for a $500 site
+50% upfront, 50% before go‑live
+
+Take a non‑refundable 50% deposit before you start (you already planned this). This filters out non‑serious clients and covers your minimum time.
+
+Make it explicit that the remaining 50% is due “upon completion, prior to launch or transfer of any files.”
+
+Never launch before final payment
+
+Keep the site on your own staging domain or on their host but behind a maintenance page until the final invoice is paid.
+​
+
+Your terms should say you won’t point DNS, remove the maintenance page, or hand over admin credentials until the balance is cleared.
+
+Simple written agreement, every time
+
+Use a short contract or service agreement that clearly states: total fee, what’s included, payment schedule (50/50), what “completion” means, and the “no launch before final payment” rule.
+
+Include what happens if they delay content (e.g., project pauses, restart fee) and what happens if they don’t pay (you keep the site unpublished, late fees optional).
+
+Ownership and access rules
+
+State that you retain rights to the design/build until full payment is received, at which point license/ownership transfers to them.
+
+Do not give them full admin access or downloadable backups until invoices are settled.
+
+Use proper invoicing and easy payment methods
+
+Send invoices through Stripe/Wave/PayPal with clear due dates and automatic reminders; many designers get paid faster just by making it simple to click and pay.
+
+Keep everything in writing (email + signed agreement), so if someone pushes back you can calmly point to the agreed terms.
+
+If you want, I can draft a lean “$500 site” payment clause you can paste into your contract and proposals so this is baked into every project by default.
+
+Related
+
+sample web design contract template for $500 projects
+
+how to host client site on my server until full payment
+
+best invoicing tools for freelancers like Honeybook
+
+what late payment fees to charge clients
+
+how to legally enforce contracts if client doesnt pay

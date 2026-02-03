@@ -14,6 +14,7 @@ Foundation setup enabling local development and production deployment. Includes 
 ## Implementation Decisions
 
 ### Dark Mode Behavior
+
 - Default to system preference on first visit
 - Toggle lives in header/navbar (always visible)
 - Icon with tooltip style (sun/moon icon, hover explains)
@@ -21,6 +22,7 @@ Foundation setup enabling local development and production deployment. Includes 
 - Preference persists in localStorage
 
 ### Component Library Setup
+
 - Pre-install common shadcn/ui set: Button, Card, Input, Form, Dialog, Toast, Avatar, Badge
 - Brand color palette:
   - Primary Corporate Blue: #003F75
@@ -32,6 +34,7 @@ Foundation setup enabling local development and production deployment. Includes 
 - Border radius: Medium (8-12px) across components
 
 ### Dev Workflow Conventions
+
 - Branch naming: type/description (e.g., feat/add-dark-mode, fix/nav-bug)
 - Commit format: Conventional Commits with scope (feat(ui): add theme toggle)
 - PR requirements: Just CI checks (lint, type-check, build pass)
@@ -39,15 +42,17 @@ Foundation setup enabling local development and production deployment. Includes 
 - develop branch is default working branch, main is protected
 
 ### Port and Naming Conventions
+
 - Port allocation grouped by service within 3400-3499:
   - Next.js: 3400
   - Convex: 3410
   - Future services: 3420+
-- Container prefix: jpgerton-* (jpgerton-frontend, jpgerton-convex)
+- Container prefix: jpgerton-\* (jpgerton-frontend, jpgerton-convex)
 - Volume naming matches containers (jpgerton-convex-data, jpgerton-node-modules)
 - Single Docker network: jpgerton-network
 
 ### Claude's Discretion
+
 - Exact Tailwind config structure
 - shadcn/ui initialization approach
 - Convex schema design
@@ -75,5 +80,5 @@ None - discussion stayed within phase scope
 
 ---
 
-*Phase: 01-infrastructure*
-*Context gathered: 2026-02-03*
+_Phase: 01-infrastructure_
+_Context gathered: 2026-02-03_

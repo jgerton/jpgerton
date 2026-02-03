@@ -20,6 +20,7 @@ Key risks include scope creep on fixed-price WordPress projects (mitigate with 5
 The research strongly recommends Next.js 14 App Router with Convex backend as the optimal balance of developer experience, performance, and scalability. This combination eliminates traditional API layer complexity while providing end-to-end type safety and real-time reactivity where needed. For WordPress delivery, Local by WP provides the fastest local development setup for solo freelancers, with Elementor Pro + Gutenberg hybrid approach balancing design flexibility against performance for $500 client sites.
 
 **Core technologies:**
+
 - **Next.js 14 + React 18:** App Router provides stable RSC support, excellent DX, Vercel deployment integration. Defer Next.js 15 / React 19 upgrade until features are needed.
 - **Convex:** Backend-as-a-Service with real-time reactivity, end-to-end type safety, built-in auth integration. Eliminates need for separate database + ORM + API layer setup.
 - **Tailwind CSS 3.4.x:** Industry standard utility-first CSS. Stick with v3 for broader browser compatibility (v4 requires Safari 16.4+, Chrome 111+, Firefox 128+).
@@ -34,6 +35,7 @@ The research strongly recommends Next.js 14 App Router with Convex backend as th
 Research shows distinct feature priorities for the dual-audience model. Local business clients prioritize clear pricing, booking friction reduction, and social proof, while hiring managers need technical depth, live projects, and GitHub integration. The shared foundation requires mobile responsiveness, fast load times (< 3s), and professional domain.
 
 **Must have (table stakes):**
+
 - **Live deployed projects (3-5 minimum):** Recruiters spend ~5 minutes per candidate, need proof of real work with context (problem, approach, results).
 - **Contact form (3 fields max):** Primary conversion path. Each additional field reduces completion rate. 25% conversion advantage vs longer forms.
 - **Mobile responsive design:** 32.5% conversion increase with mobile-optimized CTAs. Google mobile-first indexing penalizes non-responsive sites.
@@ -43,6 +45,7 @@ Research shows distinct feature priorities for the dual-audience model. Local bu
 - **$500 package pricing display:** Pricing transparency builds trust with local business clients. Clear "what you get" details.
 
 **Should have (competitive):**
+
 - **Dual-audience smart routing:** Avoid confusion by guiding visitors to relevant content. "Need a WordPress site?" vs "Custom development?" CTAs.
 - **Calendly integration:** Eliminates scheduling friction, 121% more conversions than generic CTAs. UTM tracking for conversion attribution.
 - **Admin dashboard (content management):** Update projects, testimonials, services without code deployment. Already decided for this project.
@@ -51,6 +54,7 @@ Research shows distinct feature priorities for the dual-audience model. Local bu
 - **Dark/light mode toggle:** Modern UX expectation for developer portfolios. Use next-themes with shadcn/ui patterns.
 
 **Defer (v2+):**
+
 - **Blog/articles:** Medium conversion benefit, high maintenance burden. Defer until 5+ clients request content marketing.
 - **Video demos/walkthroughs:** High engagement but significant production effort. Not launch-critical.
 - **Live chat:** Immediate engagement but high maintenance. Start with async contact form and Calendly.
@@ -61,11 +65,13 @@ Research shows distinct feature priorities for the dual-audience model. Local bu
 Modern Next.js 14 + Convex applications follow strict separation of concerns where backend logic lives in `convex/` folder and frontend code lives in `app/`. The architecture emphasizes server-first rendering with client components for reactive features, unified through provider-based pattern maintaining persistent WebSocket connection for real-time data synchronization. For this portfolio site with admin dashboard, public pages render as Server Components for optimal SEO and performance, while admin dashboard uses Client Components for reactive CRUD operations, with shared data layer in Convex providing type-safe queries and mutations.
 
 **Major components:**
+
 1. **Next.js Frontend Layer:** Public pages (Server Components) for marketing/portfolio content, Admin pages (Client Components) for CRUD interface, ConvexClientProvider establishing WebSocket connection, middleware.ts protecting admin routes.
 2. **Convex Backend Layer:** schema.ts defining data model (projects, contactSubmissions, users tables), queries/ folder for read operations with indexed queries, mutations/ folder for write operations with validation, auth.ts for authentication configuration.
 3. **Data Flow Patterns:** Public pages use preloadQuery for server-side rendering with optimal SEO, Admin dashboard uses useQuery hooks for reactive subscriptions via WebSocket, Contact forms use useMutation for validated writes with automatic retry.
 
 **Key patterns to follow:**
+
 - **Provider wrapping:** Wrap app with ConvexClientProvider once in layout, available throughout component tree.
 - **Index-based queries:** Use `.withIndex()` instead of `.filter()` for orders of magnitude better performance.
 - **Optimistic updates:** Update UI immediately for CRUD operations, sync with backend, automatic rollback on errors.
@@ -86,6 +92,7 @@ Research identified 18 distinct pitfalls across three severity levels. The most 
 5. **Over-engineering portfolio at day 0:** Spending months building complex blog systems or elaborate animations instead of shipping simple portfolio that gets clients. Ship 5 projects + services page + Calendly first, validate conversion before adding features. Address in Phase 1 (Core Site) with explicit scope limits.
 
 **Additional critical pitfalls:**
+
 - **Including every project you've ever built:** Dilutes strengths, signals scattered focus. Show 6-8 best projects maximum with live URLs and recent tech.
 - **JavaScript rendering breaks SEO:** Use Next.js App Router with RSC for content pages, verify robots.txt doesn't block /static or /js folders, test with Google Search Console.
 - **Missing structured data for AEO:** Use schema.org types (LocalBusiness, Service, FAQPage, Person) with JSON-LD on every page, validate with Google Rich Results Test.
@@ -97,9 +104,11 @@ Research identified 18 distinct pitfalls across three severity levels. The most 
 Based on research, suggested phase structure:
 
 ### Phase 1: Foundation (Core Portfolio Site)
+
 **Rationale:** Ship viewable portfolio site before building delivery infrastructure. Public site can launch before admin, validates architecture, generates leads while building client systems. Everything depends on data layer and provider setup.
 
 **Delivers:**
+
 - Next.js 14 + Convex setup with schema (projects, contactSubmissions tables)
 - 5-6 best projects (live deployed, described, tech stacks visible)
 - Services page with clear $500 WordPress package details
@@ -109,10 +118,12 @@ Based on research, suggested phase structure:
 - AEO treatment (JSON-LD schema, next-aeo for llms.txt)
 
 **Addresses features:**
+
 - Table stakes: Live projects, contact form, mobile responsive, fast performance
 - Differentiators: Dual-audience CTAs, pricing transparency, dark mode toggle
 
 **Avoids pitfalls:**
+
 - Over-engineering (strict scope limit: no blog, no complex animations)
 - No clear CTA (service-specific "Book Your $500 Site Call" on every page)
 - Mobile-last design (mobile-first CSS, device testing)
@@ -124,9 +135,11 @@ Based on research, suggested phase structure:
 ---
 
 ### Phase 2: WordPress Delivery System
+
 **Rationale:** Establish WordPress infrastructure with payment protection and scope control BEFORE taking first client. Authentication blocks admin features but doesn't block public launch, so can develop in parallel with Phase 1. Must document processes before revenue operations begin to avoid scope creep and payment disasters.
 
 **Delivers:**
+
 - Local by WP environment setup with WP-CLI
 - WordPress starter template (pre-configured theme, essential plugins, baseline pages)
 - Elementor Pro + Gutenberg workflow documentation
@@ -136,13 +149,15 @@ Based on research, suggested phase structure:
 - Client handoff checklist (training call, documentation, support boundaries)
 - Pre-launch testing checklist (mobile, performance, links verification)
 - Convex Auth setup for admin access
-- Next.js middleware protecting /admin/* routes
+- Next.js middleware protecting /admin/\* routes
 
 **Addresses features:**
+
 - Table stakes: Services list (WordPress package specifics)
 - Differentiators: Service packages (tiered options)
 
 **Avoids pitfalls:**
+
 - No payment protection (50% upfront template created before first client)
 - Scope creep (documented deliverables + change control process)
 - No starter template (pre-built foundation reduces 5-day project to 2 days)
@@ -154,9 +169,11 @@ Based on research, suggested phase structure:
 ---
 
 ### Phase 3: Admin Dashboard & Differentiation
+
 **Rationale:** Admin requires auth and data layer established in earlier phases. Delivers full content management functionality, enabling updates without code deployments. Differentiation features layer on top of validated foundation after first clients close.
 
 **Delivers:**
+
 - Admin dashboard home (recent activity, quick stats)
 - Projects CRUD (list view with useQuery, create/edit forms, delete confirmation, drag-to-reorder)
 - Contact submissions manager (list with filters, status updates, search)
@@ -166,9 +183,11 @@ Based on research, suggested phase structure:
 - Analytics configuration (Google Analytics 4, conversion tracking)
 
 **Addresses features:**
+
 - Differentiators: Admin dashboard (content management), GitHub integration, UTM tracking
 
 **Avoids pitfalls:**
+
 - Client components for static content (admin only, public pages stay Server Components)
 - Outdated portfolio content (admin enables quarterly updates without deployments)
 
@@ -177,9 +196,11 @@ Based on research, suggested phase structure:
 ---
 
 ### Phase 4: Advanced Features (Post-MVP)
+
 **Rationale:** Only build after validating conversion with 5+ clients. These are competitive differentiators, not launch requirements. Blog/content features deferred until clients specifically request content marketing.
 
 **Delivers:**
+
 - Case studies (deeper format than project cards, with metrics and client quotes)
 - Before/after showcases (visual transformation proof for WordPress clients)
 - Google Reviews integration (display for local business social proof)
@@ -188,9 +209,11 @@ Based on research, suggested phase structure:
 - Email newsletter (low-commitment CTA for nurture campaigns)
 
 **Addresses features:**
+
 - Differentiators: Case studies, before/after showcases, Google Reviews, blog/articles
 
 **Avoids pitfalls:**
+
 - Treating blog as required for launch (deferred until validated need)
 - Feature bloat before validation (build only after 5+ clients request)
 
@@ -201,24 +224,28 @@ Based on research, suggested phase structure:
 ### Phase Ordering Rationale
 
 **Dependency-driven sequence:**
+
 - Phase 1 establishes data layer (Convex schema) and provider setup that everything else depends on
 - Phase 2 requires auth from Phase 1 but develops in parallel (doesn't block public launch)
 - Phase 3 requires both schema (Phase 1) and auth (Phase 2) to function
 - Phase 4 requires validated business model (5+ clients) before investment
 
 **Risk mitigation priority:**
+
 - Phase 1 addresses revenue-critical pitfalls (no clear CTA, mobile-last, over-engineering)
 - Phase 2 addresses financial pitfalls (no payment protection, scope creep) before first client engagement
 - Phase 3 enables operational efficiency after foundation is solid
 - Phase 4 deferred until conversion validated, avoiding premature optimization
 
 **Architecture-informed grouping:**
+
 - Phase 1 groups Server Component patterns (public pages) + minimal Client Components (contact form)
 - Phase 2 separates WordPress concerns from Next.js concerns (different technology stacks)
 - Phase 3 groups Client Component patterns (admin dashboard) using reactive Convex hooks
 - Phase 4 groups content/marketing features separate from core business operations
 
 **Speed to revenue:**
+
 - Phase 1 ships in 2 weeks, enables lead generation immediately
 - Phase 2 completes before first client engagement (1-2 weeks parallel with Phase 1)
 - First revenue possible within 3-4 weeks of project start
@@ -227,21 +254,23 @@ Based on research, suggested phase structure:
 ### Research Flags
 
 **Phases needing deeper research during planning:**
+
 - **Phase 4 (Google My Business API):** Moderate complexity for reviews integration, specific authentication flows, rate limiting considerations. Recommend `/gsd:research-phase` when prioritized.
 
 **Phases with standard patterns (skip research-phase):**
+
 - **Phase 1 (Next.js + Convex portfolio):** Well-documented in official docs, established patterns, multiple examples available. Follow Convex Next.js App Router integration guide.
 - **Phase 2 (WordPress delivery):** Mature ecosystem, standard freelance workflows documented across multiple sources. Local by WP and Elementor Pro have extensive documentation.
 - **Phase 3 (Admin dashboard):** Convex CRUD patterns are core use case with official examples. Standard React Hook Form patterns well-documented.
 
 ## Confidence Assessment
 
-| Area | Confidence | Notes |
-|------|------------|-------|
-| Stack | HIGH | Verified with official Next.js, Convex, Tailwind documentation. Version numbers verified with ecosystem sources dated 2025-2026. |
-| Features | HIGH | Validated with 2026 research on portfolio conversion, freelance WordPress business models, dual-audience patterns. Clear consensus across sources. |
-| Architecture | HIGH | Official Convex + Next.js App Router patterns documented with code examples. Server/client component boundaries well-established. |
-| Pitfalls | MEDIUM-HIGH | Verified with multiple 2025-2026 sources on portfolio mistakes, WordPress freelance pitfalls, Next.js SEO issues. Some inference on phase-specific timing. |
+| Area         | Confidence  | Notes                                                                                                                                                      |
+| ------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Stack        | HIGH        | Verified with official Next.js, Convex, Tailwind documentation. Version numbers verified with ecosystem sources dated 2025-2026.                           |
+| Features     | HIGH        | Validated with 2026 research on portfolio conversion, freelance WordPress business models, dual-audience patterns. Clear consensus across sources.         |
+| Architecture | HIGH        | Official Convex + Next.js App Router patterns documented with code examples. Server/client component boundaries well-established.                          |
+| Pitfalls     | MEDIUM-HIGH | Verified with multiple 2025-2026 sources on portfolio mistakes, WordPress freelance pitfalls, Next.js SEO issues. Some inference on phase-specific timing. |
 
 **Overall confidence:** HIGH
 
@@ -264,6 +293,7 @@ Research conducted with current 2026 sources, verified across official documenta
 ## Sources
 
 ### Primary (HIGH confidence)
+
 - **Next.js Documentation:** Framework architecture, App Router patterns, SEO metadata, deployment configuration
 - **Convex Developer Hub:** Next.js integration, React client patterns, authentication with Next.js, schema best practices, query optimization
 - **shadcn/ui Documentation:** Component patterns, dark mode setup, Tailwind integration
@@ -272,6 +302,7 @@ Research conducted with current 2026 sources, verified across official documenta
 - **Vercel Environment Variables Docs:** Configuration, limits, deployment best practices
 
 ### Secondary (MEDIUM-HIGH confidence)
+
 - **WordPress Local Development Guide 2026 (AWP Agency):** Local by WP vs Docker comparison, solo freelancer workflows
 - **Best Page Builders for WordPress 2026 (Belov Digital):** Elementor Pro vs Gutenberg hybrid approach
 - **Cheap WordPress Hosting 2026 (Elementor, ThemeIsle):** Hostinger/Bluehost/IONOS pricing and performance verification
@@ -285,6 +316,7 @@ Research conducted with current 2026 sources, verified across official documenta
 - **AEO Complete Guide 2026 (Code Elevate, RevvGrowth):** Entity-based optimization, structured data requirements
 
 ### Tertiary (MEDIUM confidence, validate during implementation)
+
 - **next-aeo Introduction (TryProfound):** Emerging tool, limited production data but clear use case
 - **AEO Trends 2026 (HubSpot):** Gartner prediction of 25% search volume shift to AI by 2026
 - **Relationship Structures in Convex (Stack.convex.dev):** Community patterns, schema design considerations
@@ -292,8 +324,8 @@ Research conducted with current 2026 sources, verified across official documenta
 
 ---
 
-*Research completed: 2026-02-03*
+_Research completed: 2026-02-03_
 
-*Ready for roadmap: YES*
+_Ready for roadmap: YES_
 
 **Next step:** Proceed to requirements definition and detailed roadmap creation. All four research dimensions (stack, features, architecture, pitfalls) completed with high confidence. Phase structure provides clear starting point for roadmap with explicit research flags for advanced features.
