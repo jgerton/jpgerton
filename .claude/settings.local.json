@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:docs.convex.dev)",
+      "WebFetch(domain:labs.convex.dev)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
