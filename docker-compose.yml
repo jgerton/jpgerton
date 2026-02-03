@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      target: dev
+    container_name: jpgerton-frontend
+    ports:
+      - "3400:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - NEXT_PUBLIC_CONVEX_URL=${NEXT_PUBLIC_CONVEX_URL}
+    env_file:
+      - .env.local
+    networks:
+      - jpgerton-network
+    command: bun --bun run dev
+
+networks:
+  jpgerton-network:
+    name: jpgerton-network
