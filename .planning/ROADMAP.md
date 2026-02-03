@@ -61,11 +61,14 @@ Plans:
 3. Visitor can navigate to dedicated projects page showing filterable grid of all 6 projects
 4. Clicking a project card navigates to detail page with full description, tech stack tags, live URL, and GitHub repo link
 5. Project data model in Convex supports future reordering and featured flag functionality
-   **Plans**: TBD
+   **Plans**: 4 plans in 3 waves
 
 Plans:
 
-- [ ] 02-01: TBD during planning
+- [ ] 02-01-PLAN.md - Convex schema, project queries, and Next.js image config
+- [ ] 02-02-PLAN.md - Install nuqs and create portfolio components (ProjectCard, ProjectGrid, HeroSection, ProjectFilters)
+- [ ] 02-03-PLAN.md - Assemble home page, projects index, and project detail pages
+- [ ] 02-04-PLAN.md - Seed 6 projects and visual verification
 
 ### Phase 3: Services & Contact
 
@@ -157,9 +160,9 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase                        | Plans Complete | Status           | Completed  |
 | ---------------------------- | -------------- | ---------------- | ---------- |
-| 1. Infrastructure            | 5/5            | ✓ Complete       | 2026-02-03 |
-| 2. Projects & Home           | 0/TBD          | Ready to plan    | -          |
-| 3. Services & Contact        | 0/TBD          | Not started      | -         |
-| 4. Admin Dashboard           | 0/TBD          | Not started      | -         |
-| 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -         |
-| 6. WordPress Delivery System | 0/TBD          | Not started      | -         |
+| 1. Infrastructure            | 5/5            | Complete         | 2026-02-03 |
+| 2. Projects & Home           | 0/4            | Ready to execute | -          |
+| 3. Services & Contact        | 0/TBD          | Not started      | -          |
+| 4. Admin Dashboard           | 0/TBD          | Not started      | -          |
+| 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -          |
+| 6. WordPress Delivery System | 0/TBD          | Not started      | -          |
