@@ -79,7 +79,7 @@ Everything else (admin dashboard, future features) supports this conversion flow
 - **Budget:** $0 for infrastructure until first clients close
 - **Timeline:** Portfolio site needed before outreach can begin
 - **Content:** Project screenshots/descriptions will be gathered during build from GitHub and live sites
-- **Local Dev:** Dockerized setup required, ports 3400-3499 reserved (other apps use different ranges on workstation)
+- **Local Dev:** Docker-first mandatory - no direct host execution. Bind mounts for live code updates. Ports 3400-3499 reserved (other apps use different ranges on workstation)
 
 ## Key Decisions
 
@@ -92,6 +92,7 @@ Everything else (admin dashboard, future features) supports this conversion flow
 | Both Calendly + form | Calendly for $500 bookings (qualified), form for everything else | - Pending |
 | Admin dashboard vs Convex UI | Long-term maintainability without touching code | - Pending |
 | Dockerized local dev | Consistent environment, port isolation (3400-3499), reproducible setup | - Pending |
+| Git workflow (develop/main) | Develop branch for work, PRs to main for releases, limits Vercel deploys | - Pending |
 
 ---
 *Last updated: 2025-02-03 after research*

@@ -9,13 +9,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Dockerized local development environment
+- [ ] **INFRA-01**: Dockerized local development environment (mandatory - no direct host execution)
 - [ ] **INFRA-02**: Port mapping in 3400-3499 range (3400 for Next.js, 3401 for Convex)
+- [ ] **INFRA-11**: Docker volume mounts for live code updates (bind mount codebase, not copy into container)
+- [ ] **INFRA-12**: Docker Compose for orchestrating Next.js and Convex services
 - [ ] **INFRA-03**: Next.js 14 App Router project structure
 - [ ] **INFRA-04**: Convex database and backend integration
 - [ ] **INFRA-05**: Tailwind CSS + shadcn/ui component library
-- [ ] **INFRA-06**: Vercel deployment configuration
+- [ ] **INFRA-06**: Vercel deployment configuration (main branch only)
 - [ ] **INFRA-07**: Dark/light mode toggle with system preference detection
+- [ ] **INFRA-08**: Git branching strategy (develop branch for work, main for production releases)
+- [ ] **INFRA-09**: GitHub Actions workflow for PR validation (lint, type-check, build)
+- [ ] **INFRA-10**: Branch protection rules (require PR and passing checks before merge to main)
 
 ### Public Pages
 
@@ -140,6 +145,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INFRA-05 | Phase 1 | Pending |
 | INFRA-06 | Phase 1 | Pending |
 | INFRA-07 | Phase 1 | Pending |
+| INFRA-08 | Phase 1 | Pending |
+| INFRA-09 | Phase 1 | Pending |
+| INFRA-10 | Phase 1 | Pending |
+| INFRA-11 | Phase 1 | Pending |
+| INFRA-12 | Phase 1 | Pending |
 | PROJ-01 | Phase 2 | Pending |
 | PAGE-01 | Phase 2 | Pending |
 | PAGE-02 | Phase 2 | Pending |
@@ -188,8 +198,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | WPDEL-06 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 48 total
-- Mapped to phases: 48
+- v1 requirements: 53 total
+- Mapped to phases: 53
 - Unmapped: 0
 
 ---
