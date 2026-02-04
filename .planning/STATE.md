@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 4 of 6 (Admin Dashboard) - IN PROGRESS
-Plan: 1 of 5 complete
-Status: Phase 4 started - Admin auth configured
-Last activity: 2026-02-04 - Completed 04-01-PLAN.md (Admin Auth Setup)
+Plan: 2 of 7 complete
+Status: Wave 2 complete - Admin backend API ready
+Last activity: 2026-02-03 - Completed 04-02-PLAN.md (Admin Backend API)
 
-Progress: [█████████████░░░░░░░░░░░░░░░░░░░░] 42% (17 of 40 total plans)
+Progress: [█████████████░░░░░░░░░░░░░░░░░░░░] 45% (18 of 40 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 17
-- Average duration: 5.0 min
-- Total execution time: 1h 35min
+- Total plans completed: 18
+- Average duration: 4.9 min
+- Total execution time: 1h 38min
 
 **By Phase:**
 
@@ -31,12 +31,12 @@ Progress: [█████████████░░░░░░░░░░
 | 01-infrastructure    | 5     | 45min    | 9min     |
 | 02-projects-home     | 4     | 23min    | 5.8min   |
 | 03-services-contact  | 7     | 15min    | 2.1min   |
-| 04-admin-dashboard   | 1     | 3min     | 3min     |
+| 04-admin-dashboard   | 2     | 6min     | 3min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 03-04 (1.4min), 03-05 (2.8min), 03-06 (3min), 03-07 (checkpoint), 04-01 (3min)
-- Trend: Maintaining excellent velocity (3min average last 5 executable plans)
+- Last 5 plans: 03-05 (2.8min), 03-06 (3min), 03-07 (checkpoint), 04-01 (3min), 04-02 (3min)
+- Trend: Excellent velocity maintained (3min average for executable plans)
 
 _Updated after each plan completion_
 
@@ -112,6 +112,10 @@ Recent decisions affecting current work:
 - Four-state contact workflow: unread -> read -> responded -> archived (04-01)
 - Convex Auth uses authTables pattern integrated into schema (04-01)
 - Auth configuration in convex/auth.config.ts with Password provider (04-01)
+- Middleware performs optimistic auth check (UX) - security enforced by Convex mutations (04-02)
+- Convex Auth uses __convexAuthToken cookie for session (04-02)
+- Contact list sorted by status priority (unread, read, responded) then createdAt (04-02)
+- All admin mutations verify auth with getAuthUserId before operation (04-02)
 
 ### Pending Todos
 
@@ -125,8 +129,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-04 (plan execution)
-Stopped at: Completed 04-01-PLAN.md (Admin Auth Setup)
+Last session: 2026-02-03 (plan execution)
+Stopped at: Completed 04-02-PLAN.md (Admin Backend API)
 Resume file: None
 
 ## Deployment Info
