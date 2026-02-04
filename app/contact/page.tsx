@@ -90,7 +90,7 @@ export default function ContactPage() {
               <div>
                 <h4 className="font-medium mb-1">LinkedIn</h4>
                 <a
-                  href="https://linkedin.com/in/jongerton"
+                  href="https://www.linkedin.com/in/jon-gerton-8009a9393/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary hover:underline"

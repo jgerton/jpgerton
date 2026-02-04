@@ -14,7 +14,7 @@ export function LocalBusinessSchema() {
       name: "United States",
     },
     sameAs: [
-      "https://linkedin.com/in/jongerton",
+      "https://www.linkedin.com/in/jon-gerton-8009a9393/",
       "https://github.com/jgerton",
     ],
   };
