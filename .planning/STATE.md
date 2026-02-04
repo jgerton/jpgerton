@@ -10,31 +10,31 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 2 of 6 (Projects & Home)
-Plan: 1 of 6 (02-01-PLAN.md complete)
+Plan: 2 of 6 (02-02-PLAN.md complete)
 Status: In progress
-Last activity: 2026-02-03 - Completed 02-01-PLAN.md (Convex data model & queries)
+Last activity: 2026-02-03 - Completed 02-02-PLAN.md (Portfolio UI components)
 
-Progress: [██████░░░░░░░░░░░░░░░░░░░░] 6/23 plans (26%)
+Progress: [███████░░░░░░░░░░░░░░░░░░░] 7/23 plans (30%)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 6
-- Average duration: 8 min
-- Total execution time: 0.83 hours
+- Total plans completed: 7
+- Average duration: 7 min
+- Total execution time: 0.87 hours
 
 **By Phase:**
 
 | Phase             | Plans | Total | Avg/Plan |
 | ----------------- | ----- | ----- | -------- |
 | 01-infrastructure | 5     | 45min | 9min     |
-| 02-projects-home  | 1     | 2min  | 2min     |
+| 02-projects-home  | 2     | 4min  | 2min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 01-02 (4min), 01-03 (7min), 01-04 (15min), 01-05 (10min), 02-01 (2min)
-- Trend: Accelerating (Phase 2 starting strong)
+- Last 5 plans: 01-03 (7min), 01-04 (15min), 01-05 (10min), 02-01 (2min), 02-02 (2min)
+- Trend: Phase 2 maintaining high velocity (2min avg)
 
 _Updated after each plan completion_
 
@@ -69,6 +69,10 @@ Recent decisions affecting current work:
 - screenshotId optional for initial setup without images (02-01)
 - Client-side filtering for filterByTech due to Convex array index limitations (02-01)
 - Wildcard *.convex.cloud hostname for all Convex deployments (02-01)
+- nuqs for URL state management with shareable filter URLs (02-02)
+- NuqsAdapter positioned between ConvexProvider and ThemeProvider (02-02)
+- Native HTML select for sort dropdown (no shadcn Select) (02-02)
+- Responsive grid breakpoints: 1 col mobile, 2 tablet, 3 desktop (02-02)
 
 ### Pending Todos
 
@@ -81,7 +85,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-03 (plan execution)
-Stopped at: Completed 02-01-PLAN.md
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
 
 ## Deployment Info
