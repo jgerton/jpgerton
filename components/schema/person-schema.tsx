@@ -5,11 +5,11 @@ export function PersonSchema() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Jon Gerton",
-    jobTitle: "Web Designer & Developer",
+    jobTitle: "Full-Stack Developer & Technical Consultant",
     url: "https://jpgerton.com",
     email: "jon@jpgerton.com",
     sameAs: [
-      "https://linkedin.com/in/jongerton",
+      "https://www.linkedin.com/in/jon-gerton-8009a9393/",
       "https://github.com/jgerton",
     ],
     knowsAbout: [
@@ -18,7 +18,18 @@ export function PersonSchema() {
       "React",
       "Next.js",
       "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Technical Mentorship",
     ],
+    workLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressRegion: "AK",
+        addressCountry: "US",
+      },
+    },
   };
 
   return (

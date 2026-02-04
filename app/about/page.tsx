@@ -19,7 +19,7 @@ export default function AboutPage() {
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Web developer, team builder, and small business advocate
-          based in the Midwest.
+          based in Alaska.
         </p>
       </div>
 
@@ -29,13 +29,22 @@ export default function AboutPage() {
         <section className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Background</h2>
           <p>
-            I&apos;ve spent over a decade building web applications, from startup MVPs to
-            enterprise platforms serving millions of users. Along the way, I discovered
-            something surprising: the most rewarding work isn&apos;t always the most complex.
+            I started in tech in 1998 as a Systems/Network Administrator for a regional
+            airline, managing production infrastructure where uptime mattered. After
+            recognizing software was a better fit for my skill set, I transitioned to
+            full-stack development in 2007.
           </p>
           <p>
-            When I helped a friend launch his local plumbing business online, the impact
-            was immediate. New customers called. His schedule filled up. His family&apos;s
+            I spent 13 years at three software development agencies, shipping projects
+            across dozens of industries and tech stacks. When COVID hit and AI-assisted
+            development started advancing rapidly, I made the intentional move to solo
+            founder - building with a vision to mentor junior developers into sustainable
+            career paths.
+          </p>
+          <p>
+            Along the way, I discovered the most rewarding work isn&apos;t always the most
+            complex. When I helped a friend launch his local business online, the impact
+            was immediate - new customers called, his schedule filled up, his family&apos;s
             financial stress eased. That&apos;s when I realized there&apos;s a massive gap between
             &quot;big tech&quot; web development and what local businesses actually need.
           </p>
@@ -83,8 +92,8 @@ export default function AboutPage() {
               <CardContent className="pt-6">
                 <h3 className="font-semibold mb-2">Real Experience</h3>
                 <p className="text-sm text-muted-foreground">
-                  10+ years shipping production code. I&apos;ve seen what works and
-                  what doesn&apos;t, and I&apos;ll share that knowledge.
+                  27 years in tech, 18+ in web development. I&apos;ve seen what works
+                  and what doesn&apos;t, and I&apos;ll share that knowledge.
                 </p>
               </CardContent>
             </Card>
@@ -142,12 +151,12 @@ export default function AboutPage() {
       {/* Quick Stats */}
       <div className="mt-12 grid grid-cols-3 gap-8 text-center border-t pt-12">
         <div>
-          <div className="text-3xl font-bold text-primary">10+</div>
-          <p className="text-sm text-muted-foreground">Years Experience</p>
+          <div className="text-3xl font-bold text-primary">27+</div>
+          <p className="text-sm text-muted-foreground">Years in Tech</p>
         </div>
         <div>
-          <div className="text-3xl font-bold text-primary">50+</div>
-          <p className="text-sm text-muted-foreground">Projects Shipped</p>
+          <div className="text-3xl font-bold text-primary">13</div>
+          <p className="text-sm text-muted-foreground">Years at Agencies</p>
         </div>
         <div>
           <div className="text-3xl font-bold text-primary">100%</div>

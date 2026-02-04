@@ -8,8 +8,8 @@ export const siteConfig = {
   author: {
     name: "Jon Gerton",
     email: "jon@jpgerton.com",
-    jobTitle: "Web Designer & Developer",
-    linkedin: "https://linkedin.com/in/jongerton",
+    jobTitle: "Full-Stack Developer & Technical Consultant",
+    linkedin: "https://www.linkedin.com/in/jon-gerton-8009a9393/",
     github: "https://github.com/jgerton",
   },
   keywords: [

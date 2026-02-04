@@ -36,9 +36,9 @@ const faqData = [
       "You get one round of revisions included. After that, I offer maintenance packages or hourly rates for additional updates and changes.",
   },
   {
-    question: "Do you work with businesses outside the Anchorage area?",
+    question: "Do you work with businesses outside Alaska?",
     answer:
-      "Absolutely! While I started helping local Anchorage businesses, I work with clients across the US. Everything can be done remotely via video calls and email.",
+      "Absolutely! While I'm based in Alaska, I work with clients across the US. Everything can be done remotely via video calls and email.",
   },
 ];
 
@@ -179,8 +179,8 @@ export default function ServicesPage() {
             <p className="text-muted-foreground">Satisfaction guarantee</p>
           </div>
           <div>
-            <div className="text-3xl font-bold text-primary mb-2">10+ Years</div>
-            <p className="text-muted-foreground">Professional experience</p>
+            <div className="text-3xl font-bold text-primary mb-2">18+ Years</div>
+            <p className="text-muted-foreground">Web development experience</p>
           </div>
         </div>
       </div>
