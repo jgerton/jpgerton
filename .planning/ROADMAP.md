@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
 - [x] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
 - [x] **Phase 4: Admin Dashboard** - Content management interface with authentication
-- [ ] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
+- [x] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
 - [ ] **Phase 6: WordPress Delivery System** - Revenue operations documentation and templates
 
 ## Phase Details
@@ -144,12 +144,12 @@ Plans:
 
 Plans:
 
-- [ ] 05-01-PLAN.md - Install SEO packages and configure root metadata with Open Graph
-- [ ] 05-02-PLAN.md - Create JSON-LD schema components (LocalBusiness, Person, Service, FAQ)
-- [ ] 05-03-PLAN.md - Add per-page metadata and audit semantic HTML structure
-- [ ] 05-04-PLAN.md - Create sitemap.ts, robots.ts, and FAQ section with speakable markup
-- [ ] 05-05-PLAN.md - Integrate Vercel Analytics, GA4, and UTM tracking for Calendly
-- [ ] 05-06-PLAN.md - Configure llms.txt generation and final verification checkpoint
+- [x] 05-01-PLAN.md - Install SEO packages and configure root metadata with Open Graph
+- [x] 05-02-PLAN.md - Create JSON-LD schema components (LocalBusiness, Person, Service, FAQ)
+- [x] 05-03-PLAN.md - Add per-page metadata and audit semantic HTML structure
+- [x] 05-04-PLAN.md - Create sitemap.ts, robots.ts, and FAQ section with speakable markup
+- [x] 05-05-PLAN.md - Integrate Vercel Analytics, GA4, and UTM tracking for Calendly
+- [x] 05-06-PLAN.md - Configure llms.txt generation and final verification checkpoint
 
 ### Phase 6: WordPress Delivery System
 
@@ -164,11 +164,16 @@ Plans:
 4. Handoff checklist covers deployment steps, DNS configuration, and credentials transfer process
 5. Payment protection documentation enforces 50% upfront requirement and final payment before launch
 6. Scope control template documents included deliverables and change request process to prevent scope creep
-   **Plans**: TBD
+   **Plans**: 6 plans in 2 waves
 
 Plans:
 
-- [ ] 06-01: TBD during planning
+- [ ] 06-01-PLAN.md - Starter template guide with Kadence theme and plugin stack
+- [ ] 06-02-PLAN.md - Content workflow documentation and client questionnaire
+- [ ] 06-03-PLAN.md - Staging setup guide and migration process with Duplicator
+- [ ] 06-04-PLAN.md - Scope control template and payment protection documentation
+- [ ] 06-05-PLAN.md - Handoff checklist and client training guide template
+- [ ] 06-06-PLAN.md - Documentation verification checkpoint
 
 ## Progress
 
@@ -181,5 +186,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Projects & Home           | 4/4            | Complete    | 2026-02-03 |
 | 3. Services & Contact        | 7/7            | Complete    | 2026-02-03 |
 | 4. Admin Dashboard           | 7/7            | Complete    | 2026-02-04 |
-| 5. SEO, AEO & Performance    | 0/6            | Planned     | -          |
-| 6. WordPress Delivery System | 0/TBD          | Not started | -          |
+| 5. SEO, AEO & Performance    | 6/6            | Complete    | 2026-02-04 |
+| 6. WordPress Delivery System | 0/6            | Planned     | -          |
