@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import Image from "next/image";
@@ -7,6 +8,48 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { ExternalLink, Github, ArrowLeft } from "lucide-react";
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  try {
+    const project = await fetchQuery(api.projects.getBySlug, { slug });
+
+    if (!project) {
+      return {
+        title: "Project Not Found",
+      };
+    }
+
+    return {
+      title: project.name,
+      description: project.description,
+      openGraph: {
+        title: `${project.name} | Jon Gerton`,
+        description: project.description,
+        type: "article",
+        images: project.screenshotUrl
+          ? [
+              {
+                url: project.screenshotUrl,
+                width: 1200,
+                height: 630,
+                alt: `${project.name} screenshot`,
+              },
+            ]
+          : undefined,
+      },
+    };
+  } catch {
+    return {
+      title: "Project",
+    };
+  }
+}
 
 export default async function ProjectDetailPage({
   params,
