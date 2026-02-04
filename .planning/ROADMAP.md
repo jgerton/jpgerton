@@ -110,11 +110,17 @@ Plans:
 5. Jon can delete project and it disappears from public pages
 6. Jon can reorder projects via drag-and-drop and featured projects appear first on home page
 7. Jon can view contact submissions list, mark as read, and archive processed inquiries
-   **Plans**: TBD
+   **Plans**: 7 plans in 5 waves
 
 Plans:
 
-- [ ] 04-01: TBD during planning
+- [ ] 04-01-PLAN.md - Convex Auth setup with Password provider and login page
+- [ ] 04-02-PLAN.md - Middleware for route protection and admin mutations
+- [ ] 04-03-PLAN.md - Admin layout with tabs navigation and backstage styling
+- [ ] 04-04-PLAN.md - Image upload zone and sortable list components (dnd-kit, react-dropzone)
+- [ ] 04-05-PLAN.md - Dashboard home with stats and contacts page with inbox workflow
+- [ ] 04-06-PLAN.md - Projects CRUD pages (list, create, edit) with drag-to-reorder
+- [ ] 04-07-PLAN.md - Visual and functional verification
 
 ### Phase 5: SEO, AEO & Performance
 
@@ -164,11 +170,11 @@ Plans:
 **Execution Order:**
 Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
-| Phase                        | Plans Complete | Status           | Completed  |
-| ---------------------------- | -------------- | ---------------- | ---------- |
-| 1. Infrastructure            | 5/5            | Complete         | 2026-02-03 |
-| 2. Projects & Home           | 4/4            | Complete         | 2026-02-03 |
-| 3. Services & Contact        | 7/7            | Complete         | 2026-02-03 |
-| 4. Admin Dashboard           | 0/TBD          | Not started      | -          |
-| 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -          |
-| 6. WordPress Delivery System | 0/TBD          | Not started      | -          |
+| Phase                        | Plans Complete | Status      | Completed  |
+| ---------------------------- | -------------- | ----------- | ---------- |
+| 1. Infrastructure            | 5/5            | Complete    | 2026-02-03 |
+| 2. Projects & Home           | 4/4            | Complete    | 2026-02-03 |
+| 3. Services & Contact        | 7/7            | Complete    | 2026-02-03 |
+| 4. Admin Dashboard           | 0/7            | Ready       | -          |
+| 5. SEO, AEO & Performance    | 0/TBD          | Not started | -          |
+| 6. WordPress Delivery System | 0/TBD          | Not started | -          |
