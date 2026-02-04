@@ -19,6 +19,15 @@ interface CalendlyButtonProps {
   size?: "default" | "sm" | "lg";
 }
 
+// UTM parameter types for Calendly tracking
+interface UtmParams {
+  utmSource?: string;
+  utmMedium?: string;
+  utmCampaign?: string;
+  utmContent?: string;
+  utmTerm?: string;
+}
+
 export function CalendlyButton({
   url,
   text = "Book a Call",
@@ -28,9 +37,23 @@ export function CalendlyButton({
 }: CalendlyButtonProps) {
   // Track client-side mounting to safely access document.body
   const [mounted, setMounted] = useState(false);
+  // Store UTM parameters for conversion tracking
+  const [utmParams, setUtmParams] = useState<UtmParams>({});
 
   useEffect(() => {
     setMounted(true);
+
+    // Extract UTM parameters from URL for conversion tracking
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setUtmParams({
+        utmSource: params.get("utm_source") || undefined,
+        utmMedium: params.get("utm_medium") || undefined,
+        utmCampaign: params.get("utm_campaign") || undefined,
+        utmContent: params.get("utm_content") || undefined,
+        utmTerm: params.get("utm_term") || undefined,
+      });
+    }
   }, []);
 
   // Define button classes based on variant and size to match shadcn Button
@@ -66,6 +89,7 @@ export function CalendlyButton({
       rootElement={document.body}
       text={text}
       className={buttonClasses}
+      utm={utmParams}
     />
   );
 }
