@@ -3,10 +3,44 @@
 import { useRouter } from "next/navigation";
 import { PricingCards } from "@/components/pricing/pricing-cards";
 import { CalendlyButton } from "@/components/calendly/calendly-button";
+import { FAQSchema, ServiceSchema } from "@/components/schema";
 import type { PricingTier } from "@/components/pricing/pricing-card";
 
 // TODO: Move to environment variable
 const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
+
+const faqData = [
+  {
+    question: "How long does it take to build a $500 WordPress site?",
+    answer:
+      "Most WordPress sites are delivered within 5 business days from when I receive your content and payment. Complex requirements may take slightly longer.",
+  },
+  {
+    question: "What's included in the $500 WordPress package?",
+    answer:
+      "You get a professional 5-7 page website with mobile-responsive design, contact form, Google Maps integration, basic SEO setup, one round of revisions, and 30 days of support after launch.",
+  },
+  {
+    question: "Do I need to provide my own hosting?",
+    answer:
+      "You'll need hosting and a domain name. I can recommend affordable options ($50-100/year total) and help you get set up if needed.",
+  },
+  {
+    question: "Can I update the website myself after it's built?",
+    answer:
+      "Yes! WordPress is designed for easy content updates. I'll provide a brief training on how to edit text, add images, and make basic changes.",
+  },
+  {
+    question: "What if I need changes after the site is launched?",
+    answer:
+      "You get one round of revisions included. After that, I offer maintenance packages or hourly rates for additional updates and changes.",
+  },
+  {
+    question: "Do you work with businesses outside the Anchorage area?",
+    answer:
+      "Absolutely! While I started helping local Anchorage businesses, I work with clients across the US. Everything can be done remotely via video calls and email.",
+  },
+];
 
 const serviceTiers: PricingTier[] = [
   {
@@ -102,7 +136,22 @@ export default function ServicesPage() {
         renderCalendlyButton={renderCalendlyButton}
       />
 
-      {/* FAQ / Additional Info */}
+      {/* FAQ Section */}
+      <div className="mt-20">
+        <h2 className="text-2xl font-semibold mb-8 text-center">
+          Frequently Asked Questions
+        </h2>
+        <div className="grid gap-6 max-w-3xl mx-auto">
+          {faqData.map((faq, index) => (
+            <div key={index} className="border rounded-lg p-6">
+              <h3 className="font-medium mb-2">{faq.question}</h3>
+              <p className="text-muted-foreground faq-answer">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Section */}
       <div className="mt-20 text-center">
         <h2 className="text-2xl font-semibold mb-4">
           Not sure which option is right for you?
@@ -135,6 +184,10 @@ export default function ServicesPage() {
           </div>
         </div>
       </div>
+
+      {/* Schema Markup */}
+      <FAQSchema questions={faqData} />
+      <ServiceSchema />
     </div>
   );
 }
