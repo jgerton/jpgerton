@@ -62,6 +62,36 @@ export const getBySlug = query({
 });
 
 /**
+ * Get a single project by ID.
+ * Returns null if not found.
+ * Resolves screenshot URL from Convex storage.
+ * Requires authentication.
+ */
+export const getById = query({
+  args: { id: v.id("projects") },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const project = await ctx.db.get(args.id);
+    if (!project) {
+      return null;
+    }
+
+    const screenshotUrl = project.screenshotId
+      ? await ctx.storage.getUrl(project.screenshotId)
+      : null;
+
+    return {
+      ...project,
+      screenshotUrl,
+    };
+  },
+});
+
+/**
  * Filter projects by technology stack.
  * Returns projects that have at least one matching tech.
  * If techs array is empty, returns all projects.

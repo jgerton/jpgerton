@@ -88,7 +88,7 @@ export function SortableProjectRow({
               size="icon"
               asChild
             >
-              <Link href={`/admin/projects/${project._id}`}>
+              <Link href={`/admin/projects/${project._id}/edit`}>
                 <Edit className="h-4 w-4" />
               </Link>
             </Button>

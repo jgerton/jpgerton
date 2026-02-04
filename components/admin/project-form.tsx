@@ -293,8 +293,9 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
           <h2 className="text-xl font-semibold">Technology Stack</h2>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">Frontend Technologies</label>
+            <label htmlFor="frontend-techs" className="text-sm font-medium mb-2 block">Frontend Technologies</label>
             <Input
+              id="frontend-techs"
               value={frontendTechs}
               onChange={(e) => setFrontendTechs(e.target.value)}
               onBlur={updateTechStack}
@@ -306,8 +307,9 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">Backend Technologies</label>
+            <label htmlFor="backend-techs" className="text-sm font-medium mb-2 block">Backend Technologies</label>
             <Input
+              id="backend-techs"
               value={backendTechs}
               onChange={(e) => setBackendTechs(e.target.value)}
               onBlur={updateTechStack}
@@ -319,8 +321,9 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
           </div>
 
           <div>
-            <label className="text-sm font-medium mb-2 block">Infrastructure Technologies</label>
+            <label htmlFor="infrastructure-techs" className="text-sm font-medium mb-2 block">Infrastructure Technologies</label>
             <Input
+              id="infrastructure-techs"
               value={infrastructureTechs}
               onChange={(e) => setInfrastructureTechs(e.target.value)}
               onBlur={updateTechStack}
