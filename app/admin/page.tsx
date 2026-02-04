@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import {
@@ -16,6 +17,12 @@ import Link from "next/link";
 export default function AdminDashboardPage() {
   const contacts = useQuery(api.contacts.list);
   const projects = useQuery(api.projects.list);
+  const [now, setNow] = useState(() => Date.now());
+
+  // Update current time when contacts change
+  useEffect(() => {
+    setNow(Date.now());
+  }, [contacts]);
 
   // Calculate stats
   const isLoading = contacts === undefined || projects === undefined;
@@ -23,7 +30,7 @@ export default function AdminDashboardPage() {
   const projectCount = projects?.length ?? 0;
 
   // Contacts from this week
-  const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+  const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
   const weekCount = contacts?.filter((c) => c.createdAt >= weekAgo).length ?? 0;
 
   // Recent contacts (last 5)
@@ -31,7 +38,7 @@ export default function AdminDashboardPage() {
 
   // Helper for time ago
   const timeAgo = (timestamp: number) => {
-    const seconds = Math.floor((Date.now() - timestamp) / 1000);
+    const seconds = Math.floor((now - timestamp) / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);

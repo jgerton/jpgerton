@@ -4,14 +4,14 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Archive, ChevronDown } from "lucide-react";
-import type { Doc } from "@/convex/_generated/dataModel";
+import type { Doc, Id } from "@/convex/_generated/dataModel";
 
-type ContactStatus = "unread" | "read" | "responded" | "archived";
+type ContactStatus = "read" | "responded" | "archived";
 
 interface ContactsTableProps {
   contacts: Doc<"contactSubmissions">[];
-  onStatusChange: (id: string, status: ContactStatus) => void;
-  onArchiveBulk: (ids: string[]) => void;
+  onStatusChange: (id: Id<"contactSubmissions">, status: ContactStatus) => void;
+  onArchiveBulk: (ids: Id<"contactSubmissions">[]) => void;
 }
 
 export function ContactsTable({
@@ -19,8 +19,12 @@ export function ContactsTable({
   onStatusChange,
   onArchiveBulk,
 }: ContactsTableProps) {
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<Id<"contactSubmissions">>>(
+    new Set()
+  );
+  const [expandedRow, setExpandedRow] = useState<Id<"contactSubmissions"> | null>(
+    null
+  );
 
   // Toggle all checkboxes
   const toggleAll = () => {
@@ -32,7 +36,7 @@ export function ContactsTable({
   };
 
   // Toggle individual checkbox
-  const toggleOne = (id: string) => {
+  const toggleOne = (id: Id<"contactSubmissions">) => {
     const newSelected = new Set(selected);
     if (newSelected.has(id)) {
       newSelected.delete(id);
