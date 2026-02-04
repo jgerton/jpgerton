@@ -63,6 +63,11 @@
     --input: 0 0% 90%;
     --ring: 210 100% 23%;
     --radius: 8px;
+
+    /* Admin-specific colors (distinct backstage aesthetic) */
+    --admin-bg: 220 14% 96%; /* Cooler gray */
+    --admin-sidebar: 220 14% 100%;
+    --admin-border: 220 13% 91%;
   }
 
   .dark {
@@ -85,6 +90,11 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 203 64% 44%;
+
+    /* Admin-specific colors (dark mode) */
+    --admin-bg: 220 14% 10%;
+    --admin-sidebar: 220 14% 13%;
+    --admin-border: 220 13% 20%;
   }
 }
 
@@ -95,5 +105,19 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
+  }
+
+  /* Admin layout utilities */
+  .admin-layout {
+    background-color: hsl(var(--admin-bg));
+  }
+  .bg-admin {
+    background-color: hsl(var(--admin-bg));
+  }
+  .bg-admin-sidebar {
+    background-color: hsl(var(--admin-sidebar));
+  }
+  .border-admin {
+    border-color: hsl(var(--admin-border));
   }
 }
