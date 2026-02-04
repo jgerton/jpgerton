@@ -136,39 +136,39 @@ Explicitly excluded. Documented to prevent scope creep.
 
 Which phases cover which requirements. Updated during roadmap creation.
 
-| Requirement | Phase   | Status  |
-| ----------- | ------- | ------- |
-| INFRA-01    | Phase 1 | Pending |
-| INFRA-02    | Phase 1 | Pending |
-| INFRA-03    | Phase 1 | Pending |
-| INFRA-04    | Phase 1 | Pending |
-| INFRA-05    | Phase 1 | Pending |
-| INFRA-06    | Phase 1 | Pending |
-| INFRA-07    | Phase 1 | Pending |
-| INFRA-08    | Phase 1 | Pending |
-| INFRA-09    | Phase 1 | Pending |
-| INFRA-10    | Phase 1 | Pending |
-| INFRA-11    | Phase 1 | Pending |
-| INFRA-12    | Phase 1 | Pending |
+| Requirement | Phase   | Status   |
+| ----------- | ------- | -------- |
+| INFRA-01    | Phase 1 | Complete |
+| INFRA-02    | Phase 1 | Complete |
+| INFRA-03    | Phase 1 | Complete |
+| INFRA-04    | Phase 1 | Complete |
+| INFRA-05    | Phase 1 | Complete |
+| INFRA-06    | Phase 1 | Complete |
+| INFRA-07    | Phase 1 | Complete |
+| INFRA-08    | Phase 1 | Complete |
+| INFRA-09    | Phase 1 | Complete |
+| INFRA-10    | Phase 1 | Complete |
+| INFRA-11    | Phase 1 | Complete |
+| INFRA-12    | Phase 1 | Complete |
 | PROJ-01     | Phase 2 | Complete |
 | PAGE-01     | Phase 2 | Complete |
 | PAGE-02     | Phase 2 | Complete |
 | PAGE-03     | Phase 2 | Complete |
 | PROJ-02     | Phase 2 | Complete |
 | PROJ-03     | Phase 2 | Complete |
-| PAGE-04     | Phase 3 | Pending |
-| SERV-01     | Phase 3 | Pending |
-| SERV-02     | Phase 3 | Pending |
-| SERV-03     | Phase 3 | Pending |
-| SERV-04     | Phase 3 | Pending |
-| SERV-05     | Phase 3 | Pending |
-| PAGE-05     | Phase 3 | Pending |
-| CONT-01     | Phase 3 | Pending |
-| CONT-02     | Phase 3 | Pending |
-| CONT-03     | Phase 3 | Pending |
-| CONT-04     | Phase 3 | Pending |
-| CONT-05     | Phase 3 | Pending |
-| PAGE-06     | Phase 3 | Pending |
+| PAGE-04     | Phase 3 | Complete |
+| SERV-01     | Phase 3 | Complete |
+| SERV-02     | Phase 3 | Complete |
+| SERV-03     | Phase 3 | Complete |
+| SERV-04     | Phase 3 | Complete |
+| SERV-05     | Phase 3 | Complete |
+| PAGE-05     | Phase 3 | Complete |
+| CONT-01     | Phase 3 | Complete |
+| CONT-02     | Phase 3 | Complete |
+| CONT-03     | Phase 3 | Complete |
+| CONT-04     | Phase 3 | Complete |
+| CONT-05     | Phase 3 | Complete |
+| PAGE-06     | Phase 3 | Complete |
 | ADMIN-01    | Phase 4 | Pending |
 | ADMIN-02    | Phase 4 | Pending |
 | ADMIN-03    | Phase 4 | Pending |
