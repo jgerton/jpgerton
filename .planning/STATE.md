@@ -5,38 +5,39 @@
 See: .planning/PROJECT.md (updated 2025-02-03)
 
 **Core value:** Local business owners who need a website can see Jon's work, understand the $500 offer, and book a call in under 2 minutes.
-**Current focus:** Phase 4 - Admin Dashboard
+**Current focus:** Phase 5 - SEO, AEO & Performance
 
 ## Current Position
 
-Phase: 4 of 6 (Admin Dashboard) - IN PROGRESS
-Plan: 6 of 7 complete
-Status: Wave 4 complete - Project management CRUD complete
-Last activity: 2026-02-03 - Completed 04-06-PLAN.md (Project Management CRUD)
+Phase: 5 of 6 (SEO, AEO & Performance)
+Plan: 1 of 6 complete
+Status: In progress
+Last activity: 2026-02-04 - Completed 05-01-PLAN.md (Root Metadata & OG Setup)
 
-Progress: [████████████████████░░░░] 96% (22 of 23 total plans)
+Progress: [████████████████████░░░░] 83% (24 of 29 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 22
-- Average duration: 5.3 min
-- Total execution time: 1h 56min
+- Total plans completed: 24
+- Average duration: 5.1 min
+- Total execution time: 2h 06min
 
 **By Phase:**
 
-| Phase                | Plans | Total    | Avg/Plan |
-| -------------------- | ----- | -------- | -------- |
-| 01-infrastructure    | 5     | 45min    | 9min     |
-| 02-projects-home     | 4     | 23min    | 5.8min   |
-| 03-services-contact  | 7     | 15min    | 2.1min   |
-| 04-admin-dashboard   | 6     | 24min    | 4.0min   |
+| Phase                   | Plans | Total    | Avg/Plan |
+| ----------------------- | ----- | -------- | -------- |
+| 01-infrastructure       | 5     | 45min    | 9min     |
+| 02-projects-home        | 4     | 23min    | 5.8min   |
+| 03-services-contact     | 7     | 15min    | 2.1min   |
+| 04-admin-dashboard      | 7     | 29min    | 4.1min   |
+| 05-seo-aeo-performance  | 1     | 5min     | 5min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 04-02 (3min), 04-03 (3min), 04-04 (4min), 04-05 (6min), 04-06 (5min)
-- Trend: Excellent velocity maintained (4.0min average for Phase 4 executable plans)
+- Last 5 plans: 04-05 (6min), 04-06 (5min), 04-07 (5min), 05-01 (5min)
+- Trend: Steady velocity continuing into Phase 5
 
 _Updated after each plan completion_
 
@@ -131,6 +132,10 @@ Recent decisions affecting current work:
 - Three separate inputs (frontend/backend/infrastructure) combine into single techStack array (04-06)
 - React Hook Form + Zod for comprehensive form validation with good UX (04-06)
 - Edit route at /admin/projects/[id]/edit keeps separation between view and edit modes (04-06)
+- Project list query uses ascending order (.order("asc")) to match displayOrder assignment (04-07)
+- URL fields auto-normalize with https:// prefix via normalizeUrl() helper (04-07)
+- Spread siteConfig.keywords for mutable array in Next.js metadata API (05-01)
+- CalendlyButton uses mounted state to defer document.body access (05-01 bug fix)
 
 ### Pending Todos
 
@@ -138,14 +143,12 @@ None yet.
 
 ### Blockers/Concerns
 
-**Phase 4 - Admin Dashboard:**
-- Environment variables required: AUTH_SECRET (generate with openssl), SITE_URL (http://localhost:3400)
-- First admin user must be created via Convex dashboard or CLI before authentication can be tested
+None.
 
 ## Session Continuity
 
-Last session: 2026-02-03 (plan execution)
-Stopped at: Completed 04-06-PLAN.md (Project Management CRUD)
+Last session: 2026-02-04
+Stopped at: Completed 05-01-PLAN.md (Root Metadata & OG Setup)
 Resume file: None
 
 ## Deployment Info
