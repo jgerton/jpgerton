@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Infrastructure** - Foundation setup (Next.js, Convex, Docker, Tailwind, dark mode)
 - [x] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
 - [x] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
-- [ ] **Phase 4: Admin Dashboard** - Content management interface with authentication
+- [x] **Phase 4: Admin Dashboard** - Content management interface with authentication
 - [ ] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
 - [ ] **Phase 6: WordPress Delivery System** - Revenue operations documentation and templates
 
@@ -114,13 +114,13 @@ Plans:
 
 Plans:
 
-- [ ] 04-01-PLAN.md - Convex Auth setup with Password provider and login page
-- [ ] 04-02-PLAN.md - Middleware for route protection and admin mutations
-- [ ] 04-03-PLAN.md - Admin layout with tabs navigation and backstage styling
-- [ ] 04-04-PLAN.md - Image upload zone and sortable list components (dnd-kit, react-dropzone)
-- [ ] 04-05-PLAN.md - Dashboard home with stats and contacts page with inbox workflow
-- [ ] 04-06-PLAN.md - Projects CRUD pages (list, create, edit) with drag-to-reorder
-- [ ] 04-07-PLAN.md - Visual and functional verification
+- [x] 04-01-PLAN.md - Convex Auth setup with Password provider and login page
+- [x] 04-02-PLAN.md - Middleware for route protection and admin mutations
+- [x] 04-03-PLAN.md - Admin layout with tabs navigation and backstage styling
+- [x] 04-04-PLAN.md - Image upload zone and sortable list components (dnd-kit, react-dropzone)
+- [x] 04-05-PLAN.md - Dashboard home with stats and contacts page with inbox workflow
+- [x] 04-06-PLAN.md - Projects CRUD pages (list, create, edit) with drag-to-reorder
+- [x] 04-07-PLAN.md - Visual and functional verification
 
 ### Phase 5: SEO, AEO & Performance
 
@@ -140,11 +140,16 @@ Plans:
 9. Page load completes in under 3 seconds on standard connection
 10. All images load via Next.js Image component with automatic optimization
 11. Site displays correctly on iOS and Android devices without layout breaks
-    **Plans**: TBD
+    **Plans**: 6 plans in 4 waves
 
 Plans:
 
-- [ ] 05-01: TBD during planning
+- [ ] 05-01-PLAN.md - Install SEO packages and configure root metadata with Open Graph
+- [ ] 05-02-PLAN.md - Create JSON-LD schema components (LocalBusiness, Person, Service, FAQ)
+- [ ] 05-03-PLAN.md - Add per-page metadata and audit semantic HTML structure
+- [ ] 05-04-PLAN.md - Create sitemap.ts, robots.ts, and FAQ section with speakable markup
+- [ ] 05-05-PLAN.md - Integrate Vercel Analytics, GA4, and UTM tracking for Calendly
+- [ ] 05-06-PLAN.md - Configure llms.txt generation and final verification checkpoint
 
 ### Phase 6: WordPress Delivery System
 
@@ -175,6 +180,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Infrastructure            | 5/5            | Complete    | 2026-02-03 |
 | 2. Projects & Home           | 4/4            | Complete    | 2026-02-03 |
 | 3. Services & Contact        | 7/7            | Complete    | 2026-02-03 |
-| 4. Admin Dashboard           | 0/7            | Ready       | -          |
-| 5. SEO, AEO & Performance    | 0/TBD          | Not started | -          |
+| 4. Admin Dashboard           | 7/7            | Complete    | 2026-02-04 |
+| 5. SEO, AEO & Performance    | 0/6            | Planned     | -          |
 | 6. WordPress Delivery System | 0/TBD          | Not started | -          |
