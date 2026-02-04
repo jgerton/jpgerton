@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 3 of 6 (Services & Contact)
-Plan: 5 of 5
+Plan: 6 of 6
 Status: Phase complete
-Last activity: 2026-02-03 - Completed 03-05-PLAN.md
+Last activity: 2026-02-03 - Completed 03-06-PLAN.md
 
 Progress: [█████████░] 100% (Phase 3)
 
@@ -20,9 +20,9 @@ Progress: [█████████░] 100% (Phase 3)
 
 **Velocity:**
 
-- Total plans completed: 14
-- Average duration: 5.1 min
-- Total execution time: 1.45 hours
+- Total plans completed: 15
+- Average duration: 5.4 min
+- Total execution time: 1.48 hours
 
 **By Phase:**
 
@@ -30,12 +30,12 @@ Progress: [█████████░] 100% (Phase 3)
 | -------------------- | ----- | -------- | -------- |
 | 01-infrastructure    | 5     | 45min    | 9min     |
 | 02-projects-home     | 4     | 23min    | 5.8min   |
-| 03-services-contact  | 5     | 10.4min  | 2.1min   |
+| 03-services-contact  | 6     | 13.4min  | 2.2min   |
 
 **Recent Trend:**
 
-- Last 5 plans: 03-01 (2.4min), 03-02 (1.8min), 03-03 (2min), 03-04 (1.4min), 03-05 (2.8min)
-- Trend: Phase 3 excellent velocity (average 2.1min)
+- Last 5 plans: 03-02 (1.8min), 03-03 (2min), 03-04 (1.4min), 03-05 (2.8min), 03-06 (3min)
+- Trend: Phase 3 excellent velocity (average 2.2min)
 
 _Updated after each plan completion_
 
@@ -103,6 +103,10 @@ Recent decisions affecting current work:
 - Thank-you page includes numbered 3-step process and portfolio CTA (not a dead end) (03-05)
 - Response time expectation set (1 business day) for transparency (03-05)
 - Social links provide alternative contact methods (03-05)
+- No photo on About page initially - text-only trust building through narrative (03-06)
+- Dual CTA strategy on About: Primary Calendly, Secondary portfolio link (03-06)
+- Card grid for "Why Work With Me" enhances scannability (03-06)
+- Stats section at bottom of About page for social proof (03-06)
 
 ### Pending Todos
 
@@ -115,7 +119,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-03 (plan execution)
-Stopped at: Completed 03-05-PLAN.md
+Stopped at: Completed 03-06-PLAN.md
 Resume file: None
 
 ## Deployment Info
