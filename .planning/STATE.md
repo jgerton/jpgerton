@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 5 of 6 (SEO, AEO & Performance)
-Plan: 4 of 6 complete
+Plan: 5 of 6 complete
 Status: In progress
-Last activity: 2026-02-04 - Completed 05-04-PLAN.md (Sitemap, Robots & Schema Integration)
+Last activity: 2026-02-04 - Completed 05-05-PLAN.md (Analytics Integration)
 
-Progress: [██████████████████████░░] 93% (27 of 29 total plans)
+Progress: [███████████████████████░] 97% (28 of 29 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 27
-- Average duration: 4.9 min
-- Total execution time: 2h 18min
+- Total plans completed: 28
+- Average duration: 4.8 min
+- Total execution time: 2h 20min
 
 **By Phase:**
 
@@ -32,11 +32,11 @@ Progress: [██████████████████████░
 | 02-projects-home        | 4     | 23min    | 5.8min   |
 | 03-services-contact     | 7     | 15min    | 2.1min   |
 | 04-admin-dashboard      | 7     | 29min    | 4.1min   |
-| 05-seo-aeo-performance  | 4     | 17min    | 4.25min  |
+| 05-seo-aeo-performance  | 5     | 19min    | 3.8min   |
 
 **Recent Trend:**
 
-- Last 5 plans: 05-01 (5min), 05-02 (3min), 05-03 (4min), 05-04 (5min)
+- Last 5 plans: 05-02 (3min), 05-03 (4min), 05-04 (5min), 05-05 (2min)
 - Trend: Excellent velocity in Phase 5
 
 _Updated after each plan completion_
@@ -145,6 +145,9 @@ Recent decisions affecting current work:
 - Sitemap uses fetchQuery with try/catch for graceful Convex unavailability during build (05-04)
 - FAQ section on services page with faq-answer CSS class for speakable (05-04)
 - Schema placement contextually relevant: LocalBusiness home, Person about, FAQ+Service services (05-04)
+- WebVitals component measures and reports to GA4 via useReportWebVitals (05-05)
+- Conditional GoogleAnalytics based on NEXT_PUBLIC_GA_ID env var (05-05)
+- UTM params extracted on mount and passed to Calendly for attribution tracking (05-05)
 
 ### Pending Todos
 
@@ -157,7 +160,7 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-04
-Stopped at: Completed 05-04-PLAN.md (Sitemap, Robots & Schema Integration)
+Stopped at: Completed 05-05-PLAN.md (Analytics Integration)
 Resume file: None
 
 ## Deployment Info
