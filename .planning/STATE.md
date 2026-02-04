@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 3 of 6 (Services & Contact)
-Plan: 4 of 4
+Plan: 5 of 5
 Status: Phase complete
-Last activity: 2026-02-04 - Completed 03-04-PLAN.md
+Last activity: 2026-02-03 - Completed 03-05-PLAN.md
 
 Progress: [█████████░] 100% (Phase 3)
 
@@ -20,9 +20,9 @@ Progress: [█████████░] 100% (Phase 3)
 
 **Velocity:**
 
-- Total plans completed: 13
-- Average duration: 5.3 min
-- Total execution time: 1.42 hours
+- Total plans completed: 14
+- Average duration: 5.1 min
+- Total execution time: 1.45 hours
 
 **By Phase:**
 
@@ -30,12 +30,12 @@ Progress: [█████████░] 100% (Phase 3)
 | -------------------- | ----- | -------- | -------- |
 | 01-infrastructure    | 5     | 45min    | 9min     |
 | 02-projects-home     | 4     | 23min    | 5.8min   |
-| 03-services-contact  | 4     | 7.6min   | 1.9min   |
+| 03-services-contact  | 5     | 10.4min  | 2.1min   |
 
 **Recent Trend:**
 
-- Last 5 plans: 02-04 (16min), 03-01 (2.4min), 03-02 (1.8min), 03-03 (2min), 03-04 (1.4min)
-- Trend: Phase 3 excellent velocity (average 1.9min)
+- Last 5 plans: 03-01 (2.4min), 03-02 (1.8min), 03-03 (2min), 03-04 (1.4min), 03-05 (2.8min)
+- Trend: Phase 3 excellent velocity (average 2.1min)
 
 _Updated after each plan completion_
 
@@ -98,6 +98,11 @@ Recent decisions affecting current work:
 - Calendly popup for $500 booking (keeps user in context) (03-04)
 - Contact page redirect for custom/consulting inquiries (03-04)
 - Trust section with key stats at bottom (03-04)
+- Two-column layout with form on left, Calendly + info on right (03-05)
+- Calendly card highlighted with border-primary to emphasize alternative conversion path (03-05)
+- Thank-you page includes numbered 3-step process and portfolio CTA (not a dead end) (03-05)
+- Response time expectation set (1 business day) for transparency (03-05)
+- Social links provide alternative contact methods (03-05)
 
 ### Pending Todos
 
@@ -109,8 +114,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-04 (plan execution)
-Stopped at: Completed 03-04-PLAN.md
+Last session: 2026-02-03 (plan execution)
+Stopped at: Completed 03-05-PLAN.md
 Resume file: None
 
 ## Deployment Info
