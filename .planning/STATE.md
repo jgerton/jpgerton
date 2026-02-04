@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 4 of 6 (Admin Dashboard) - IN PROGRESS
-Plan: 5 of 7 complete
-Status: Wave 3 in progress - Dashboard home and contacts management complete
-Last activity: 2026-02-04 - Completed 04-05-PLAN.md (Dashboard Home & Contacts Management)
+Plan: 6 of 7 complete
+Status: Wave 4 complete - Project management CRUD complete
+Last activity: 2026-02-03 - Completed 04-06-PLAN.md (Project Management CRUD)
 
-Progress: [████████████████████░░░░] 91% (21 of 23 total plans)
+Progress: [████████████████████░░░░] 96% (22 of 23 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 21
-- Average duration: 5.4 min
-- Total execution time: 1h 51min
+- Total plans completed: 22
+- Average duration: 5.3 min
+- Total execution time: 1h 56min
 
 **By Phase:**
 
@@ -31,12 +31,12 @@ Progress: [████████████████████░░░
 | 01-infrastructure    | 5     | 45min    | 9min     |
 | 02-projects-home     | 4     | 23min    | 5.8min   |
 | 03-services-contact  | 7     | 15min    | 2.1min   |
-| 04-admin-dashboard   | 5     | 19min    | 3.8min   |
+| 04-admin-dashboard   | 6     | 24min    | 4.0min   |
 
 **Recent Trend:**
 
-- Last 5 plans: 04-01 (3min), 04-02 (3min), 04-03 (3min), 04-04 (4min), 04-05 (6min)
-- Trend: Excellent velocity maintained (3.8min average for Phase 4 executable plans)
+- Last 5 plans: 04-02 (3min), 04-03 (3min), 04-04 (4min), 04-05 (6min), 04-06 (5min)
+- Trend: Excellent velocity maintained (4.0min average for Phase 4 executable plans)
 
 _Updated after each plan completion_
 
@@ -127,6 +127,10 @@ Recent decisions affecting current work:
 - Contacts table uses inbox pattern: checkbox selection with bulk actions, row click expands (04-05)
 - Filter tabs use client-side filtering with local state (no URL state needed for admin) (04-05)
 - Lazy state initializer with useEffect for Date.now() to satisfy React purity linter (04-05)
+- Auto-generate slug from project name (lowercase, hyphenated), allow manual override (04-06)
+- Three separate inputs (frontend/backend/infrastructure) combine into single techStack array (04-06)
+- React Hook Form + Zod for comprehensive form validation with good UX (04-06)
+- Edit route at /admin/projects/[id]/edit keeps separation between view and edit modes (04-06)
 
 ### Pending Todos
 
@@ -140,8 +144,8 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-04 (plan execution)
-Stopped at: Completed 04-05-PLAN.md (Dashboard Home & Contacts Management)
+Last session: 2026-02-03 (plan execution)
+Stopped at: Completed 04-06-PLAN.md (Project Management CRUD)
 Resume file: None
 
 ## Deployment Info
