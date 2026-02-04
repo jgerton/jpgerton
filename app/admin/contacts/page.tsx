@@ -22,7 +22,7 @@ export default function AdminContactsPage() {
         <CardContent>
           <p className="text-muted-foreground">
             This page will display all contact submissions from your website.
-            You'll be able to view submission details, mark them as read or
+            You&apos;ll be able to view submission details, mark them as read or
             responded to, and archive completed conversations.
           </p>
         </CardContent>

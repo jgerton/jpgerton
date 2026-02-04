@@ -21,7 +21,7 @@ export default function AdminDashboardPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            This page will display an overview of your site's activity,
+            This page will display an overview of your site&apos;s activity,
             including recent contact submissions, project statistics, and quick
             actions.
           </p>

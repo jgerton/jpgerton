@@ -22,7 +22,7 @@ export default function AdminProjectsPage() {
         <CardContent>
           <p className="text-muted-foreground">
             This page will allow you to create, edit, and manage your portfolio
-            projects. You'll be able to upload screenshots, set project status,
+            projects. You&apos;ll be able to upload screenshots, set project status,
             add technologies, and control which projects appear on your public
             portfolio.
           </p>
