@@ -10,19 +10,19 @@ See: .planning/PROJECT.md (updated 2025-02-03)
 ## Current Position
 
 Phase: 6 of 6 (WordPress Delivery System) - IN PROGRESS
-Plan: 2 of 6 complete
+Plan: 3 of 6 complete
 Status: In progress
-Last activity: 2026-02-04 - Completed 06-02-PLAN.md (Content Workflow Guide)
+Last activity: 2026-02-04 - Completed 06-03-PLAN.md (Staging Setup Guide)
 
-Progress: [██████████████████████████░░░░░░░░░] 88.6% (31 of 35 total plans)
+Progress: [███████████████████████████░░░░░░░░] 91.4% (32 of 35 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 31
-- Average duration: 4.5 min
-- Total execution time: 2h 30min
+- Total plans completed: 32
+- Average duration: 4.4 min
+- Total execution time: 2h 34min
 
 **By Phase:**
 
@@ -33,11 +33,11 @@ Progress: [███████████████████████
 | 03-services-contact         | 7     | 15min    | 2.1min   |
 | 04-admin-dashboard          | 7     | 29min    | 4.1min   |
 | 05-seo-aeo-performance      | 6     | 24min    | 4min     |
-| 06-wordpress-delivery       | 2     | 5min     | 2.5min   |
+| 06-wordpress-delivery       | 3     | 9min     | 3min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 05-05 (2min), 05-06 (5min checkpoint), 06-01 (2min), 06-02 (3min)
+- Last 5 plans: 05-06 (5min checkpoint), 06-01 (2min), 06-02 (3min), 06-03 (4min)
 - Trend: Phase 6 documentation plans executing quickly
 
 _Updated after each plan completion_
@@ -159,6 +159,10 @@ Recent decisions affecting current work:
 - Three Claude scenarios handle varying client content levels (06-02)
 - Revision pricing offers choice: $75/round or $50/hour (06-02)
 - Written approval required before launch phase (06-02)
+- Staging subdomain pattern: staging-[clientname].jongerton.com (06-03)
+- Dual protection required: noindex + password for all staging sites (06-03)
+- Duplicator over All-in-One WP Migration for empty server deploys (06-03)
+- 30-day cleanup schedule: archive at 30 days, delete at 31+ (06-03)
 
 ### Pending Todos
 
@@ -171,9 +175,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-04
-Stopped at: Completed 06-02-PLAN.md (Content Workflow Guide)
+Stopped at: Completed 06-03-PLAN.md (Staging Setup Guide)
 Resume file: None
-Next action: Execute 06-03-PLAN.md (Staging Setup Guide)
+Next action: Execute 06-04-PLAN.md (Scope and Payment Protection)
 
 ## Deployment Info
 
