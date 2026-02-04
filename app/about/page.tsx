@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendlyButton } from "@/components/calendly/calendly-button";
+import { PersonSchema } from "@/components/schema";
 
 // TODO: Move to environment variable
 const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
@@ -153,6 +154,9 @@ export default function AboutPage() {
           <p className="text-sm text-muted-foreground">Client Satisfaction</p>
         </div>
       </div>
+
+      {/* Schema Markup */}
+      <PersonSchema />
     </div>
   );
 }

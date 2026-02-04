@@ -5,6 +5,7 @@ import { api } from "@/convex/_generated/api";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { ProjectGrid } from "@/components/portfolio/project-grid";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { LocalBusinessSchema } from "@/components/schema";
 
 export default function HomePage() {
   const projects = useQuery(api.projects.list);
@@ -32,6 +33,9 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* Schema Markup */}
+      <LocalBusinessSchema />
     </main>
   );
 }
