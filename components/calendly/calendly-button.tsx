@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 // Dynamic import with SSR disabled - prevents hydration errors
@@ -25,6 +26,13 @@ export function CalendlyButton({
   className,
   size = "default",
 }: CalendlyButtonProps) {
+  // Track client-side mounting to safely access document.body
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Define button classes based on variant and size to match shadcn Button
   const buttonClasses = cn(
     "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors",
@@ -42,6 +50,15 @@ export function CalendlyButton({
     },
     className
   );
+
+  // Don't render until client-side to safely access document.body
+  if (!mounted) {
+    return (
+      <button className={buttonClasses} disabled>
+        {text}
+      </button>
+    );
+  }
 
   return (
     <PopupButton
