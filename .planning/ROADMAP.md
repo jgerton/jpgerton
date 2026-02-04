@@ -18,7 +18,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
 - [x] **Phase 4: Admin Dashboard** - Content management interface with authentication
 - [x] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
-- [ ] **Phase 6: WordPress Delivery System** - Revenue operations documentation and templates
+- [x] **Phase 6: WordPress Delivery System** - Revenue operations documentation and templates
+- [ ] **Phase 7: Business Protection** - Legal/business safeguards for client engagements
 
 ## Phase Details
 
@@ -168,17 +169,38 @@ Plans:
 
 Plans:
 
-- [ ] 06-01-PLAN.md - Starter template guide with Kadence theme and plugin stack
-- [ ] 06-02-PLAN.md - Content workflow documentation and client questionnaire
-- [ ] 06-03-PLAN.md - Staging setup guide and migration process with Duplicator
-- [ ] 06-04-PLAN.md - Scope control template and payment protection documentation
-- [ ] 06-05-PLAN.md - Handoff checklist and client training guide template
-- [ ] 06-06-PLAN.md - Documentation verification checkpoint
+- [x] 06-01-PLAN.md - Starter template guide with Kadence theme and plugin stack
+- [x] 06-02-PLAN.md - Content workflow documentation and client questionnaire
+- [x] 06-03-PLAN.md - Staging setup guide and migration process with Duplicator
+- [x] 06-04-PLAN.md - Scope control template and payment protection documentation
+- [x] 06-05-PLAN.md - Handoff checklist and client training guide template
+- [x] 06-06-PLAN.md - Documentation verification checkpoint
+
+### Phase 7: Business Protection
+
+**Goal**: Jon has legal and business safeguards that protect against nightmare clients and scope disputes before taking on $500 projects.
+**Depends on**: Phase 6
+**Requirements**: BIZPROT-01, BIZPROT-02, BIZPROT-03, BIZPROT-04
+**Success Criteria** (what must be TRUE):
+
+1. Client agreement template exists as signable document covering scope, payment, warranty, and liability
+2. Client qualification checklist provides go/no-go filter before quoting
+3. Hosting requirements document defines minimum specs to avoid migration nightmares
+4. Project termination protocol provides clean exit ramp for bad client relationships
+5. Bug/warranty definition is precise enough to prevent disputes
+   **Plans**: 4 plans in 2 waves
+
+Plans:
+
+- [ ] 07-01-PLAN.md - Client agreement template (signable contract)
+- [ ] 07-02-PLAN.md - Client qualification checklist and hosting requirements
+- [ ] 07-03-PLAN.md - Project termination protocol and warranty clarification
+- [ ] 07-04-PLAN.md - Business protection verification checkpoint
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7
 
 | Phase                        | Plans Complete | Status      | Completed  |
 | ---------------------------- | -------------- | ----------- | ---------- |
@@ -187,4 +209,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 3. Services & Contact        | 7/7            | Complete    | 2026-02-03 |
 | 4. Admin Dashboard           | 7/7            | Complete    | 2026-02-04 |
 | 5. SEO, AEO & Performance    | 6/6            | Complete    | 2026-02-04 |
-| 6. WordPress Delivery System | 0/6            | Planned     | -          |
+| 6. WordPress Delivery System | 6/6            | Complete    | 2026-02-04 |
+| 7. Business Protection       | 0/4            | Planned     | -          |

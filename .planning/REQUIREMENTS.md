@@ -88,12 +88,19 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### WordPress Delivery System
 
-- [ ] **WPDEL-01**: Starter template documentation (theme + plugins list)
-- [ ] **WPDEL-02**: Content workflow documentation (intake -> Claude-assisted drafting -> approval)
-- [ ] **WPDEL-03**: Local staging setup instructions (Local by WP)
-- [ ] **WPDEL-04**: Handoff checklist (deployment, DNS, credentials transfer)
-- [ ] **WPDEL-05**: Payment protection documentation (50% upfront, no launch before final payment)
-- [ ] **WPDEL-06**: Scope control template (what's included, change request process)
+- [x] **WPDEL-01**: Starter template documentation (theme + plugins list)
+- [x] **WPDEL-02**: Content workflow documentation (intake -> Claude-assisted drafting -> approval)
+- [x] **WPDEL-03**: Local staging setup instructions (Local by WP)
+- [x] **WPDEL-04**: Handoff checklist (deployment, DNS, credentials transfer)
+- [x] **WPDEL-05**: Payment protection documentation (50% upfront, no launch before final payment)
+- [x] **WPDEL-06**: Scope control template (what's included, change request process)
+
+### Business Protection
+
+- [ ] **BIZPROT-01**: Client agreement template (signable contract covering scope, payment, warranty, liability)
+- [ ] **BIZPROT-02**: Client qualification checklist (go/no-go filter before quoting)
+- [ ] **BIZPROT-03**: Hosting requirements document (minimum specs for client hosting)
+- [ ] **BIZPROT-04**: Project termination protocol (clean exit ramp for bad client relationships)
 
 ## v2 Requirements
 
@@ -169,38 +176,42 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CONT-04     | Phase 3 | Complete |
 | CONT-05     | Phase 3 | Complete |
 | PAGE-06     | Phase 3 | Complete |
-| ADMIN-01    | Phase 4 | Pending |
-| ADMIN-02    | Phase 4 | Pending |
-| ADMIN-03    | Phase 4 | Pending |
-| ADMIN-04    | Phase 4 | Pending |
-| ADMIN-05    | Phase 4 | Pending |
-| ADMIN-06    | Phase 4 | Pending |
-| SEO-01      | Phase 5 | Pending |
-| SEO-02      | Phase 5 | Pending |
-| SEO-03      | Phase 5 | Pending |
-| SEO-04      | Phase 5 | Pending |
-| SEO-05      | Phase 5 | Pending |
-| SEO-06      | Phase 5 | Pending |
-| SEO-07      | Phase 5 | Pending |
-| SEO-08      | Phase 5 | Pending |
-| ANLYT-01    | Phase 5 | Pending |
-| ANLYT-02    | Phase 5 | Pending |
-| ANLYT-03    | Phase 5 | Pending |
-| PERF-01     | Phase 5 | Pending |
-| PERF-02     | Phase 5 | Pending |
-| PERF-03     | Phase 5 | Pending |
-| PERF-04     | Phase 5 | Pending |
-| WPDEL-01    | Phase 6 | Pending |
-| WPDEL-02    | Phase 6 | Pending |
-| WPDEL-03    | Phase 6 | Pending |
-| WPDEL-04    | Phase 6 | Pending |
-| WPDEL-05    | Phase 6 | Pending |
-| WPDEL-06    | Phase 6 | Pending |
+| ADMIN-01    | Phase 4 | Complete |
+| ADMIN-02    | Phase 4 | Complete |
+| ADMIN-03    | Phase 4 | Complete |
+| ADMIN-04    | Phase 4 | Complete |
+| ADMIN-05    | Phase 4 | Complete |
+| ADMIN-06    | Phase 4 | Complete |
+| SEO-01      | Phase 5 | Complete |
+| SEO-02      | Phase 5 | Complete |
+| SEO-03      | Phase 5 | Complete |
+| SEO-04      | Phase 5 | Complete |
+| SEO-05      | Phase 5 | Complete |
+| SEO-06      | Phase 5 | Complete |
+| SEO-07      | Phase 5 | Complete |
+| SEO-08      | Phase 5 | Complete |
+| ANLYT-01    | Phase 5 | Complete |
+| ANLYT-02    | Phase 5 | Complete |
+| ANLYT-03    | Phase 5 | Complete |
+| PERF-01     | Phase 5 | Complete |
+| PERF-02     | Phase 5 | Complete |
+| PERF-03     | Phase 5 | Complete |
+| PERF-04     | Phase 5 | Complete |
+| WPDEL-01    | Phase 6 | Complete |
+| WPDEL-02    | Phase 6 | Complete |
+| WPDEL-03    | Phase 6 | Complete |
+| WPDEL-04    | Phase 6 | Complete |
+| WPDEL-05    | Phase 6 | Complete |
+| WPDEL-06    | Phase 6 | Complete |
+| BIZPROT-01  | Phase 7 | Pending |
+| BIZPROT-02  | Phase 7 | Pending |
+| BIZPROT-03  | Phase 7 | Pending |
+| BIZPROT-04  | Phase 7 | Pending |
 
 **Coverage:**
 
-- v1 requirements: 53 total
-- Mapped to phases: 53
+- v1 requirements: 57 total
+- Mapped to phases: 57
 - Unmapped: 0
 
 ---
