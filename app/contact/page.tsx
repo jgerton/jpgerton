@@ -13,11 +13,11 @@ export default function ContactPage() {
       {/* Hero Section */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Let's Build Something Together
+          Let&apos;s Build Something Together
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           Whether you need a quick WordPress site or a custom web application,
-          I'd love to hear about your project.
+          I&apos;d love to hear about your project.
         </p>
       </div>
 
@@ -28,7 +28,7 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle>Send a Message</CardTitle>
               <CardDescription>
-                Tell me about your project and I'll get back to you within 1 business day.
+                Tell me about your project and I&apos;ll get back to you within 1 business day.
               </CardDescription>
             </CardHeader>
             <CardContent>

@@ -12,7 +12,7 @@ export default function ThankYouPage() {
           Thanks for Reaching Out!
         </h1>
         <p className="text-lg text-muted-foreground">
-          I've received your message and will get back to you within 1 business day.
+          I&apos;ve received your message and will get back to you within 1 business day.
         </p>
       </div>
 
@@ -29,7 +29,7 @@ export default function ThankYouPage() {
             <div>
               <h4 className="font-medium">Review</h4>
               <p className="text-sm text-muted-foreground">
-                I'll read through your project details and think about the best approach.
+                I&apos;ll read through your project details and think about the best approach.
               </p>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default function ThankYouPage() {
             <div>
               <h4 className="font-medium">Response</h4>
               <p className="text-sm text-muted-foreground">
-                You'll receive an email from me with next steps or follow-up questions.
+                You&apos;ll receive an email from me with next steps or follow-up questions.
               </p>
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function ThankYouPage() {
             <div>
               <h4 className="font-medium">Discussion</h4>
               <p className="text-sm text-muted-foreground">
-                We'll schedule a call if needed to discuss your project in detail.
+                We&apos;ll schedule a call if needed to discuss your project in detail.
               </p>
             </div>
           </div>
@@ -65,7 +65,7 @@ export default function ThankYouPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-4">
-            Check out some of my recent work to see what's possible:
+            Check out some of my recent work to see what&apos;s possible:
           </p>
           <Button asChild variant="outline">
             <Link href="/projects">View My Portfolio</Link>
