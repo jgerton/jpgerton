@@ -5,39 +5,40 @@
 See: .planning/PROJECT.md (updated 2025-02-03)
 
 **Core value:** Local business owners who need a website can see Jon's work, understand the $500 offer, and book a call in under 2 minutes.
-**Current focus:** Phase 5 Complete - Ready for Phase 6 (WordPress Delivery)
+**Current focus:** Phase 6 WordPress Delivery System - Wave 1 Execution
 
 ## Current Position
 
-Phase: 5 of 6 (SEO, AEO & Performance) - COMPLETE
-Plan: 6 of 6 complete
-Status: Phase complete
-Last activity: 2026-02-04 - Completed 05-06-PLAN.md (Performance Audit & Final Verification)
+Phase: 6 of 6 (WordPress Delivery System) - IN PROGRESS
+Plan: 1 of 6 complete
+Status: In progress
+Last activity: 2026-02-04 - Completed 06-01-PLAN.md (Starter Template Guide)
 
-Progress: [████████████████████████] 100% (29 of 29 total plans)
+Progress: [█████████████████████████░░░░░░░░░░] 85.7% (30 of 35 total plans)
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 29
-- Average duration: 4.7 min
-- Total execution time: 2h 25min
+- Total plans completed: 30
+- Average duration: 4.6 min
+- Total execution time: 2h 27min
 
 **By Phase:**
 
-| Phase                   | Plans | Total    | Avg/Plan |
-| ----------------------- | ----- | -------- | -------- |
-| 01-infrastructure       | 5     | 45min    | 9min     |
-| 02-projects-home        | 4     | 23min    | 5.8min   |
-| 03-services-contact     | 7     | 15min    | 2.1min   |
-| 04-admin-dashboard      | 7     | 29min    | 4.1min   |
-| 05-seo-aeo-performance  | 6     | 24min    | 4min     |
+| Phase                       | Plans | Total    | Avg/Plan |
+| --------------------------- | ----- | -------- | -------- |
+| 01-infrastructure           | 5     | 45min    | 9min     |
+| 02-projects-home            | 4     | 23min    | 5.8min   |
+| 03-services-contact         | 7     | 15min    | 2.1min   |
+| 04-admin-dashboard          | 7     | 29min    | 4.1min   |
+| 05-seo-aeo-performance      | 6     | 24min    | 4min     |
+| 06-wordpress-delivery       | 1     | 2min     | 2min     |
 
 **Recent Trend:**
 
-- Last 5 plans: 05-03 (4min), 05-04 (5min), 05-05 (2min), 05-06 (5min checkpoint)
-- Trend: Phase 5 complete with verified Lighthouse 100 performance
+- Last 5 plans: 05-04 (5min), 05-05 (2min), 05-06 (5min checkpoint), 06-01 (2min)
+- Trend: Phase 6 documentation plans executing quickly
 
 _Updated after each plan completion_
 
@@ -150,6 +151,10 @@ Recent decisions affecting current work:
 - UTM params extracted on mount and passed to Calendly for attribution tracking (05-05)
 - Build script runs next-aeo post-build for llms.txt generation (05-06)
 - Document OG image requirements rather than placeholder image (05-06)
+- Kadence Theme as default for all $500 WordPress projects (06-01)
+- 7 essential plugins: Kadence Blocks, Wordfence, UpdraftPlus, Rank Math, WP Mail SMTP, Site Kit, Duplicator (06-01)
+- Advanced Form Block over WPForms Lite for ecosystem consistency (06-01)
+- No page builders (Elementor, Divi) - block editor only (06-01)
 
 ### Pending Todos
 
@@ -162,9 +167,9 @@ None.
 ## Session Continuity
 
 Last session: 2026-02-04
-Stopped at: Completed 05-06-PLAN.md (Performance Audit & Final Verification)
+Stopped at: Completed 06-01-PLAN.md (Starter Template Guide)
 Resume file: None
-Next action: Begin Phase 6 planning (WordPress Delivery)
+Next action: Execute 06-02-PLAN.md (Content Workflow Guide)
 
 ## Deployment Info
 
