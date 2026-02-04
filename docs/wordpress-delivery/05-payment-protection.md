@@ -152,6 +152,11 @@ Bugs are defined as: **Functionality that worked at launch but stopped working, 
 | **Third-party changes** | Hosting issues, domain expiration, email provider problems |
 | **Plugin updates breaking things** | Client updated plugins without testing |
 | **Hosting problems** | Server issues, SSL certificate expiration, DNS problems |
+| **Auto-updates causing issues** | WordPress or plugin auto-updates that break something |
+| **Third-party plugin/theme conflicts** | Plugins or themes client added after launch |
+| **Changes by client's team** | "My nephew tried to help" - client-caused damage |
+| **Email delivery problems** | Emails going to spam, deliverability issues (hosting/email provider) |
+| **Domain/DNS issues** | Domain expired, DNS misconfigured, nameserver problems |
 
 ### Warranty Boundaries
 
@@ -176,6 +181,89 @@ Bugs are defined as: **Functionality that worked at launch but stopped working, 
            ↓
 4. Client confirms fix (or approves quote for non-warranty work)
 ```
+
+---
+
+### Precise Bug Definition Examples
+
+The warranty definitions above can be fuzzy in practice. These real-world examples clarify exactly what is and isn't covered.
+
+**COVERED - These ARE bugs (Jon fixes free within 30 days):**
+
+| Situation | Why It's Covered |
+|-----------|------------------|
+| "Contact form was receiving emails at launch, now it isn't" | Functionality regression with no client changes |
+| "Page layout broke on mobile (was working at launch)" | Display regression, Jon's responsibility |
+| "Images stopped displaying (no changes made by client)" | Content regression, Jon's responsibility |
+| "Internal link goes to 404 now (page wasn't moved)" | Link regression, Jon's responsibility |
+| "Footer appears twice on one page" | Bug introduced during build |
+| "Form shows error message on valid submission" | Functionality bug |
+
+**NOT COVERED - These are NOT bugs (require paid support):**
+
+| Situation | Why It's NOT Covered | What To Do |
+|-----------|---------------------|------------|
+| "Contact form emails going to spam" | Email deliverability is hosting/email provider issue, not website bug | Client contacts hosting support, or Jon assists at $50/hr |
+| "Site is slow" | Hosting performance, not website bug | Client upgrades hosting, or Jon optimizes at $50/hr |
+| "Plugin update broke something" | Client-initiated change caused issue | Jon fixes at $50/hr |
+| "My nephew tried to help and now it's broken" | Client-caused damage | Jon fixes at $50/hr |
+| "I changed a setting and now X doesn't work" | Client-caused issue | Jon fixes at $50/hr |
+| "New feature request (add a blog, add a page)" | Feature request, not bug | Change order required |
+| "Content change (update phone number)" | Content maintenance, not bug | $50/hr or retainer |
+| "The colors look different on my monitor" | Hardware variance, not bug | Not actionable |
+| "It looked fine last week but now I don't like it" | Design preference, not bug | Revision round ($75) |
+| "WordPress sent me an update notice" | Normal WP behavior, not bug | Client ignores or Jon handles on retainer |
+| "My SSL certificate expired" | Hosting/domain responsibility | Client renews, or Jon assists at $50/hr |
+| "My domain expired" | Domain registrar responsibility | Client renews ASAP |
+| "Google says my site isn't indexed" | SEO is ongoing, not launch bug | SEO services quoted separately |
+
+### THE KEY QUESTION
+
+When deciding if something is covered under warranty, ask:
+
+**"Did this work correctly at launch, AND did it stop working without the client making changes?"**
+
+| Answer | Coverage | Action |
+|--------|----------|--------|
+| YES to both | Bug - covered | Jon fixes free within 30 days |
+| NO to either | Not a bug | Paid support required ($50/hr) |
+
+**Examples:**
+- Contact form working at launch, stopped working, client made no changes = **Covered**
+- Contact form emails going to spam (deliverability issue) = **Not covered** (hosting issue)
+- Mobile layout broken, client added new plugin = **Not covered** (client-caused)
+- Link broken, client didn't move any pages = **Covered**
+
+---
+
+### Warranty Dispute Resolution
+
+If there's disagreement about whether something is covered:
+
+1. **Jon explains reasoning in writing** - Clear, specific explanation of why it's covered or not
+2. **Offers fix at hourly rate** - If client disagrees with assessment, Jon offers to fix at $50/hr
+3. **One-time goodwill gesture** - If client insists, Jon may fix as goodwill (documented, one time only per client)
+4. **Document the decision** - Add to project notes for future reference
+
+**Goal:** Resolve disputes fairly without damaging the relationship.
+
+---
+
+### Warranty Claim Response Templates
+
+**For covered bugs:**
+
+> Thanks for reporting this. I've confirmed this is a warranty item (functionality that was working at launch). I'll have it fixed within [timeframe - usually 1-2 business days].
+
+**For non-covered items:**
+
+> Thanks for reaching out. After reviewing, this falls outside the warranty coverage because [specific reason - e.g., "it's a content change" or "the issue was caused by a plugin you installed" or "this is an email deliverability issue with your hosting provider"].
+>
+> I'm happy to fix this for you at my standard rate of $50/hour. Want me to proceed?
+
+**For borderline cases:**
+
+> Thanks for reporting this. Looking at the issue, it's borderline - [explain situation]. In the interest of keeping things moving smoothly, I'll take care of this one as a goodwill gesture. Going forward, similar issues would fall under paid support.
 
 ---
 
