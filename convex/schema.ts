@@ -35,4 +35,17 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_featured", ["featured"])
     .index("by_order", ["displayOrder"]),
+
+  // Contact form submissions
+  contactSubmissions: defineTable({
+    name: v.string(),
+    email: v.string(),
+    projectType: v.string(),
+    message: v.string(),
+    honeypot: v.string(),
+    status: v.union(v.literal("new"), v.literal("read"), v.literal("archived")),
+    createdAt: v.number(),
+  })
+    .index("by_status", ["status"])
+    .index("by_created", ["createdAt"]),
 });
