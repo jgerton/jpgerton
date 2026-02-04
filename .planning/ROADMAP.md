@@ -14,7 +14,7 @@ This roadmap transforms Jon Gerton's portfolio vision into a dual-purpose platfo
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Infrastructure** - Foundation setup (Next.js, Convex, Docker, Tailwind, dark mode)
-- [ ] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
+- [x] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
 - [ ] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
 - [ ] **Phase 4: Admin Dashboard** - Content management interface with authentication
 - [ ] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
@@ -65,10 +65,10 @@ Plans:
 
 Plans:
 
-- [ ] 02-01-PLAN.md - Convex schema, project queries, and Next.js image config
-- [ ] 02-02-PLAN.md - Install nuqs and create portfolio components (ProjectCard, ProjectGrid, HeroSection, ProjectFilters)
-- [ ] 02-03-PLAN.md - Assemble home page, projects index, and project detail pages
-- [ ] 02-04-PLAN.md - Seed 6 projects and visual verification
+- [x] 02-01-PLAN.md - Convex schema, project queries, and Next.js image config
+- [x] 02-02-PLAN.md - Install nuqs and create portfolio components (ProjectCard, ProjectGrid, HeroSection, ProjectFilters)
+- [x] 02-03-PLAN.md - Assemble home page, projects index, and project detail pages
+- [x] 02-04-PLAN.md - Seed 6 projects and visual verification
 
 ### Phase 3: Services & Contact
 
@@ -161,7 +161,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase                        | Plans Complete | Status           | Completed  |
 | ---------------------------- | -------------- | ---------------- | ---------- |
 | 1. Infrastructure            | 5/5            | Complete         | 2026-02-03 |
-| 2. Projects & Home           | 0/4            | Ready to execute | -          |
+| 2. Projects & Home           | 4/4            | Complete         | 2026-02-03 |
 | 3. Services & Contact        | 0/TBD          | Not started      | -          |
 | 4. Admin Dashboard           | 0/TBD          | Not started      | -          |
 | 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -          |
