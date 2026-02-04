@@ -1,7 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Message Sent",
+  description:
+    "Thanks for reaching out! I'll get back to you within 1 business day.",
+  robots: { index: false }, // Don't index thank-you page
+};
 
 export default function ThankYouPage() {
   return (
