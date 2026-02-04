@@ -35,7 +35,7 @@ export const create = mutation({
       projectType: args.projectType,
       message: args.message,
       honeypot: args.honeypot,
-      status: "new",
+      status: "unread",
       createdAt: Date.now(),
     });
 

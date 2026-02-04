@@ -45,7 +45,12 @@ export default defineSchema({
     projectType: v.string(),
     message: v.string(),
     honeypot: v.string(),
-    status: v.union(v.literal("new"), v.literal("read"), v.literal("archived")),
+    status: v.union(
+      v.literal("unread"),
+      v.literal("read"),
+      v.literal("responded"),
+      v.literal("archived")
+    ),
     createdAt: v.number(),
   })
     .index("by_status", ["status"])
