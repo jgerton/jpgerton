@@ -84,11 +84,17 @@ Plans:
 5. Form submission stores in Convex database and triggers email notification
 6. Visitor can read about Jon's background and philosophy on dedicated about page
 7. Each page presents distinct CTAs matching visitor intent (WordPress booking vs custom inquiry)
-   **Plans**: TBD
+   **Plans**: 7 plans in 4 waves
 
 Plans:
 
-- [ ] 03-01: TBD during planning
+- [ ] 03-01-PLAN.md - Foundation: packages, schema, Zod validation, pricing components
+- [ ] 03-02-PLAN.md - Backend: Convex contact mutations and Resend email action
+- [ ] 03-03-PLAN.md - Components: Calendly button and contact form
+- [ ] 03-04-PLAN.md - Services page with pricing tiers and Calendly booking
+- [ ] 03-05-PLAN.md - Contact page with form and thank-you page
+- [ ] 03-06-PLAN.md - About page with structured content and CTAs
+- [ ] 03-07-PLAN.md - Visual and functional verification
 
 ### Phase 4: Admin Dashboard
 
@@ -162,7 +168,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | ---------------------------- | -------------- | ---------------- | ---------- |
 | 1. Infrastructure            | 5/5            | Complete         | 2026-02-03 |
 | 2. Projects & Home           | 4/4            | Complete         | 2026-02-03 |
-| 3. Services & Contact        | 0/TBD          | Not started      | -          |
+| 3. Services & Contact        | 0/7            | Planning complete| -          |
 | 4. Admin Dashboard           | 0/TBD          | Not started      | -          |
 | 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -          |
 | 6. WordPress Delivery System | 0/TBD          | Not started      | -          |
