@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 // Dynamic import with SSR disabled - prevents hydration errors
