@@ -1,0 +1,54 @@
+# Jon Gerton's Web Development Services
+
+Jon Gerton specializes in web development with a focus on serving local businesses and startups. With over a decade of experience, he offers a range of web solutions, from affordable WordPress sites to custom web applications. His approach emphasizes clarity, fixed pricing, and ongoing support, aimed at meeting the specific needs of varying clients.
+
+## About Jon Gerton
+
+This section introduces Jon, detailing his background as a web developer and advocate for small businesses. He highlights the importance of creating meaningful online solutions that cater to local needs, contrasting the complexity often found in big tech projects. 
+
+Key points include:
+- **Experience:** Over 10 years in web development.
+- **Approach:** Offers simple, effective solutions tailored to client needs.
+- **Support:** Ongoing assistance is provided after project completion.
+
+## Services Offered
+
+Jon provides a variety of services designed to fit different client needs.
+
+### $500 WordPress Sites
+An economical solution for local businesses to establish an online presence rapidly. Features include:
+- Fast delivery in approximately 5 business days.
+- Mobile-responsive design with basic SEO.
+- Ongoing support and a single round of revisions.
+
+### Custom Web Applications
+These are tailored solutions for businesses with unique requirements, featuring:
+- Database design, API integration, and user authentication.
+- Ongoing support and maintenance available.
+
+### Team Growth Accelerator
+This service is intended for developer teams looking to enhance their skills through personalized mentorship and training.
+
+## Contact Jon
+
+This page invites prospective clients to discuss their web projects. Jon encourages direct communication regarding both WordPress and custom solutions.
+
+Available options for getting in touch include:
+- **Send a Message:** Fill out a form to describe project needs.
+- **Book a Call:** Schedule a free 15-minute consultation.
+- **Email and Social Media:** Reach out via email or connect on GitHub and LinkedIn.
+
+## Frequently Asked Questions
+
+This section addresses common inquiries related to the services, ensuring prospective clients have clear expectations. Topics include:
+- Timeframes for site delivery.
+- Details of what's included in the WordPress package.
+- Options for post-launch updates and support.
+
+## Portfolio
+
+Though currently listed as loading, this section presumably highlights a selection of previous projects, showcasing Jon's work and the variety of services he offers.
+
+### Links
+- [Get Your $500 Site](/services)
+- [View Portfolio](/projects)
