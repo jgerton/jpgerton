@@ -1,3 +1,4 @@
+import { CTAButton } from "@/components/portfolio/cta-button";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -11,9 +12,9 @@ export function HeroSection() {
         Fast, mobile-friendly websites for local businesses. Custom development also available.
       </p>
       <div className="flex flex-col sm:flex-row gap-md justify-center">
-        <Button asChild size="lg">
+        <CTAButton asChild intent="warm" size="xl">
           <Link href="/services">Get Your $500 Site</Link>
-        </Button>
+        </CTAButton>
         <Button asChild variant="outline" size="lg">
           <Link href="/projects">View Portfolio</Link>
         </Button>
