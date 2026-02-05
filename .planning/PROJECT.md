@@ -54,7 +54,17 @@ Everything else (admin dashboard, delivery docs, business protection) supports t
 
 ### Active
 
-(No active requirements - define with next milestone via `/gsd:new-milestone`)
+**Design Polish (v1.1):**
+
+- [ ] Full UI/UX audit across all public pages and admin dashboard
+- [ ] Color palette evaluation and potential update for warm, approachable, professional feel
+- [ ] Typography system review and refinement
+- [ ] Spacing and visual rhythm consistency across all pages
+- [ ] Proper leverage of shadcn/ui component library (beyond defaults)
+- [ ] Tailwind v4 usage optimization for consistent design system
+- [ ] Visual hierarchy improvements for conversion flow
+- [ ] Component polish (cards, buttons, forms, navigation)
+- [ ] Mobile responsive refinement
 
 ### Out of Scope
 
@@ -119,4 +129,4 @@ Tech stack: Next.js 14, Convex, Tailwind v4, shadcn/ui, Docker, GitHub Actions, 
 
 ---
 
-*Last updated: 2026-02-04 after v1.0 milestone*
+*Last updated: 2026-02-04 after v1.1 milestone start*
