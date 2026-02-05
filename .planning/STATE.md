@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 
 ## Current Position
 
-Phase: 9 of 14 (Component Variant Extensions)
-Plan: 09-03 of 3 in phase (complete)
-Status: Phase complete
-Last activity: 2026-02-05 - Completed 09-03-PLAN.md (Site Navigation System)
+Phase: 10 of 14 (Typography & Color System)
+Plan: 10-01 of 3 in phase (complete)
+Status: In progress
+Last activity: 2026-02-05 - Completed 10-01-PLAN.md (Font Integration & Type Scale)
 
-Progress: [████............................] 26% v1.1 (6/23 plans)
+Progress: [████▓...........................] 30% v1.1 (7/23 plans)
 
 ## Milestones
 
@@ -53,6 +53,10 @@ Progress: [████............................] 26% v1.1 (6/23 plans)
 - [09-03] SiteNav placed inside Providers in root layout (needs ThemeProvider and navigation context)
 - [09-03] Project detail back-to-projects link moved from header to content area after header removal
 - [09-03] Admin pages show public SiteNav (acceptable, admin has nested layout for override later)
+- [10-01] Fluid type scale uses 1.2x ratio across 400-1280px viewport range with CSS clamp()
+- [10-01] Lora variable font accessed via standard font-weight property (not font-variation-settings)
+- [10-01] Hero size (60-72px) exceeds standard scale for special emphasis
+- [10-01] Line height scales inversely with font size (larger = tighter)
 
 ### Research Flags
 
@@ -72,9 +76,9 @@ Progress: [████............................] 26% v1.1 (6/23 plans)
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 09-03-PLAN.md (Site Navigation System) - Phase 9 complete
+Stopped at: Completed 10-01-PLAN.md (Font Integration & Type Scale)
 Resume file: None
-Next action: Begin Phase 10 (Typography & Color Refinement)
+Next action: Continue Phase 10 (next plan: 10-02 Typography application)
 
 ## Deployment Info
 
