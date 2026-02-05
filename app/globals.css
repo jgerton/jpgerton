@@ -42,6 +42,36 @@
 
   /* ===== FONT FAMILY ===== */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), ui-serif, Georgia, serif;
+
+  /* ===== FLUID TYPOGRAPHY SCALE (1.2x ratio, 400-1280px viewport) ===== */
+  /* Hero H1: 60px mobile -> 72px desktop (special, larger than scale) */
+  --font-size-hero: clamp(3.75rem, 1.364vw + 3.409rem, 4.5rem);
+  /* H1: 40px -> 52px */
+  --font-size-h1: clamp(2.5rem, 1.364vw + 2.159rem, 3.25rem);
+  /* H2: 33px -> 43px */
+  --font-size-h2: clamp(2.063rem, 1.136vw + 1.778rem, 2.688rem);
+  /* H3: 28px -> 36px */
+  --font-size-h3: clamp(1.75rem, 0.909vw + 1.523rem, 2.25rem);
+  /* H4: 23px -> 30px (Inter, not Lora) */
+  --font-size-h4: clamp(1.438rem, 0.795vw + 1.239rem, 1.875rem);
+  /* H5: 19px -> 25px (Inter) */
+  --font-size-h5: clamp(1.188rem, 0.682vw + 1.017rem, 1.563rem);
+  /* H6: 16px -> 21px (Inter) */
+  --font-size-h6: clamp(1rem, 0.568vw + 0.858rem, 1.313rem);
+  /* Body base: 16px -> 18px */
+  --font-size-base: clamp(1rem, 0.227vw + 0.943rem, 1.125rem);
+  /* Small: 14px -> 16px */
+  --font-size-sm: clamp(0.875rem, 0.227vw + 0.818rem, 1rem);
+  /* Extra small: 12px -> 14px */
+  --font-size-xs: clamp(0.75rem, 0.227vw + 0.693rem, 0.875rem);
+
+  /* ===== LINE HEIGHT TOKENS ===== */
+  /* Scale inversely with font size: larger text needs tighter line height */
+  --leading-tight: 1.1;     /* H1, H2, hero headings */
+  --leading-snug: 1.25;     /* H3, H4 */
+  --leading-normal: 1.5;    /* Body text */
+  --leading-relaxed: 1.6;   /* Long-form content, prose */
 }
 
 /* Semantic color mappings - wraps CSS variables defined in @layer base */
