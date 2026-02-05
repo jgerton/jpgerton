@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 9 of 14 (Component Variant Extensions)
-Plan: 09-01 + 09-02 of 3 in phase (wave 1 complete)
-Status: In progress
-Last activity: 2026-02-05 - Completed 09-01-PLAN.md (Button & Card CVA Variants) + 09-02-PLAN.md (Badge Tech Variants)
+Plan: 09-03 of 3 in phase (complete)
+Status: Phase complete
+Last activity: 2026-02-05 - Completed 09-03-PLAN.md (Site Navigation System)
 
-Progress: [███.............................] 22% v1.1 (5/23 plans)
+Progress: [████............................] 26% v1.1 (6/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [███.............................] 22% v1.1 (5/23 plans)
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 5/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 6/23 plans complete
 
 ## Accumulated Context
 
@@ -50,6 +50,9 @@ Progress: [███.............................] 22% v1.1 (5/23 plans)
 - [09-01] Keep 'default' as backward-compatible alias for 'primary' in Button variants
 - [09-01] Card default elevation 'sm' matches previous styling for zero-change upgrade
 - [09-01] Gradient shimmer uses bg-position shift (not keyframe animation) for GPU-friendly CSS-only approach
+- [09-03] SiteNav placed inside Providers in root layout (needs ThemeProvider and navigation context)
+- [09-03] Project detail back-to-projects link moved from header to content area after header removal
+- [09-03] Admin pages show public SiteNav (acceptable, admin has nested layout for override later)
 
 ### Research Flags
 
@@ -69,9 +72,9 @@ Progress: [███.............................] 22% v1.1 (5/23 plans)
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 09-01-PLAN.md + 09-02-PLAN.md (parallel wave 1 of Phase 9)
+Stopped at: Completed 09-03-PLAN.md (Site Navigation System) - Phase 9 complete
 Resume file: None
-Next action: Execute 09-03-PLAN.md (wave 2, depends on 09-01 + 09-02)
+Next action: Begin Phase 10 (Typography & Color Refinement)
 
 ## Deployment Info
 
