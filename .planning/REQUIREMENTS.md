@@ -113,61 +113,61 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FNDTN-01 | Pending | Pending |
-| FNDTN-02 | Pending | Pending |
-| FNDTN-03 | Pending | Pending |
-| FNDTN-04 | Pending | Pending |
-| FNDTN-05 | Pending | Pending |
-| FNDTN-06 | Pending | Pending |
-| FNDTN-07 | Pending | Pending |
-| FNDTN-08 | Pending | Pending |
-| FNDTN-09 | Pending | Pending |
-| FNDTN-10 | Pending | Pending |
-| COMP-01 | Pending | Pending |
-| COMP-02 | Pending | Pending |
-| COMP-03 | Pending | Pending |
-| COMP-04 | Pending | Pending |
-| COMP-05 | Pending | Pending |
-| COMP-06 | Pending | Pending |
-| COMP-07 | Pending | Pending |
-| COMP-08 | Pending | Pending |
-| COMP-09 | Pending | Pending |
-| COMP-10 | Pending | Pending |
-| INTR-01 | Pending | Pending |
-| INTR-02 | Pending | Pending |
-| INTR-03 | Pending | Pending |
-| INTR-04 | Pending | Pending |
-| INTR-05 | Pending | Pending |
-| INTR-06 | Pending | Pending |
-| INTR-07 | Pending | Pending |
-| INTR-08 | Pending | Pending |
-| INTR-09 | Pending | Pending |
-| INTR-10 | Pending | Pending |
-| TRST-01 | Pending | Pending |
-| TRST-02 | Pending | Pending |
-| TRST-03 | Pending | Pending |
-| TRST-04 | Pending | Pending |
-| TRST-05 | Pending | Pending |
-| TRST-06 | Pending | Pending |
-| TRST-07 | Pending | Pending |
-| TRST-08 | Pending | Pending |
-| TRST-09 | Pending | Pending |
-| A11Y-01 | Pending | Pending |
-| A11Y-02 | Pending | Pending |
-| A11Y-03 | Pending | Pending |
-| A11Y-04 | Pending | Pending |
-| A11Y-05 | Pending | Pending |
-| A11Y-06 | Pending | Pending |
-| A11Y-07 | Pending | Pending |
-| A11Y-08 | Pending | Pending |
-| A11Y-09 | Pending | Pending |
-| A11Y-10 | Pending | Pending |
+| FNDTN-01 | Phase 8 | Pending |
+| FNDTN-02 | Phase 8 | Pending |
+| FNDTN-03 | Phase 10 | Pending |
+| FNDTN-04 | Phase 10 | Pending |
+| FNDTN-05 | Phase 10 | Pending |
+| FNDTN-06 | Phase 10 | Pending |
+| FNDTN-07 | Phase 8 | Pending |
+| FNDTN-08 | Phase 10 | Pending |
+| FNDTN-09 | Phase 10 | Pending |
+| FNDTN-10 | Phase 10 | Pending |
+| COMP-01 | Phase 9 | Pending |
+| COMP-02 | Phase 9 | Pending |
+| COMP-03 | Phase 9 | Pending |
+| COMP-04 | Phase 9 | Pending |
+| COMP-05 | Phase 9 | Pending |
+| COMP-06 | Phase 9 | Pending |
+| COMP-07 | Phase 11 | Pending |
+| COMP-08 | Phase 11 | Pending |
+| COMP-09 | Phase 11 | Pending |
+| COMP-10 | Phase 11 | Pending |
+| INTR-01 | Phase 12 | Pending |
+| INTR-02 | Phase 12 | Pending |
+| INTR-03 | Phase 12 | Pending |
+| INTR-04 | Phase 12 | Pending |
+| INTR-05 | Phase 12 | Pending |
+| INTR-06 | Phase 12 | Pending |
+| INTR-07 | Phase 12 | Pending |
+| INTR-08 | Phase 12 | Pending |
+| INTR-09 | Phase 12 | Pending |
+| INTR-10 | Phase 12 | Pending |
+| TRST-01 | Phase 13 | Pending |
+| TRST-02 | Phase 13 | Pending |
+| TRST-03 | Phase 13 | Pending |
+| TRST-04 | Phase 13 | Pending |
+| TRST-05 | Phase 11 | Pending |
+| TRST-06 | Phase 11 | Pending |
+| TRST-07 | Phase 11 | Pending |
+| TRST-08 | Phase 13 | Pending |
+| TRST-09 | Phase 11 | Pending |
+| A11Y-01 | Phase 14 | Pending |
+| A11Y-02 | Phase 14 | Pending |
+| A11Y-03 | Phase 14 | Pending |
+| A11Y-04 | Phase 14 | Pending |
+| A11Y-05 | Phase 14 | Pending |
+| A11Y-06 | Phase 14 | Pending |
+| A11Y-07 | Phase 14 | Pending |
+| A11Y-08 | Phase 14 | Pending |
+| A11Y-09 | Phase 14 | Pending |
+| A11Y-10 | Phase 14 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 49 total
-- Mapped to phases: 0 (pending roadmap creation)
-- Unmapped: 49
+- Mapped to phases: 49/49
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-02-04*
-*Last updated: 2026-02-04 after initial definition*
+*Last updated: 2026-02-04 after roadmap creation*
