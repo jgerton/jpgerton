@@ -8,3 +8,13 @@ export const { auth, signIn, signOut, store, isAuthenticated } = convexAuth({
     inactiveDurationMs: 7 * 24 * 60 * 60 * 1000, // 7 days idle timeout
   },
 });
+
+// Default export required by Convex
+export default {
+  providers: [
+    {
+      domain: process.env.CONVEX_SITE_URL,
+      applicationID: "convex",
+    },
+  ],
+};

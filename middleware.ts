@@ -1,34 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Routes that require authentication
-const protectedRoutes = ["/admin"];
-
+/**
+ * Middleware for route handling.
+ *
+ * Note: Convex Auth stores tokens in localStorage (client-side), not cookies.
+ * Actual auth protection happens in the admin layout component using useConvexAuth().
+ * This middleware just handles basic routing.
+ */
 export default function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
-
-  // Check if the path is protected (starts with /admin)
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    pathname.startsWith(route)
-  );
-
-  // Check for auth session cookie
-  // Convex Auth stores the session in a cookie named "__convexAuthToken"
-  const authToken = request.cookies.get("__convexAuthToken");
-  const hasValidSession = !!authToken;
-
-  // If trying to access protected route without auth, redirect to login
-  if (isProtectedRoute && !hasValidSession) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirectTo", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  // If authenticated user visits login page, redirect to admin
-  if (pathname === "/login" && hasValidSession) {
-    return NextResponse.redirect(new URL("/admin", request.url));
-  }
-
-  // Allow all other requests to proceed
+  // Let all requests through - auth is handled client-side by Convex Auth
   return NextResponse.next();
 }
 
