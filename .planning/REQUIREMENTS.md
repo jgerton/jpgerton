@@ -35,16 +35,16 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 
 ### Interactions
 
-- [ ] **INTR-01**: Hover states on all interactive elements (buttons, links, cards, images)
-- [ ] **INTR-02**: Button micro-animations (press/release states, loading indicators)
-- [ ] **INTR-03**: Card hover effects (lift via scale transform, border highlight, shadow elevation)
-- [ ] **INTR-04**: Link hover states (underline transitions, color shifts)
-- [ ] **INTR-05**: Form feedback animations (validation states, error shake, success confirmation)
-- [ ] **INTR-06**: Scroll-triggered entrance animations (fade-in-up on viewport entry)
-- [ ] **INTR-07**: CSS keyframe animations defined in @theme (fade-in, fade-in-up, slide-in)
-- [ ] **INTR-08**: Animation duration tokens enforced (150ms micro, 300ms standard, 500ms complex)
-- [ ] **INTR-09**: GPU-accelerated properties only (transform, opacity) for all animations
-- [ ] **INTR-10**: prefers-reduced-motion support (disable animations for sensitive users)
+- [x] **INTR-01**: Hover states on all interactive elements (buttons, links, cards, images)
+- [x] **INTR-02**: Button micro-animations (press/release states, loading indicators)
+- [x] **INTR-03**: Card hover effects (lift via scale transform, border highlight, shadow elevation)
+- [x] **INTR-04**: Link hover states (underline transitions, color shifts)
+- [x] **INTR-05**: Form feedback animations (validation states, error shake, success confirmation)
+- [x] **INTR-06**: Scroll-triggered entrance animations (fade-in-up on viewport entry)
+- [x] **INTR-07**: CSS keyframe animations defined in @theme (fade-in, fade-in-up, slide-in)
+- [x] **INTR-08**: Animation duration tokens enforced (150ms micro, 300ms standard, 500ms complex)
+- [x] **INTR-09**: GPU-accelerated properties only (transform, opacity) for all animations
+- [x] **INTR-10**: prefers-reduced-motion support (disable animations for sensitive users)
 
 ### Trust Signals
 
@@ -115,43 +115,43 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FNDTN-01 | Phase 8 | Complete |
 | FNDTN-02 | Phase 8 | Complete |
-| FNDTN-03 | Phase 10 | Pending |
-| FNDTN-04 | Phase 10 | Pending |
-| FNDTN-05 | Phase 10 | Pending |
-| FNDTN-06 | Phase 10 | Pending |
+| FNDTN-03 | Phase 10 | Complete |
+| FNDTN-04 | Phase 10 | Complete |
+| FNDTN-05 | Phase 10 | Complete |
+| FNDTN-06 | Phase 10 | Complete |
 | FNDTN-07 | Phase 8 | Complete |
-| FNDTN-08 | Phase 10 | Pending |
-| FNDTN-09 | Phase 10 | Pending |
-| FNDTN-10 | Phase 10 | Pending |
+| FNDTN-08 | Phase 10 | Complete |
+| FNDTN-09 | Phase 10 | Complete |
+| FNDTN-10 | Phase 10 | Complete |
 | COMP-01 | Phase 9 | Complete |
 | COMP-02 | Phase 9 | Complete |
 | COMP-03 | Phase 9 | Complete |
 | COMP-04 | Phase 9 | Complete |
 | COMP-05 | Phase 9 | Complete |
 | COMP-06 | Phase 9 | Complete |
-| COMP-07 | Phase 11 | Pending |
-| COMP-08 | Phase 11 | Pending |
-| COMP-09 | Phase 11 | Pending |
-| COMP-10 | Phase 11 | Pending |
-| INTR-01 | Phase 12 | Pending |
-| INTR-02 | Phase 12 | Pending |
-| INTR-03 | Phase 12 | Pending |
-| INTR-04 | Phase 12 | Pending |
-| INTR-05 | Phase 12 | Pending |
-| INTR-06 | Phase 12 | Pending |
-| INTR-07 | Phase 12 | Pending |
-| INTR-08 | Phase 12 | Pending |
-| INTR-09 | Phase 12 | Pending |
-| INTR-10 | Phase 12 | Pending |
+| COMP-07 | Phase 11 | Complete |
+| COMP-08 | Phase 11 | Complete |
+| COMP-09 | Phase 11 | Complete |
+| COMP-10 | Phase 11 | Complete |
+| INTR-01 | Phase 12 | Complete |
+| INTR-02 | Phase 12 | Complete |
+| INTR-03 | Phase 12 | Complete |
+| INTR-04 | Phase 12 | Complete |
+| INTR-05 | Phase 12 | Complete |
+| INTR-06 | Phase 12 | Complete |
+| INTR-07 | Phase 12 | Complete |
+| INTR-08 | Phase 12 | Complete |
+| INTR-09 | Phase 12 | Complete |
+| INTR-10 | Phase 12 | Complete |
 | TRST-01 | Phase 13 | Pending |
 | TRST-02 | Phase 13 | Pending |
 | TRST-03 | Phase 13 | Pending |
 | TRST-04 | Phase 13 | Pending |
-| TRST-05 | Phase 11 | Pending |
-| TRST-06 | Phase 11 | Pending |
-| TRST-07 | Phase 11 | Pending |
+| TRST-05 | Phase 11 | Complete |
+| TRST-06 | Phase 11 | Complete |
+| TRST-07 | Phase 11 | Complete |
 | TRST-08 | Phase 13 | Pending |
-| TRST-09 | Phase 11 | Pending |
+| TRST-09 | Phase 11 | Complete |
 | A11Y-01 | Phase 14 | Pending |
 | A11Y-02 | Phase 14 | Pending |
 | A11Y-03 | Phase 14 | Pending |
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-04*
-*Last updated: 2026-02-04 after roadmap creation*
+*Last updated: 2026-02-05 (Phase 12 complete)*
