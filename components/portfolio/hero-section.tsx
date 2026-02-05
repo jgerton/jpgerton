@@ -4,10 +4,10 @@ import Link from "next/link";
 export function HeroSection() {
   return (
     <section className="py-3xl px-md text-center">
-      <h1 className="text-4xl md:text-5xl font-bold mb-md text-foreground">
+      <h1 className="font-serif font-semibold text-hero leading-tight mb-md text-foreground">
         Professional WordPress Sites from $500
       </h1>
-      <p className="text-lg md:text-xl text-muted-foreground mb-xl max-w-2xl mx-auto">
+      <p className="font-serif italic text-h5 leading-snug text-muted-foreground mb-xl max-w-2xl mx-auto">
         Fast, mobile-friendly websites for local businesses. Custom development also available.
       </p>
       <div className="flex flex-col sm:flex-row gap-md justify-center">

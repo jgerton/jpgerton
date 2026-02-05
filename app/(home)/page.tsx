@@ -17,7 +17,7 @@ export default function HomePage() {
       {/* Projects Showcase */}
       <section className="py-3xl px-md bg-muted/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-xs text-center">Recent Projects</h2>
+          <h2 className="font-serif font-medium text-h2 leading-tight mb-xs text-center">Recent Projects</h2>
           <p className="text-muted-foreground text-center mb-xl">
             A selection of indie projects showcasing my work
           </p>
