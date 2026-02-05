@@ -192,12 +192,12 @@ Plans:
   3. Case study visual format component presents problem, solution, and results with metrics in a scannable layout
   4. Social proof display component shows metrics callouts (projects completed, years experience, technologies) near conversion points
   5. All composed components use the same card style, button hierarchy, and spacing tokens, creating a consistent component language across the site
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 11-01: Build ProjectCardEnhanced, HeroSection, and CTAButton composition components
-- [ ] 11-02: Build TestimonialCard and case study visual format components
-- [ ] 11-03: Build SocialProofDisplay and verify consistent component language across compositions
+- [ ] 11-01-PLAN.md - Build ProjectCardEnhanced, CTAButton, and enhance HeroSection with brand personality
+- [ ] 11-02-PLAN.md - Build TestimonialCard and CaseStudyVisual trust signal components
+- [ ] 11-03-PLAN.md - Build SocialProofDisplay and create barrel export with consistency verification
 
 ### Phase 12: Animation Integration
 
@@ -298,4 +298,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-05 (Phase 10 complete)*
+*Last updated: 2026-02-05 (Phase 11 planned)*
