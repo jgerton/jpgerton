@@ -1,71 +1,66 @@
-# Jon Gerton - Full-Stack Developer & Technical Consultant
+# Jon Gerton's Web Development Services
 
-> 27 years in tech: from sys/network admin to agency developer to solo founder. Builds production applications and mentors the next generation of developers.
+This website serves as a platform for Jon Gerton, a web developer based in Alaska, offering professional website development services tailored to local businesses and startups. The site features options for both affordable WordPress sites and custom web applications, prioritizing clarity, fixed pricing, and ongoing support.
 
-## Background
+## About Jon
 
-Started in tech in 1998 as a Systems/Network Administrator for a regional airline, managing production infrastructure where uptime mattered. Transitioned to full-stack development in 2007 after recognizing software was the better fit for my skill set.
+Jon shares his background as a web developer and advocate for small businesses, highlighting his transition from network administration to full-stack development. He focuses on creating meaningful websites that cater to the specific needs of businesses, helping them succeed online.
 
-Spent 13 years (2007-2020) at three software development agencies, shipping projects across dozens of industries and tech stacks. When COVID hit and AI-assisted development started advancing rapidly, made the intentional move to solo founder - building an agency with a vision to mentor junior developers into sustainable career paths.
-
-## Technical Expertise
-
-**Primary Stack:**
-- Frontend: React, Next.js, TypeScript, Tailwind CSS
-- Backend: Node.js, Convex, PostgreSQL, REST/GraphQL APIs
-- Infrastructure: Vercel, Docker, CI/CD pipelines, Linux administration
-- Testing: TDD practices, automated testing, code review
-
-**Additional Experience:**
-- Python, workflow orchestration (Temporal)
-- OAuth/authentication systems
-- Performance optimization
-- Network and systems administration (legacy but foundational)
+### Key Points:
+- **Background:** Over 27 years in tech, with 18+ years in web development.
+- **Approach:** Emphasizes simplicity and understanding, avoiding technical jargon.
+- **Support:** Ongoing assistance post-launch, ensuring clients feel supported.
 
 ## Services
 
-### $500 WordPress Sites
-Fixed-price websites for local businesses needing a professional online presence quickly.
-- 5 business day delivery
-- Mobile-responsive, SEO-ready
-- Contact forms, Google Maps integration
-- 30 days post-launch support
-- Ideal for: restaurants, contractors, local service businesses
+This section outlines the various services offered, from affordable WordPress sites to advanced custom web applications. Each service is designed to meet the unique needs of different clients.
 
-### Custom Web Applications
-Full-stack development for businesses with unique requirements.
-- Modern architecture (React, Next.js, serverless)
-- Database design and API integration
-- User authentication and role-based access
-- Real-time features when needed
-- Scalable infrastructure
-- Ongoing maintenance available
+### Options:
+- **$500 WordPress Sites**
+  - Ideal for local businesses wanting to establish an online presence quickly.
+  - Features responsive design, contact forms, basic SEO, and more.
+  
+- **Custom Web Applications**
+  - Tailored solutions with modern technologies and scalability in mind.
+  - Includes user authentication, database design, and ongoing maintenance.
 
-### Team Growth Accelerator
-Technical mentorship and training for engineering teams, informed by 12 years of agency team dynamics and watching developers succeed (and struggle).
-- Code review and architecture guidance
-- Testing and CI/CD implementation
-- Modern development best practices
-- Career path development for junior/mid developers
-- Workshop or ongoing engagement formats
-- Remote or on-site
-
-## Philosophy
-
-Meeting people where they are. A local pizza shop needs a clean site that shows up on Google, not a React app. A growing startup needs architecture that won't require a rewrite in two years. Different problems deserve different solutions.
-
-Building an agency with intention - not just taking clients, but creating a path for junior developers to grow into their careers with real mentorship and production experience.
+- **Team Growth Accelerator**
+  - Focuses on mentoring development teams with personalized training.
 
 ## Contact
 
-- Website: https://jongerton.com
-- Book a call: https://calendly.com/jongerton/discovery-call
-- GitHub: https://github.com/jgerton
-- LinkedIn: https://www.linkedin.com/in/jon-gerton-8009a9393/
+Jon aims to collaborate on web projects and invites potential clients to share their ideas. Options include sending a message through a form or scheduling a discovery call for quick inquiries.
 
-## Links
+### Contact Methods:
+- **Email:** [jon@jpgerton.com](mailto:jon@jpgerton.com)
+- **GitHub:** [@jgerton](https://github.com/jgerton)
+- **LinkedIn:** [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
-- [Services & Pricing](/services)
-- [Portfolio](/projects)
-- [About](/about)
-- [Contact](/contact)
+## Frequently Asked Questions
+
+A brief FAQ section addresses common queries related to the services, delivery timelines, and how to maintain websites after development.
+
+### Common Questions:
+- **Delivery Time:** $500 WordPress sites are typically delivered within 5 business days.
+- **Revisions:** One round of revisions is included; additional changes may incur a fee.
+- **Accessibility:** Services are available for clients across the US, despite being based in Alaska.
+
+## Recent Projects
+
+This section showcases a selection of recent projects completed by Jon, illustrating the quality and variety of his work.
+
+### Explore More:
+You can view more about Jon's work through the [Portfolio](https://jpgerton.com/projects).
+
+## Thank You Page
+
+The site also includes a friendly acknowledgment for messages submitted via the contact form, outlining what to expect next in the communication process.
+
+### Next Steps:
+1. **Review:** Jon will review project details.
+2. **Response:** Clients will receive a follow-up email.
+3. **Discussion:** A call may be scheduled to discuss projects in detail.
+
+---
+
+This overview captures the essential aspects of Jon Gerton's web development services, providing insights into his approach, offerings, and ways to connect.
