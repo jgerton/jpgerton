@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site-config";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { WebVitals } from "@/components/analytics/web-vitals";
+import { SiteNav } from "@/components/navigation/site-nav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,7 +66,10 @@ export default function RootLayout({
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <WebVitals />
-        <Providers>{children}</Providers>
+        <Providers>
+          <SiteNav />
+          {children}
+        </Providers>
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

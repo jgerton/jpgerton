@@ -4,7 +4,6 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { HeroSection } from "@/components/portfolio/hero-section";
 import { ProjectGrid } from "@/components/portfolio/project-grid";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { LocalBusinessSchema } from "@/components/schema";
 
 export default function HomePage() {
@@ -12,11 +11,6 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Header with theme toggle */}
-      <header className="fixed top-0 right-0 p-md z-50">
-        <ThemeToggle />
-      </header>
-
       {/* Hero Section */}
       <HeroSection />
 

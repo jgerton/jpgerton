@@ -5,7 +5,6 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/theme-toggle";
 import Link from "next/link";
 import { ExternalLink, Github, ArrowLeft } from "lucide-react";
 
@@ -72,23 +71,17 @@ export default async function ProjectDetailPage({
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b">
-        <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
+      {/* Content */}
+      <div className="py-2xl px-md">
+        <div className="max-w-4xl mx-auto">
+          {/* Back navigation */}
           <Link
             href="/projects"
-            className="flex items-center gap-xs text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-xs text-muted-foreground hover:text-foreground transition-colors mb-lg"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Projects
           </Link>
-          <ThemeToggle />
-        </div>
-      </header>
-
-      {/* Content */}
-      <div className="py-2xl px-md">
-        <div className="max-w-4xl mx-auto">
           {/* Hero Image */}
           {project.screenshotUrl && (
             <div className="relative aspect-video mb-xl rounded-lg overflow-hidden shadow-lg">

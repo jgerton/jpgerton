@@ -4,10 +4,8 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ProjectGrid } from "@/components/portfolio/project-grid";
 import { ProjectFilters } from "@/components/portfolio/project-filters";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { useMemo, Suspense } from "react";
-import Link from "next/link";
 
 function ProjectsContent() {
   const allProjects = useQuery(api.projects.list);
@@ -55,16 +53,6 @@ function ProjectsContent() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b">
-        <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-            Jon Gerton
-          </Link>
-          <ThemeToggle />
-        </div>
-      </header>
-
       {/* Content */}
       <div className="py-2xl px-md">
         <div className="max-w-7xl mx-auto">
@@ -89,14 +77,6 @@ export default function ProjectsPage() {
   return (
     <Suspense fallback={
       <main className="min-h-screen bg-background">
-        <header className="border-b">
-          <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
-            <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-              Jon Gerton
-            </Link>
-            <ThemeToggle />
-          </div>
-        </header>
         <div className="py-2xl px-md">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl font-bold mb-xs">All Projects</h1>
