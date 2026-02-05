@@ -1,79 +1,52 @@
 # Jon Gerton - Web Developer
 
-Jon Gerton is a web developer based in Alaska, dedicated to helping local businesses establish a robust online presence. With a focus on **affordable WordPress sites** and **custom web applications**, he aims to provide tailored solutions that meet the unique needs of each client. Jon's extensive experience and commitment to clear communication make him a valuable partner for businesses looking to grow in the digital space.
+Jon Gerton is a web developer based in Alaska, specializing in building professional websites for local businesses. He focuses on bridging the gap between complex web development and the actual needs of small businesses. Offering affordable solutions, Jon aims to support clients in establishing an online presence that drives growth.
 
-## About
+## About Jon
 
-This page highlights Jon's background and approach to web development. After transitioning from a career in systems/network administration to software development, Jon has spent over a decade delivering projects across various industries. His mission is to bridge the gap between advanced tech and the essential web solutions needed by local businesses.
+Jon's background includes over 27 years in technology and more than 18 years in web development. He transitioned from a Systems/Network Administrator to a full-stack developer and eventually became a solo founder dedicated to mentoring junior developers. His approach emphasizes meeting clients where they are, providing solutions that cater to their specific needs.
 
-- **Experience:** 27 years in tech, over 18 in web development.
-- **Philosophy:** Solutions should meet the client's specific needs, whether it's a simple website or a complex application.
-- **Ongoing Support:** Jon ensures that clients receive help even after project completion.
-
-### Links
-- [View My Work](/projects)
+### Key Highlights
+- **Experience:** 27 years in tech, with 18+ years in web development.
+- **Approach:** Simple, effective solutions tailored to client needs.
+- **Support:** Ongoing assistance post-launch.
 
 ## Services
 
-This page outlines the range of services offered by Jon Gerton. He specializes in:
+Jon offers a variety of services tailored for both local businesses and companies with unique requirements. His offerings include:
 
 ### $500 WordPress Sites
-Perfect for local businesses needing a quick, professional web presence.
-
-- Fast turnarounds (5 business days)
-- Mobile-friendly, SEO-optimized designs
-- One round of revisions included
-- Ongoing support after launch
+- Fast and mobile-friendly websites for local businesses.
+- Standard delivery of 5-7 page sites within 5 business days.
+- Includes basic SEO, a contact form, and one round of revisions.
+- 30 days of post-launch support.
 
 ### Custom Web Applications
-For businesses needing tailored solutions.
-
-- Built on a modern tech stack (React, Next.js, Node)
-- Custom features and scalable architecture
-- Comprehensive training and documentation
+- Tailored solutions for businesses with specific needs.
+- Pricing dependent on project scope, with features such as custom development and scalable architecture.
 
 ### Team Growth Accelerator
-Support for engineering teams looking to enhance their skills.
+- Mentorship and guidance for development teams to improve efficiency and skillsets.
 
-- Mentorship, code reviews, and performance optimization
-- Flexibility in working arrangements (remote/on-site)
+## Contact Jon
 
-### Frequently Asked Questions
-- Typical turnaround for WordPress sites is 5 business days.
-- Offers ongoing maintenance and training for WordPress users.
+Jon is eager to connect with clients to discuss potential projects. Interested parties can reach out through various methods:
 
-### Links
-- [Get Your $500 Site](/services)
-- [Schedule a Free Consultation](/contact)
+### Send a Message
+- Fill out a contact form with project details.
+  
+### Schedule a Call
+- Book a free 15-minute discovery call for immediate inquiries.
 
-## Contact
+### Connect via Email or Social Media
+- Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+- GitHub: [@jgerton](https://github.com/jgerton)
+- LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
-This page serves as a point of contact for potential clients. Jon encourages visitors to reach out to discuss upcoming projects or to schedule a consultation.
+## FAQs
 
-- **Message Form:** Visitors can send details about their project and expect a response within 1 business day.
-- **Schedule a Call:** Quick 15-minute calls available for immediate inquiries.
-- **Contact Options:**
-  - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
-  - GitHub: [@jgerton](https://github.com/jgerton)
-  - LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+Jon addresses common questions regarding his services, such as delivery timelines, website updates, and options for clients located outside Alaska.
 
-### Links
-- [View My Portfolio](/projects)
+## Ready to Get Started?
 
-## Home
-
-This page provides an overview of Jon Gerton’s offerings, featuring a emphasis on affordable, fast, and mobile-friendly website solutions for local businesses. It includes links to his portfolio and services.
-
-### Links
-- [View Portfolio](/projects)
-
-## Thanks for Reaching Out!
-
-This is a confirmation page for users who have sent a message through the contact form. It outlines the next steps in the communication process.
-
-1. Review project details.
-2. Respond with next steps or questions.
-3. Schedule a discussion if necessary.
-
-### Links
-- [View My Portfolio](/projects)
+To discuss your project or inquire about services, Jon invites you to book a consultation or reach out via the contact options provided.
