@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 11 of 14 (Composition Components)
-Plan: 11-01 of 3 in phase (complete)
+Plan: 11-02 of 3 in phase (complete)
 Status: In progress
-Last activity: 2026-02-05 - Completed 11-01-PLAN.md (CTAButton & ProjectCardEnhanced)
+Last activity: 2026-02-05 - Completed 11-02-PLAN.md (Testimonial & Case Study Components)
 
-Progress: [█████████████...................] 57% v1.1 (13/23 plans)
+Progress: [█████████████...................] 61% v1.1 (14/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [█████████████...................] 57% v1.1 
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 13/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 14/23 plans complete
 
 ## Accumulated Context
 
@@ -68,6 +68,10 @@ Progress: [█████████████...................] 57% v1.1 
 - [11-01] ProjectCardEnhanced avoids CardTitle component to allow fluid type tokens
 - [11-01] Warm accent color (bg-accent-warm) adds brand personality to primary CTAs
 - [11-01] Image hover zoom uses GPU-optimized transform with ease-smooth transition
+- [11-02] TestimonialCard uses semantic HTML (figure/blockquote/figcaption/cite) for accessibility
+- [11-02] Badge color-coding for CaseStudyVisual: destructive=Challenge, secondary=Approach, default=Impact
+- [11-02] Avatar sizing h-12 w-12 (larger than default) for professional testimonial presentation
+- [11-02] Border-left accent (border-l-4 border-primary) provides visual emphasis without GPU properties
 
 ### Research Flags
 
@@ -87,7 +91,7 @@ Progress: [█████████████...................] 57% v1.1 
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 11-01-PLAN.md (CTAButton & ProjectCardEnhanced composition components)
+Stopped at: Completed 11-02-PLAN.md (TestimonialCard & CaseStudyVisual composition components)
 Resume file: None
 Next action: Proceed to 11-02 (TestimonialCard, MetricsDisplay) or Phase 12 (Animation Integration) - both are parallel-eligible
 
