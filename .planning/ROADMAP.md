@@ -156,12 +156,12 @@ Plans:
   3. Badge component renders tech stack tags with refined styling that matches the brand color palette
   4. Form inputs, labels, and validation states render with consistent spacing, visible focus rings, and error/success visual feedback
   5. Navigation component handles mobile hamburger and desktop layout with proper sticky behavior and smooth transitions
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 09-01: Extend Button component with hierarchy variants (gradient, outline) and xl size via CVA
-- [ ] 09-02: Add Card elevation system (flat/sm/md/lg) with CVA variants
-- [ ] 09-03: Refine Badge, Form, and Navigation component styling
+- [ ] 09-01-PLAN.md - Extend Button and Card with CVA hierarchy variants and elevation system
+- [ ] 09-02-PLAN.md - Refine Badge with tech stack categories and Form/Input with validation states
+- [ ] 09-03-PLAN.md - Build unified site navigation with sticky header, backdrop blur, and mobile menu
 
 ### Phase 10: Typography & Color System
 
