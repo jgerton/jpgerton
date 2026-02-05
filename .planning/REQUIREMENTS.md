@@ -203,10 +203,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | WPDEL-04    | Phase 6 | Complete |
 | WPDEL-05    | Phase 6 | Complete |
 | WPDEL-06    | Phase 6 | Complete |
-| BIZPROT-01  | Phase 7 | Pending |
-| BIZPROT-02  | Phase 7 | Pending |
-| BIZPROT-03  | Phase 7 | Pending |
-| BIZPROT-04  | Phase 7 | Pending |
+| BIZPROT-01  | Phase 7 | Complete |
+| BIZPROT-02  | Phase 7 | Complete |
+| BIZPROT-03  | Phase 7 | Complete |
+| BIZPROT-04  | Phase 7 | Complete |
 
 **Coverage:**
 
