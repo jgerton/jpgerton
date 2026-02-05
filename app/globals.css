@@ -67,6 +67,23 @@
   /* Extra small: 12px -> 14px */
   --font-size-xs: clamp(0.75rem, 0.227vw + 0.693rem, 0.875rem);
 
+  /* ===== MAX-WIDTH CONTAINER SCALE =====
+   * Restores Tailwind v4 default container widths that are
+   * overridden by --spacing-* tokens sharing the same names.
+   * Without these, max-w-2xl resolves to 48px (--spacing-2xl)
+   * instead of 42rem (672px). */
+  --max-width-xs: 20rem;
+  --max-width-sm: 24rem;
+  --max-width-md: 28rem;
+  --max-width-lg: 32rem;
+  --max-width-xl: 36rem;
+  --max-width-2xl: 42rem;
+  --max-width-3xl: 48rem;
+  --max-width-4xl: 56rem;
+  --max-width-5xl: 64rem;
+  --max-width-6xl: 72rem;
+  --max-width-7xl: 80rem;
+
   /* ===== LINE HEIGHT TOKENS ===== */
   /* Scale inversely with font size: larger text needs tighter line height */
   --leading-tight: 1.1;     /* H1, H2, hero headings */

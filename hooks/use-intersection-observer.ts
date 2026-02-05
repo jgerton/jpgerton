@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export interface UseIntersectionObserverOptions {
   /** Percentage of element visible before triggering (default: 0.1) */
@@ -12,6 +12,9 @@ export interface UseIntersectionObserverOptions {
 /**
  * Custom hook to detect when an element enters the viewport using the Intersection Observer API.
  *
+ * Uses a callback ref pattern so the observer is correctly created even when the
+ * target element mounts after initial render (e.g., after a loading state resolves).
+ *
  * Respects `prefers-reduced-motion` by immediately marking elements as visible when the user
  * has requested reduced motion, preventing animation delays.
  *
@@ -19,41 +22,28 @@ export interface UseIntersectionObserverOptions {
  * @param options.threshold - Percentage of element visible before triggering (default: 0.1)
  * @param options.rootMargin - Margin around viewport for early trigger (default: "50px")
  * @param options.triggerOnce - Only animate once per element (default: true)
- * @returns Object containing elementRef to attach to target element and isVisible state
- *
- * @example
- * ```tsx
- * const { elementRef, isVisible } = useIntersectionObserver<HTMLDivElement>();
- *
- * return (
- *   <div
- *     ref={elementRef}
- *     className={cn(
- *       "opacity-0 translate-y-5 transition-all duration-300",
- *       isVisible && "opacity-100 translate-y-0"
- *     )}
- *   >
- *     Content that animates in
- *   </div>
- * );
- * ```
+ * @returns Object containing elementRef callback to attach to target element and isVisible state
  */
 export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
   options: UseIntersectionObserverOptions = {}
-): { elementRef: React.RefObject<T | null>; isVisible: boolean } {
+): { elementRef: (node: T | null) => void; isVisible: boolean } {
   const { threshold = 0.1, rootMargin = "50px", triggerOnce = true } = options;
 
-  const elementRef = useRef<T | null>(null);
+  const [element, setElement] = useState<T | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Callback ref: fires whenever the DOM node mounts/unmounts
+  const elementRef = useCallback((node: T | null) => {
+    setElement(node);
+  }, []);
 
   useEffect(() => {
     // Check if user prefers reduced motion
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setIsVisible(true);
       return;
     }
 
-    const element = elementRef.current;
     if (!element) return;
 
     const observer = new IntersectionObserver(
@@ -61,7 +51,6 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
         if (entry.isIntersecting) {
           setIsVisible(true);
 
-          // If triggerOnce is true, stop observing after first trigger
           if (triggerOnce) {
             observer.unobserve(element);
           }
@@ -78,7 +67,7 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
     return () => {
       observer.disconnect();
     };
-  }, [threshold, rootMargin, triggerOnce]);
+  }, [element, threshold, rootMargin, triggerOnce]);
 
   return { elementRef, isVisible };
 }
