@@ -1,331 +1,513 @@
 # Project Research Summary
 
-**Project:** jpgerton.com
-**Domain:** Developer Portfolio + $500 WordPress Service Business
-**Researched:** 2026-02-03
+**Project:** jpgerton.com v1.1 Design Polish
+**Domain:** Portfolio/Agency Site Design Enhancement (Next.js + Tailwind v4 + shadcn/ui)
+**Researched:** 2026-02-04
 **Confidence:** HIGH
 
 ## Executive Summary
 
-jpgerton.com is a dual-purpose platform serving two distinct audiences: local business owners seeking affordable WordPress sites ($500 package) and hiring managers/custom clients looking for technical expertise. The winning approach combines Next.js 14 with Convex backend for the portfolio site, delivering optimal SEO performance through server-first rendering while maintaining admin flexibility through reactive client components. Research shows 72% of tech hiring managers prioritize portfolios over resumes, while local business clients respond to clear pricing and social proof, making audience-specific CTAs and content depth critical to conversion.
+The v1.0 site is functionally complete with excellent performance (100/96/100 Lighthouse, sub-3s load) and comprehensive features. However, it suffers from "generic template" syndrome - the visual design doesn't differentiate from default shadcn/ui implementations. For someone selling web design services to local businesses AND showcasing technical skills to hiring managers, this is a credibility gap.
 
-The recommended build order prioritizes foundation over features: ship a minimal portfolio with 5-6 projects, services page, and Calendly integration first (Phase 1), then establish WordPress delivery infrastructure with starter template and documented workflows before taking first client (Phase 2), and finally layer admin dashboard and differentiation features (Phase 3+). This sequence avoids the critical pitfall of over-engineering at day zero, while ensuring payment protection and scope control processes are in place before revenue operations begin.
+The research reveals a clear path forward: systematic design polish through five architectural layers (design tokens, semantic theming, component variants, composition, and page integration) using Tailwind v4's CSS-first @theme system combined with shadcn/ui's semantic variable pattern. The key insight is that professional polish comes from consistent spacing rhythms, intentional typography hierarchy, and purposeful micro-interactions - not from adding complex animations or breaking from the proven component system.
 
-Key risks include scope creep on fixed-price WordPress projects (mitigate with 50% upfront deposit requirement and documented change control process), mobile-first design failures (test on actual devices, target 90+ Lighthouse mobile score), and unclear CTAs that bury conversion paths (use service-specific "Book Your $500 Site Call" instead of generic "Contact Me"). The stack choices emphasize proven stability (Next.js 14, React 18, Tailwind 3) over bleeding-edge adoption, with clear upgrade paths documented when ecosystem maturity warrants migration.
+The critical risk is the "cobbler's children" paradox: making design changes that tank the existing excellent performance or break accessibility. 83.6% of websites fail WCAG color contrast, and animation-heavy "polish" routinely drops sites from 100 to sub-70 performance scores. The winning approach: CSS-only animations using GPU-accelerated properties (transform, opacity), systematic design token application, and maintaining the Server Component-first architecture. Add personality through brand color prominence (corporate-blue, tech-blue, turquoise), typography weight variation, and custom visual elements - not through JavaScript-heavy animation libraries.
 
 ## Key Findings
 
-### Recommended Stack
+### Recommended Stack (from STACK.md)
 
-The research strongly recommends Next.js 14 App Router with Convex backend as the optimal balance of developer experience, performance, and scalability. This combination eliminates traditional API layer complexity while providing end-to-end type safety and real-time reactivity where needed. For WordPress delivery, Local by WP provides the fastest local development setup for solo freelancers, with Elementor Pro + Gutenberg hybrid approach balancing design flexibility against performance for $500 client sites.
+**Core Enhancement Libraries:**
+- **framer-motion** (^12.31.0) - Industry standard for React animations, 12M+ downloads, GPU-accelerated, declarative API for portfolio showcases
+- **Lora (Variable)** - Warm serif for headlines paired with existing Inter for body text, creates "approachable professional" feel
+- **@phosphor-icons/react** (^2.1.7) - Strategic accent icons with 6 weight variations to complement Lucide React
 
-**Core technologies:**
+**Already Validated Stack (Maintain):**
+- Tailwind CSS v4 (4.1.18) - CSS-first @theme directive, container queries, @property support
+- shadcn/ui (13 components) - Accessible primitives on Radix UI, CVA variants for type safety
+- next-themes (0.4.6) - Dark mode with .dark class integration, system preference support
+- tailwindcss-animate (1.0.7) - Lightweight utility animations for simple effects
+- class-variance-authority (0.7.1) - Type-safe component variant composition
 
-- **Next.js 14 + React 18:** App Router provides stable RSC support, excellent DX, Vercel deployment integration. Defer Next.js 15 / React 19 upgrade until features are needed.
-- **Convex:** Backend-as-a-Service with real-time reactivity, end-to-end type safety, built-in auth integration. Eliminates need for separate database + ORM + API layer setup.
-- **Tailwind CSS 3.4.x:** Industry standard utility-first CSS. Stick with v3 for broader browser compatibility (v4 requires Safari 16.4+, Chrome 111+, Firefox 128+).
-- **shadcn/ui:** Radix UI primitives with Tailwind styling. Copy-paste architecture avoids package bloat, 1000+ components available with excellent dark mode support.
-- **React Hook Form + Zod:** Current ecosystem standard for form handling. Minimal re-renders, type-safe validation shared between client and server.
-- **next-aeo:** Generates llms.txt file for AI discoverability (ChatGPT, Perplexity, Google AI Overviews). Critical for 2026 as Gartner predicts 25% search volume shift to AI by 2026.
-- **Local by WP:** Best local WordPress environment for solo developers. Fast setup, native SSL, GUI management. Each site gets isolated container.
-- **Elementor Pro + Gutenberg:** Hybrid approach balances speed (Gutenberg for content) with client expectations (Elementor for custom landing pages).
+**Key Stack Patterns:**
+- Micro-interactions via Framer Motion whileHover/whileTap (GPU-accelerated)
+- Page transitions via template.tsx (App Router workaround)
+- Scroll animations via whileInView with Intersection Observer
+- Typography hierarchy via CVA: h1/h2 use Lora (warm), h3+ use Inter (professional)
+- Icon strategy: Lucide for UI (90%), Phosphor duotone for visual accents (10%)
 
-### Expected Features
+**Installation Required:**
+```bash
+bun add framer-motion
+# Lora via Next.js font loader (no install)
+bun add @phosphor-icons/react
+```
 
-Research shows distinct feature priorities for the dual-audience model. Local business clients prioritize clear pricing, booking friction reduction, and social proof, while hiring managers need technical depth, live projects, and GitHub integration. The shared foundation requires mobile responsiveness, fast load times (< 3s), and professional domain.
+### Expected Features (from FEATURES.md)
 
-**Must have (table stakes):**
+**Table Stakes (Must Have):**
+1. Consistent typography hierarchy with generous whitespace (1.125-1.200 line height)
+2. Professional color system with WCAG AA contrast (4.5:1 text, 3:1 UI)
+3. Hover states on all interactive elements
+4. Touch-friendly targets (44x44px minimum per WCAG 2.2)
+5. Mobile-first responsive (62.54% of traffic is mobile)
+6. Fast performance (already achieved at 100/96/100)
 
-- **Live deployed projects (3-5 minimum):** Recruiters spend ~5 minutes per candidate, need proof of real work with context (problem, approach, results).
-- **Contact form (3 fields max):** Primary conversion path. Each additional field reduces completion rate. 25% conversion advantage vs longer forms.
-- **Mobile responsive design:** 32.5% conversion increase with mobile-optimized CTAs. Google mobile-first indexing penalizes non-responsive sites.
-- **Fast performance (< 3s load):** 7% conversion loss per second after 3s load time. Use Lighthouse for testing, target 90+ scores.
-- **Testimonials (3-5 with photos):** 86% of buyers use ratings to influence decisions. Photos, names, designations increase credibility.
-- **Clear CTAs per audience:** Service-specific "Book Your $500 WordPress Site" vs "Discuss Custom Project" instead of generic "Learn More".
-- **$500 package pricing display:** Pricing transparency builds trust with local business clients. Clear "what you get" details.
+**Differentiators (Competitive Advantage):**
+1. Intentional micro-animations (button bounces, form reactions) for "micro-delight"
+2. Strategic typography pairing (Lora display + Inter body = warm + professional)
+3. Scroll-triggered entrance animations (progressive content reveal)
+4. Custom bento grid layout (modern modular approach, 67% of SaaS sites use variants)
+5. Testimonial design patterns (photos + quotes + company logos in cards)
+6. Case study visual format (Problem → Solution → Results with metrics)
+7. Brand-specific color theory (deep navies/blues = trust, warm accents = approachable)
 
-**Should have (competitive):**
+**Anti-Features (Avoid These):**
+1. Overly complex animations (7%/sec conversion loss per second delay)
+2. Auto-playing videos/audio (accessibility issue, performance cost)
+3. Excessive glassmorphism (reduces readability, accessibility concerns)
+4. Stock photography (signals generic template, reduces credibility)
+5. Parallax overuse (nauseating, performance issues, mobile problems)
+6. Hover-only information (fails on 62% of traffic that's mobile)
 
-- **Dual-audience smart routing:** Avoid confusion by guiding visitors to relevant content. "Need a WordPress site?" vs "Custom development?" CTAs.
-- **Calendly integration:** Eliminates scheduling friction, 121% more conversions than generic CTAs. UTM tracking for conversion attribution.
-- **Admin dashboard (content management):** Update projects, testimonials, services without code deployment. Already decided for this project.
-- **Case study format:** Deeper storytelling beyond project cards. Include metrics, before/after, client quotes.
-- **Before/after showcases:** Visual proof of transformation for local business clients. Powerful for WordPress package marketing.
-- **Dark/light mode toggle:** Modern UX expectation for developer portfolios. Use next-themes with shadcn/ui patterns.
+**MVP Definition (v1.1):**
+- Week 1: Typography system, spacing refinement, color WCAG audit, component styling
+- Week 2: Hover states, micro-animations, entrance animations, mobile touch targets
+- Week 3: Testimonial redesign, case study format, CTA refinement, social proof display
 
-**Defer (v2+):**
+### Architecture Approach (from DESIGN_SYSTEM_ARCHITECTURE.md)
 
-- **Blog/articles:** Medium conversion benefit, high maintenance burden. Defer until 5+ clients request content marketing.
-- **Video demos/walkthroughs:** High engagement but significant production effort. Not launch-critical.
-- **Live chat:** Immediate engagement but high maintenance. Start with async contact form and Calendly.
-- **Email newsletter:** Low-commitment CTA for not-yet-ready visitors. Marketing channel, not launch requirement.
+**Four-Layer Design Token System:**
 
-### Architecture Approach
+```
+Layer 1: @theme (Foundation)
+  → Raw values in globals.css @theme block
+  → Generates Tailwind utilities automatically
+  → Available as CSS variables at runtime
 
-Modern Next.js 14 + Convex applications follow strict separation of concerns where backend logic lives in `convex/` folder and frontend code lives in `app/`. The architecture emphasizes server-first rendering with client components for reactive features, unified through provider-based pattern maintaining persistent WebSocket connection for real-time data synchronization. For this portfolio site with admin dashboard, public pages render as Server Components for optimal SEO and performance, while admin dashboard uses Client Components for reactive CRUD operations, with shared data layer in Convex providing type-safe queries and mutations.
+Layer 2: Semantic Variables (Theming)
+  → Purpose-based mapping in @layer base
+  → HSL format for flexibility (opacity modifiers)
+  → .dark class for theme switching
 
-**Major components:**
+Layer 3: Component Variants (CVA)
+  → Type-safe variant composition
+  → References semantic variables
+  → Extends without modifying base
 
-1. **Next.js Frontend Layer:** Public pages (Server Components) for marketing/portfolio content, Admin pages (Client Components) for CRUD interface, ConvexClientProvider establishing WebSocket connection, middleware.ts protecting admin routes.
-2. **Convex Backend Layer:** schema.ts defining data model (projects, contactSubmissions, users tables), queries/ folder for read operations with indexed queries, mutations/ folder for write operations with validation, auth.ts for authentication configuration.
-3. **Data Flow Patterns:** Public pages use preloadQuery for server-side rendering with optimal SEO, Admin dashboard uses useQuery hooks for reactive subscriptions via WebSocket, Contact forms use useMutation for validated writes with automatic retry.
+Layer 4: Page Composition (Usage)
+  → Combines variants into compositions
+  → Server Components by default
+  → "use client" only when necessary
+```
 
-**Key patterns to follow:**
+**Key Architectural Patterns:**
 
-- **Provider wrapping:** Wrap app with ConvexClientProvider once in layout, available throughout component tree.
-- **Index-based queries:** Use `.withIndex()` instead of `.filter()` for orders of magnitude better performance.
-- **Optimistic updates:** Update UI immediately for CRUD operations, sync with backend, automatic rollback on errors.
-- **Server/client boundary respect:** Use Server Components for static content, add `"use client"` only where interactivity needed.
+1. **Composition Over Modification** - Create `components/portfolio/project-card-enhanced.tsx` that wraps Card, don't edit `components/ui/card.tsx`
+2. **Server Component First** - Use Tailwind hover: and transition- utilities (CSS-only, no "use client")
+3. **GPU-Accelerated Only** - Animate transform and opacity, never width/height/margin (triggers reflow)
+4. **Single Source of Truth** - @theme in globals.css defines tokens, not tailwind.config.ts
+5. **Theme-Aware Semantics** - Components use `bg-primary`, never `bg-[#003F75]` (enables dark mode)
 
-### Critical Pitfalls
+**Build Order (Dependencies):**
+```
+Phase 1: Design Tokens     → Define @theme (spacing, shadows, durations)
+Phase 2: Component Variants → Extend Button, Card with new variants
+Phase 3: Composition        → Create portfolio-specific composed components
+Phase 4: Static Animations  → CSS keyframes (no "use client" needed)
+Phase 5: Interactive        → Client Components for complex effects
+Phase 6: Page Integration   → Apply system across all pages
+Phase 7: Performance        → Lighthouse validation, dark mode audit
+```
 
-Research identified 18 distinct pitfalls across three severity levels. The most critical directly impact revenue and client satisfaction, while moderate pitfalls create technical debt or delays. Top 5 by severity and phase timing:
+**Performance Impact Assessment:**
+- Design tokens: 0 KB (CSS variables)
+- CVA variants: +2 KB per component
+- Static animations: 0 KB (CSS keyframes)
+- "use client" per component: +5-10 KB (minimize usage)
+- Projected total: +5-10 KB bundle size, 0 impact on Lighthouse scores
 
-1. **No clear CTA or buried contact information:** 70% of small business websites lack clear CTAs. Portfolio sites bury contact info, turn footers into social media dumps instead of conversion-focused CTAs. Add one primary CTA per page matching customer journey stage, include urgency ("Currently booking projects for Q2 2026"). Address in Phase 1 (Core Site).
+### Critical Pitfalls (from PITFALLS.md)
 
-2. **No payment protection (no upfront deposit):** Starting work without 50% upfront payment leads to non-payment, scope creep without compensation, cash flow problems preventing scaling. ALWAYS require 50% upfront before starting (industry standard for sub-$5K projects), hold deployment credentials until final payment clears. Address in Phase 2 (WordPress Delivery) before first client.
+**Top 5 Most Dangerous:**
 
-3. **Scope creep without change control process:** Fixed-price projects balloon from 5 pages to 12+ pages with custom features, turning $500 profitable project into hourly loss. Document every deliverable in writing upfront, include "scope creep clause" in contract, use change request template for additions. Address in Phase 2 (WordPress Delivery).
+1. **Tailwind v4 Migration Gotchas (CRITICAL)**
+   - CSS variable syntax changed: `bg-[--brand]` → `bg-(--brand)` (parentheses not brackets)
+   - Dark mode behavior fundamentally different from v3
+   - transition-transform now uses 4 separate properties
+   - **Mitigation:** Test dark mode explicitly before any customization, visual regression tests
 
-4. **Mobile-last design in mobile-first world:** Sites look great on desktop but break on mobile where most traffic occurs. Google mobile-first indexing penalizes sites, 50%+ visitors bounce on bad mobile experience. Use mobile-first CSS approach, test on actual devices not just browser dev tools, target 90+ Lighthouse mobile score. Address in Phase 1 (Core Site) and Phase 2 (WordPress template).
+2. **Over-Animation Performance Cliff (HIGH)**
+   - Adding animations tanks page load from <3s to >8s, drops Lighthouse 100 to sub-70
+   - JavaScript-based animations cause jank and bottlenecks
+   - **Mitigation:** GPU-accelerated properties only (transform, opacity), limit simultaneous animations to 3, weekly Lighthouse runs
 
-5. **Over-engineering portfolio at day 0:** Spending months building complex blog systems or elaborate animations instead of shipping simple portfolio that gets clients. Ship 5 projects + services page + Calendly first, validate conversion before adding features. Address in Phase 1 (Core Site) with explicit scope limits.
+3. **shadcn/ui Customization Hell (HIGH)**
+   - Customizing components breaks design system consistency, removes accessibility features
+   - No central theme means brand color updates require touching dozens of files
+   - **Mitigation:** Create central theme BEFORE customizing, document every change, test all interactive states
 
-**Additional critical pitfalls:**
+4. **Color Contrast Failures in Dark Mode (HIGH)**
+   - 83.6% of websites fail WCAG contrast requirements
+   - Subtle colors on dark backgrounds become invisible
+   - **Mitigation:** Test every color with contrast checker (4.5:1 text, 3:1 UI), avoid pure black (#000000), test focus indicators in both themes
 
-- **Including every project you've ever built:** Dilutes strengths, signals scattered focus. Show 6-8 best projects maximum with live URLs and recent tech.
-- **JavaScript rendering breaks SEO:** Use Next.js App Router with RSC for content pages, verify robots.txt doesn't block /static or /js folders, test with Google Search Console.
-- **Missing structured data for AEO:** Use schema.org types (LocalBusiness, Service, FAQPage, Person) with JSON-LD on every page, validate with Google Rich Results Test.
-- **No WordPress starter template:** Starting from scratch kills profitability. Build template with pre-configured theme, essential plugins, baseline pages before first client.
-- **Keyword stuffing vs entity-based content:** Old SEO tactics hurt AEO. Focus on entity-based optimization (what, who, where), structure with headers, get to point quickly.
+5. **SEO/Accessibility Coupling Breakage (CRITICAL)**
+   - Design changes break accessibility AND SEO simultaneously
+   - Semantic HTML replaced with divs confuses screen readers and crawlers identically
+   - **Mitigation:** Semantic HTML first (nav, main, article, section), keyboard-only testing, Lighthouse accessibility as validation gate
+
+**"Looks Done But Isn't" Trap (MEDIUM):**
+- Site gets "polished" but still looks like default shadcn/ui template
+- Visual hierarchy weak, spacing generic, no personality
+- For someone selling web design services, this is fatal credibility loss
+- **Mitigation:** Custom brand elements (illustrations, patterns), prominent brand colors (corporate-blue, tech-blue, turquoise), typography personality through weight variation
+
+**Recovery Strategies:**
+- If performance tanks: Remove animations first (quickest win), check bundle size, optimize images
+- If accessibility breaks: Lighthouse catches 57%, keyboard test catches another 20%, screen reader for remaining 23%
+- If dark mode fails: Test theme toggle, check CSS variables, validate contrast, test all states
+- If design feels generic: Audit component defaults, check brand color usage, typography audit, add 3+ custom visual elements
 
 ## Implications for Roadmap
 
-Based on research, suggested phase structure:
+### Phase Structure (7 Phases Recommended)
 
-### Phase 1: Foundation (Core Portfolio Site)
+The research strongly suggests a bottom-up approach: establish design foundation (tokens, semantic variables, component variants) before attempting visual polish. Each phase builds on previous work, with continuous validation gates to prevent regressions.
 
-**Rationale:** Ship viewable portfolio site before building delivery infrastructure. Public site can launch before admin, validates architecture, generates leads while building client systems. Everything depends on data layer and provider setup.
+### Phase 1: Design Token Foundation (Week 1, Days 1-2)
+
+**Rationale:** All subsequent design work depends on consistent tokens. Tailwind v4's @theme system provides single source of truth.
 
 **Delivers:**
-
-- Next.js 14 + Convex setup with schema (projects, contactSubmissions tables)
-- 5-6 best projects (live deployed, described, tech stacks visible)
-- Services page with clear $500 WordPress package details
-- Contact form (3 fields) and Calendly integration
-- Mobile responsive design tested on actual devices
-- Fast performance (Lighthouse 90+ scores)
-- AEO treatment (JSON-LD schema, next-aeo for llms.txt)
+- Spacing scale (xs through 3xl) in globals.css @theme
+- Shadow system (elevation hierarchy)
+- Animation duration tokens (fast/base/slow)
+- Typography scale validation
+- Dark mode semantic variable audit
 
 **Addresses features:**
-
-- Table stakes: Live projects, contact form, mobile responsive, fast performance
-- Differentiators: Dual-audience CTAs, pricing transparency, dark mode toggle
+- Consistent spacing rhythm (Feature: Table Stakes)
+- Foundation for component variants
+- Enables systematic polish vs ad-hoc changes
 
 **Avoids pitfalls:**
+- Design Token Inconsistency (Pitfall 5)
+- Prevents arbitrary value proliferation (Technical Debt Pattern 2)
 
-- Over-engineering (strict scope limit: no blog, no complex animations)
-- No clear CTA (service-specific "Book Your $500 Site Call" on every page)
-- Mobile-last design (mobile-first CSS, device testing)
-- JavaScript SEO breaks (App Router RSC, verify crawlability)
-- Portfolio as a project (content strategy excludes self-referential work)
-
-**Research flag:** Standard patterns for Next.js + Convex portfolio sites. Skip research-phase, follow official docs.
+**Research flags:** Standard pattern, no additional research needed. Tailwind v4 @theme is well-documented.
 
 ---
 
-### Phase 2: WordPress Delivery System
+### Phase 2: Component Variant Extensions (Week 1-2, Days 3-5)
 
-**Rationale:** Establish WordPress infrastructure with payment protection and scope control BEFORE taking first client. Authentication blocks admin features but doesn't block public launch, so can develop in parallel with Phase 1. Must document processes before revenue operations begin to avoid scope creep and payment disasters.
+**Rationale:** CVA-based variants provide type-safe, maintainable customization without breaking shadcn/ui update path.
 
 **Delivers:**
-
-- Local by WP environment setup with WP-CLI
-- WordPress starter template (pre-configured theme, essential plugins, baseline pages)
-- Elementor Pro + Gutenberg workflow documentation
-- Payment terms template (50% upfront requirement, non-refundable deposit clause)
-- Scope documentation template (deliverables checklist, change request process)
-- Content intake form (services, hours, about text, photos with deadlines)
-- Client handoff checklist (training call, documentation, support boundaries)
-- Pre-launch testing checklist (mobile, performance, links verification)
-- Convex Auth setup for admin access
-- Next.js middleware protecting /admin/\* routes
+- Button variants (gradient, outline, xl size)
+- Card elevation system (flat/sm/md/lg)
+- Badge styling for tech stack tags
+- Form component polish
+- Variant documentation
 
 **Addresses features:**
-
-- Table stakes: Services list (WordPress package specifics)
-- Differentiators: Service packages (tiered options)
+- Button hierarchy (Feature: Table Stakes)
+- Component design system consistency
+- Professional polish without customization hell
 
 **Avoids pitfalls:**
+- shadcn/ui Customization Hell (Pitfall 3)
+- Composition Over Modification (Architecture Anti-Pattern 2)
 
-- No payment protection (50% upfront template created before first client)
-- Scope creep (documented deliverables + change control process)
-- No starter template (pre-built foundation reduces 5-day project to 2 days)
-- Missing handoff docs (checklist + training call + support boundaries)
-- No content workflow (intake form with deadlines prevents delays)
-
-**Research flag:** Standard WordPress freelance patterns. May need research-phase for specific hosting/deployment automation if scaling beyond manual process.
+**Research flags:** Standard CVA pattern, shadcn/ui docs cover this. No additional research needed.
 
 ---
 
-### Phase 3: Admin Dashboard & Differentiation
+### Phase 3: Typography & Color System (Week 2, Days 6-8)
 
-**Rationale:** Admin requires auth and data layer established in earlier phases. Delivers full content management functionality, enabling updates without code deployments. Differentiation features layer on top of validated foundation after first clients close.
+**Rationale:** Typography and color create brand personality. Must happen after tokens are defined but before page-level integration.
 
 **Delivers:**
-
-- Admin dashboard home (recent activity, quick stats)
-- Projects CRUD (list view with useQuery, create/edit forms, delete confirmation, drag-to-reorder)
-- Contact submissions manager (list with filters, status updates, search)
-- Testimonials CRUD (for adding client feedback post-project)
-- GitHub integration (automatic repo links on project cards)
-- UTM tracking setup (know which campaigns drive bookings)
-- Analytics configuration (Google Analytics 4, conversion tracking)
+- Lora font integration for headlines
+- Typography hierarchy (h1-h6, body, small)
+- Brand color prominence audit
+- WCAG AA contrast validation (both themes)
+- Dark mode color refinement
 
 **Addresses features:**
-
-- Differentiators: Admin dashboard (content management), GitHub integration, UTM tracking
+- Strategic typography pairing (Feature: Differentiator #2)
+- Brand-specific color theory (Feature: Differentiator #7)
+- Professional color system (Feature: Table Stakes)
 
 **Avoids pitfalls:**
+- Color Contrast Failures in Dark Mode (Pitfall 4)
+- Generic Template Trap (Pitfall 8)
 
-- Client components for static content (admin only, public pages stay Server Components)
-- Outdated portfolio content (admin enables quarterly updates without deployments)
-
-**Research flag:** Standard Convex CRUD patterns. Skip research-phase, follow Convex best practices docs and official examples.
+**Research flags:** **NEEDS RESEARCH** - Color contrast validation across all components in dark mode is complex. Consider `/gsd:research-phase` for systematic WCAG audit approach.
 
 ---
 
-### Phase 4: Advanced Features (Post-MVP)
+### Phase 4: Composition Components (Week 2-3, Days 9-11)
 
-**Rationale:** Only build after validating conversion with 5+ clients. These are competitive differentiators, not launch requirements. Blog/content features deferred until clients specifically request content marketing.
+**Rationale:** Portfolio-specific components that compose ui primitives. Leverage Phase 2 variants without modifying base components.
 
 **Delivers:**
-
-- Case studies (deeper format than project cards, with metrics and client quotes)
-- Before/after showcases (visual transformation proof for WordPress clients)
-- Google Reviews integration (display for local business social proof)
-- Blog/articles system (if clients request content marketing)
-- Video demos (if budget allows production)
-- Email newsletter (low-commitment CTA for nurture campaigns)
+- ProjectCardEnhanced with hover effects
+- HeroSection with gradient background
+- CTAButton with brand styling
+- TestimonialCard pattern
+- SocialProofDisplay component
 
 **Addresses features:**
-
-- Differentiators: Case studies, before/after showcases, Google Reviews, blog/articles
+- Card-based content modules (Feature: Differentiator #4)
+- Testimonial design patterns (Feature: Differentiator #5)
+- Custom component library
 
 **Avoids pitfalls:**
+- Composition Over Modification (maintains update path)
+- Generic Template Trap (Pitfall 8)
 
-- Treating blog as required for launch (deferred until validated need)
-- Feature bloat before validation (build only after 5+ clients request)
+**Research flags:** Standard composition pattern. Existing codebase has good examples in admin components.
 
-**Research flag:** Likely needs research-phase for Google My Business API integration (moderate complexity, specific to local business use case). Blog/newsletter tools well-documented, skip research.
+---
+
+### Phase 5: Animation Integration (Week 3, Days 12-15)
+
+**Rationale:** Animations are enhancement, not foundation. Add after core design is solid to prevent performance regressions.
+
+**Delivers:**
+- Static CSS animations (fade-in-up keyframes)
+- Hover state micro-interactions
+- Scroll-triggered entrance effects
+- Button press/release animations
+- Performance validation (Lighthouse maintained at 90+)
+
+**Addresses features:**
+- Intentional micro-animations (Feature: Differentiator #1)
+- Scroll-triggered animations (Feature: Differentiator #3)
+- Purpose-driven motion (Feature: Table Stakes)
+
+**Avoids pitfalls:**
+- Over-Animation Performance Cliff (Pitfall 2)
+- Animating Layout-Shifting Properties (Architecture Anti-Pattern 5)
+
+**Research flags:** **NEEDS RESEARCH** - Framer Motion integration with Next.js App Router and Server Components has specific patterns. Consider `/gsd:research-phase` for animation library setup and performance monitoring approach.
+
+---
+
+### Phase 6: Page-Level Integration (Week 3-4, Days 16-18)
+
+**Rationale:** Apply design system systematically across all pages. Final assembly after all foundation work complete.
+
+**Delivers:**
+- Home page hero gradient and animated CTAs
+- Projects page enhanced cards with hover
+- Services page pricing card elevation
+- About page typography polish
+- Contact page form consistency
+- Visual hierarchy improvements
+
+**Addresses features:**
+- Visual hierarchy improvements (Project requirement)
+- Mobile responsive refinement
+- Component polish across site
+
+**Avoids pitfalls:**
+- Mobile Responsive Regression (Pitfall 6)
+- Generic Template Trap (comprehensive fix)
+
+**Research flags:** Mostly implementation. No additional research needed.
+
+---
+
+### Phase 7: Performance & Accessibility Validation (Week 4, Days 19-21)
+
+**Rationale:** Validate that design polish didn't break existing excellent performance or accessibility. Final quality gate before launch.
+
+**Delivers:**
+- Production build Lighthouse audit (all pages)
+- WCAG AA contrast verification (both themes)
+- Keyboard navigation testing
+- Cross-browser validation (Chrome, Safari, Firefox)
+- Mobile device testing (real devices)
+- Core Web Vitals monitoring setup
+
+**Addresses features:**
+- Maintain Lighthouse 100/96/100 baseline
+- WCAG 2.1 AA compliance verification
+- Performance budget enforcement
+
+**Avoids pitfalls:**
+- SEO/Accessibility Coupling Breakage (Pitfall 7)
+- Over-Animation Performance Cliff (final check)
+- Mobile Responsive Regression (validation)
+
+**Research flags:** Standard testing approach. Existing project has good testing foundation.
 
 ---
 
 ### Phase Ordering Rationale
 
-**Dependency-driven sequence:**
+**Linear Dependencies:**
+```
+Tokens (P1) → Variants (P2) → Composition (P4) → Integration (P6) → Validation (P7)
+                     ↓
+            Typography/Color (P3)
+                     ↓
+              Animation (P5)
+```
 
-- Phase 1 establishes data layer (Convex schema) and provider setup that everything else depends on
-- Phase 2 requires auth from Phase 1 but develops in parallel (doesn't block public launch)
-- Phase 3 requires both schema (Phase 1) and auth (Phase 2) to function
-- Phase 4 requires validated business model (5+ clients) before investment
+**Critical Path:** P1 → P2 → P4 → P6 → P7 (design system foundation to page integration)
 
-**Risk mitigation priority:**
+**Parallel Opportunities:**
+- P3 (Typography/Color) can overlap with P2 end (they both modify globals.css)
+- P5 (Animation) can develop alongside P4 (composition) if working in separate files
 
-- Phase 1 addresses revenue-critical pitfalls (no clear CTA, mobile-last, over-engineering)
-- Phase 2 addresses financial pitfalls (no payment protection, scope creep) before first client engagement
-- Phase 3 enables operational efficiency after foundation is solid
-- Phase 4 deferred until conversion validated, avoiding premature optimization
-
-**Architecture-informed grouping:**
-
-- Phase 1 groups Server Component patterns (public pages) + minimal Client Components (contact form)
-- Phase 2 separates WordPress concerns from Next.js concerns (different technology stacks)
-- Phase 3 groups Client Component patterns (admin dashboard) using reactive Convex hooks
-- Phase 4 groups content/marketing features separate from core business operations
-
-**Speed to revenue:**
-
-- Phase 1 ships in 2 weeks, enables lead generation immediately
-- Phase 2 completes before first client engagement (1-2 weeks parallel with Phase 1)
-- First revenue possible within 3-4 weeks of project start
-- Phases 3-4 enhance operations but don't block revenue
+**Why This Order:**
+1. Tokens first - everything else depends on consistent foundation
+2. Variants second - provides reusable styling API
+3. Typography/Color third - creates brand personality on solid foundation
+4. Composition fourth - leverages variants to build portfolio-specific components
+5. Animation fifth - enhancement layer after solid design system
+6. Integration sixth - applies system systematically to pages
+7. Validation last - quality gate to ensure no regressions
 
 ### Research Flags
 
-**Phases needing deeper research during planning:**
+**Phases Needing Additional Research:**
 
-- **Phase 4 (Google My Business API):** Moderate complexity for reviews integration, specific authentication flows, rate limiting considerations. Recommend `/gsd:research-phase` when prioritized.
+1. **Phase 3 (Typography/Color)** - WCAG contrast validation across all components
+   - Complex: Need systematic approach to test all color combinations in both themes
+   - Risk: 83.6% of sites fail contrast, this is make-or-break for accessibility
+   - Recommendation: `/gsd:research-phase --phase=3 --topic="WCAG contrast validation workflow"`
 
-**Phases with standard patterns (skip research-phase):**
+2. **Phase 5 (Animation)** - Framer Motion + Next.js App Router integration
+   - Complex: Server Components, template.tsx patterns, performance monitoring
+   - Risk: Animation libraries can tank performance if not implemented correctly
+   - Recommendation: `/gsd:research-phase --phase=5 --topic="Framer Motion performance patterns"`
 
-- **Phase 1 (Next.js + Convex portfolio):** Well-documented in official docs, established patterns, multiple examples available. Follow Convex Next.js App Router integration guide.
-- **Phase 2 (WordPress delivery):** Mature ecosystem, standard freelance workflows documented across multiple sources. Local by WP and Elementor Pro have extensive documentation.
-- **Phase 3 (Admin dashboard):** Convex CRUD patterns are core use case with official examples. Standard React Hook Form patterns well-documented.
+**Phases with Standard Patterns (Skip Research):**
+
+1. **Phase 1 (Tokens)** - Tailwind v4 @theme is well-documented, existing project already uses it
+2. **Phase 2 (Variants)** - CVA pattern is standard, shadcn/ui docs cover thoroughly
+3. **Phase 4 (Composition)** - React composition is fundamental, existing admin components show pattern
+4. **Phase 6 (Integration)** - Mostly implementation, no new patterns
+5. **Phase 7 (Validation)** - Testing checklist-driven, tools are established
 
 ## Confidence Assessment
 
-| Area         | Confidence  | Notes                                                                                                                                                      |
-| ------------ | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Stack        | HIGH        | Verified with official Next.js, Convex, Tailwind documentation. Version numbers verified with ecosystem sources dated 2025-2026.                           |
-| Features     | HIGH        | Validated with 2026 research on portfolio conversion, freelance WordPress business models, dual-audience patterns. Clear consensus across sources.         |
-| Architecture | HIGH        | Official Convex + Next.js App Router patterns documented with code examples. Server/client component boundaries well-established.                          |
-| Pitfalls     | MEDIUM-HIGH | Verified with multiple 2025-2026 sources on portfolio mistakes, WordPress freelance pitfalls, Next.js SEO issues. Some inference on phase-specific timing. |
+| Area | Confidence | Notes |
+|------|------------|-------|
+| **Stack** | HIGH | Verified with official docs, 2026 sources, npm stats. Framer Motion (12M+ downloads), Tailwind v4 (official release), shadcn/ui (established ecosystem). No controversial choices. |
+| **Features** | MEDIUM-HIGH | Based on 25+ design portfolio analysis, UX best practices, 2026 trends. Table stakes are validated (WCAG, mobile-first). Differentiators backed by industry data (67% SaaS use bento grids, 83.6% fail contrast). Anti-features supported by performance research. Slight uncertainty on exact prioritization for dual audience. |
+| **Architecture** | HIGH | Tailwind v4 @theme + shadcn/ui semantic variables is proven pattern. Four-layer token system well-documented. CVA for variants is industry standard. Server Component-first aligns with Next.js best practices. Build order based on dependency analysis, not preference. |
+| **Pitfalls** | HIGH | Based on 15+ technical deep-dives, migration guides, performance case studies. Tailwind v4 gotchas documented in GitHub issues. Performance impact numbers from real-world audits. shadcn/ui customization hell is known problem with solutions. WCAG failure rate (83.6%) from accessibility studies. |
 
-**Overall confidence:** HIGH
+**Overall Confidence: HIGH**
 
-Research conducted with current 2026 sources, verified across official documentation and ecosystem consensus. Version-specific recommendations (Tailwind 3 vs 4, Next.js 14 vs 15) based on browser compatibility data and stability assessments. AEO patterns represent emerging standard with medium confidence (rapidly evolving ecosystem but clear direction).
+All four research dimensions converge on consistent recommendations:
+- CSS-first design system (Stack: Tailwind v4, Architecture: @theme)
+- Composition over modification (Features: maintain update path, Pitfalls: avoid customization hell)
+- Performance-first animations (Stack: GPU-accelerated only, Pitfalls: avoid performance cliff)
+- Accessibility as validation gate (Features: WCAG table stakes, Pitfalls: SEO coupling)
 
 ### Gaps to Address
 
-**1. Exact first client timeline:** Research provides workflows and checklists but doesn't specify how long typical WordPress project takes with template. Recommend tracking first 2-3 client projects to establish baseline delivery timeline and refine 5-day estimate.
+1. **WCAG Contrast Validation Workflow**
+   - Gap: No documented process for systematic contrast testing across all components in both themes
+   - Impact: Risk of shipping accessibility violations despite good intentions
+   - Mitigation: Phase 3 research flag, use browser DevTools accessibility panel + axe extension
 
-**2. Calendly conversion tracking setup:** Research confirms Calendly provides 121% conversion boost and supports UTM tracking, but specific implementation steps for event tracking and CRM integration not detailed. Validate during Phase 1 implementation with Calendly documentation.
+2. **Framer Motion Performance Patterns**
+   - Gap: Unclear how to integrate animation library without impacting Lighthouse 100 score
+   - Impact: Could accidentally tank performance during enhancement phase
+   - Mitigation: Phase 5 research flag, focus on CSS-only animations where possible
 
-**3. Hosting provider selection for clients:** Research recommends Hostinger, Bluehost, IONOS with 2026 pricing, but doesn't specify migration workflows or deployment automation approaches. Recommend manual SFTP deployment for first 3 clients, then evaluate WP-CLI or Git-based automation based on pain points.
+3. **Dual Audience Design Priorities**
+   - Gap: When design choices conflict (technical depth vs simplicity), which audience wins?
+   - Impact: Risk of making site too complex for local business owners OR too simple for hiring managers
+   - Mitigation: A/B test hero section approaches, use analytics to see which converts better
 
-**4. Admin authentication approach:** Stack research confirms Clerk via Convex is recommended, but Architecture and Features research doesn't specify whether multiple admin users or role-based access control needed initially. Recommend single admin (you) for MVP, defer RBAC until team expansion.
+4. **Brand Element Creation**
+   - Gap: Research identifies need for "3+ custom visual elements" but doesn't specify what
+   - Impact: Generic template trap remains if custom elements feel forced
+   - Mitigation: Work with designer OR create data visualizations that showcase technical skills (portfolio stats, tech stack usage charts)
 
-**5. Image hosting strategy:** Stack mentions considering Cloudinary/S3 at 10K visitors/month but doesn't specify what to use initially. Recommend Next.js public/ folder for portfolio images (< 50 images), Convex file storage for admin uploads, defer CDN until performance metrics indicate need.
-
-**6. Email service for contact form:** Stack doesn't specify email provider. Recommend Resend (simple API, generous free tier, TypeScript SDK) or native contact form submissions to Convex with email notifications via Convex scheduled functions.
+5. **Dark Mode Color Refinement**
+   - Gap: Existing dark mode uses simple .dark class but research suggests more nuanced approach
+   - Impact: Dark mode may not feel intentionally designed
+   - Mitigation: Phase 3 includes dark mode color refinement, reduce saturation of accent colors, test 80% adoption scenario
 
 ## Sources
 
-### Primary (HIGH confidence)
+### Primary Sources (HIGH Confidence)
 
-- **Next.js Documentation:** Framework architecture, App Router patterns, SEO metadata, deployment configuration
-- **Convex Developer Hub:** Next.js integration, React client patterns, authentication with Next.js, schema best practices, query optimization
-- **shadcn/ui Documentation:** Component patterns, dark mode setup, Tailwind integration
-- **Tailwind CSS v4 Release Notes:** Browser compatibility requirements, v3 vs v4 decision factors
-- **React Hook Form + Zod Guide 2026:** Current ecosystem standard verification, integration patterns
-- **Vercel Environment Variables Docs:** Configuration, limits, deployment best practices
+**Official Documentation:**
+- Tailwind CSS v4.0 Announcement & Documentation
+- shadcn/ui Theming & CLI Documentation
+- Next.js use client Directive & App Router
+- Class Variance Authority (CVA) Documentation
+- WCAG 2 Overview & Requirements
+- Radix UI Primitives Documentation
 
-### Secondary (MEDIUM-HIGH confidence)
+**Technical Deep-Dives:**
+- Tailwind CSS v4 Complete Migration Guide (Medium @mernstackdevbykevin)
+- Customizing shadcn/ui Themes Without Breaking Updates (Medium @sureshdotariya)
+- Next.js 15 App Router: Complete Guide to Server and Client Components (Dev.to)
+- Optimizing Core Web Vitals in Next.js 15 Apps with Tailwind CSS 4 (Medium @sureshdotariya)
 
-- **WordPress Local Development Guide 2026 (AWP Agency):** Local by WP vs Docker comparison, solo freelancer workflows
-- **Best Page Builders for WordPress 2026 (Belov Digital):** Elementor Pro vs Gutenberg hybrid approach
-- **Cheap WordPress Hosting 2026 (Elementor, ThemeIsle):** Hostinger/Bluehost/IONOS pricing and performance verification
-- **Developer Portfolio Examples 2026 (Colorlib, Elementor, Nucamp):** Table stakes features, project quantity recommendations
-- **CTA Statistics for 2026 (Sixth City Marketing):** Conversion data, mobile optimization impact
-- **Small Business Website Conversion Checklist 2026 (Good Fellas):** Performance thresholds, form field optimization
-- **5 Mistakes Developers Make in Portfolio Websites (Dev Portfolio Templates):** Anti-patterns verification
-- **Managing Scope Creep WordPress Projects (Elicus, Delicious Brains):** Change control processes, documentation templates
-- **WordPress Payment Schedules Guide (Contra, Solowise):** Upfront deposit standards, contract clauses
-- **JavaScript SEO In 2026 (Zumeirah, Focus Reactive):** Next.js SSR verification, common pitfalls
-- **AEO Complete Guide 2026 (Code Elevate, RevvGrowth):** Entity-based optimization, structured data requirements
+### Secondary Sources (MEDIUM-HIGH Confidence)
 
-### Tertiary (MEDIUM confidence, validate during implementation)
+**Design Trends & Best Practices:**
+- Landdding: UI Design Trends 2026
+- Interaction Design Foundation: 10 Most Inspirational UX Design Portfolio Examples
+- 99designs: Best Portfolio Web Design Ideas 2026
+- Index.dev: 12 UI/UX Design Trends That Will Dominate 2026
+- Colorlib: 19 Best Portfolio Design Trends (In 2026)
+- Typewolf: Top 40 Favorite Designer Portfolio Sites in 2026
 
-- **next-aeo Introduction (TryProfound):** Emerging tool, limited production data but clear use case
-- **AEO Trends 2026 (HubSpot):** Gartner prediction of 25% search volume shift to AI by 2026
-- **Relationship Structures in Convex (Stack.convex.dev):** Community patterns, schema design considerations
-- **WordPress Multisite vs Single Site (InstaWP):** Anti-pattern documentation, migration horror stories
+**Performance & Accessibility:**
+- WebAIM: 2026 Predictions - The Next Big Shifts in Web Accessibility
+- accessiBe: WCAG 2.2 - What You Need to Know in 2026
+- SearchEngineLand: SEO Accessibility Guide
+- SearchAtlas: Accessibility as a Ranking Factor [2026]
+- All Accessible: Color Contrast Accessibility WCAG 2025 Guide
+
+**Typography & Animation:**
+- Landing Page Flow: 20+ Beautiful Google Font Pairings for 2026
+- Elementor: Font Pairing Chart for Web Design 2026
+- Syncfusion: Beyond Eye Candy - Top 7 React Animation Libraries for 2026
+- LogRocket: Comparing React Animation Libraries for 2026
+- Shadow Digital: Website Animations in 2026 - Pros, Cons & Best Practices
+
+### Tertiary Sources (MEDIUM Confidence)
+
+**Portfolio Mistakes & Anti-Patterns:**
+- Dev Portfolio Templates: 5 Mistakes Developers Make in Their Portfolio Websites
+- UX Playbook: How to Design Portfolio Homepages That Land You Job in 2026
+- Workspace Fiverr: 6 Wildly Common Portfolio Mistakes Designers Make
+- Interaction Design Foundation: Avoid Design Portfolio Mistakes Costing Jobs
+
+**Component Libraries & Design Systems:**
+- Vercel Academy: shadcn/ui Series (Why Different, Extending Components, Maintaining)
+- HugeIcons: Better Than Lucide - 8 Icon Libraries
+- shadcnDesign: 5 Best Icon Libraries for shadcn/ui
+- Toptal: How to Structure an Effective Typographic Hierarchy
+
+**CTA & Conversion Optimization:**
+- The Lakehouse Digital: 7 CTA Best Practices in 2026
+- The Clay Media: Conversion Optimization 2026 - Small Business Guide
+- Unsection: CTA Section Design Inspiration
+- Landing Page Flow: Best CTA Placement Strategies For 2026
 
 ---
 
-_Research completed: 2026-02-03_
+*Research completed: 2026-02-04*
+*Ready for roadmap: YES*
 
-_Ready for roadmap: YES_
-
-**Next step:** Proceed to requirements definition and detailed roadmap creation. All four research dimensions (stack, features, architecture, pitfalls) completed with high confidence. Phase structure provides clear starting point for roadmap with explicit research flags for advanced features.
+**Next Steps:**
+1. Review this summary with project stakeholder
+2. Validate phase structure aligns with timeline constraints
+3. Create roadmap document with detailed task breakdown
+4. Execute Phase 1 (Design Token Foundation)
+5. Schedule Phase 3 and Phase 5 research if complexity warrants deeper investigation

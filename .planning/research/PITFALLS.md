@@ -1,680 +1,522 @@
 # Domain Pitfalls
 
-**Domain:** Developer Portfolio + $500 WordPress Service Business
-**Researched:** 2026-02-03
-**Confidence:** MEDIUM (verified with multiple 2025-2026 sources)
+**Domain:** Portfolio/Agency Site Design Polish (Next.js + Tailwind v4 + shadcn/ui)
+**Researched:** 2026-02-04
+**Confidence:** HIGH
+
+## Executive Summary
+
+When polishing an existing portfolio site that sells web design services, the most dangerous pitfall is the "cobbler's children" paradox: making the designer's own site look worse than the default template it replaced. The research reveals three critical failure modes:
+
+1. **Performance regression through design polish** - Animation, custom fonts, and visual effects that tank the existing 100/96/100 Lighthouse scores
+2. **Accessibility breakage through aesthetic changes** - Color contrast failures, focus state removal, semantic structure loss that violate WCAG and hurt SEO
+3. **Brand confusion through over-customization** - Breaking shadcn/ui's cohesive design system while creating inconsistent spacing, typography, and component behavior
+
+The dual audience (non-technical local business owners + technical hiring managers) makes this especially treacherous: changes that impress one audience can alienate the other. Local business owners want warm and professional, hiring managers want clean code and good performance metrics.
+
+---
 
 ## Critical Pitfalls
 
-Mistakes that cause rewrites, lost revenue, or major client issues.
+### Pitfall 1: Tailwind v4 Migration Gotchas
 
-### Pitfall 1: No Clear CTA or Buried Contact Information
-
-**What goes wrong:** 70% of small business websites lack clear CTAs in their digital marketing. Portfolio sites bury contact information, turn footers into social media link dumps instead of conversion-focused CTAs, and create "button festivals" with too many competing calls to action.
-
-**Why it happens:** Developers design to impress rather than to guide. They focus on aesthetic portfolios instead of conversion-focused landing pages.
-
-**Consequences:**
-
-- Qualified leads bounce because they can't figure out how to book a call
-- Lost revenue from visitors who would convert with a clear path
-- Extended time to first client because marketing site doesn't convert
-
-**Prevention:**
-
-- Add one primary CTA per page ("Book Your $500 Site Call")
-- Include contact/booking CTA in footer on every page
-- Match CTA to customer journey stage (awareness vs decision)
-- Add urgency: "Currently booking projects for Q2 2026" or "Taking on 2 new clients this quarter"
-
-**Detection:**
-
-- Analytics show high bounce rate on Services page
-- Time on Contact page is low with no conversions
-- Traffic arrives but no Calendly bookings happen
-
-**Phase to address:** Phase 1 (Core Site) - This is foundational to the entire business model.
-
----
-
-### Pitfall 2: No Payment Protection (No Upfront Deposit)
-
-**What goes wrong:** Starting work without 50% upfront payment leads to non-payment, scope creep without compensation, and cash flow problems that prevent scaling.
-
-**Why it happens:** New freelancers fear losing clients by requiring deposits. They lack confidence in their value proposition.
-
-**Consequences:**
-
-- Complete projects but never receive final payment
-- Out-of-pocket expenses for hosting, plugins, or time
-- Can't afford to take on new clients while waiting for payment
-- Clients treat fixed-price projects like hourly work (endless revisions)
-
-**Prevention:**
-
-- ALWAYS require 50% upfront before starting work (industry standard for sub-$5K projects)
-- Include "50% deposit required prior to scheduling service. Balance due upon completion" in every proposal
-- Use payment terms: "50% due upon project start, 50% due before site launch"
-- Hold deployment credentials until final payment clears
-- Use contracts that explicitly state deposit is non-refundable after work begins
-
-**Detection:**
-
-- Client hesitates when you mention payment
-- Client wants to "see work first" before paying
-- Client proposes "payment upon launch" with no deposit
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Must be in place before first client.
-
----
-
-### Pitfall 3: Scope Creep Without Change Control Process
-
-**What goes wrong:** Fixed-price projects balloon from 5-7 pages to 12+ pages with custom features, turning a $500 profitable project into a $200/hour loss.
+**What goes wrong:**
+Project is using Tailwind v4 (config shows `tailwindcss: ^4.1.18`). V4 has breaking changes that look fine in dev but break in production, especially around CSS variable syntax, dark mode, and plugin compatibility. The transition-transform property now uses 4 separate properties (transform, translate, scale, rotate) that the upgrade tool doesn't catch.
 
 **Why it happens:**
+- V4's CSS-first approach replaces JavaScript config with @theme directive
+- CSS variable syntax changed: `bg-[--brand-color]` becomes `bg-(--brand-color)`
+- Dark mode behavior changed fundamentally
+- Browser support now requires Safari 16.4+, Chrome 111+, Firefox 128+
 
-- Not documenting deliverables in writing upfront
-- Saying yes to "small requests" without tracking accumulated impact
-- Clients don't understand that changes cost money
-- No formal change control process
+**How to avoid:**
+- Run visual regression tests before/after any Tailwind customization
+- Test dark mode explicitly - it "does not seem to work the same way as it did in v3"
+- Validate CSS variable usage follows v4 parentheses syntax
+- Check that custom brand colors (corporate-blue, tech-blue, turquoise) work in both light/dark modes
+- Never assume upgrade tool caught everything - manually review transition and transform utilities
 
-**Consequences:**
+**Warning signs:**
+- Dark mode toggle stops working or colors look wrong
+- Custom animations stutter or behave differently
+- Browser console shows CSS @property errors
+- Styles work in dev but break in production build
 
-- 5-day project becomes 15-day project at same price
-- Hourly rate drops below minimum wage
-- Can't take on new clients because underwater on current project
-- Burnout and resentment toward client work
-
-**Prevention:**
-
-- Document every feature, plugin, page, and design element in writing before starting
-- Include "scope creep clause" in contract: "Any additional requests beyond agreed scope will incur additional costs or revised timeline"
-- Use change request template: "That's outside our original scope. I can add it for $X or we can revisit timeline."
-- Track all requests in project management tool (Notion, ClickUp)
-- Set expectation during sales: "The $500 package includes exactly 5 pages. Additional pages are $75 each."
-
-**Detection:**
-
-- Client sends "quick requests" via text/email multiple times per week
-- Project timeline extends beyond 5 days
-- You're building features not in the original proposal
-- Client says "while you're in there, can you also..."
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Document scope template and change control process.
+**Phase to address:** Foundation phase (Phase 1-2)
 
 ---
 
-### Pitfall 4: Mobile-Last Design in Mobile-First World
+### Pitfall 2: Over-Animation Performance Cliff
 
-**What goes wrong:** Sites look great on desktop but break on mobile, where most traffic actually occurs. Non-responsive layouts, small tap targets, poor readability, and broken mobile experiences tank SEO rankings and conversions.
+**What goes wrong:**
+Adding animations to "polish" the site (fade-ins, parallax, hover effects, page transitions) tanks page load from <3s to >8s and drops Lighthouse performance from 100 to sub-70. JavaScript-based animations cause jank and performance bottlenecks. Google explicitly states a responsive site that takes 8+ seconds to load "isn't really responsive - it's hostile."
 
-**Why it happens:** Developers build and test on desktop, treat mobile as an afterthought, and fail to test on actual devices.
+**Why it happens:**
+- Developers confuse "polished" with "animated"
+- Animating properties beyond transform/opacity forces CPU rendering
+- Multiple simultaneous animations overwhelm lower-end devices
+- React component re-renders triggered by animation state
+- Animation libraries (Framer Motion, GSAP) add bundle size
 
-**Consequences:**
+**How to avoid:**
+- Restrict animations to GPU-accelerated properties only (transform, opacity)
+- Animate wrapper divs with CSS to force GPU usage for 60fps
+- Use Tailwind's built-in animations (already has tailwindcss-animate plugin)
+- Limit simultaneous animations - if more than 3 elements animate at once, cut it
+- Test on mobile/low-end devices, not just dev machine
+- Add reduce-motion support: `@media (prefers-reduced-motion: reduce)`
+- Weekly Lighthouse runs to catch regressions before they compound
 
-- Google mobile-first indexing penalizes sites in search rankings
-- 50%+ of visitors bounce immediately on mobile
-- Client complaints after launch about "site not working"
-- Lost revenue from mobile traffic that can't convert
+**Warning signs:**
+- Lighthouse performance score drops below 90
+- Page load exceeds 3 seconds
+- Janky scrolling or hover effects
+- High CPU usage in Chrome DevTools Performance tab
+- First Contentful Paint (FCP) regresses
 
-**Prevention:**
-
-- Use mobile-first CSS approach (build mobile, enhance for desktop)
-- Test on actual devices, not just browser dev tools
-- Use responsive themes/templates with proven mobile track record
-- Verify tap targets are minimum 44x44px
-- Check Lighthouse mobile score before launch (target 90+)
-- Include mobile testing in pre-launch checklist
-
-**Detection:**
-
-- Lighthouse mobile performance score below 80
-- Google Search Console shows mobile usability errors
-- Bounce rate on mobile traffic significantly higher than desktop
-- Form submission rate on mobile is near zero
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Include in starter template and launch checklist.
-
----
-
-### Pitfall 5: Over-Engineering the Portfolio Site at Day 0
-
-**What goes wrong:** Spending months building complex blog systems, custom CMS features, or elaborate animations instead of shipping a simple portfolio that gets clients.
-
-**Why it happens:** Developer mindset - "I can build that better myself." Fear of shipping something simple. Perfectionism.
-
-**Consequences:**
-
-- 6 months of development with no revenue
-- Delayed market entry means competitors capture available clients
-- Feature bloat that doesn't improve conversion
-- Maintenance burden for features that don't matter
-
-**Prevention:**
-
-- Validate manually before automating (user quote from AI docs)
-- Ship 5 projects + services page + Calendly, then iterate
-- Defer blog until you have clients requesting content
-- Use Convex queries directly, add complex caching only when needed
-- "What's the simplest version that would work?" before building anything
-
-**Detection:**
-
-- You've been building for 2+ months without launching
-- Feature list keeps growing
-- You're researching edge cases instead of shipping
-- No one has seen your site yet
-
-**Phase to address:** Phase 1 (Core Site) - Explicit scope limit prevents this.
+**Phase to address:** Throughout all phases (continuous monitoring)
 
 ---
 
-### Pitfall 6: Including Every Project You've Ever Built
+### Pitfall 3: shadcn/ui Customization Hell
 
-**What goes wrong:** Portfolio shows 20+ projects including tutorials, outdated tech, and unfinished experiments. This dilutes your strengths and makes you look scattered instead of focused.
+**What goes wrong:**
+Customizing shadcn/ui components to look "less generic" breaks the design system consistency, creates maintenance nightmares, and accidentally removes accessibility features. Components become YOUR problem - dependency issues (like the cmdk Combobox breakage), bundle size bloat, and manual update burden.
 
-**Why it happens:** Fear of not having "enough" work to show. Thinking more = better.
+**Why it happens:**
+- shadcn/ui copies components into your codebase - you own them
+- No central theme means brand color updates require touching dozens of files
+- Developers customize without understanding component structure
+- Breaking changes in underlying libraries (Radix UI) break your custom components
+- Button API has "questionable designs" that tempt bad customization
 
-**Consequences:**
+**How to avoid:**
+- Create a central theme BEFORE customizing individual components
+- Document every customization with rationale (why it differs from default)
+- When changing shadcn component, test ALL interactive states (hover, focus, disabled, error, loading)
+- Use semantic color tokens, not literal values: `bg-primary` not `bg-blue-500`
+- Keep shadcn component customizations in a single directory (`components/ui/`)
+- If updating a component, diff against current shadcn version to see what changed upstream
+- Test with keyboard navigation to ensure accessibility preserved
 
-- Visitors overwhelmed, can't identify your specialty
-- Outdated projects make you look behind on current tech
-- Tutorial projects signal junior developer
-- No clear narrative about what you're good at
+**Warning signs:**
+- Spacing inconsistencies across similar components
+- Focus outlines missing or invisible
+- Color contrast fails WCAG checks
+- Components behave differently in light vs dark mode
+- ESLint jsx-a11y warnings (project has this plugin enabled)
 
-**Prevention:**
+**Phase to address:** Design System Foundation (Phase 2)
 
-- Show 6-8 best projects maximum
-- Include only projects with live URLs and recent tech
-- Remove tutorial projects, clones, or half-finished work
-- Each project needs clear role description and tech stack
-- Focus on projects relevant to target client (local business WordPress sites)
+---
 
-**Detection:**
+### Pitfall 4: Color Contrast Failures in Dark Mode
 
-- Project list includes "Portfolio site" as a project
-- Projects from 3+ years ago with deprecated tech
-- Multiple similar tutorial projects (todo apps)
-- No working links for several projects
+**What goes wrong:**
+83.6% of websites fail WCAG color contrast requirements. When polishing colors for "warm, approachable, professional" feel, subtle color changes on dark backgrounds become invisible. Pure black (#000000) creates halation effect and eye strain. Focus outlines blend into interface. Interactive states (hover, disabled) fail contrast checks. Sites offer dark mode toggle thinking it fixes contrast issues - it doesn't.
 
-**Phase to address:** Phase 1 (Core Site) - Content strategy document should specify 6 projects max.
+**Why it happens:**
+- Designers test on good monitors with high contrast ratio
+- HSL color variables look fine in light mode, fail in dark mode
+- Simple color inversion (light to dark) creates high contrast discomfort
+- Focus states rely on subtle color shifts that disappear on dark backgrounds
+- Contrast checking happens as afterthought, not during design
+
+**How to avoid:**
+- Test every color combination with contrast checker (aim for WCAG AA minimum 4.5:1 for text, 3:1 for UI)
+- Avoid pure black (#000000) and pure white (#ffffff) - use #0a0a0a and #fafafa instead
+- Test dark mode on ACTUAL dark theme, not just inverted palette
+- Ensure focus indicators are visible in BOTH themes (minimum 3:1 contrast against background)
+- Check all interactive states: default, hover, focus, active, disabled, error
+- Use `next-themes` package (already in deps) to test theme switching
+- More than 80% of users opt for dark mode when given choice - don't treat it as afterthought
+
+**Warning signs:**
+- Browser accessibility DevTools flags contrast violations
+- Focus states hard to see when tabbing through interface
+- Text on colored backgrounds feels hard to read
+- Dark mode looks like simple color inversion
+- Hiring managers comment that site "feels hard to use"
+
+**Phase to address:** Color System (Phase 3)
+
+---
+
+### Pitfall 5: Design Token Inconsistency
+
+**What goes wrong:**
+Ad-hoc spacing decisions create visual chaos: one section uses `gap-4`, another `gap-6`, third uses `gap-5`. Typography sizes vary randomly (text-base here, text-lg there). No consistent spacing scale means "fixing" one area breaks visual rhythm elsewhere. Without central tokens, updating brand color requires 40+ file changes.
+
+**Why it happens:**
+- Tailwind makes it TOO easy to use arbitrary values
+- Developers pick spacing that "looks right" without system
+- No design tokens defined upfront
+- Each component built in isolation
+- Copy-paste leads to divergent values
+
+**How to avoid:**
+- Define spacing scale in CSS variables BEFORE building components
+- Tailwind config (lines 55-58) has radius variables - extend this to spacing
+- Create spacing scale: `--spacing-xs`, `--spacing-sm`, `--spacing-md`, `--spacing-lg`, `--spacing-xl`
+- Typography scale: `--text-xs` through `--text-5xl` with consistent line-heights
+- Document the system: "Use --spacing-md (1rem) for component internal padding"
+- Lint for arbitrary values: `[&:not(.arbitrary-allowed)]:gap-[17px]` should fail CI
+- Run spacing audit: grep for `gap-`, `p-`, `m-` and document most common values
+
+**Warning signs:**
+- Same component has different spacing on different pages
+- Visual rhythm feels "off" but can't pinpoint why
+- Spacing values include oddities like `gap-7`, `p-11`, `mt-13`
+- Typography line-heights inconsistent (some tight, some loose)
+- Developers ask "what spacing should I use?" repeatedly
+
+**Phase to address:** Design System Foundation (Phase 2)
+
+---
+
+### Pitfall 6: Mobile Responsive Regression
+
+**What goes wrong:**
+Polishing desktop design breaks mobile experience. Navigation becomes unusable, content gets cut off, touch targets too small, performance craters. Google's mobile-first indexing means sites not accessible on mobile "will not be indexed at all, regardless of their desktop performance." This is "the definitive end of desktop-first web development."
+
+**Why it happens:**
+- Designers test on desktop, assume mobile "just works"
+- Responsive design treated as afterthought after desktop polish
+- Fixed widths or heights break on smaller screens
+- Desktop hover states don't translate to touch
+- Images optimized for desktop are huge on mobile
+
+**How to avoid:**
+- Mobile-first design: build small screen first, enhance for desktop
+- Test on REAL mobile devices, not just DevTools responsive mode
+- Touch targets minimum 44x44px (Apple) or 48x48px (Google)
+- No hover-only interactions - provide touch alternatives
+- Use Next.js Image component (already using) with responsive sizes prop
+- Test hamburger menu on actual phone - does it work with thumb?
+- Validate scroll behavior - no horizontal scroll on mobile
+- Check Lighthouse mobile score (currently 96) doesn't regress
+
+**Warning signs:**
+- Lighthouse mobile score drops below 90
+- Navigation menu hard to open/close on phone
+- Text requires pinch-to-zoom
+- Buttons too small to tap accurately
+- Horizontal scrollbar appears
+- Layout shifts when rotating device
+
+**Phase to address:** Throughout all phases (continuous validation)
+
+---
+
+### Pitfall 7: SEO/Accessibility Coupling Breakage
+
+**What goes wrong:**
+Design changes break accessibility AND SEO simultaneously. Technical SEO and accessibility "break in the same places" - div soup confuses screen readers and crawlers identically. Infinite scroll traps keyboard users. Hover-only navigation fails for screen readers and Google. When accessibility breaks, crawlability suffers. Organizations now correlate web accessibility with SEO performance, AI response quality, usability, and conversion rates.
+
+**Why it happens:**
+- Semantic HTML replaced with divs for "design flexibility"
+- ARIA attributes removed or used incorrectly
+- Heading hierarchy broken for visual design
+- Links styled as buttons (or vice versa)
+- JavaScript-only content that can't be parsed without pre-rendering
+- Focus on visual polish ignores document structure
+
+**How to avoid:**
+- Semantic HTML first: use `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`
+- Heading hierarchy matters: h1 → h2 → h3, no skipping levels
+- Links for navigation (`<a href>`), buttons for actions (`<button>`)
+- Test with keyboard only: Tab, Shift+Tab, Enter, Space
+- Use next-aeo package (already in deps) to verify structured data
+- Screen reader testing: NVDA (free on Windows) or VoiceOver (Mac)
+- Lighthouse accessibility audit catches 57% of issues - remaining 43% need manual testing
+
+**Warning signs:**
+- Lighthouse accessibility score drops below 100
+- Can't navigate site with keyboard only
+- Headings don't form logical outline
+- Links announce as "link" with no context
+- Google Search Console shows indexing issues
+- eslint-plugin-jsx-a11y (already installed) shows warnings
+
+**Phase to address:** Throughout all phases (validation gate)
+
+---
+
+### Pitfall 8: "Looks Done But Isn't" - The Generic Template Trap
+
+**What goes wrong:**
+Site gets "polished" but still looks like default shadcn/ui template. This is THE core problem: making a web designer's portfolio that screams "I used a template." Visual hierarchy weak, spacing generic, no personality, CTAs blend into content. For someone selling web design services, this is fatal credibility loss.
+
+**Why it happens:**
+- Default shadcn components used without customization
+- No custom brand elements (illustrations, patterns, textures)
+- Typography uses default Inter font without hierarchy
+- Colors use default slate grays instead of warm brand palette
+- Layout follows standard "hero → cards → footer" pattern
+- No unique visual elements that say "this is Jon Gerton"
+
+**How to avoid:**
+- Identify "template smell": if it could be anyone's site, it fails
+- Custom brand elements: hand-crafted illustrations, unique patterns, subtle textures
+- Typography personality: adjust font weights, letter spacing, line heights
+- Use the defined brand colors (corporate-blue, tech-blue, turquoise) prominently
+- Visual storytelling: large banner/slider headers are cliche - avoid them
+- Add personality through micro-interactions, not just big animations
+- "After years of polished grids and AI-generated sameness, the industry is quietly rebelling with warmth, texture, and personality"
+
+**Warning signs:**
+- Could swap logo and it looks like someone else's site
+- All components use default shadcn styling
+- Color palette is slate-based neutrals only
+- No custom visual elements beyond stock photos
+- Typography lacks hierarchy (everything looks same weight)
+- Feedback from users: "nice site" but no memorable elements
+
+**Phase to address:** Brand Identity (Phase 4)
 
 ---
 
 ## Moderate Pitfalls
 
-Mistakes that cause delays, technical debt, or missed opportunities.
+Mistakes that cause delays, technical debt, or suboptimal UX.
 
-### Pitfall 7: JavaScript Rendering Breaks SEO
+### Pitfall 9: Weak Portfolio CTA Strategy
 
-**What goes wrong:** Next.js sites that rely on client-side rendering for critical content give search engines empty markup. Lazy loading acts as SEO barrier, robots.txt blocks JavaScript resources, and pre-rendering breaks when depending on browser objects like `window`.
+**What goes wrong:** CTAs say "Explore My Journey" instead of "Book Your $500 Website"
+**Impact:** Conversion rate suffers - visitors unsure what action to take
+**Fix:** Action hierarchy - Primary (see work), Secondary (learn about you), Tertiary (contact)
+**Stats:** Right CTA in right location increases conversions 22-48%, arrow on button adds 26% clicks
+**Phase:** CTA Optimization (Phase 5)
 
-**Why it happens:**
+### Pitfall 10: Multiple Competing CTAs
 
-- Copying patterns from SPA tutorials without understanding SSR
-- Not testing how Googlebot sees the site
-- Legacy robots.txt from old projects
+**What goes wrong:** Every section has different CTA, creating "button festival"
+**Impact:** Decision paralysis - visitors don't know which action is primary
+**Fix:** One primary CTA per page, secondary CTAs visually subordinate
+**Phase:** CTA Optimization (Phase 5)
 
-**Prevention:**
+### Pitfall 11: Missing Urgency Signals
 
-- Use Next.js App Router with RSC (React Server Components) for content-heavy pages
-- Verify robots.txt doesn't block /static or /js folders (Googlebot renders JavaScript now)
-- Test with Google Search Console URL Inspection tool
-- Avoid `window` or `document` access outside useEffect/client components
-- Use next/image for optimized image loading with proper SSR
-
-**Detection:**
-
-- Google Search Console shows indexing issues
-- "View Source" shows minimal HTML content
-- Lighthouse SEO score flags missing content in initial render
-
-**Phase to address:** Phase 1 (Core Site) - Architecture decision, catch during initial build.
+**What goes wrong:** No indication of availability, booking timeline, or demand
+**Impact:** Visitors delay decision, never return
+**Fix:** Subtle urgency: "Currently booking projects for Q2 2026", "3 slots available this month"
+**Phase:** CTA Optimization (Phase 5)
 
 ---
 
-### Pitfall 8: Missing or Incorrect Structured Data for AEO
+## Technical Debt Patterns
 
-**What goes wrong:** Sites lack JSON-LD schema markup, use generic schema instead of specific types, or implement schema incorrectly. This prevents AI search engines from understanding and citing your content.
+### Pattern 1: CSS Variable Scope Confusion
+**Problem:** Mixing Tailwind v4 CSS-first config with v3 JavaScript config patterns
+**Detection:** Look for mix of `@theme` directive and tailwind.config.ts extensions
+**Fix:** Choose one system - v4 uses CSS `@theme`, not JS config
+**Cost to fix later:** 4-8 hours refactor + regression testing
 
-**Why it happens:**
+### Pattern 2: Arbitrary Value Proliferation
+**Problem:** `gap-[23px]`, `text-[17px]`, `mt-[13px]` scattered throughout codebase
+**Detection:** Grep for `\[.*px\]` pattern in class names
+**Fix:** Replace with design tokens or add to Tailwind theme
+**Cost to fix later:** 2-3 hours + visual regression testing
 
-- SEO treated as afterthought
-- Unfamiliarity with schema.org vocabulary
-- Copying incomplete schema examples
+### Pattern 3: Inline Style Escape Hatch Overuse
+**Problem:** Using `style={{}}` props instead of Tailwind classes
+**Detection:** Grep for `style={{` in components
+**Fix:** Convert to Tailwind utilities or CSS variables
+**Cost to fix later:** 1-2 hours per component
 
-**Consequences:**
-
-- Content not cited in AI search results (ChatGPT, Perplexity, Gemini)
-- Missing rich snippets in Google search
-- Competitors with proper markup get featured instead
-- Lost visibility in "answer engine" queries
-
-**Prevention:**
-
-- Use schema.org types: LocalBusiness, Service, FAQPage, Person
-- Include JSON-LD in every page (not just homepage)
-- Add FAQ schema for services page with common questions
-- Validate with Google Rich Results Test before launch
-- Include publication dates for AEO freshness signals
-
-**Detection:**
-
-- Google Rich Results Test shows no structured data
-- Site doesn't appear in featured snippets for relevant queries
-- Schema validation tools show errors
-- AI search tools don't cite your content when asked about your niche
-
-**Phase to address:** Phase 1 (Core Site) - AEO is explicitly part of requirements.
+### Pattern 4: Component Variant Duplication
+**Problem:** Same button styled 5 different ways across site
+**Detection:** Count button class name variations
+**Fix:** Use class-variance-authority (already in deps) to centralize variants
+**Cost to fix later:** 3-5 hours + testing all button instances
 
 ---
 
-### Pitfall 9: No Client Handoff Documentation
+## Performance Traps
 
-**What goes wrong:** After launching WordPress site, client doesn't know how to update content, can't access admin, doesn't understand what they're responsible for maintaining. This leads to support requests that eat into profit margins.
+### Trap 1: Unoptimized Custom Fonts
+**Risk:** Adding Google Fonts or custom typefaces incorrectly tanks FCP
+**Prevention:** Use Next.js font optimization (`next/font/google`), preload font files, subset fonts
+**Monitoring:** Watch First Contentful Paint in Lighthouse
 
-**Why it happens:**
+### Trap 2: Large Background Images/Videos
+**Risk:** Hero sections with 5MB background videos or 3000px images
+**Prevention:** Use Next.js Image with priority prop for above-fold images, video poster images, lazy load below-fold content
+**Monitoring:** Largest Contentful Paint (LCP) metric
 
-- Rushing to launch without training
-- Assuming "WordPress is easy, they'll figure it out"
-- No documented handoff process
+### Trap 3: Render-Blocking CSS
+**Risk:** Custom CSS files block initial render
+**Prevention:** Inline critical CSS, defer non-critical CSS, use Tailwind's built-in tree-shaking
+**Monitoring:** Total Blocking Time (TBT) metric
 
-**Consequences:**
-
-- Weekly support requests for basic tasks (adding blog posts, changing hours)
-- Client frustration and bad reviews
-- Unpaid support work reduces hourly rate on fixed project
-- Client makes breaking changes requiring paid fixes
-
-**Prevention:**
-
-- Create handoff documentation template (how to update, where credentials are, support resources)
-- Schedule 30-minute training call before final payment (record it)
-- Provide written guide with screenshots for common tasks
-- Set support boundaries: "First 2 weeks covered, then $75/hour for changes"
-- Include "what not to touch" section (theme files, plugins)
-
-**Detection:**
-
-- Client emails you asking how to add a page
-- Client requests that should take them 5 minutes
-- Hosting provider contacts client about issues you could have prevented
-- Client accidentally breaks site within first month
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Handoff checklist is explicitly required.
+### Trap 4: JavaScript Bundle Bloat
+**Risk:** Animation libraries, UI libraries, utilities add 200KB+ to bundle
+**Prevention:** Code split with dynamic imports, tree-shake unused exports, check bundle analyzer
+**Monitoring:** Lighthouse performance score, bundle size in build output
 
 ---
 
-### Pitfall 10: No WordPress Starter Template
+## "Looks Done But Isn't" Checklist
 
-**What goes wrong:** Starting from scratch for every $500 site means rebuilding same foundation (theme selection, plugin setup, basic pages) repeatedly. This kills profitability on fixed-price work.
+Use this to validate design polish actually improves the site:
 
-**Why it happens:**
+**Visual Identity**
+- [ ] Brand colors (corporate-blue, tech-blue, turquoise) used prominently, not just defined
+- [ ] Typography hierarchy clear: h1 distinct from h2, p from small text
+- [ ] Spacing follows consistent scale (no random gap-7, p-11, mt-13)
+- [ ] Components have consistent border-radius (config has --radius variable)
+- [ ] Dark mode intentionally designed, not just color inversion
 
-- "Each client is unique" mindset
-- Not recognizing patterns across similar projects
-- Reinventing the wheel each time
+**Performance**
+- [ ] Lighthouse performance 90+ (currently 100, don't regress)
+- [ ] Lighthouse accessibility 100 (maintain)
+- [ ] Lighthouse best practices 100 (currently 100, maintain)
+- [ ] Page load under 3 seconds (currently sub-3s)
+- [ ] First Contentful Paint under 1.8s
+- [ ] Largest Contentful Paint under 2.5s
+- [ ] Cumulative Layout Shift under 0.1
 
-**Consequences:**
+**Accessibility**
+- [ ] All interactive elements keyboard accessible (Tab navigation works)
+- [ ] Focus indicators visible in light AND dark mode
+- [ ] Color contrast meets WCAG AA (4.5:1 text, 3:1 UI)
+- [ ] Semantic HTML (nav, main, article, section, aside)
+- [ ] Heading hierarchy logical (no skipped levels)
+- [ ] ARIA labels on icon-only buttons
+- [ ] Form inputs have associated labels
+- [ ] Error messages announce to screen readers
 
-- 5-day project could be 2-day project with template
-- Inconsistent quality across projects
-- Higher chance of missing critical setup steps
-- Can't scale beyond 2-3 clients per month
+**Brand Personality**
+- [ ] Site feels like "Jon Gerton" not "generic developer"
+- [ ] Visual elements beyond stock components (custom illustrations, patterns, textures)
+- [ ] Typography has personality (weights, spacing, rhythm)
+- [ ] Micro-interactions add delight without hurting performance
+- [ ] Color palette reflects "warm, approachable, professional" (not cold slate grays)
+- [ ] Layout breaks away from standard template patterns
 
-**Prevention:**
+**Conversion Flow**
+- [ ] Primary CTA obvious on every page (Book Your $500 Website)
+- [ ] CTA hierarchy clear (primary visually dominant)
+- [ ] No competing CTAs creating confusion
+- [ ] Urgency signals present but not aggressive
+- [ ] Path to Calendly booking frictionless
+- [ ] Services page clearly explains $500 offer value
 
-- Build WordPress starter template with pre-configured theme and essential plugins
-- Include baseline pages (Home, About, Services, Contact)
-- Pre-configure SEO plugin, contact form, caching
-- Document what's customizable vs fixed in template
-- Version control template for improvements
-
-**Detection:**
-
-- Each project starts with "Okay, which theme should I use?"
-- You're Googling "best contact form plugin" for the 5th time
-- Project days 1-2 always feel the same
-- Forgetting steps that should be standard
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Starter template is explicitly required.
-
----
-
-### Pitfall 11: Keyword Stuffing Instead of Entity-Based Content for AEO
-
-**What goes wrong:** Cramming "Anchorage landscaping" 50 times into page copy or using AI-generated fluff content. This hurts AEO because AI engines see through keyword stuffing instantly.
-
-**Why it happens:**
-
-- Old SEO tactics from 2015
-- Misunderstanding how AI search works
-- Using AI writing tools without editing
-
-**Consequences:**
-
-- Content reads unnaturally, hurts user experience
-- AI search engines skip over thin content
-- Clients see unprofessional copy, question your expertise
-- Content doesn't get cited by answer engines
-
-**Prevention:**
-
-- Focus on entity-based optimization (what you do, who you serve, where you operate)
-- Write descriptive, clear content instead of keyword-focused
-- Structure content with headers, bullet points, short paragraphs
-- Get to the point quickly (first 160 characters matter)
-- Always include dates on published content (AEO freshness signal)
-- Use actual examples and specific details over generic descriptions
-
-**Detection:**
-
-- Copy includes phrases like "the best Anchorage landscaping services for landscaping in Anchorage"
-- Walls of text with no structure
-- AI detection tools flag content as generated
-- Content doesn't answer questions clearly
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Content workflow documentation should address this.
+**Technical Quality**
+- [ ] No console errors or warnings
+- [ ] ESLint passes (no jsx-a11y violations)
+- [ ] TypeScript strict mode passes
+- [ ] Build succeeds without warnings
+- [ ] All images use Next.js Image component
+- [ ] Responsive design tested on real mobile devices
+- [ ] Works in Safari, Chrome, Firefox
 
 ---
 
-### Pitfall 12: Blocking AI Crawlers in robots.txt
+## Recovery Strategies
 
-**What goes wrong:** robots.txt blocks JavaScript folders, AI crawlers (GPTBot, PerplexityBot), or uses legacy rules from pre-AI search era. This prevents AEO benefits while offering no security advantage.
+### If Performance Tanks
+1. **Identify the culprit:** Run Lighthouse before/after specific changes
+2. **Check bundle size:** `bun run build` shows size breakdown
+3. **Profile with DevTools:** Performance tab shows what's slow
+4. **Remove animations first:** Often the quickest win
+5. **Optimize images:** Check all images use Next.js Image with proper sizes
+6. **Code split:** Dynamic imports for below-fold content
 
-**Consequences:**
+### If Accessibility Breaks
+1. **Run Lighthouse:** Catches 57% of issues automatically
+2. **Keyboard test:** Can you navigate entire site with Tab/Enter only?
+3. **Screen reader test:** NVDA on Windows, VoiceOver on Mac
+4. **Contrast check:** Use browser DevTools accessibility panel
+5. **Semantic HTML:** View page source, ensure proper tags
+6. **Fix ESLint:** `bun run lint` shows jsx-a11y violations
 
-- Site invisible to AI search engines
-- Content not cited in ChatGPT, Perplexity, Gemini results
-- Competitors without blocks get all AI-driven traffic
-- Missing opportunity for zero-click visibility
+### If Dark Mode Fails
+1. **Test theme toggle:** Use next-themes `useTheme` hook to verify switching
+2. **Check CSS variables:** All colors use `hsl(var(--variable))` syntax?
+3. **Validate contrast:** Light mode passing doesn't mean dark mode does
+4. **Test all states:** Hover, focus, active, disabled in both themes
+5. **Browser DevTools:** Force color scheme to test without toggle
 
-**Prevention:**
-
-- Allow Googlebot, GPTBot, PerplexityBot, and other AI crawlers
-- Don't block /static or /js folders (required for modern rendering)
-- Review robots.txt before launch
-- Test with Google Search Console to verify crawlability
-- Only block actual private content (admin, user accounts)
-
-**Detection:**
-
-- robots.txt shows "Disallow: /static" or "Disallow: /js"
-- User-agent blocks include GPTBot or Perplexity
-- AI search tools don't return your site for relevant queries
-- Google Search Console shows crawl errors
-
-**Phase to address:** Phase 1 (Core Site) - Verify during initial SEO setup.
-
----
-
-### Pitfall 13: Portfolio Itself as a "Project"
-
-**What goes wrong:** Including "Personal Portfolio Website" as one of your showcase projects signals junior developer and dilutes actual client work.
-
-**Why it happens:**
-
-- Need to fill space when project count is low
-- Thinking it demonstrates technical skills
-- Seeing other junior developers do it
-
-**Consequences:**
-
-- Looks inexperienced to potential clients
-- Wastes precious portfolio slot on self-referential work
-- Doesn't demonstrate client value delivery
-- Creates recursive "portfolio of portfolios" problem
-
-**Prevention:**
-
-- Never include portfolio as a project
-- If you lack projects, build 2-3 spec projects for fake businesses
-- Show freelance work, side projects, or open source contributions
-- Wait to launch until you have 6 non-portfolio projects
-
-**Detection:**
-
-- Project list includes "Built with Next.js and Convex to showcase my work"
-- Portfolio is your most recent or featured project
-
-**Phase to address:** Phase 1 (Core Site) - Content strategy phase.
+### If Design Feels Generic
+1. **Audit components:** Count how many use default shadcn styling
+2. **Brand color usage:** Grep for corporate-blue, tech-blue, turquoise usage
+3. **Typography audit:** Check font weights, sizes, spacing variations
+4. **Layout patterns:** Does structure match common templates?
+5. **Visual elements:** List custom illustrations, patterns, textures (should be >3)
 
 ---
 
-## Minor Pitfalls
+## Pitfall-to-Phase Mapping
 
-Mistakes that cause annoyance or small issues but are fixable.
-
-### Pitfall 14: Outdated Portfolio Content
-
-**What goes wrong:** Portfolio shows projects from 2+ years ago with deprecated tech stacks. Live links are broken. Screenshots show old designs.
-
-**Why it happens:** "Set it and forget it" mentality after launch. No maintenance schedule.
-
-**Prevention:**
-
-- Quarterly portfolio review to verify links still work
-- Replace projects older than 2 years with recent work
-- Update tech stack descriptions to current versions
-- Re-screenshot projects if visual design changed
-- Mark WIP projects clearly or exclude them
-
-**Detection:**
-
-- Project descriptions mention "React 16" when React 19 is current
-- Clicking live demo links returns 404
-- Screenshots show designs from different era
-
-**Phase to address:** Ongoing maintenance - Set calendar reminder for quarterly review.
-
----
-
-### Pitfall 15: Poor Lighthouse Performance Scores
-
-**What goes wrong:** Site scores below 80 on Lighthouse for Performance, SEO, or Accessibility. This hurts rankings, user experience, and professional credibility.
-
-**Why it happens:**
-
-- Unoptimized images (not using next/image)
-- Blocking render with unoptimized fonts
-- Too much client-side JavaScript
-- Not testing before launch
-
-**Prevention:**
-
-- Use next/image for all images (automatic optimization)
-- Lazy load images below fold
-- Use Next.js font optimization for Google Fonts
-- Target Lighthouse scores: 90+ Performance, 95+ SEO, 90+ Accessibility
-- Run Lighthouse in CI before deployment
-
-**Detection:**
-
-- Lighthouse scores below 80 in any category
-- PageSpeed Insights shows "slow" rating
-- Images load sequentially instead of progressively
-- Fonts cause layout shift (CLS issues)
-
-**Phase to address:** Phase 1 (Core Site) - Test during build, catch before launch.
-
----
-
-### Pitfall 16: Generic "Contact Me" Instead of Service-Specific CTA
-
-**What goes wrong:** Services page has generic "Get in touch" button instead of "Book Your $500 Website Call." Misses opportunity to pre-qualify leads and set expectations.
-
-**Why it happens:**
-
-- Copying generic portfolio templates
-- Not thinking from client perspective
-- Generic forms seem more flexible
-
-**Consequences:**
-
-- Unqualified leads fill contact form
-- Time wasted on discovery calls with people not ready to buy
-- Conversion rate lower than it could be
-- No clear path from "I need a site" to "Book a call"
-
-**Prevention:**
-
-- Use service-specific CTAs: "Book Your $500 Site Call" (not "Contact Me")
-- Calendly link pre-qualifies with intake questions
-- Services page clearly states price ($500) before CTA
-- CTA button text matches service offering
-- Include urgency or scarcity (limited slots, booking for Q2)
-
-**Detection:**
-
-- Contact form gets questions outside your service area
-- Discovery calls often end with "this isn't a fit"
-- People ask "how much?" when price is clearly stated
-- Button says generic "Contact" instead of specific offer
-
-**Phase to address:** Phase 1 (Core Site) - Copy and CTA strategy.
-
----
-
-### Pitfall 17: No WordPress Content Workflow Documentation
-
-**What goes wrong:** Each WordPress project requires gathering content (text, images, hours, services) from client but there's no repeatable process. This leads to delays, missing content, and unclear deliverables.
-
-**Why it happens:**
-
-- Treating each project as unique
-- Not documenting what worked before
-- No intake form for required content
-
-**Consequences:**
-
-- Projects delayed waiting for client to provide copy
-- You write all content yourself (unpaid work)
-- Client unhappy with your copywriting
-- Launch delayed by content bottlenecks
-
-**Prevention:**
-
-- Create content intake form (services offered, business hours, about text, 3-5 photos)
-- Document Claude-assisted drafting workflow for helping clients
-- Set expectation: "I need your content by Day 2 to meet 5-day timeline"
-- Provide content template with examples
-- Include content deadline in project timeline
-
-**Detection:**
-
-- Project on Day 4, still waiting for About page text
-- You're writing client's service descriptions yourself
-- Client sends content in 5 different emails over 2 weeks
-- Every project has content delays
-
-**Phase to address:** Phase 2 (WordPress Delivery System) - Content workflow documentation is required.
-
----
-
-### Pitfall 18: Treating Blog as Required for Launch
-
-**What goes wrong:** Delaying portfolio launch because "I should have blog posts first" or building complex blog features before validating site converts clients.
-
-**Why it happens:**
-
-- Seeing other portfolios with blogs
-- Thinking content marketing is required day 1
-- Perfectionism and launch anxiety
-
-**Consequences:**
-
-- Delayed launch means delayed revenue
-- Building blog features no one will read
-- Time better spent on client work
-- Maintenance burden for unused feature
-
-**Prevention:**
-
-- Ship without blog, add later if clients request content
-- Focus launch on projects + services + booking flow
-- Validate conversion before adding content features
-- Blog can be added in Phase 3 after first clients close
-
-**Detection:**
-
-- You're building blog features instead of finishing services page
-- "I'll launch when I have 5 blog posts written"
-- Blog is in MVP scope without clear purpose
-- Research on "best blogging platform" before portfolio is done
-
-**Phase to address:** Phase 1 (Core Site) - Blog explicitly out of scope in PROJECT.md.
+| Pitfall | Risk Level | Phase(s) Affected | Mitigation Timing |
+|---------|------------|-------------------|-------------------|
+| Tailwind v4 Migration Gotchas | CRITICAL | 1-2 Foundation | Before any customization |
+| Over-Animation Performance | HIGH | All phases | Continuous monitoring |
+| shadcn/ui Customization Hell | HIGH | 2 Design System | Before component changes |
+| Color Contrast Dark Mode | HIGH | 3 Color System | During color changes |
+| Design Token Inconsistency | MEDIUM | 2 Design System | Before component work |
+| Mobile Responsive Regression | HIGH | All phases | Continuous validation |
+| SEO/Accessibility Coupling | CRITICAL | All phases | Validation gate |
+| Generic Template Trap | MEDIUM | 4 Brand Identity | During visual polish |
+| Weak CTA Strategy | MEDIUM | 5 CTA Optimization | During conversion work |
 
 ---
 
 ## Phase-Specific Warnings
 
-| Phase                        | Likely Pitfall                              | Mitigation                                                                         |
-| ---------------------------- | ------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Phase 1: Core Portfolio Site | Over-engineering (Pitfall 5)                | Strict scope limit: 5 projects, services page, Calendly. No blog. Ship in 2 weeks. |
-| Phase 1: Core Portfolio Site | No clear CTA (Pitfall 1)                    | Review every page for primary CTA. Test booking flow before launch.                |
-| Phase 1: Core Portfolio Site | JavaScript rendering breaks SEO (Pitfall 7) | Use App Router with RSC. Test with Google Search Console before launch.            |
-| Phase 2: WordPress Delivery  | No payment protection (Pitfall 2)           | Document 50% upfront requirement in all templates/contracts before first client.   |
-| Phase 2: WordPress Delivery  | Scope creep (Pitfall 3)                     | Create scope documentation template and change request process.                    |
-| Phase 2: WordPress Delivery  | No starter template (Pitfall 10)            | Build template before first client. Don't skip this to "save time."                |
-| Phase 2: WordPress Delivery  | Missing handoff docs (Pitfall 9)            | Create handoff checklist and training process before first launch.                 |
-| Phase 3: Future Features     | Feature bloat before validation             | Don't build client portal until 5+ clients request it.                             |
+| Phase Topic | Likely Pitfall | Mitigation |
+|-------------|---------------|------------|
+| Foundation | Tailwind v4 breaking changes | Test dark mode explicitly before building on it |
+| Design System | Design token inconsistency | Define spacing/typography scale BEFORE components |
+| Color System | Dark mode contrast failures | Test WCAG contrast in both themes simultaneously |
+| Brand Identity | Generic template trap | Add 3+ custom visual elements (illustrations, patterns) |
+| CTA Optimization | Multiple competing CTAs | One primary CTA per page, others subordinate |
 
 ---
 
 ## Sources
 
-**Portfolio Website Mistakes:**
+**Tailwind v4:**
+- [Tailwind CSS v4.0 Complete Migration Guide](https://medium.com/@mernstackdevbykevin/tailwind-css-v4-0-complete-migration-guide-breaking-changes-you-need-to-know-7f99944a9f95)
+- [Upgrading to Tailwind v4: Missing Defaults, Broken Dark Mode](https://github.com/tailwindlabs/tailwindcss/discussions/16517)
+- [Tailwind CSS 4: What's New and Should You Migrate?](https://www.codewithseb.com/blog/tailwind-css-4-whats-new-migration-guide)
 
+**Performance:**
+- [React & Next.js Best Practices 2026: Performance](https://fabwebstudio.com/blog/react-nextjs-best-practices-2026-performance-scale)
+- [Website Animations in 2026: Pros, Cons & Best Practices](https://www.shadowdigital.cc/resources/do-you-need-website-animations)
+- [How We Boosted React Website Performance with Heavy Animations](https://medium.com/@ssd_design/how-to-improve-performance-on-a-react-website-with-heavy-design-and-animation-ae7d655da349)
+
+**shadcn/ui:**
+- [What I DON'T Like About shadcn/ui](https://dev.to/this-is-learning/what-i-dont-like-about-shadcnui-3amf)
+- [How to Make Shadcn UI Components Actually Yours](https://ui.spectrumhq.in/blog/shadcn-customization-guide)
+- [Customizing shadcn/ui Themes Without Breaking Updates](https://medium.com/@sureshdotariya/customizing-shadcn-ui-themes-without-breaking-updates-a3140726ca1e)
+
+**Accessibility & SEO:**
+- [SEO Accessibility: Make Your Site Searchable for All](https://searchengineland.com/guide/seo-accessibility)
+- [Accessibility as a Ranking Factor: Hidden SEO Benefit [2026]](https://searchatlas.com/blog/accessibility-a11y-seo-ranking-factor-2026/)
+- [Color Contrast Accessibility: Complete WCAG 2025 Guide](https://www.allaccessible.org/blog/color-contrast-accessibility-wcag-guide-2025)
+- [Dark Mode Design Best Practices in 2026](https://www.tech-rz.com/blog/dark-mode-design-best-practices-in-2026/)
+
+**Portfolio Design:**
 - [5 Mistakes Developers Make in Their Portfolio Websites](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
-- [How to Avoid Common Web Developer Portfolio Mistakes](https://www.linkedin.com/advice/0/what-most-important-things-avoid-your-web-developer-lk51e)
-- [7 Deadly Sins of Developer Portfolios](https://pesto.tech/resources/7-deadly-sins-of-developer-portfolios-and-how-to-avoid-them)
-- [Developer Portfolio Do's & Don'ts](https://blog.kieranroberts.dev/developer-portfolio-dos-and-donts)
-
-**Freelance WordPress Business:**
-
-- [Managing Scope Creep for WordPress Projects](https://elicus.com/managing-scope-creep/)
-- [How to Tame Scope Creep in WordPress Development](https://deliciousbrains.com/how-to-tame-scope-creep-in-wordpress-development/)
-- [How to Avoid Scope Creep in Freelance Projects](https://www.hellobonsai.com/blog/how-to-avoid-scope-creep)
-
-**WordPress Service Delivery:**
-
-- [Why Most WordPress and Shopify Stores Fail in 2026](https://rejverahman.medium.com/why-most-wordpress-and-shopify-stores-fail-and-what-actually-works-in-2026-c8c851acfba6)
-- [WordPress Website Services: How Much Should You Charge (2026)](https://wpastra.com/guides-and-tutorials/pricing-your-wordpress-services/)
-
-**Next.js SEO & Performance:**
-
-- [JavaScript SEO In 2026: 7 Mistakes Killing Your Rankings](https://zumeirah.com/javascript-seo-in-2026/)
-- [The Complete Guide to SEO Optimization in Next.js 15](https://medium.com/@thomasaugot/the-complete-guide-to-seo-optimization-in-next-js-15-1bdb118cffd7)
-- [Typical Next.js SEO Pitfalls to Avoid in 2024](https://focusreactive.com/typical-next-js-seo-pitfalls-to-avoid-in-2024/)
-- [SEO Meets Performance: Optimizing Next.js Without Losing Rankings](https://www.wisp.blog/blog/seo-meets-performance-optimizing-nextjs-without-losing-rankings)
-
-**AEO Implementation:**
-
-- [What is AEO (Answer Engine Optimization)? Complete 2026 Guide](https://digg.com/ai-growth-marketing/jGhncOK/what-is-aeo-answer-engine-optimization)
-- [Answer Engine Optimization: Complete Guide for 2026](https://www.codelevate.com/blog/answer-engine-optimization-aeo-the-comprehensive-guide-for-2026)
-- [AEO Emerging Trends: How Answer Engine Optimization is Reshaping Search in 2026](https://www.revvgrowth.com/aeo/emerging-trends-in-aeo)
-- [Answer Engine Optimization: Practical Framework for 2026](https://monday.com/blog/marketing/answer-engine-optimization/)
-
-**CTA & Conversion:**
-
 - [How to Design Portfolio Homepages That Land You Job in 2026](https://uxplaybook.org/articles/6-ux-portfolio-homepage-mistakes-2026)
-- [7 Common Pitfalls of Call to Action Design](https://vwo.com/blog/common-call-to-action-mistakes/)
-- [CTA Best Practices: Crafting Calls-to-Action That Actually Convert](https://www.leanlabs.com/blog/cta-best-practices)
+- [6 Wildly Common Portfolio Mistakes Designers Make](https://workspace.fiverr.com/blog/6-wildly-common-portfolio-mistakes-designers-might-make/)
 
-**Payment Terms:**
+**Responsive Design:**
+- [Responsive Web Design in 2026: Why Mobile-First](https://www.alfdesigngroup.com/post/responsive-web-design-why-mobile-first-ux)
+- [Responsive Design Best Practices: Complete 2026 Guide](https://pxlpeak.com/blog/web-design/responsive-design-best-practices)
 
-- [How to Ask Clients for an Upfront Payment the Right Way](https://youcanbook.me/blog/how-to-ask-for-an-upfront-payment-from-a-client)
-- [Web Design Payment Schedules: A Guide to Deposits and Milestones](https://contra.com/p/NAAvZWNm-web-design-payment-schedules-a-guide-to-deposits-and-milestones)
-- [What Is Upfront Payment? Key Insights for Freelancers](https://solowise.com/blog/what-is-upfront-payment)
+**Design Systems:**
+- [Tailwind CSS Best Practices 2025-2026: Design Tokens](https://www.frontendtools.tech/blog/tailwind-css-best-practices-design-system-patterns)
+- [Design Systems & Design Tokens Complete Guide](https://design.dev/guides/design-systems/)
 
-**Client Onboarding:**
+**CTA Optimization:**
+- [7 CTA Best Practices in 2026](https://thelakehousedigital.com/cta-best-practices/)
+- [Conversion Optimization 2026: Small Business Guide](https://theclaymedia.com/conversion-optimization-2026/)
 
-- [Why Most WordPress Agencies Lose Money on Client Onboarding](https://wp-umbrella.com/blog/why-most-wordpress-agencies-lose-money-on-client-onboarding/)
-- [Client Handoff SOP For WordPress Projects](https://usmanjatoi.com/websites/launch-checklists/client-handoff-sop-for-wordpress-projects/)
-- [How to Create a Client Onboarding Process](https://wpmudev.com/blog/wordpress-client-onboarding/)
-- [A Simple Framework for Executing Successful Client Onboarding](https://mainwp.com/framework-client-onboarding/)
+---
 
-**Convex + Next.js:**
-
-- [Authentication Best Practices: Convex, Clerk and Next.js](https://stack.convex.dev/authentication-best-practices-convex-clerk-and-nextjs)
+*Pitfalls research for: jpgerton.com design polish*
+*Researched: 2026-02-04*
+*Stack context: Next.js 16, Tailwind v4, shadcn/ui, Convex*
