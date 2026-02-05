@@ -67,9 +67,9 @@ export function CalendlyButton({
       "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground": variant === "outline",
       "hover:bg-accent hover:text-accent-foreground": variant === "ghost",
       // Sizes
-      "h-9 px-4 py-2": size === "default",
-      "h-8 rounded-md px-3 text-xs": size === "sm",
-      "h-10 rounded-md px-8": size === "lg",
+      "h-9 px-md py-xs": size === "default",
+      "h-8 rounded-md px-sm text-xs": size === "sm",
+      "h-10 rounded-md px-xl": size === "lg",
     },
     className
   );

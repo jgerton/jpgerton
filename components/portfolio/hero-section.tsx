@@ -3,14 +3,14 @@ import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section className="py-20 px-4 text-center">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
+    <section className="py-3xl px-md text-center">
+      <h1 className="text-4xl md:text-5xl font-bold mb-md text-foreground">
         Professional WordPress Sites from $500
       </h1>
-      <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+      <p className="text-lg md:text-xl text-muted-foreground mb-xl max-w-2xl mx-auto">
         Fast, mobile-friendly websites for local businesses. Custom development also available.
       </p>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <div className="flex flex-col sm:flex-row gap-md justify-center">
         <Button asChild size="lg">
           <Link href="/services">Get Your $500 Site</Link>
         </Button>

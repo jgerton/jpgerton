@@ -40,7 +40,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           )}
         </div>
         <CardHeader>
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex items-start justify-between gap-xs">
             <CardTitle className="line-clamp-1">{project.name}</CardTitle>
             <Badge variant={statusVariant[project.status]}>
               {project.status}

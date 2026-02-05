@@ -39,13 +39,13 @@ export function PricingCard({
     )}>
       <CardHeader className="text-center">
         {badge && (
-          <Badge className="w-fit mx-auto mb-2" variant="default">
+          <Badge className="w-fit mx-auto mb-xs" variant="default">
             {badge}
           </Badge>
         )}
         <CardTitle className="text-2xl">{name}</CardTitle>
         <CardDescription>{description}</CardDescription>
-        <div className="mt-4">
+        <div className="mt-md">
           {price ? (
             <span className="text-4xl font-bold">{price}</span>
           ) : (
@@ -54,9 +54,9 @@ export function PricingCard({
         </div>
       </CardHeader>
       <CardContent className="flex-1">
-        <ul className="space-y-3">
+        <ul className="space-y-sm">
           {benefits.map((benefit, i) => (
-            <li key={i} className="flex gap-2">
+            <li key={i} className="flex gap-xs">
               <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
               <span className="text-sm">{benefit}</span>
             </li>

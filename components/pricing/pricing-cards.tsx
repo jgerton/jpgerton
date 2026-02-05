@@ -10,7 +10,7 @@ interface PricingCardsProps {
 
 export function PricingCards({ tiers, onContactClick, renderCalendlyButton }: PricingCardsProps) {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-xl">
       {tiers.map((tier) => (
         <PricingCard
           key={tier.name}

@@ -34,14 +34,14 @@ export function ProjectFilters({ availableTechs }: ProjectFiltersProps) {
   const hasFilters = selectedTechs.length > 0 || sortBy !== "date";
 
   return (
-    <div className="mb-8 space-y-4">
-      <div className="flex flex-wrap items-center gap-4">
-        <div className="flex items-center gap-2">
+    <div className="mb-xl space-y-md">
+      <div className="flex flex-wrap items-center gap-md">
+        <div className="flex items-center gap-xs">
           <span className="text-sm font-medium text-muted-foreground">Sort:</span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-1.5 rounded-md border bg-background text-sm"
+            className="px-sm py-1.5 rounded-md border bg-background text-sm"
           >
             <option value="date">Newest First</option>
             <option value="name">Alphabetical</option>
@@ -55,8 +55,8 @@ export function ProjectFilters({ availableTechs }: ProjectFiltersProps) {
         )}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        <span className="text-sm font-medium text-muted-foreground mr-2 self-center">
+      <div className="flex flex-wrap gap-xs">
+        <span className="text-sm font-medium text-muted-foreground mr-xs self-center">
           Filter by tech:
         </span>
         {availableTechs.map((tech) => (
