@@ -12,9 +12,9 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 Phase: 10 of 14 (Typography & Color System)
 Plan: 10-03 of 3 in phase (complete)
 Status: Phase complete
-Last activity: 2026-02-05 - Completed 10-03-PLAN.md (Amber Accent & Warm Dark Mode)
+Last activity: 2026-02-05 - Completed 10-02-PLAN.md (Typography Application)
 
-Progress: [█████▓..........................] 35% v1.1 (8/23 plans)
+Progress: [██████..........................] 39% v1.1 (9/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [█████▓..........................] 35% v1.1 (8/23 plans)
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 8/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 9/23 plans complete
 
 ## Accumulated Context
 
@@ -61,6 +61,9 @@ Progress: [█████▓..........................] 35% v1.1 (8/23 plans)
 - [10-03] Warm blue-gray dark mode (220 hue) creates premium aesthetic vs neutral black
 - [10-03] Color elevation pattern: each surface level +3% lightness in dark mode for visible hierarchy
 - [10-03] Border contrast fixed to meet WCAG AA UI minimum (3:1) - critical for form inputs and card boundaries
+- [10-02] Serif headings (Lora) for H1/H2 content headings, sans-serif (Inter) preserved for UI labels and card text
+- [10-02] Fluid type tokens applied across all public pages (text-hero, text-h1, text-h2, text-h3)
+- [10-02] About page prose constrained to max-w-prose for optimal reading width (~65ch)
 
 ### Research Flags
 
@@ -80,9 +83,9 @@ Progress: [█████▓..........................] 35% v1.1 (8/23 plans)
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 10-03-PLAN.md (Amber Accent & Warm Dark Mode)
+Stopped at: Completed 10-02-PLAN.md (Typography Application)
 Resume file: None
-Next action: Phase 10 complete - proceed to Phase 11 (Component Library Expansion)
+Next action: Phase 10 complete (all 3 plans done) - proceed to Phase 11 (Component Library Expansion)
 
 ## Deployment Info
 
