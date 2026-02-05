@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 9 of 14 (Component Variant Extensions)
-Plan: 09-02 of 3 in phase (complete)
+Plan: 09-01 + 09-02 of 3 in phase (wave 1 complete)
 Status: In progress
-Last activity: 2026-02-05 - Completed 09-02-PLAN.md (Badge Tech Variants & Form Validation States)
+Last activity: 2026-02-05 - Completed 09-01-PLAN.md (Button & Card CVA Variants) + 09-02-PLAN.md (Badge Tech Variants)
 
-Progress: [██................................] 17% v1.1 (4/23 plans)
+Progress: [███.............................] 22% v1.1 (5/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [██................................] 17% v1.1 (4/23 plans)
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 4/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 5/23 plans complete
 
 ## Accumulated Context
 
@@ -47,6 +47,9 @@ Progress: [██................................] 17% v1.1 (4/23 plans)
 - [08-03] Token-based spacing migration complete for all public pages and components (7 pages, 8 components)
 - [09-02] Two-tier validation system: automatic (aria-invalid CSS) + explicit (validationState prop) for form inputs
 - [09-02] Brand-tinted badge variants use 10% opacity backgrounds for subtle category differentiation
+- [09-01] Keep 'default' as backward-compatible alias for 'primary' in Button variants
+- [09-01] Card default elevation 'sm' matches previous styling for zero-change upgrade
+- [09-01] Gradient shimmer uses bg-position shift (not keyframe animation) for GPU-friendly CSS-only approach
 
 ### Research Flags
 
@@ -66,9 +69,9 @@ Progress: [██................................] 17% v1.1 (4/23 plans)
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 09-02-PLAN.md (Badge Tech Variants & Form Validation States)
+Stopped at: Completed 09-01-PLAN.md + 09-02-PLAN.md (parallel wave 1 of Phase 9)
 Resume file: None
-Next action: Continue Phase 9 (remaining plans: 09-01 summary pending, 09-03)
+Next action: Execute 09-03-PLAN.md (wave 2, depends on 09-01 + 09-02)
 
 ## Deployment Info
 
