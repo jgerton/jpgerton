@@ -1,0 +1,51 @@
+# Already covered by .gitignore (Claude respects .gitignore by default)
+# But explicitly ignore for faster indexing:
+
+# Dependencies - biggest win
+node_modules/
+.pnpm-store/
+
+# Build artifacts
+dist/
+coverage/
+
+# Next.js build output
+.next/
+out/
+.swc/
+
+# Convex auto-generated (regenerated on every build)
+convex/_generated/
+
+# Vercel deployment metadata
+.vercel/
+
+# Logs
+*.log
+logs/
+
+# Large data files
+*.sql
+*.csv
+*.json.backup
+
+# Lock files (huge, rarely useful for context)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+bun.lock
+
+# TypeScript build artifacts
+tsconfig.tsbuildinfo
+next-env.d.ts
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+
+# Docker volumes if mounted locally
+docker-data/
+
+# Test snapshots (if large)
+**/__snapshots__/

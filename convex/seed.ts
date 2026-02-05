@@ -143,3 +143,4 @@ export const clearProjects = mutation({
     return { status: "success", message: `Deleted ${projects.length} projects` };
   },
 });
+
