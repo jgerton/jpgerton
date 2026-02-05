@@ -96,6 +96,10 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+
+  /* Warm accent (amber/gold) */
+  --color-accent-warm: hsl(var(--accent-warm));
+  --color-accent-warm-foreground: hsl(var(--accent-warm-foreground));
 }
 
 /* CSS Variables for shadcn/ui theming */
@@ -139,6 +143,10 @@
     --ring: 210 100% 23%; /* #003F75 - corporate-blue focus ring */
     --radius: 8px;
 
+    /* Warm accent - amber/gold for CTAs and highlights */
+    --accent-warm: 38 92% 50%; /* #E69500 - honey gold (8.16:1 contrast with dark text) */
+    --accent-warm-foreground: 0 0% 10%; /* #1A1A1A - dark text on amber */
+
     /* Admin-specific colors (distinct backstage aesthetic) */
     --admin-bg: 220 14% 96%; /* #F2F4F5 - cool gray background */
     --admin-sidebar: 220 14% 100%; /* #FFFFFF - white sidebar */
@@ -146,17 +154,17 @@
   }
 
   .dark {
-    /* Base colors - soft black background with off-white text */
-    --background: 0 0% 10%; /* #1A1A1A - soft-black background */
-    --foreground: 0 0% 95%; /* #F2F2F2 - off-white text (15.55:1 contrast) */
+    /* Base colors - warm blue-gray background, NOT pure black */
+    --background: 220 15% 10%; /* #161A1D - warm blue-gray base (15.83:1 contrast) */
+    --foreground: 210 20% 95%; /* #F0F3F5 - slightly cool white for readability */
 
-    /* Card colors - slightly lighter than background for depth */
-    --card: 0 0% 12%; /* #1F1F1F - dark gray cards */
-    --card-foreground: 0 0% 95%; /* #F2F2F2 - off-white text (14.72:1 contrast) */
+    /* Color elevation: lighter = higher surface */
+    --card: 220 15% 13%; /* #1E2225 - elevated from background +3% (14.70:1 contrast) */
+    --card-foreground: 210 20% 95%; /* #F0F3F5 - same foreground for consistency */
 
-    /* Popover colors - same as cards for consistency */
-    --popover: 0 0% 12%; /* #1F1F1F - dark gray popovers */
-    --popover-foreground: 0 0% 95%; /* #F2F2F2 - off-white text (14.72:1 contrast) */
+    /* Popover - more elevated */
+    --popover: 220 15% 16%; /* #262B30 - more elevated +6% from bg (13.35:1 contrast) */
+    --popover-foreground: 210 20% 95%; /* #F0F3F5 - consistent foreground */
 
     /* Primary brand - tech blue for dark mode, adjusted for WCAG AA */
     --primary: 203 64% 40%; /* #1C7AAD - darker tech-blue (5.02:1 contrast, was 4.27) */
@@ -166,9 +174,9 @@
     --secondary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
     --secondary-foreground: 0 0% 100%; /* #FFFFFF - white text */
 
-    /* Muted UI elements - dark gray backgrounds */
-    --muted: 0 0% 15%; /* #262626 - dark gray background */
-    --muted-foreground: 0 0% 65%; /* #A6A6A6 - light gray text (6.22:1 contrast) */
+    /* Muted UI elements - follows elevation pattern */
+    --muted: 220 15% 15%; /* #232830 - between card and popover (6.29:1 contrast with muted-fg) */
+    --muted-foreground: 210 10% 65%; /* #9CA5AD - subtle text */
 
     /* Accent highlights - turquoise, adjusted for WCAG AA */
     --accent: 178 92% 42%; /* #0FC4C9 - lighter turquoise (8.84:1 contrast, was 2.55) */
@@ -182,6 +190,10 @@
     --border: 0 0% 20%; /* #333333 - dark gray border */
     --input: 0 0% 20%; /* #333333 - dark gray input background */
     --ring: 203 64% 50%; /* #2E8FC7 - tech-blue focus ring */
+
+    /* Warm accent - richer, warmer amber in dark mode */
+    --accent-warm: 38 95% 55%; /* #F4A832 - brighter amber for dark backgrounds (8.89:1 contrast) */
+    --accent-warm-foreground: 0 0% 10%; /* #1A1A1A - dark text on bright amber */
 
     /* Admin-specific colors (dark mode) */
     --admin-bg: 220 14% 10%; /* #171A1C - dark cool gray background */
