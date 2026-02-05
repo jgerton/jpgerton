@@ -1,4 +1,8 @@
+"use client";
+
 import { ProjectCard } from "./project-card";
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { cn } from "@/lib/utils";
 
 type Project = {
   _id: string;
@@ -15,6 +19,8 @@ type ProjectGridProps = {
 };
 
 export function ProjectGrid({ projects, loading }: ProjectGridProps) {
+  const { elementRef, isVisible } = useIntersectionObserver<HTMLDivElement>();
+
   if (loading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
@@ -37,9 +43,26 @@ export function ProjectGrid({ projects, loading }: ProjectGridProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-      {projects.map((project) => (
-        <ProjectCard key={project._id} project={project} />
+    <div
+      ref={elementRef}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg"
+    >
+      {projects.map((project, index) => (
+        <div
+          key={project._id}
+          className={cn(
+            "opacity-0 translate-y-5",
+            "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
+            isVisible && "opacity-100 translate-y-0"
+          )}
+          style={{
+            transitionDelay: isVisible
+              ? `${Math.min(index, 9) * 50}ms`
+              : "0ms",
+          }}
+        >
+          <ProjectCard project={project} />
+        </div>
       ))}
     </div>
   );
