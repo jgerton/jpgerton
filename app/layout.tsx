@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { inter, lora } from "@/lib/fonts";
 import "./globals.css";
 import { Providers } from "./providers";
 import { siteConfig } from "@/lib/site-config";
@@ -7,12 +7,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { WebVitals } from "@/components/analytics/web-vitals";
 import { SiteNav } from "@/components/navigation/site-nav";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -63,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${lora.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased">
         <WebVitals />
         <Providers>
