@@ -141,9 +141,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 08-01-PLAN.md - Define spacing, shadow, animation, and easing tokens in @theme and remove legacy tailwind.config.ts
-- [ ] 08-02-PLAN.md - Audit and refine semantic color variables for WCAG AA contrast in both themes
-- [ ] 08-03-PLAN.md - Migrate all public-facing pages and components to token-based spacing
+- [x] 08-01-PLAN.md - Define spacing, shadow, animation, and easing tokens in @theme and remove legacy tailwind.config.ts
+- [x] 08-02-PLAN.md - Audit and refine semantic color variables for WCAG AA contrast in both themes
+- [x] 08-03-PLAN.md - Migrate all public-facing pages and components to token-based spacing
 
 ### Phase 9: Component Variant Extensions
 
@@ -271,7 +271,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 5. SEO, AEO & Performance | v1.0 | 6/6 | Complete | 2026-02-04 |
 | 6. WordPress Delivery System | v1.0 | 6/6 | Complete | 2026-02-04 |
 | 7. Business Protection | v1.0 | 4/4 | Complete | 2026-02-04 |
-| 8. Design Token Foundation | v1.1 | 0/3 | Not started | - |
+| 8. Design Token Foundation | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 9. Component Variant Extensions | v1.1 | 0/3 | Not started | - |
 | 10. Typography & Color System | v1.1 | 0/3 | Not started | - |
 | 11. Composition Components | v1.1 | 0/3 | Not started | - |
@@ -298,4 +298,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-04*
+*Last updated: 2026-02-05*

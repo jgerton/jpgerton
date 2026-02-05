@@ -9,13 +9,13 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 
 ### Foundation
 
-- [ ] **FNDTN-01**: Design tokens defined in globals.css @theme (spacing scale xs-3xl, shadow system, animation durations)
-- [ ] **FNDTN-02**: Semantic variables audited and refined for both light and dark themes
+- [x] **FNDTN-01**: Design tokens defined in globals.css @theme (spacing scale xs-3xl, shadow system, animation durations)
+- [x] **FNDTN-02**: Semantic variables audited and refined for both light and dark themes
 - [ ] **FNDTN-03**: Typography system implemented with Lora (display/headlines) + Inter (body/UI) pairing
 - [ ] **FNDTN-04**: Typography scale defined (H1-H6, body, small) with responsive fluid sizing
 - [ ] **FNDTN-05**: Line height standards applied (1.125-1.200 body, 1.1-1.3 headings)
 - [ ] **FNDTN-06**: Readable line lengths enforced (50-75 characters per line for body text)
-- [ ] **FNDTN-07**: Spacing rhythm consistent across all pages using token scale (4px/8px base)
+- [x] **FNDTN-07**: Spacing rhythm consistent across all pages using token scale (4px/8px base)
 - [ ] **FNDTN-08**: Color palette evaluated with warm, approachable, professional feel (brand prominence for corporate-blue, tech-blue, turquoise)
 - [ ] **FNDTN-09**: WCAG AA color contrast verified (4.5:1 text, 3:1 UI) in both light and dark themes
 - [ ] **FNDTN-10**: Dark mode color refinement (reduced saturation accents, intentional design, not just inverted)
@@ -113,13 +113,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FNDTN-01 | Phase 8 | Pending |
-| FNDTN-02 | Phase 8 | Pending |
+| FNDTN-01 | Phase 8 | Complete |
+| FNDTN-02 | Phase 8 | Complete |
 | FNDTN-03 | Phase 10 | Pending |
 | FNDTN-04 | Phase 10 | Pending |
 | FNDTN-05 | Phase 10 | Pending |
 | FNDTN-06 | Phase 10 | Pending |
-| FNDTN-07 | Phase 8 | Pending |
+| FNDTN-07 | Phase 8 | Complete |
 | FNDTN-08 | Phase 10 | Pending |
 | FNDTN-09 | Phase 10 | Pending |
 | FNDTN-10 | Phase 10 | Pending |
