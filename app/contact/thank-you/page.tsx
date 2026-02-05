@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 
 export default function ThankYouPage() {
   return (
-    <div className="container max-w-2xl py-12">
-      <div className="text-center mb-8">
-        <CheckCircle className="h-16 w-16 text-primary mx-auto mb-4" />
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-4">
+    <div className="container max-w-2xl py-2xl">
+      <div className="text-center mb-xl">
+        <CheckCircle className="h-16 w-16 text-primary mx-auto mb-md" />
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-md">
           Thanks for Reaching Out!
         </h1>
         <p className="text-lg text-muted-foreground">
@@ -25,12 +25,12 @@ export default function ThankYouPage() {
       </div>
 
       {/* What Happens Next */}
-      <Card className="mb-8">
+      <Card className="mb-xl">
         <CardHeader>
           <CardTitle>What Happens Next?</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex gap-4">
+        <CardContent className="space-y-md">
+          <div className="flex gap-md">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium shrink-0">
               1
             </div>
@@ -41,7 +41,7 @@ export default function ThankYouPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-md">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium shrink-0">
               2
             </div>
@@ -52,7 +52,7 @@ export default function ThankYouPage() {
               </p>
             </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-md">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-medium shrink-0">
               3
             </div>
@@ -67,12 +67,12 @@ export default function ThankYouPage() {
       </Card>
 
       {/* While You Wait */}
-      <Card className="mb-8">
+      <Card className="mb-xl">
         <CardHeader>
           <CardTitle>While You Wait...</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground mb-4">
+          <p className="text-muted-foreground mb-md">
             Check out some of my recent work to see what&apos;s possible:
           </p>
           <Button asChild variant="outline">
