@@ -3,7 +3,7 @@ import { v } from "convex/values";
 import { getAuthUserId } from "./auth";
 
 /**
- * List all projects ordered by displayOrder (descending).
+ * List all projects ordered by displayOrder (ascending).
  * Resolves screenshot URLs from Convex storage.
  */
 export const list = query({
@@ -12,7 +12,7 @@ export const list = query({
     const projects = await ctx.db
       .query("projects")
       .withIndex("by_order")
-      .order("desc")
+      .order("asc")
       .collect();
 
     // Resolve screenshot URLs

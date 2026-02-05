@@ -60,7 +60,19 @@ interface ProjectFormProps {
   onCancel: () => void;
 }
 
-// Zod schema for validation
+/**
+ * Normalize a URL by adding https:// if no protocol is present
+ */
+function normalizeUrl(url: string | undefined): string | undefined {
+  if (!url || url.trim() === "") return undefined;
+  const trimmed = url.trim();
+  if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+    return trimmed;
+  }
+  return `https://${trimmed}`;
+}
+
+// Zod schema for validation - accepts URLs with or without protocol
 const projectFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
   slug: z
@@ -76,8 +88,8 @@ const projectFormSchema = z.object({
     backend: z.array(z.string()),
     infrastructure: z.array(z.string()),
   }),
-  liveUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
-  githubUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  liveUrl: z.string().optional(),
+  githubUrl: z.string().optional(),
   featured: z.boolean(),
   screenshotId: z.string().optional(),
 });
@@ -170,11 +182,11 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
   const handleSubmit = async (values: ProjectFormValues) => {
     setLoading(true);
     try {
-      // Convert screenshotId to proper type if needed
+      // Normalize URLs and convert screenshotId to proper type
       const formData: ProjectFormData = {
         ...values,
-        liveUrl: values.liveUrl || undefined,
-        githubUrl: values.githubUrl || undefined,
+        liveUrl: normalizeUrl(values.liveUrl),
+        githubUrl: normalizeUrl(values.githubUrl),
         descriptionLong: values.descriptionLong || undefined,
         screenshotId: values.screenshotId as Id<"_storage"> | undefined,
       };
@@ -346,8 +358,11 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
               <FormItem>
                 <FormLabel>Live URL</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="https://example.com" type="url" />
+                  <Input {...field} placeholder="example.com" />
                 </FormControl>
+                <FormDescription>
+                  https:// will be added automatically if not provided
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -360,8 +375,11 @@ export function ProjectForm({ mode, initialData, onSubmit, onCancel }: ProjectFo
               <FormItem>
                 <FormLabel>GitHub URL</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="https://github.com/user/repo" type="url" />
+                  <Input {...field} placeholder="github.com/user/repo" />
                 </FormControl>
+                <FormDescription>
+                  https:// will be added automatically if not provided
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
