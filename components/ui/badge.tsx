@@ -15,6 +15,14 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        frontend:
+          "border-transparent bg-tech-blue/10 text-tech-blue dark:bg-tech-blue/20 dark:text-tech-blue transition-colors duration-[var(--duration-fast)]",
+        backend:
+          "border-transparent bg-corporate-blue/10 text-corporate-blue dark:bg-corporate-blue/20 dark:text-corporate-blue transition-colors duration-[var(--duration-fast)]",
+        tool:
+          "border-transparent bg-turquoise/10 text-turquoise dark:bg-turquoise/20 dark:text-turquoise transition-colors duration-[var(--duration-fast)]",
+        skill:
+          "border-transparent bg-accent/50 text-accent-foreground dark:bg-accent/20 dark:text-accent-foreground transition-colors duration-[var(--duration-fast)]",
       },
     },
     defaultVariants: {
