@@ -1,40 +1,36 @@
-# Jon Gerton - Web Development Services
+# Jon Gerton's Web Development Services
 
-Jon Gerton is a web developer and team builder based in Alaska, specializing in creating websites for local businesses and custom web applications. With a focus on mentorship for junior developers, Jon bridges the gap between complex tech solutions and the practical needs of small businesses. His approach is rooted in clear communication, fixed pricing, and ongoing support, making technology accessible and impactful for his clients.
+This website showcases the offerings of Jon Gerton, a web developer based in Alaska. The site is designed for local businesses and startups looking for professional web solutions, ranging from affordable WordPress sites to custom web applications. Jon emphasizes clear communication, fixed pricing, and ongoing support, making it easy for clients to understand the services provided and the value they offer.
 
 ## About Jon
 
-This section provides an overview of Jon's background and work philosophy. He began his tech career in 1998 and transitioned to web development in 2007. Jon aims to make web development solutions accessible to local businesses, offering both **affordable WordPress sites** and **custom applications** tailored to client needs.
+The "About" page provides insight into Jon's background and approach to web development. He has over 27 years of experience in technology and focuses on creating practical solutions for local businesses.
 
-### Core Principles
-- **No Jargon:** Clear explanations in simple language.
-- **Fixed Pricing:** Transparent costs without surprise fees.
-- **Real Experience:** Over 27 years in tech and 18+ years in web development.
-- **Ongoing Support:** Commitment to support beyond project launch.
+- **Experience:** Transitioned from a Systems Administrator to a full-stack web developer in 2007.
+- **Mission:** To bridge the gap between big tech solutions and the needs of local businesses.
+- **Services:** Offers affordable WordPress sites and custom web applications tailored to client needs.
 
 ## Services
 
-Jon offers a range of services tailored to meet the needs of various clients. 
+The "Services" page outlines a range of solutions available:
 
-### $500 WordPress Sites
-- Aimed at local businesses needing quick online presence.
-- Delivery within 5 business days.
-- Includes mobile-friendly design, Google Maps integration, SEO basics, and 30 days of support.
+- **$500 WordPress Sites**: 
+  - Designed for local businesses to get online quickly.
+  - Includes responsive design, contact form, SEO, and 30 days of support.
 
-### Custom Web Apps
-- Developed for unique business requirements.
-- Features include custom tooling, database design, user authentication, and ongoing maintenance.
-
-### Team Growth Accelerator
-- Mentorship and training to help development teams improve their skills and workflows.
-- Covers best practices and flexible engagement options.
-
-### Frequently Asked Questions
-This section addresses common inquiries regarding service timelines, features of the $500 package, hosting requirements, revision policies, and service areas, ensuring potential clients have clear expectations.
+- **Custom Web Applications**:
+  - Tailored for unique business needs with features like database design and scalable architecture.
+  
+- **Team Growth Accelerator**:
+  - Mentorship for development teams focusing on best practices and performance optimization.
 
 ## Contact
 
-This page encourages potential clients to reach out for inquiries, whether they desire a WordPress site or a custom application. Users can send a message or book a free discovery call to discuss their project needs.
+The "Contact" page invites potential clients to inquire about services and projects. Users can send messages, book a call for consultations, or find alternative contact methods.
+
+- **Send a Message**: Fill out a form to discuss project details.
+- **Book a Call**: Schedule a quick consultation for immediate inquiries.
+- **Email and Social Media**: Provide direct communication options to reach Jon.
 
 ### Links
 - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
@@ -43,14 +39,16 @@ This page encourages potential clients to reach out for inquiries, whether they 
 
 ## Portfolio
 
-A showcase of recent projects that highlights Jon's work and demonstrates his capabilities in delivering professional web solutions.
+The "Projects" page will showcase recent works and indie projects. Visitors can view examples of Jon's development to understand the quality and range of services offered.
 
-## Thank You
+## FAQs
 
-Upon contacting Jon, clients receive a confirmation message detailing the next steps, encouraging them to review his portfolio while they wait for a response.
+The "FAQs" section addresses common questions about web development services, including timelines for delivery, what's included in the WordPress package, and the potential for future changes post-launch.
 
-## Administrative Pages
+- **Delivery Time:** WordPress sites typically delivered within 5 business days.
+- **Updates:** Client training provided for easy content management post-launch.
+- **Location:** Services available for clients outside Alaska, leveraging remote communication tools.
 
-- Admin functionalities for project and contact management are in place but presently display loading statuses and are not accessible from the user perspective. 
+---
 
-This structured overview provides a clear pathway to understanding Jon Gerton's offerings and establishes a foundation for potential collaboration with clients seeking effective web development solutions.
+This file aims to provide a concise overview of Jon Gerton's web development services, making it easier for language models to understand, index, and respond accurately to questions about the website's content and purpose.

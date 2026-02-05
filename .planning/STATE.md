@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 
 ## Current Position
 
-Phase: 10 of 14 (Typography & Color System)
-Plan: 10-03 of 3 in phase (complete)
-Status: Phase complete
-Last activity: 2026-02-05 - Completed 10-02-PLAN.md (Typography Application)
+Phase: 11 of 14 (Composition Components)
+Plan: 11-01 of 3 in phase (complete)
+Status: In progress
+Last activity: 2026-02-05 - Completed 11-01-PLAN.md (CTAButton & ProjectCardEnhanced)
 
-Progress: [████████████....................] 52% v1.1 (12/23 plans)
+Progress: [█████████████...................] 57% v1.1 (13/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [████████████....................] 52% v1.1 (1
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 12/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 13/23 plans complete
 
 ## Accumulated Context
 
@@ -64,6 +64,10 @@ Progress: [████████████....................] 52% v1.1 (1
 - [10-02] Serif headings (Lora) for H1/H2 content headings, sans-serif (Inter) preserved for UI labels and card text
 - [10-02] Fluid type tokens applied across all public pages (text-hero, text-h1, text-h2, text-h3)
 - [10-02] About page prose constrained to max-w-prose for optimal reading width (~65ch)
+- [11-01] CTAButton is portfolio-specific wrapper, not a replacement for Button
+- [11-01] ProjectCardEnhanced avoids CardTitle component to allow fluid type tokens
+- [11-01] Warm accent color (bg-accent-warm) adds brand personality to primary CTAs
+- [11-01] Image hover zoom uses GPU-optimized transform with ease-smooth transition
 
 ### Research Flags
 
@@ -83,9 +87,9 @@ Progress: [████████████....................] 52% v1.1 (1
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Phase 10 complete (all 3 plans verified)
+Stopped at: Completed 11-01-PLAN.md (CTAButton & ProjectCardEnhanced composition components)
 Resume file: None
-Next action: Proceed to Phase 11 (Composition Components) or Phase 12 (Animation Integration) - both are parallel-eligible
+Next action: Proceed to 11-02 (TestimonialCard, MetricsDisplay) or Phase 12 (Animation Integration) - both are parallel-eligible
 
 ## Deployment Info
 
