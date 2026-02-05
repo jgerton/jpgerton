@@ -1,61 +1,79 @@
 # Jon Gerton - Web Developer
 
-Jon Gerton is a web developer and team builder based in Alaska, dedicated to mentoring junior developers and providing meaningful, accessible web solutions to local businesses. With over 27 years in technology and 18 years in web development, he focuses on creating fast, mobile-friendly websites and custom applications that meet diverse client needs.
+Jon Gerton is a web developer based in Alaska, dedicated to helping local businesses establish a robust online presence. With a focus on **affordable WordPress sites** and **custom web applications**, he aims to provide tailored solutions that meet the unique needs of each client. Jon's extensive experience and commitment to clear communication make him a valuable partner for businesses looking to grow in the digital space.
 
-## About Jon
+## About
 
-This section outlines Jon's background, detailing his progression from systems/network administration to full-stack development. He emphasizes his commitment to bridging the gap between "big tech" development and the practical needs of local businesses.
+This page highlights Jon's background and approach to web development. After transitioning from a career in systems/network administration to software development, Jon has spent over a decade delivering projects across various industries. His mission is to bridge the gap between advanced tech and the essential web solutions needed by local businesses.
 
-### Key Highlights:
-- **Experience:** Over 27 years in tech, 13 years working in various software agencies.
-- **Approach:** No jargon, fixed pricing, real-world experience, and ongoing support.
-- **Philosophy:** Sustainable work leads to better outcomes for clients and teams.
+- **Experience:** 27 years in tech, over 18 in web development.
+- **Philosophy:** Solutions should meet the client's specific needs, whether it's a simple website or a complex application.
+- **Ongoing Support:** Jon ensures that clients receive help even after project completion.
+
+### Links
+- [View My Work](/projects)
 
 ## Services
 
-Jon provides a variety of services tailored to meet different business needs, emphasizing both quick solutions and custom development.
+This page outlines the range of services offered by Jon Gerton. He specializes in:
 
-### Offerings:
-- **$500 WordPress Sites**
-  - Fast setup (within 5 business days)
-  - Responsive design for all devices
-  - Basic SEO and contact forms included
-  - 30 days of support after launch
-  
-- **Custom Web Applications**
-  - Tailored features, scalable architecture, and modern technology stack
-  - Ongoing maintenance and training provided
+### $500 WordPress Sites
+Perfect for local businesses needing a quick, professional web presence.
 
-- **Team Growth Accelerator**
-  - Personalized mentorship and guidance for developer teams
-  
+- Fast turnarounds (5 business days)
+- Mobile-friendly, SEO-optimized designs
+- One round of revisions included
+- Ongoing support after launch
+
+### Custom Web Applications
+For businesses needing tailored solutions.
+
+- Built on a modern tech stack (React, Next.js, Node)
+- Custom features and scalable architecture
+- Comprehensive training and documentation
+
+### Team Growth Accelerator
+Support for engineering teams looking to enhance their skills.
+
+- Mentorship, code reviews, and performance optimization
+- Flexibility in working arrangements (remote/on-site)
+
+### Frequently Asked Questions
+- Typical turnaround for WordPress sites is 5 business days.
+- Offers ongoing maintenance and training for WordPress users.
+
+### Links
+- [Get Your $500 Site](/services)
+- [Schedule a Free Consultation](/contact)
+
 ## Contact
 
-Inquiries are welcomed for both WordPress websites and custom applications. Potential clients can choose to book a call or send a message to discuss their project needs.
+This page serves as a point of contact for potential clients. Jon encourages visitors to reach out to discuss upcoming projects or to schedule a consultation.
 
-### Contact Methods:
-- **Email:** [jon@jpgerton.com](mailto:jon@jpgerton.com)
-- **GitHub:** [@jgerton](https://github.com/jgerton)
-- **LinkedIn:** [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+- **Message Form:** Visitors can send details about their project and expect a response within 1 business day.
+- **Schedule a Call:** Quick 15-minute calls available for immediate inquiries.
+- **Contact Options:**
+  - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+  - GitHub: [@jgerton](https://github.com/jgerton)
+  - LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
-## FAQ
+### Links
+- [View My Portfolio](/projects)
 
-A section addressing common queries about the WordPress services and overall process. Key points include delivery timelines, what’s included in the package, and guidance on hosting needs.
+## Home
 
-### Notable FAQs:
-- **Delivery Time:** Average turnaround for WordPress sites is 5 business days.
-- **Included Features:** Mobile-responsive design, Google Maps integration, and a round of revisions.
-- **Future Changes:** Initial changes included, with options for ongoing maintenance.
+This page provides an overview of Jon Gerton’s offerings, featuring a emphasis on affordable, fast, and mobile-friendly website solutions for local businesses. It includes links to his portfolio and services.
 
-## Portfolio
+### Links
+- [View Portfolio](/projects)
 
-A glimpse into recent projects showcases Jon's work, highlighting the effectiveness and aesthetic appeal of the websites built for local businesses.
+## Thanks for Reaching Out!
 
-### Next Steps
+This is a confirmation page for users who have sent a message through the contact form. It outlines the next steps in the communication process.
 
-If you're unsure which solution fits your needs, Jon encourages prospective clients to reach out for a free consultation to help determine the best approach for their business.
+1. Review project details.
+2. Respond with next steps or questions.
+3. Schedule a discussion if necessary.
 
-### Schedule a Call
-- Book a free 15-minute discovery call for specific inquiries.
-
-Let's build something together!
+### Links
+- [View My Portfolio](/projects)

@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 
 ## Current Position
 
-Phase: 11 of 14 (Composition Components)
-Plan: 11-03 of 3 in phase (complete)
-Status: Phase complete
-Last activity: 2026-02-05 - Completed 11-03-PLAN.md (Social Proof & Barrel Export)
+Phase: 12 of 14 (Animation Integration)
+Plan: 12-01 of 3 in phase (in progress)
+Status: In progress
+Last activity: 2026-02-05 - Completed 12-01-PLAN.md (Animation Foundation)
 
-Progress: [█████████████...................] 65% v1.1 (15/23 plans)
+Progress: [█████████████░..................] 70% v1.1 (16/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [█████████████...................] 65% v1.1 
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 15/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 16/23 plans complete
 
 ## Accumulated Context
 
@@ -76,6 +76,11 @@ Progress: [█████████████...................] 65% v1.1 
 - [11-03] Component language conventions: flat=informational, sm=content, lg=interactive elevations
 - [11-03] Barrel export pattern: Component exports plus type re-exports for all props interfaces
 - [11-03] Metric presentation: font-serif text-h2 for values, text-sm text-muted-foreground for labels
+- [12-01] Use --duration-entrance (250ms) for entrance animations instead of --duration-base (300ms) to stay within 200-250ms ceiling
+- [12-01] Button press uses asymmetric timing: fast press (150ms) for responsiveness, smooth release (300ms) for natural feel
+- [12-01] Focus ring transition added globally via *:focus-visible selector for consistent keyboard navigation
+- [12-01] prefers-reduced-motion uses 0.01ms instead of 0ms to ensure transitionend/animationend events still fire
+- [12-01] INTR-05 form validation red border fade-in verified as already implemented by Phase 9 transition-colors
 
 ### Research Flags
 
@@ -95,9 +100,9 @@ Progress: [█████████████...................] 65% v1.1 
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 11-03-PLAN.md (SocialProofDisplay & barrel export)
+Stopped at: Completed 12-01-PLAN.md (Animation Foundation)
 Resume file: None
-Next action: Phase 11 complete (all 6 composition components shipped). Proceed to Phase 12 (Animation Integration)
+Next action: Phase 12 Plan 01 complete (CSS keyframes, button press, focus ring, reduced-motion). Proceed to Plan 12-02 (Scroll-triggered animations)
 
 ## Deployment Info
 
