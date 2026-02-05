@@ -119,7 +119,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 8: Design Token Foundation** - Establish spacing, shadow, and animation tokens as single source of truth in @theme
 - [x] **Phase 9: Component Variant Extensions** - Extend Button, Card, Badge, Form, and Nav with CVA variants for design hierarchy
-- [ ] **Phase 10: Typography & Color System** - Implement Lora + Inter font pairing, refine color palette, verify WCAG contrast
+- [x] **Phase 10: Typography & Color System** - Implement Lora + Inter font pairing, refine color palette, verify WCAG contrast
 - [ ] **Phase 11: Composition Components** - Build portfolio-specific composed components (testimonials, case studies, social proof)
 - [ ] **Phase 12: Animation Integration** - Add hover states, micro-interactions, scroll-triggered animations, and reduced-motion support
 - [ ] **Phase 13: Page-Level Integration** - Apply design system across all pages with strategic CTA placement and visual hierarchy
@@ -177,9 +177,9 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01-PLAN.md - Integrate Lora variable font and define fluid typography scale with clamp() tokens in @theme
-- [ ] 10-02-PLAN.md - Apply Lora serif, fluid type tokens, line heights, and readable line lengths across all public pages
-- [ ] 10-03-PLAN.md - Add amber/gold accent, warm dark mode with color elevation, and full WCAG AA verification
+- [x] 10-01-PLAN.md - Integrate Lora variable font and define fluid typography scale with clamp() tokens in @theme
+- [x] 10-02-PLAN.md - Apply Lora serif, fluid type tokens, line heights, and readable line lengths across all public pages
+- [x] 10-03-PLAN.md - Add amber/gold accent, warm dark mode with color elevation, and full WCAG AA verification
 
 ### Phase 11: Composition Components
 
@@ -273,7 +273,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 7. Business Protection | v1.0 | 4/4 | Complete | 2026-02-04 |
 | 8. Design Token Foundation | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 9. Component Variant Extensions | v1.1 | 3/3 | Complete | 2026-02-05 |
-| 10. Typography & Color System | v1.1 | 0/3 | Not started | - |
+| 10. Typography & Color System | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 11. Composition Components | v1.1 | 0/3 | Not started | - |
 | 12. Animation Integration | v1.1 | 0/4 | Not started | - |
 | 13. Page-Level Integration | v1.1 | 0/3 | Not started | - |
@@ -298,4 +298,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-05 (Phase 10 planned)*
+*Last updated: 2026-02-05 (Phase 10 complete)*
