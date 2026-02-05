@@ -138,12 +138,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Animation duration tokens (duration-fast, duration-base, duration-slow) are defined and usable in transition-duration utilities
   4. Semantic color variables in both :root and .dark are audited, and every variable used by shadcn/ui components resolves to an intentional color (no missing or defaulted values)
   5. Spacing rhythm across the site uses the token scale (4px/8px base), with no arbitrary gap/padding values outside the defined scale
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 08-01: Define spacing scale, shadow system, and animation duration tokens in globals.css @theme
-- [ ] 08-02: Audit and refine semantic color variables for light and dark themes
-- [ ] 08-03: Apply spacing rhythm across existing pages and verify token consistency
+- [ ] 08-01-PLAN.md - Define spacing, shadow, animation, and easing tokens in @theme and remove legacy tailwind.config.ts
+- [ ] 08-02-PLAN.md - Audit and refine semantic color variables for WCAG AA contrast in both themes
+- [ ] 08-03-PLAN.md - Migrate all public-facing pages and components to token-based spacing
 
 ### Phase 9: Component Variant Extensions
 
