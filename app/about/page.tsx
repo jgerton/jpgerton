@@ -14,20 +14,20 @@ export default function AboutPage() {
     <div className="container max-w-4xl py-2xl">
       {/* Hero Section */}
       <div className="text-center mb-2xl">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
+        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
           Hey, I&apos;m Jon
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           Web developer, team builder, and small business advocate
           based in Alaska.
         </p>
       </div>
 
       {/* Main Content */}
-      <div className="prose prose-lg dark:prose-invert max-w-none mb-2xl">
+      <div className="prose prose-lg dark:prose-invert max-w-prose mb-2xl">
         {/* Background Section */}
         <section className="mb-2xl">
-          <h2 className="text-2xl font-semibold mb-md">Background</h2>
+          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Background</h2>
           <p>
             I started in tech in 1998 as a Systems/Network Administrator for a regional
             airline, managing production infrastructure where uptime mattered. After
@@ -52,7 +52,7 @@ export default function AboutPage() {
 
         {/* My Approach Section */}
         <section className="mb-2xl">
-          <h2 className="text-2xl font-semibold mb-md">My Approach</h2>
+          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">My Approach</h2>
           <p>
             I believe in meeting people where they are. For a local pizza shop, that means
             a clean, fast website that shows up on Google, not a complex custom application.
@@ -68,7 +68,7 @@ export default function AboutPage() {
 
         {/* Why Work With Me Section */}
         <section className="mb-2xl">
-          <h2 className="text-2xl font-semibold mb-md">Why Work With Me</h2>
+          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Why Work With Me</h2>
           <div className="grid sm:grid-cols-2 gap-lg not-prose">
             <Card>
               <CardContent className="pt-lg">
@@ -111,7 +111,7 @@ export default function AboutPage() {
 
         {/* Beyond Code Section */}
         <section className="mb-2xl">
-          <h2 className="text-2xl font-semibold mb-md">Beyond the Code</h2>
+          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Beyond the Code</h2>
           <p>
             When I&apos;m not building websites, you&apos;ll find me mentoring junior developers,
             contributing to open source, or exploring hiking trails with my family.
@@ -128,7 +128,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <div className="bg-muted rounded-lg p-xl text-center">
-        <h2 className="text-2xl font-semibold mb-md">
+        <h2 className="font-serif font-medium text-h2 leading-tight mb-md">
           Ready to Get Started?
         </h2>
         <p className="text-muted-foreground mb-lg max-w-xl mx-auto">
@@ -151,15 +151,15 @@ export default function AboutPage() {
       {/* Quick Stats */}
       <div className="mt-2xl grid grid-cols-3 gap-xl text-center border-t pt-2xl">
         <div>
-          <div className="text-3xl font-bold text-primary">27+</div>
+          <div className="text-h3 font-bold text-primary">27+</div>
           <p className="text-sm text-muted-foreground">Years in Tech</p>
         </div>
         <div>
-          <div className="text-3xl font-bold text-primary">13</div>
+          <div className="text-h3 font-bold text-primary">13</div>
           <p className="text-sm text-muted-foreground">Years at Agencies</p>
         </div>
         <div>
-          <div className="text-3xl font-bold text-primary">100%</div>
+          <div className="text-h3 font-bold text-primary">100%</div>
           <p className="text-sm text-muted-foreground">Client Satisfaction</p>
         </div>
       </div>

@@ -120,7 +120,7 @@ export default function ServicesPage() {
     <div className="container max-w-6xl py-2xl">
       {/* Hero Section */}
       <div className="text-center mb-3xl">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
+        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
           Services
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -138,7 +138,7 @@ export default function ServicesPage() {
 
       {/* FAQ Section */}
       <div className="mt-3xl">
-        <h2 className="text-2xl font-semibold mb-xl text-center">
+        <h2 className="font-serif font-medium text-h2 leading-tight mb-xl text-center">
           Frequently Asked Questions
         </h2>
         <div className="grid gap-lg max-w-3xl mx-auto">
@@ -153,7 +153,7 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <div className="mt-3xl text-center">
-        <h2 className="text-2xl font-semibold mb-md">
+        <h2 className="font-serif font-medium text-h2 leading-tight mb-md">
           Not sure which option is right for you?
         </h2>
         <p className="text-muted-foreground mb-lg">
@@ -171,15 +171,15 @@ export default function ServicesPage() {
       <div className="mt-3xl border-t pt-2xl">
         <div className="grid md:grid-cols-3 gap-xl text-center">
           <div>
-            <div className="text-3xl font-bold text-primary mb-xs">5 Days</div>
+            <div className="text-h3 font-bold text-primary mb-xs">5 Days</div>
             <p className="text-muted-foreground">Average WordPress site delivery</p>
           </div>
           <div>
-            <div className="text-3xl font-bold text-primary mb-xs">100%</div>
+            <div className="text-h3 font-bold text-primary mb-xs">100%</div>
             <p className="text-muted-foreground">Satisfaction guarantee</p>
           </div>
           <div>
-            <div className="text-3xl font-bold text-primary mb-xs">18+ Years</div>
+            <div className="text-h3 font-bold text-primary mb-xs">18+ Years</div>
             <p className="text-muted-foreground">Web development experience</p>
           </div>
         </div>

@@ -16,7 +16,7 @@ export default function ThankYouPage() {
     <div className="container max-w-2xl py-2xl">
       <div className="text-center mb-xl">
         <CheckCircle className="h-16 w-16 text-primary mx-auto mb-md" />
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl mb-md">
+        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
           Thanks for Reaching Out!
         </h1>
         <p className="text-lg text-muted-foreground">

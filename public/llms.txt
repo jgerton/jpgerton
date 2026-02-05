@@ -1,66 +1,59 @@
-# Jon Gerton's Web Development Services
+# Jon Gerton - Web Developer
 
-This website serves as a platform for Jon Gerton, a web developer based in Alaska, offering professional website development services tailored to local businesses and startups. The site features options for both affordable WordPress sites and custom web applications, prioritizing clarity, fixed pricing, and ongoing support.
+Jon Gerton's website serves as a portfolio and service platform for his web development work, aimed at local businesses and startups looking for quality web solutions. With emphasis on clarity and affordability, he offers WordPress sites and custom web applications tailored to meet diverse needs.
 
 ## About Jon
 
-Jon shares his background as a web developer and advocate for small businesses, highlighting his transition from network administration to full-stack development. He focuses on creating meaningful websites that cater to the specific needs of businesses, helping them succeed online.
+This section introduces Jon as a web developer with over 27 years in tech, largely focusing on web development. After starting as a Systems/Network Administrator, he transitioned to full-stack development and now specializes in helping local businesses establish an online presence through effective web solutions. Key points include:
 
-### Key Points:
-- **Background:** Over 27 years in tech, with 18+ years in web development.
-- **Approach:** Emphasizes simplicity and understanding, avoiding technical jargon.
-- **Support:** Ongoing assistance post-launch, ensuring clients feel supported.
+- **Background**: Experience in various tech roles since 1998, with a focus on mentorship for junior developers.
+- **Approach**: Custom solutions for different business sizes and needs.
+- **Support**: Ongoing assistance and transparent communication with clients.
 
-## Services
+## Services Offered
 
-This section outlines the various services offered, from affordable WordPress sites to advanced custom web applications. Each service is designed to meet the unique needs of different clients.
+Jon provides diverse web services catering to various business needs:
 
-### Options:
-- **$500 WordPress Sites**
-  - Ideal for local businesses wanting to establish an online presence quickly.
-  - Features responsive design, contact forms, basic SEO, and more.
-  
-- **Custom Web Applications**
-  - Tailored solutions with modern technologies and scalability in mind.
-  - Includes user authentication, database design, and ongoing maintenance.
+### $500 WordPress Sites
+- Affordable sites for local businesses.
+- Fast delivery within 5 business days.
+- Mobile-friendly design and essential features included.
 
-- **Team Growth Accelerator**
-  - Focuses on mentoring development teams with personalized training.
+### Custom Web Applications
+- Tailored to unique business requirements.
+- Focus on scalability and modern technology.
+- Ongoing maintenance and training provided.
+
+### Team Growth Accelerator
+- Mentorship and training tailored for development teams.
+- Covers best practices in coding, testing, and performance optimization.
 
 ## Contact
 
-Jon aims to collaborate on web projects and invites potential clients to share their ideas. Options include sending a message through a form or scheduling a discovery call for quick inquiries.
+Potential clients are encouraged to reach out with their project details. Jon offers multiple ways to connect:
 
-### Contact Methods:
-- **Email:** [jon@jpgerton.com](mailto:jon@jpgerton.com)
-- **GitHub:** [@jgerton](https://github.com/jgerton)
-- **LinkedIn:** [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+- **Message Form**: Fill out a project inquiry form to receive a response within 1 business day.
+- **Book a Call**: Schedule a free consultation for immediate discussions of project needs.
+- **Other Connections**: Email, GitHub, and LinkedIn for additional communication avenues.
 
-## Frequently Asked Questions
-
-A brief FAQ section addresses common queries related to the services, delivery timelines, and how to maintain websites after development.
-
-### Common Questions:
-- **Delivery Time:** $500 WordPress sites are typically delivered within 5 business days.
-- **Revisions:** One round of revisions is included; additional changes may incur a fee.
-- **Accessibility:** Services are available for clients across the US, despite being based in Alaska.
+### Links
+- Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+- GitHub: [@jgerton](https://github.com/jgerton)
+- LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
 ## Recent Projects
 
-This section showcases a selection of recent projects completed by Jon, illustrating the quality and variety of his work.
+Showcases Jon's work, providing insight into his style and capabilities, though specific project details were not provided.
 
-### Explore More:
-You can view more about Jon's work through the [Portfolio](https://jpgerton.com/projects).
+## FAQs
 
-## Thank You Page
+This section addresses common questions about Jon's services, including turnaround time, what's included in his offerings, and whether he supports clients outside of Alaska. 
 
-The site also includes a friendly acknowledgment for messages submitted via the contact form, outlining what to expect next in the communication process.
+### Noteworthy Points
+- Quick delivery for WordPress sites (within 5 business days).
+- Basic SEO and Google Maps integration included with the WordPress package.
+- Support and revisions provided post-launch.
+  
+## Conclusion
 
-### Next Steps:
-1. **Review:** Jon will review project details.
-2. **Response:** Clients will receive a follow-up email.
-3. **Discussion:** A call may be scheduled to discuss projects in detail.
-
----
-
-This overview captures the essential aspects of Jon Gerton's web development services, providing insights into his approach, offerings, and ways to connect.
+Whether you're a local business needing an online presence or a startup seeking a custom solution, Jon Gerton is available to discuss your project and help you find the right strategy to succeed online.

@@ -56,7 +56,7 @@ function ProjectsContent() {
       {/* Content */}
       <div className="py-2xl px-md">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-xs">All Projects</h1>
+          <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
           <p className="text-muted-foreground mb-xl">
             Browse my portfolio of indie projects and custom development work.
           </p>
@@ -79,7 +79,7 @@ export default function ProjectsPage() {
       <main className="min-h-screen bg-background">
         <div className="py-2xl px-md">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl font-bold mb-xs">All Projects</h1>
+            <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
             <p className="text-muted-foreground mb-xl">Loading...</p>
           </div>
         </div>

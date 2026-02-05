@@ -99,7 +99,7 @@ export default async function ProjectDetailPage({
           {/* Project Header */}
           <div className="flex items-start justify-between gap-md mb-lg">
             <div>
-              <h1 className="text-4xl font-bold mb-xs">{project.name}</h1>
+              <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">{project.name}</h1>
               <p className="text-lg text-muted-foreground">
                 {project.descriptionLong ?? project.description}
               </p>
@@ -111,7 +111,7 @@ export default async function ProjectDetailPage({
 
           {/* Tech Stack */}
           <div className="mb-xl">
-            <h2 className="text-2xl font-bold mb-md">Tech Stack</h2>
+            <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Tech Stack</h2>
             <div className="space-y-md">
               {Object.entries(project.techCategories).map(([category, techs]) => {
                 if (!techs || techs.length === 0) return null;

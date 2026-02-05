@@ -12,7 +12,7 @@ export default function ContactPage() {
     <div className="container max-w-5xl py-2xl">
       {/* Hero Section */}
       <div className="text-center mb-2xl">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
+        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
           Let&apos;s Build Something Together
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
