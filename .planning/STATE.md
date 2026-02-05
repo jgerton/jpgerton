@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 12 of 14 (Animation Integration)
-Plan: 12-01 of 3 in phase (in progress)
+Plan: 12-02 of 3 in phase (complete)
 Status: In progress
-Last activity: 2026-02-05 - Completed 12-01-PLAN.md (Animation Foundation)
+Last activity: 2026-02-05 - Completed 12-02-PLAN.md (Scroll-Triggered Animations)
 
-Progress: [█████████████░..................] 70% v1.1 (16/23 plans)
+Progress: [██████████████░.................] 74% v1.1 (17/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [█████████████░..................] 70% v1.
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 16/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 17/23 plans complete
 
 ## Accumulated Context
 
@@ -81,6 +81,10 @@ Progress: [█████████████░..................] 70% v1.
 - [12-01] Focus ring transition added globally via *:focus-visible selector for consistent keyboard navigation
 - [12-01] prefers-reduced-motion uses 0.01ms instead of 0ms to ensure transitionend/animationend events still fire
 - [12-01] INTR-05 form validation red border fade-in verified as already implemented by Phase 9 transition-colors
+- [12-02] Native Intersection Observer API used instead of libraries for zero bundle cost
+- [12-02] Stagger delay capped at 450ms (9 items × 50ms) to prevent excessively long animation sequences
+- [12-02] useIntersectionObserver checks prefers-reduced-motion in useEffect and immediately resolves to visible
+- [12-02] transitionDelay set to 0ms when not visible to prevent visible delay on fast scrolling
 
 ### Research Flags
 
@@ -100,9 +104,9 @@ Progress: [█████████████░..................] 70% v1.
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Completed 12-01-PLAN.md (Animation Foundation)
+Stopped at: Completed 12-02-PLAN.md (Scroll-Triggered Animations)
 Resume file: None
-Next action: Phase 12 Plan 01 complete (CSS keyframes, button press, focus ring, reduced-motion). Proceed to Plan 12-02 (Scroll-triggered animations)
+Next action: Phase 12 Plan 02 complete (useIntersectionObserver hook, staggered card animations, section heading animations). Proceed to Plan 12-03 (final animation polish)
 
 ## Deployment Info
 
