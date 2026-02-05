@@ -174,12 +174,12 @@ Plans:
   3. Body text maintains 50-75 characters per line on all pages, with line height between 1.125 and 1.200
   4. Brand colors (corporate-blue, tech-blue, turquoise) are used prominently throughout the site, creating a cohesive palette that feels warm and professional rather than default/generic
   5. All text and UI elements pass WCAG AA contrast checks (4.5:1 text, 3:1 UI) in both light and dark themes, with dark mode using intentionally reduced saturation accents rather than simple inversion
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 10-01: Integrate Lora variable font and define typography scale with responsive fluid sizing
-- [ ] 10-02: Apply line height standards and readable line length constraints across all pages
-- [ ] 10-03: Evaluate and refine color palette for brand prominence and WCAG AA compliance in both themes
+- [ ] 10-01-PLAN.md - Integrate Lora variable font and define fluid typography scale with clamp() tokens in @theme
+- [ ] 10-02-PLAN.md - Apply Lora serif, fluid type tokens, line heights, and readable line lengths across all public pages
+- [ ] 10-03-PLAN.md - Add amber/gold accent, warm dark mode with color elevation, and full WCAG AA verification
 
 ### Phase 11: Composition Components
 
@@ -298,4 +298,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-05 (Phase 9 complete)*
+*Last updated: 2026-02-05 (Phase 10 planned)*
