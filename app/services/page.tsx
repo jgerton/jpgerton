@@ -117,10 +117,10 @@ export default function ServicesPage() {
   );
 
   return (
-    <div className="container max-w-6xl py-12">
+    <div className="container max-w-6xl py-2xl">
       {/* Hero Section */}
-      <div className="text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+      <div className="text-center mb-3xl">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
           Services
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -137,14 +137,14 @@ export default function ServicesPage() {
       />
 
       {/* FAQ Section */}
-      <div className="mt-20">
-        <h2 className="text-2xl font-semibold mb-8 text-center">
+      <div className="mt-3xl">
+        <h2 className="text-2xl font-semibold mb-xl text-center">
           Frequently Asked Questions
         </h2>
-        <div className="grid gap-6 max-w-3xl mx-auto">
+        <div className="grid gap-lg max-w-3xl mx-auto">
           {faqData.map((faq, index) => (
-            <div key={index} className="border rounded-lg p-6">
-              <h3 className="font-medium mb-2">{faq.question}</h3>
+            <div key={index} className="border rounded-lg p-lg">
+              <h3 className="font-medium mb-xs">{faq.question}</h3>
               <p className="text-muted-foreground faq-answer">{faq.answer}</p>
             </div>
           ))}
@@ -152,11 +152,11 @@ export default function ServicesPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="mt-20 text-center">
-        <h2 className="text-2xl font-semibold mb-4">
+      <div className="mt-3xl text-center">
+        <h2 className="text-2xl font-semibold mb-md">
           Not sure which option is right for you?
         </h2>
-        <p className="text-muted-foreground mb-6">
+        <p className="text-muted-foreground mb-lg">
           Let&apos;s chat! I&apos;ll help you figure out the best approach for your business.
         </p>
         <CalendlyButton
@@ -168,18 +168,18 @@ export default function ServicesPage() {
       </div>
 
       {/* Trust Section */}
-      <div className="mt-20 border-t pt-12">
-        <div className="grid md:grid-cols-3 gap-8 text-center">
+      <div className="mt-3xl border-t pt-2xl">
+        <div className="grid md:grid-cols-3 gap-xl text-center">
           <div>
-            <div className="text-3xl font-bold text-primary mb-2">5 Days</div>
+            <div className="text-3xl font-bold text-primary mb-xs">5 Days</div>
             <p className="text-muted-foreground">Average WordPress site delivery</p>
           </div>
           <div>
-            <div className="text-3xl font-bold text-primary mb-2">100%</div>
+            <div className="text-3xl font-bold text-primary mb-xs">100%</div>
             <p className="text-muted-foreground">Satisfaction guarantee</p>
           </div>
           <div>
-            <div className="text-3xl font-bold text-primary mb-2">18+ Years</div>
+            <div className="text-3xl font-bold text-primary mb-xs">18+ Years</div>
             <p className="text-muted-foreground">Web development experience</p>
           </div>
         </div>

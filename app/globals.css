@@ -68,58 +68,92 @@
 /* CSS Variables for shadcn/ui theming */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 10%;
-    --primary: 210 100% 23%; /* corporate-blue */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 203 64% 44%; /* tech-blue */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 178 92% 37%; /* turquoise */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 210 100% 23%;
+    /* Base colors - pure white background with dark gray text */
+    --background: 0 0% 100%; /* #FFFFFF - white background */
+    --foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Card colors - same as background for seamless look */
+    --card: 0 0% 100%; /* #FFFFFF - white cards */
+    --card-foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Popover colors - same as background for consistency */
+    --popover: 0 0% 100%; /* #FFFFFF - white popovers */
+    --popover-foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Primary brand - corporate blue, high contrast */
+    --primary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Secondary brand - tech blue, adjusted for WCAG AA */
+    --secondary: 203 64% 38%; /* #246B96 - darker tech-blue (4.81:1 contrast, was 4.27) */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Muted UI elements - subtle gray backgrounds */
+    --muted: 0 0% 96%; /* #F5F5F5 - light gray background */
+    --muted-foreground: 0 0% 42%; /* #6B6B6B - darker gray text (4.74:1 contrast, was 4.35) */
+
+    /* Accent highlights - turquoise, adjusted for WCAG AA */
+    --accent: 178 92% 26%; /* #06666A - darker turquoise (4.85:1 contrast, was 2.55) */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Destructive actions - red, adjusted for WCAG AA */
+    --destructive: 0 84% 50%; /* #F01F1F - darker red (4.52:1 contrast, was 3.78) */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Form elements - subtle gray for inputs and borders */
+    --border: 0 0% 90%; /* #E6E6E6 - light gray border */
+    --input: 0 0% 90%; /* #E6E6E6 - light gray input background */
+    --ring: 210 100% 23%; /* #003F75 - corporate-blue focus ring */
     --radius: 8px;
 
     /* Admin-specific colors (distinct backstage aesthetic) */
-    --admin-bg: 220 14% 96%; /* Cooler gray */
-    --admin-sidebar: 220 14% 100%;
-    --admin-border: 220 13% 91%;
+    --admin-bg: 220 14% 96%; /* #F2F4F5 - cool gray background */
+    --admin-sidebar: 220 14% 100%; /* #FFFFFF - white sidebar */
+    --admin-border: 220 13% 91%; /* #E5E8EA - cool gray border */
   }
 
   .dark {
-    --background: 0 0% 10%; /* soft-black */
-    --foreground: 0 0% 95%;
-    --card: 0 0% 12%;
-    --card-foreground: 0 0% 95%;
-    --popover: 0 0% 12%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 203 64% 44%; /* tech-blue for dark mode */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 100% 23%; /* corporate-blue */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 178 92% 37%; /* turquoise */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 203 64% 44%;
+    /* Base colors - soft black background with off-white text */
+    --background: 0 0% 10%; /* #1A1A1A - soft-black background */
+    --foreground: 0 0% 95%; /* #F2F2F2 - off-white text (15.55:1 contrast) */
+
+    /* Card colors - slightly lighter than background for depth */
+    --card: 0 0% 12%; /* #1F1F1F - dark gray cards */
+    --card-foreground: 0 0% 95%; /* #F2F2F2 - off-white text (14.72:1 contrast) */
+
+    /* Popover colors - same as cards for consistency */
+    --popover: 0 0% 12%; /* #1F1F1F - dark gray popovers */
+    --popover-foreground: 0 0% 95%; /* #F2F2F2 - off-white text (14.72:1 contrast) */
+
+    /* Primary brand - tech blue for dark mode, adjusted for WCAG AA */
+    --primary: 203 64% 40%; /* #1C7AAD - darker tech-blue (5.02:1 contrast, was 4.27) */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Secondary brand - corporate blue swapped to secondary in dark mode */
+    --secondary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Muted UI elements - dark gray backgrounds */
+    --muted: 0 0% 15%; /* #262626 - dark gray background */
+    --muted-foreground: 0 0% 65%; /* #A6A6A6 - light gray text (6.22:1 contrast) */
+
+    /* Accent highlights - turquoise, adjusted for WCAG AA */
+    --accent: 178 92% 42%; /* #0FC4C9 - lighter turquoise (8.84:1 contrast, was 2.55) */
+    --accent-foreground: 0 0% 10%; /* #1A1A1A - dark text for better contrast */
+
+    /* Destructive actions - red, already passing */
+    --destructive: 0 62% 50%; /* #CF2F2F - red (5.10:1 contrast) */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Form elements - dark gray for inputs and borders */
+    --border: 0 0% 20%; /* #333333 - dark gray border */
+    --input: 0 0% 20%; /* #333333 - dark gray input background */
+    --ring: 203 64% 50%; /* #2E8FC7 - tech-blue focus ring */
 
     /* Admin-specific colors (dark mode) */
-    --admin-bg: 220 14% 10%;
-    --admin-sidebar: 220 14% 13%;
-    --admin-border: 220 13% 20%;
+    --admin-bg: 220 14% 10%; /* #171A1C - dark cool gray background */
+    --admin-sidebar: 220 14% 13%; /* #1E2124 - slightly lighter sidebar */
+    --admin-border: 220 13% 20%; /* #303538 - cool gray border */
   }
 }
 

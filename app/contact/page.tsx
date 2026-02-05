@@ -9,10 +9,10 @@ const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
 
 export default function ContactPage() {
   return (
-    <div className="container max-w-5xl py-12">
+    <div className="container max-w-5xl py-2xl">
       {/* Hero Section */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+      <div className="text-center mb-2xl">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
           Let&apos;s Build Something Together
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -21,7 +21,7 @@ export default function ContactPage() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-12">
+      <div className="grid lg:grid-cols-2 gap-2xl">
         {/* Contact Form */}
         <div>
           <Card>
@@ -38,7 +38,7 @@ export default function ContactPage() {
         </div>
 
         {/* Quick Booking Option */}
-        <div className="space-y-8">
+        <div className="space-y-xl">
           {/* Calendly Card */}
           <Card className="border-primary">
             <CardHeader>
@@ -48,7 +48,7 @@ export default function ContactPage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground mb-md">
                 Best for: $500 WordPress site inquiries or quick questions about custom projects.
               </p>
               <CalendlyButton
@@ -66,7 +66,7 @@ export default function ContactPage() {
             <CardHeader>
               <CardTitle>Other Ways to Connect</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-md">
               <div>
                 <h4 className="font-medium mb-1">Email</h4>
                 <a

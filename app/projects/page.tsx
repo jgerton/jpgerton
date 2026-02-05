@@ -57,7 +57,7 @@ function ProjectsContent() {
     <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
           <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
             Jon Gerton
           </Link>
@@ -66,10 +66,10 @@ function ProjectsContent() {
       </header>
 
       {/* Content */}
-      <div className="py-12 px-4">
+      <div className="py-2xl px-md">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold mb-2">All Projects</h1>
-          <p className="text-muted-foreground mb-8">
+          <h1 className="text-4xl font-bold mb-xs">All Projects</h1>
+          <p className="text-muted-foreground mb-xl">
             Browse my portfolio of indie projects and custom development work.
           </p>
 
@@ -90,17 +90,17 @@ export default function ProjectsPage() {
     <Suspense fallback={
       <main className="min-h-screen bg-background">
         <header className="border-b">
-          <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
             <Link href="/" className="text-xl font-bold text-foreground hover:text-primary transition-colors">
               Jon Gerton
             </Link>
             <ThemeToggle />
           </div>
         </header>
-        <div className="py-12 px-4">
+        <div className="py-2xl px-md">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl font-bold mb-2">All Projects</h1>
-            <p className="text-muted-foreground mb-8">Loading...</p>
+            <h1 className="text-4xl font-bold mb-xs">All Projects</h1>
+            <p className="text-muted-foreground mb-xl">Loading...</p>
           </div>
         </div>
       </main>

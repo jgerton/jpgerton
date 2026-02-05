@@ -11,10 +11,10 @@ const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
 
 export default function AboutPage() {
   return (
-    <div className="container max-w-4xl py-12">
+    <div className="container max-w-4xl py-2xl">
       {/* Hero Section */}
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
+      <div className="text-center mb-2xl">
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-md">
           Hey, I&apos;m Jon
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -24,10 +24,10 @@ export default function AboutPage() {
       </div>
 
       {/* Main Content */}
-      <div className="prose prose-lg dark:prose-invert max-w-none mb-12">
+      <div className="prose prose-lg dark:prose-invert max-w-none mb-2xl">
         {/* Background Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Background</h2>
+        <section className="mb-2xl">
+          <h2 className="text-2xl font-semibold mb-md">Background</h2>
           <p>
             I started in tech in 1998 as a Systems/Network Administrator for a regional
             airline, managing production infrastructure where uptime mattered. After
@@ -51,8 +51,8 @@ export default function AboutPage() {
         </section>
 
         {/* My Approach Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">My Approach</h2>
+        <section className="mb-2xl">
+          <h2 className="text-2xl font-semibold mb-md">My Approach</h2>
           <p>
             I believe in meeting people where they are. For a local pizza shop, that means
             a clean, fast website that shows up on Google, not a complex custom application.
@@ -67,12 +67,12 @@ export default function AboutPage() {
         </section>
 
         {/* Why Work With Me Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Why Work With Me</h2>
-          <div className="grid sm:grid-cols-2 gap-6 not-prose">
+        <section className="mb-2xl">
+          <h2 className="text-2xl font-semibold mb-md">Why Work With Me</h2>
+          <div className="grid sm:grid-cols-2 gap-lg not-prose">
             <Card>
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-2">No Jargon</h3>
+              <CardContent className="pt-lg">
+                <h3 className="font-semibold mb-xs">No Jargon</h3>
                 <p className="text-sm text-muted-foreground">
                   I explain things in plain English. You&apos;ll always understand what
                   you&apos;re getting and why it matters.
@@ -80,8 +80,8 @@ export default function AboutPage() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-2">Fixed Pricing</h3>
+              <CardContent className="pt-lg">
+                <h3 className="font-semibold mb-xs">Fixed Pricing</h3>
                 <p className="text-sm text-muted-foreground">
                   For WordPress sites, you know the cost upfront. No surprise invoices.
                   No scope creep surprises.
@@ -89,8 +89,8 @@ export default function AboutPage() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-2">Real Experience</h3>
+              <CardContent className="pt-lg">
+                <h3 className="font-semibold mb-xs">Real Experience</h3>
                 <p className="text-sm text-muted-foreground">
                   27 years in tech, 18+ in web development. I&apos;ve seen what works
                   and what doesn&apos;t, and I&apos;ll share that knowledge.
@@ -98,8 +98,8 @@ export default function AboutPage() {
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-6">
-                <h3 className="font-semibold mb-2">Ongoing Support</h3>
+              <CardContent className="pt-lg">
+                <h3 className="font-semibold mb-xs">Ongoing Support</h3>
                 <p className="text-sm text-muted-foreground">
                   I don&apos;t disappear after launch. Every project includes support,
                   and I&apos;m always available for questions.
@@ -110,8 +110,8 @@ export default function AboutPage() {
         </section>
 
         {/* Beyond Code Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Beyond the Code</h2>
+        <section className="mb-2xl">
+          <h2 className="text-2xl font-semibold mb-md">Beyond the Code</h2>
           <p>
             When I&apos;m not building websites, you&apos;ll find me mentoring junior developers,
             contributing to open source, or exploring hiking trails with my family.
@@ -127,15 +127,15 @@ export default function AboutPage() {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-muted rounded-lg p-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">
+      <div className="bg-muted rounded-lg p-xl text-center">
+        <h2 className="text-2xl font-semibold mb-md">
           Ready to Get Started?
         </h2>
-        <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+        <p className="text-muted-foreground mb-lg max-w-xl mx-auto">
           Whether you need a quick WordPress site or have a custom project in mind,
           let&apos;s talk about how I can help.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-md justify-center">
           <CalendlyButton
             url={CALENDLY_URL}
             text="Book a Call"
@@ -149,7 +149,7 @@ export default function AboutPage() {
       </div>
 
       {/* Quick Stats */}
-      <div className="mt-12 grid grid-cols-3 gap-8 text-center border-t pt-12">
+      <div className="mt-2xl grid grid-cols-3 gap-xl text-center border-t pt-2xl">
         <div>
           <div className="text-3xl font-bold text-primary">27+</div>
           <p className="text-sm text-muted-foreground">Years in Tech</p>

@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Header with theme toggle */}
-      <header className="fixed top-0 right-0 p-4 z-50">
+      <header className="fixed top-0 right-0 p-md z-50">
         <ThemeToggle />
       </header>
 
@@ -21,10 +21,10 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Projects Showcase */}
-      <section className="py-16 px-4 bg-muted/30">
+      <section className="py-3xl px-md bg-muted/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold mb-2 text-center">Recent Projects</h2>
-          <p className="text-muted-foreground text-center mb-8">
+          <h2 className="text-3xl font-bold mb-xs text-center">Recent Projects</h2>
+          <p className="text-muted-foreground text-center mb-xl">
             A selection of indie projects showcasing my work
           </p>
           <ProjectGrid

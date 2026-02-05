@@ -74,10 +74,10 @@ export default async function ProjectDetailPage({
     <main className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-md py-md flex items-center justify-between">
           <Link
             href="/projects"
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-xs text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Projects
@@ -87,11 +87,11 @@ export default async function ProjectDetailPage({
       </header>
 
       {/* Content */}
-      <div className="py-12 px-4">
+      <div className="py-2xl px-md">
         <div className="max-w-4xl mx-auto">
           {/* Hero Image */}
           {project.screenshotUrl && (
-            <div className="relative aspect-video mb-8 rounded-lg overflow-hidden shadow-lg">
+            <div className="relative aspect-video mb-xl rounded-lg overflow-hidden shadow-lg">
               <Image
                 src={project.screenshotUrl}
                 alt={`${project.name} screenshot`}
@@ -104,9 +104,9 @@ export default async function ProjectDetailPage({
           )}
 
           {/* Project Header */}
-          <div className="flex items-start justify-between gap-4 mb-6">
+          <div className="flex items-start justify-between gap-md mb-lg">
             <div>
-              <h1 className="text-4xl font-bold mb-2">{project.name}</h1>
+              <h1 className="text-4xl font-bold mb-xs">{project.name}</h1>
               <p className="text-lg text-muted-foreground">
                 {project.descriptionLong ?? project.description}
               </p>
@@ -117,17 +117,17 @@ export default async function ProjectDetailPage({
           </div>
 
           {/* Tech Stack */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
-            <div className="space-y-4">
+          <div className="mb-xl">
+            <h2 className="text-2xl font-bold mb-md">Tech Stack</h2>
+            <div className="space-y-md">
               {Object.entries(project.techCategories).map(([category, techs]) => {
                 if (!techs || techs.length === 0) return null;
                 return (
                   <div key={category}>
-                    <h3 className="font-semibold capitalize mb-2 text-muted-foreground">
+                    <h3 className="font-semibold capitalize mb-xs text-muted-foreground">
                       {category}
                     </h3>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-xs">
                       {techs.map((tech) => (
                         <Badge key={tech} variant="secondary">
                           {tech}
@@ -141,7 +141,7 @@ export default async function ProjectDetailPage({
           </div>
 
           {/* Links */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-md">
             {project.liveUrl && (
               <Button asChild>
                 <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
