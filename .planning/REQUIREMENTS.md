@@ -11,14 +11,14 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 
 - [x] **FNDTN-01**: Design tokens defined in globals.css @theme (spacing scale xs-3xl, shadow system, animation durations)
 - [x] **FNDTN-02**: Semantic variables audited and refined for both light and dark themes
-- [ ] **FNDTN-03**: Typography system implemented with Lora (display/headlines) + Inter (body/UI) pairing
-- [ ] **FNDTN-04**: Typography scale defined (H1-H6, body, small) with responsive fluid sizing
-- [ ] **FNDTN-05**: Line height standards applied (1.125-1.200 body, 1.1-1.3 headings)
-- [ ] **FNDTN-06**: Readable line lengths enforced (50-75 characters per line for body text)
+- [x] **FNDTN-03**: Typography system implemented with Lora (display/headlines) + Inter (body/UI) pairing
+- [x] **FNDTN-04**: Typography scale defined (H1-H6, body, small) with responsive fluid sizing
+- [x] **FNDTN-05**: Line height standards applied (1.125-1.200 body, 1.1-1.3 headings)
+- [x] **FNDTN-06**: Readable line lengths enforced (50-75 characters per line for body text)
 - [x] **FNDTN-07**: Spacing rhythm consistent across all pages using token scale (4px/8px base)
-- [ ] **FNDTN-08**: Color palette evaluated with warm, approachable, professional feel (brand prominence for corporate-blue, tech-blue, turquoise)
-- [ ] **FNDTN-09**: WCAG AA color contrast verified (4.5:1 text, 3:1 UI) in both light and dark themes
-- [ ] **FNDTN-10**: Dark mode color refinement (reduced saturation accents, intentional design, not just inverted)
+- [x] **FNDTN-08**: Color palette evaluated with warm, approachable, professional feel (brand prominence for corporate-blue, tech-blue, turquoise)
+- [x] **FNDTN-09**: WCAG AA color contrast verified (4.5:1 text, 3:1 UI) in both light and dark themes
+- [x] **FNDTN-10**: Dark mode color refinement (reduced saturation accents, intentional design, not just inverted)
 
 ### Components
 
@@ -28,10 +28,10 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 - [x] **COMP-04**: Badge styling refined for tech stack tags
 - [x] **COMP-05**: Form component polish (inputs, labels, validation states, focus indicators)
 - [x] **COMP-06**: Navigation patterns refined (mobile hamburger + desktop, sticky behavior)
-- [ ] **COMP-07**: Portfolio-specific composed components (ProjectCardEnhanced, HeroSection, CTAButton)
-- [ ] **COMP-08**: Testimonial card component (photo + name + title + company + quote layout)
-- [ ] **COMP-09**: Social proof display component (metrics callouts, years experience, projects completed)
-- [ ] **COMP-10**: Consistent component language across all pages (same card style, same button hierarchy)
+- [x] **COMP-07**: Portfolio-specific composed components (ProjectCardEnhanced, HeroSection, CTAButton)
+- [x] **COMP-08**: Testimonial card component (photo + name + title + company + quote layout)
+- [x] **COMP-09**: Social proof display component (metrics callouts, years experience, projects completed)
+- [x] **COMP-10**: Consistent component language across all pages (same card style, same button hierarchy)
 
 ### Interactions
 
@@ -52,11 +52,11 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 - [ ] **TRST-02**: CTA placement strategy (above fold, mid-page, end-page on key pages)
 - [ ] **TRST-03**: Dual CTA design (WordPress booking vs custom inquiry, visually differentiated)
 - [ ] **TRST-04**: Action-oriented CTA copy ("Book Your $500 Site" not "Learn More")
-- [ ] **TRST-05**: Testimonial section design with real client presentation format
-- [ ] **TRST-06**: Case study visual format (problem, solution, results with metrics)
-- [ ] **TRST-07**: Metrics callouts near CTAs (projects completed, years experience, technologies)
+- [x] **TRST-05**: Testimonial section design with real client presentation format
+- [x] **TRST-06**: Case study visual format (problem, solution, results with metrics)
+- [x] **TRST-07**: Metrics callouts near CTAs (projects completed, years experience, technologies)
 - [ ] **TRST-08**: Visual hierarchy improvements guiding attention through conversion flow
-- [ ] **TRST-09**: Professional visual elements that differentiate from generic templates (brand color prominence, custom gradients, typography personality)
+- [x] **TRST-09**: Professional visual elements that differentiate from generic templates (brand color prominence, custom gradients, typography personality)
 
 ### Accessibility & Dark Mode
 
