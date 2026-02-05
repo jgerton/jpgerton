@@ -210,13 +210,12 @@ Plans:
   3. Content sections animate into view on scroll (fade-in-up) with staggered timing, using CSS keyframe animations defined in @theme
   4. All animations use GPU-accelerated properties only (transform, opacity) and respect duration tokens (150ms micro, 300ms standard, 500ms complex)
   5. Users with prefers-reduced-motion enabled see no animations, and all interactive functionality works without motion
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 12-01: Define CSS keyframe animations in @theme and implement hover states on all interactive elements
-- [ ] 12-02: Add button micro-animations, form feedback animations, and link hover transitions
-- [ ] 12-03: Implement scroll-triggered entrance animations with Intersection Observer
-- [ ] 12-04: Enforce GPU-accelerated-only properties and add prefers-reduced-motion support
+- [ ] 12-01-PLAN.md - CSS keyframe animations, button press micro-interaction, focus ring animation, and prefers-reduced-motion support
+- [ ] 12-02-PLAN.md - useIntersectionObserver hook and scroll-triggered entrance animations on home page
+- [ ] 12-03-PLAN.md - Visual verification checkpoint for all animation behaviors
 
 ### Phase 13: Page-Level Integration
 
@@ -275,7 +274,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 9. Component Variant Extensions | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 10. Typography & Color System | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 11. Composition Components | v1.1 | 3/3 | Complete | 2026-02-05 |
-| 12. Animation Integration | v1.1 | 0/4 | Not started | - |
+| 12. Animation Integration | v1.1 | 0/3 | Not started | - |
 | 13. Page-Level Integration | v1.1 | 0/3 | Not started | - |
 | 14. Performance & Accessibility Validation | v1.1 | 0/4 | Not started | - |
 
