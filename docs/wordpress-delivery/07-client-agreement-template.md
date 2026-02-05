@@ -55,9 +55,9 @@ Before sending:
 
 **Developer:**
 Jon Gerton
-[Business Address]
-[Email Address]
-[Phone Number]
+Jon Gerton Web Design
+jon@jpgerton.com
+[Your Phone Number]
 
 **Client:**
 Name: [CLIENT NAME]
@@ -254,7 +254,7 @@ If Developer terminates:
 
 **Entire Agreement:** This document constitutes the entire agreement between the parties regarding this project. Any changes must be made in writing and signed by both parties.
 
-**Governing Law:** This agreement shall be governed by the laws of [STATE/JURISDICTION].
+**Governing Law:** This agreement shall be governed by the laws of [Your State, e.g., Colorado].
 
 **Dispute Resolution:** Both parties agree to attempt good-faith resolution of any disputes before pursuing legal action.
 
@@ -302,4 +302,4 @@ Date: ________________________________
 | **Revision Rounds** | 2 included |
 | **Warranty** | 30 days (bugs only) |
 
-Questions? Contact Jon at [EMAIL] before signing.
+Questions? Contact Jon at jon@jpgerton.com before signing.
