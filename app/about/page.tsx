@@ -5,164 +5,164 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CalendlyButton } from "@/components/calendly/calendly-button";
 import { PersonSchema } from "@/components/schema";
+import { SectionBackground } from "@/components/portfolio/sections/section-background";
+import { CTAButton } from "@/components/portfolio/cta-button";
 
 // TODO: Move to environment variable
 const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
 
+const processSteps = [
+  {
+    step: 1,
+    title: "Discovery Call",
+    description:
+      "We chat for 15 minutes about your business, your goals, and what you need from your website.",
+  },
+  {
+    step: 2,
+    title: "Content & Design",
+    description:
+      "I build your site using your content and brand. You review and request one round of changes.",
+  },
+  {
+    step: 3,
+    title: "Launch",
+    description:
+      "Your site goes live within 5 business days. I handle all the technical details.",
+  },
+  {
+    step: 4,
+    title: "Ongoing Support",
+    description:
+      "30 days of support included. I'm always available if you have questions.",
+  },
+];
+
+const values = [
+  {
+    title: "No Jargon",
+    description:
+      "I explain things in plain English. You'll always understand what you're getting and why it matters.",
+  },
+  {
+    title: "Fixed Pricing",
+    description:
+      "For WordPress sites, you know the cost upfront. No surprise invoices. No scope creep surprises.",
+  },
+  {
+    title: "Real Experience",
+    description:
+      "27 years in tech, 18+ in web development. I've seen what works and what doesn't, and I'll share that knowledge.",
+  },
+  {
+    title: "Ongoing Support",
+    description:
+      "I don't disappear after launch. Every project includes support, and I'm always available for questions.",
+  },
+];
+
 export default function AboutPage() {
   return (
-    <div className="container max-w-4xl py-2xl">
-      {/* Hero Section */}
-      <div className="text-center mb-2xl">
-        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
-          Hey, I&apos;m Jon
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Web developer, team builder, and small business advocate
-          based in Alaska.
-        </p>
-      </div>
+    <div>
+      {/* Section 1: Hero (neutral) */}
+      <SectionBackground variant="neutral">
+        <div className="text-center max-w-3xl mx-auto">
+          <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
+            How I Work
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            A straightforward process focused on getting your business online
+            quickly and professionally.
+          </p>
+        </div>
+      </SectionBackground>
 
-      {/* Main Content */}
-      <div className="prose prose-lg dark:prose-invert max-w-prose mb-2xl">
-        {/* Background Section */}
-        <section className="mb-2xl">
-          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Background</h2>
-          <p>
-            I started in tech in 1998 as a Systems/Network Administrator for a regional
-            airline, managing production infrastructure where uptime mattered. After
-            recognizing software was a better fit for my skill set, I transitioned to
-            full-stack development in 2007.
-          </p>
-          <p>
-            I spent 13 years at three software development agencies, shipping projects
-            across dozens of industries and tech stacks. When COVID hit and AI-assisted
-            development started advancing rapidly, I made the intentional move to solo
-            founder - building with a vision to mentor junior developers into sustainable
-            career paths.
-          </p>
-          <p>
-            Along the way, I discovered the most rewarding work isn&apos;t always the most
-            complex. When I helped a friend launch his local business online, the impact
-            was immediate - new customers called, his schedule filled up, his family&apos;s
-            financial stress eased. That&apos;s when I realized there&apos;s a massive gap between
-            &quot;big tech&quot; web development and what local businesses actually need.
-          </p>
-        </section>
-
-        {/* My Approach Section */}
-        <section className="mb-2xl">
-          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">My Approach</h2>
-          <p>
-            I believe in meeting people where they are. For a local pizza shop, that means
-            a clean, fast website that shows up on Google, not a complex custom application.
-            For a growing startup, it means scalable architecture that won&apos;t need a rewrite
-            in two years.
-          </p>
-          <p>
-            That&apos;s why I offer both <strong>$500 WordPress sites</strong> for local businesses
-            and <strong>custom web applications</strong> for companies with unique needs.
-            Different problems deserve different solutions.
-          </p>
-        </section>
-
-        {/* Why Work With Me Section */}
-        <section className="mb-2xl">
-          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Why Work With Me</h2>
-          <div className="grid sm:grid-cols-2 gap-lg not-prose">
-            <Card>
-              <CardContent className="pt-lg">
-                <h3 className="font-semibold mb-xs">No Jargon</h3>
-                <p className="text-sm text-muted-foreground">
-                  I explain things in plain English. You&apos;ll always understand what
-                  you&apos;re getting and why it matters.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-lg">
-                <h3 className="font-semibold mb-xs">Fixed Pricing</h3>
-                <p className="text-sm text-muted-foreground">
-                  For WordPress sites, you know the cost upfront. No surprise invoices.
-                  No scope creep surprises.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-lg">
-                <h3 className="font-semibold mb-xs">Real Experience</h3>
-                <p className="text-sm text-muted-foreground">
-                  27 years in tech, 18+ in web development. I&apos;ve seen what works
-                  and what doesn&apos;t, and I&apos;ll share that knowledge.
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-lg">
-                <h3 className="font-semibold mb-xs">Ongoing Support</h3>
-                <p className="text-sm text-muted-foreground">
-                  I don&apos;t disappear after launch. Every project includes support,
-                  and I&apos;m always available for questions.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Beyond Code Section */}
-        <section className="mb-2xl">
-          <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Beyond the Code</h2>
-          <p>
-            When I&apos;m not building websites, you&apos;ll find me mentoring junior developers,
-            contributing to open source, or exploring hiking trails with my family.
-            I&apos;m a firm believer that sustainable work leads to better outcomes,
-            for clients, for teams, and for me.
-          </p>
-          <p>
-            I also run workshops for engineering teams on topics like testing practices,
-            code review culture, and building psychologically safe teams. If your
-            organization is looking to level up, I&apos;d love to chat.
-          </p>
-        </section>
-      </div>
-
-      {/* CTA Section */}
-      <div className="bg-muted rounded-lg p-xl text-center">
-        <h2 className="font-serif font-medium text-h2 leading-tight mb-md">
-          Ready to Get Started?
+      {/* Section 2: Process Steps (gradient) */}
+      <SectionBackground variant="gradient">
+        <h2 className="font-serif text-h2 leading-tight text-center mb-xl">
+          From Idea to Launch in 4 Steps
         </h2>
-        <p className="text-muted-foreground mb-lg max-w-xl mx-auto">
-          Whether you need a quick WordPress site or have a custom project in mind,
-          let&apos;s talk about how I can help.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-md justify-center">
-          <CalendlyButton
-            url={CALENDLY_URL}
-            text="Book a Call"
-            variant="default"
-            size="lg"
-          />
-          <Button asChild variant="outline" size="lg">
-            <Link href="/projects">View My Work</Link>
-          </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+          {processSteps.map((step) => (
+            <Card key={step.step} elevation="sm" className="p-lg text-center">
+              <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg mx-auto mb-md">
+                {step.step}
+              </div>
+              <h3 className="font-semibold mb-sm">{step.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {step.description}
+              </p>
+            </Card>
+          ))}
         </div>
-      </div>
+      </SectionBackground>
 
-      {/* Quick Stats */}
-      <div className="mt-2xl grid grid-cols-3 gap-xl text-center border-t pt-2xl">
-        <div>
-          <div className="text-h3 font-bold text-primary">27+</div>
-          <p className="text-sm text-muted-foreground">Years in Tech</p>
+      {/* Section 3: Values (neutral) */}
+      <SectionBackground variant="neutral">
+        <h2 className="font-serif text-h2 leading-tight text-center mb-xl">
+          What You Can Expect
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-lg max-w-3xl mx-auto">
+          {values.map((value) => (
+            <Card key={value.title}>
+              <CardContent className="pt-lg">
+                <h3 className="font-semibold mb-xs">{value.title}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {value.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-        <div>
-          <div className="text-h3 font-bold text-primary">13</div>
-          <p className="text-sm text-muted-foreground">Years at Agencies</p>
+      </SectionBackground>
+
+      {/* Section 4: Background (muted, brief) */}
+      <SectionBackground variant="muted">
+        <div className="max-w-prose mx-auto">
+          <h2 className="font-serif text-h2 leading-tight mb-md">
+            A Bit About Me
+          </h2>
+          <p className="text-muted-foreground mb-md leading-relaxed">
+            I&apos;ve been in tech since 1998, starting as a Systems
+            Administrator and transitioning to full-stack development in 2007.
+            After 13 years at three software agencies shipping projects across
+            dozens of industries, I went solo to focus on what matters most.
+          </p>
+          <p className="text-muted-foreground mb-md leading-relaxed">
+            The turning point came when I helped a friend launch his local
+            business online. New customers called, his schedule filled up, and
+            his family&apos;s financial stress eased. That&apos;s when I
+            realized there&apos;s a massive gap between &quot;big tech&quot; web
+            development and what local businesses actually need.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            That gap is why $500 WordPress sites exist. Not every business needs
+            a custom application. Sometimes a clean, fast website that shows up
+            on Google is exactly the right solution.
+          </p>
         </div>
-        <div>
-          <div className="text-h3 font-bold text-primary">100%</div>
-          <p className="text-sm text-muted-foreground">Client Satisfaction</p>
+      </SectionBackground>
+
+      {/* Section 5: Lighter CTA (neutral) */}
+      <SectionBackground variant="neutral">
+        <div className="text-center max-w-xl mx-auto">
+          <h2 className="font-serif text-h3 leading-snug mb-md">
+            Ready to Get Started?
+          </h2>
+          <p className="text-muted-foreground mb-lg max-w-xl mx-auto">
+            Whether you need a quick WordPress site or have a custom project in
+            mind, let&apos;s talk.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-md justify-center">
+            <CTAButton asChild intent="warm" size="lg">
+              <Link href="/services">Get Your Business Online</Link>
+            </CTAButton>
+            <Button asChild variant="outline" size="lg">
+              <Link href="/projects">View My Work</Link>
+            </Button>
+          </div>
         </div>
-      </div>
+      </SectionBackground>
 
       {/* Schema Markup */}
       <PersonSchema />
