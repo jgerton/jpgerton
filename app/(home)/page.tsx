@@ -166,9 +166,9 @@ export default function HomePage() {
         >
           <SocialProofDisplay metrics={metrics} />
 
-          <h3 className="font-serif text-h3 leading-snug text-center mt-2xl mb-lg">
+          <h2 className="font-serif text-h3 leading-snug text-center mt-2xl mb-lg">
             What Clients Say
-          </h3>
+          </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
             {testimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.name} {...testimonial} />

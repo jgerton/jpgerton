@@ -146,7 +146,7 @@ export default function ServicesPage() {
   );
 
   return (
-    <div>
+    <main>
       {/* Section 1: Hero (neutral) */}
       <SectionBackground variant="neutral">
         <div className="text-center max-w-3xl mx-auto">
@@ -243,6 +243,6 @@ export default function ServicesPage() {
       {/* Schema Markup */}
       <FAQSchema questions={faqData} />
       <ServiceSchema />
-    </div>
+    </main>
   );
 }

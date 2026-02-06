@@ -16,7 +16,7 @@ const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
 
 export default function ContactPage() {
   return (
-    <div>
+    <main>
       {/* Hero Section (neutral) */}
       <SectionBackground variant="neutral">
         <div className="text-center max-w-3xl mx-auto">
@@ -32,6 +32,7 @@ export default function ContactPage() {
 
       {/* Form & Booking Grid (muted) */}
       <SectionBackground variant="muted">
+        <h2 className="sr-only">Get in Touch</h2>
         <div className="grid lg:grid-cols-2 gap-2xl max-w-5xl mx-auto">
           {/* Contact Form */}
           <div>
@@ -99,6 +100,7 @@ export default function ContactPage() {
                     className="text-primary hover:underline"
                   >
                     @jgerton
+                    <span className="sr-only"> (opens in new tab)</span>
                   </a>
                 </div>
                 <div>
@@ -110,6 +112,7 @@ export default function ContactPage() {
                     className="text-primary hover:underline"
                   >
                     Jon Gerton
+                    <span className="sr-only"> (opens in new tab)</span>
                   </a>
                 </div>
               </CardContent>
@@ -117,6 +120,6 @@ export default function ContactPage() {
           </div>
         </div>
       </SectionBackground>
-    </div>
+    </main>
   );
 }

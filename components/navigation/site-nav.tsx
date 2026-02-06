@@ -26,7 +26,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/65 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-md transition-colors duration-[var(--duration-base)]">
-      <nav className="container flex h-14 items-center justify-between">
+      <nav aria-label="Main navigation" className="container flex h-14 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="font-bold text-lg">
           JP Gerton

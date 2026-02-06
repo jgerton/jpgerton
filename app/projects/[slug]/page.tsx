@@ -176,16 +176,18 @@ export default async function ProjectDetailPage({
           {project.liveUrl && (
             <Button asChild>
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" />
+                <ExternalLink className="mr-2 h-4 w-4" aria-hidden="true" />
                 View Live Site
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}
           {project.githubUrl && (
             <Button asChild variant="outline">
               <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" />
+                <Github className="mr-2 h-4 w-4" aria-hidden="true" />
                 View Source
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}

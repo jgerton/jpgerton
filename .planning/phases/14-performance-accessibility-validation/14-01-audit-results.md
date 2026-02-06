@@ -142,4 +142,43 @@
 
 ## Fixes Applied
 
-(To be updated in Task 2)
+### C-01, C-02, C-03, C-06: Added `<main>` landmark to 4 pages
+- **Files:** `app/services/page.tsx`, `app/about/page.tsx`, `app/contact/page.tsx`, `app/contact/thank-you/page.tsx`
+- **Fix:** Changed root `<div>` wrapper to `<main>` on each page
+- **Result:** All 7 public pages now have `<main>` as their primary content landmark
+
+### C-04: Fixed Contact page heading hierarchy
+- **File:** `app/contact/page.tsx`
+- **Fix:** Added `<h2 className="sr-only">Get in Touch</h2>` before the form/booking grid section
+- **Result:** Heading hierarchy is now h1 -> h2 (sr-only) -> h3 (CardTitle) -> h4
+
+### C-05: Fixed Thank You page heading hierarchy
+- **File:** `app/contact/thank-you/page.tsx`
+- **Fix:** Added `<h2 className="sr-only">Next Steps</h2>` before the cards section
+- **Result:** Heading hierarchy is now h1 -> h2 (sr-only) -> h3 (CardTitle) -> h4
+
+### C-07: Fixed Home page orphan h3
+- **File:** `app/(home)/page.tsx`
+- **Fix:** Changed "What Clients Say" from `<h3>` to `<h2>` since it is a top-level section heading (visually styled with text-h3 to keep smaller appearance)
+- **Result:** Heading hierarchy in social proof section is now h2 ("What Clients Say")
+
+### W-01: Added footer landmark
+- **File:** `app/layout.tsx`
+- **Fix:** Added `<footer>` element with copyright text to root layout
+- **Result:** All pages now have header, main, and footer landmarks
+
+### W-02: Added aria-label to SiteNav
+- **File:** `components/navigation/site-nav.tsx`
+- **Fix:** Added `aria-label="Main navigation"` to the `<nav>` element
+- **Result:** Screen readers can distinguish between main nav and mobile menu nav
+
+### W-03: Added external link indicators
+- **Files:** `app/contact/page.tsx`, `app/projects/[slug]/page.tsx`
+- **Fix:** Added `<span className="sr-only"> (opens in new tab)</span>` to all `target="_blank"` links
+- **Also:** Added `aria-hidden="true"` to decorative icons (ExternalLink, Github) in project detail links
+- **Result:** Screen reader users are informed when links open in new tabs
+
+### Build Verification
+- `bun run type-check`: PASS (no errors)
+- `bun run build`: PASS (all pages compile and render)
+- `bun run lint`: Same 14 pre-existing issues (no new issues introduced)

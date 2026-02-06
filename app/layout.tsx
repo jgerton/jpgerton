@@ -63,6 +63,9 @@ export default function RootLayout({
         <Providers>
           <SiteNav />
           {children}
+          <footer className="border-t border-border/40 py-lg px-md text-center text-sm text-muted-foreground">
+            <p>&copy; {new Date().getFullYear()} Jon Gerton. All rights reserved.</p>
+          </footer>
         </Providers>
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_ID && (

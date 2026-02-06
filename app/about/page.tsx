@@ -63,7 +63,7 @@ const values = [
 
 export default function AboutPage() {
   return (
-    <div>
+    <main>
       {/* Section 1: Hero (neutral) */}
       <SectionBackground variant="neutral">
         <div className="text-center max-w-3xl mx-auto">
@@ -166,6 +166,6 @@ export default function AboutPage() {
 
       {/* Schema Markup */}
       <PersonSchema />
-    </div>
+    </main>
   );
 }

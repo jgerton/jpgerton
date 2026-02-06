@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function ThankYouPage() {
   return (
-    <div className="container max-w-2xl py-2xl">
+    <main className="container max-w-2xl py-2xl">
       <div className="text-center mb-xl">
         <CheckCircle className="h-16 w-16 text-primary mx-auto mb-md" />
         <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
@@ -24,6 +24,7 @@ export default function ThankYouPage() {
         </p>
       </div>
 
+      <h2 className="sr-only">Next Steps</h2>
       {/* What Happens Next */}
       <Card className="mb-xl">
         <CardHeader>
@@ -87,6 +88,6 @@ export default function ThankYouPage() {
           <Link href="/">Back to Home</Link>
         </Button>
       </div>
-    </div>
+    </main>
   );
 }
