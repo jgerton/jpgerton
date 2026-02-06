@@ -19,8 +19,18 @@ export { TestimonialCard } from "./testimonial-card";
 export { CaseStudyVisual } from "./case-study-visual";
 export { SocialProofDisplay } from "./social-proof-display";
 
+// Section layout components
+export { SectionBackground } from "./sections/section-background";
+export { CTABanner } from "./sections/cta-banner";
+export { HeroWithGradient } from "./sections/hero-with-gradient";
+export { MidPageCTA } from "./sections/mid-page-cta";
+
 // Type exports
 export type { CTAButtonProps } from "./cta-button";
 export type { TestimonialCardProps } from "./testimonial-card";
 export type { CaseStudyVisualProps, CaseStudySection } from "./case-study-visual";
 export type { SocialProofDisplayProps, Metric } from "./social-proof-display";
+export type { SectionBackgroundProps } from "./sections/section-background";
+export type { CTABannerProps } from "./sections/cta-banner";
+export type { HeroWithGradientProps } from "./sections/hero-with-gradient";
+export type { MidPageCTAProps } from "./sections/mid-page-cta";
