@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -18,11 +18,21 @@ const navLinks = [
 export function SiteNav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   }
+
+  // Focus restoration: return focus to hamburger button when menu closes
+  const handleClose = useCallback(() => {
+    setMobileMenuOpen(false);
+    // Delay focus to allow menu close transition to begin
+    requestAnimationFrame(() => {
+      menuButtonRef.current?.focus();
+    });
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/65 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-md transition-colors duration-[var(--duration-base)]">
@@ -57,8 +67,9 @@ export function SiteNav() {
         <div className="md:hidden flex items-center gap-sm">
           <ThemeToggle />
           <button
+            ref={menuButtonRef}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 hover:bg-accent rounded-md transition-colors"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-accent rounded-md transition-colors"
             aria-label="Toggle menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -75,7 +86,7 @@ export function SiteNav() {
       <div className="md:hidden">
         <MobileMenu
           isOpen={mobileMenuOpen}
-          onClose={() => setMobileMenuOpen(false)}
+          onClose={handleClose}
         />
       </div>
     </header>

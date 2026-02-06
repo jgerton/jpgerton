@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,19 +19,57 @@ interface MobileMenuProps {
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const pathname = usePathname();
+  const panelRef = useRef<HTMLDivElement>(null);
 
-  // Escape key handler
+  // Focus trap: trap Tab/Shift+Tab within the menu panel
+  // Also handles Escape key to close
   useEffect(() => {
     if (!isOpen) return;
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    // Small delay to let the transition start before focusing
+    const focusTimer = setTimeout(() => {
+      const focusableElements = panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled])'
+      );
+      const firstEl = focusableElements[0];
+      firstEl?.focus();
+    }, 50);
 
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") {
         onClose();
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const currentPanel = panelRef.current;
+      if (!currentPanel) return;
+
+      const focusableElements = currentPanel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled])'
+      );
+      if (focusableElements.length === 0) return;
+
+      const firstEl = focusableElements[0];
+      const lastEl = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl?.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl?.focus();
       }
     }
 
     document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [isOpen, onClose]);
 
   // Scroll lock when menu is open
@@ -64,6 +102,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
       {/* Slide-from-right panel */}
       <div
+        ref={panelRef}
         className={`fixed inset-y-0 right-0 z-50 w-3/4 max-w-sm bg-background border-l border-border transform transition-transform duration-[var(--duration-base)] ease-[var(--ease-smooth)] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
@@ -77,7 +116,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               key={link.href}
               href={link.href}
               onClick={onClose}
-              className={`text-lg font-medium transition-colors hover:text-primary ${
+              className={`text-lg font-medium transition-colors hover:text-primary py-1 ${
                 isActive(link.href)
                   ? "text-primary"
                   : "text-muted-foreground"
