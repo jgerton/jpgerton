@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 14 of 14 (Performance & Accessibility Validation)
-Plan: 1 of 4 in phase
+Plan: 2 of 4 in phase
 Status: In progress
-Last activity: 2026-02-06 - Completed 14-01-PLAN.md (WCAG 2.1 AA audit and fixes)
+Last activity: 2026-02-06 - Completed 14-02-PLAN.md (keyboard navigation and focus management)
 
-Progress: [█████████████████████████████░..] ~93% (24/27 plans including Phase 14)
+Progress: [██████████████████████████████░.] ~96% (25/27 plans including Phase 14)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 24/27 plans complete (Phase 14: 1/4)
+- v1.1: 7 phases (8-14), 49 requirements mapped, 25/27 plans complete (Phase 14: 2/4)
 
 ## Accumulated Context
 
@@ -99,6 +99,9 @@ Progress: [███████████████████████
 - [14-01] Use sr-only h2 headings to fix hierarchy gaps rather than restructuring visible layout
 - [14-01] Minimal footer in root layout (not separate component) is sufficient for landmark navigation
 - [14-01] "What Clients Say" promoted to h2 on home page since it introduces a distinct section
+- [14-02] Focus trap uses querySelectorAll on panelRef instead of external library (5 links, no library needed)
+- [14-02] Touch target fixes use min-h/min-w instead of changing base h/w to preserve visual design
+- [14-02] Hero opacity:0 focus issue documented but not fixed (IntersectionObserver fires within a frame)
 
 ### Research Flags
 
@@ -118,9 +121,9 @@ Progress: [███████████████████████
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Completed 14-01-PLAN.md (WCAG 2.1 AA audit and fixes)
+Stopped at: Completed 14-02-PLAN.md (keyboard navigation and focus management)
 Resume file: None
-Next action: Execute 14-02-PLAN.md (keyboard navigation and focus trap)
+Next action: Execute 14-03-PLAN.md (performance and Lighthouse validation)
 
 ## Deployment Info
 
