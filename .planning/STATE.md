@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 
 ## Current Position
 
-Phase: 12 of 14 (Animation Integration)
-Plan: 12-03 of 3 in phase (complete)
-Status: Complete
-Last activity: 2026-02-05 - Phase 12 verified and approved
+Phase: 13 of 14 (Page-Level Integration)
+Plan: 13-01 of 3 in phase
+Status: In progress
+Last activity: 2026-02-05 - Completed 13-01-PLAN.md
 
-Progress: [███████████████████░............] 87% v1.1 (20/23 plans)
+Progress: [████████████████████░...........] 91% v1.1 (21/23 plans)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [███████████████████░.........
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 20/23 plans complete
+- v1.1: 7 phases (8-14), 49 requirements mapped, 21/23 plans complete
 
 ## Accumulated Context
 
@@ -85,6 +85,12 @@ Progress: [███████████████████░.........
 - [12-02] Stagger delay capped at 450ms (9 items × 50ms) to prevent excessively long animation sequences
 - [12-02] useIntersectionObserver checks prefers-reduced-motion in useEffect and immediately resolves to visible
 - [12-02] transitionDelay set to 0ms when not visible to prevent visible delay on fast scrolling
+- [13-01] SectionBackground, CTABanner, MidPageCTA are Server Components; only HeroWithGradient needs "use client"
+- [13-01] Benefit-focused CTA copy pattern: "Get Your Business Online" not "Book Your $500 Site"
+- [13-01] Home page conversion flow: Hero -> Services -> Projects -> Social Proof -> CTA Banner
+- [13-01] Placeholder testimonials used with clear comment for future admin/data layer replacement
+- [13-01] Featured projects limited to 3 on home page via .slice(0, 3)
+- [13-01] Tailwind v4 gradient syntax: bg-linear-to-br (not bg-gradient-to-br)
 
 ### Research Flags
 
@@ -104,9 +110,9 @@ Progress: [███████████████████░.........
 ## Session Continuity
 
 Last session: 2026-02-05
-Stopped at: Phase 12 complete (all 3 plans, verified and approved)
+Stopped at: Completed 13-01-PLAN.md (section layout components + home page restructure)
 Resume file: None
-Next action: Phase 13 (Page-Level Integration) - Apply design system across all pages with strategic CTA placement and visual hierarchy
+Next action: Execute 13-02-PLAN.md (services page integration)
 
 ## Deployment Info
 
