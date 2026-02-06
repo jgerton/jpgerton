@@ -246,13 +246,13 @@ Plans:
   3. All touch targets meet 44x44px minimum and the site renders correctly on real mobile device dimensions
   4. Dark mode renders with intentional color choices (not just inverted), and all states (hover, focus, active, disabled) maintain proper contrast
   5. Lighthouse scores remain at 90+ across all categories, and Core Web Vitals are within budget (LCP < 2.5s, CLS < 0.1, FID < 100ms) across Chrome, Safari, and Firefox
-**Plans**: TBD
+**Plans**: 4 plans
 
 Plans:
-- [ ] 14-01: WCAG 2.1 AA audit across all pages (contrast, semantic HTML, ARIA, screen reader)
-- [ ] 14-02: Keyboard navigation, focus management, and touch target validation
-- [ ] 14-03: Dark mode validation with intentional design review
-- [ ] 14-04: Cross-browser testing, mobile responsive refinement, Lighthouse and Core Web Vitals verification
+- [ ] 14-01-PLAN.md - WCAG 2.1 AA automated audit across all pages with semantic HTML, contrast, and ARIA fixes
+- [ ] 14-02-PLAN.md - Keyboard navigation, focus trap in mobile menu, and touch target validation
+- [ ] 14-03-PLAN.md - Dark mode contrast verification and Safari CSS compatibility check
+- [ ] 14-04-PLAN.md - Responsive testing at 375/768/1024px, Lighthouse scores, Core Web Vitals, and user sign-off
 
 ## Progress
 
@@ -276,7 +276,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 11. Composition Components | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 12. Animation Integration | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
-| 14. Performance & Accessibility Validation | v1.1 | 0/4 | Not started | - |
+| 14. Performance & Accessibility Validation | v1.1 | 0/4 | In Progress | - |
 
 ---
 
@@ -297,4 +297,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-06 (Phase 13 complete)*
+*Last updated: 2026-02-06 (Phase 14 planned)*
