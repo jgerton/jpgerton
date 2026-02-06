@@ -127,7 +127,7 @@
    * All UI element pairs: 3:1+ (borders, inputs)
    * Light mode: 9 pairs verified
    * Dark mode: 12 pairs verified (including cross-surface)
-   * Last verified: 2026-02-05
+   * Last verified: 2026-02-06 (14-03 dark mode audit)
    * ============================================ */
 
   :root {
@@ -192,9 +192,9 @@
     --popover: 220 15% 16%; /* #262B30 - more elevated +6% from bg (13.35:1 contrast) */
     --popover-foreground: 210 20% 95%; /* #F0F3F5 - consistent foreground */
 
-    /* Primary brand - tech blue for dark mode, adjusted for WCAG AA */
-    --primary: 203 64% 40%; /* #1C7AAD - darker tech-blue (5.02:1 contrast, was 4.27) */
-    --primary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+    /* Primary brand - tech blue for dark mode, lightened for text-as-link contrast */
+    --primary: 203 64% 48%; /* #2C8DC9 - lighter tech-blue (4.87:1 as text on bg, 4.52:1 on card) */
+    --primary-foreground: 220 20% 10%; /* #14181F - dark text on primary (5.07:1 contrast) */
 
     /* Secondary brand - corporate blue swapped to secondary in dark mode */
     --secondary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
@@ -213,7 +213,7 @@
     --destructive-foreground: 0 0% 100%; /* #FFFFFF - white text */
 
     /* Form elements - dark gray for inputs and borders */
-    --border: 0 0% 40%; /* #666666 - medium gray border (3.09:1 contrast) */
+    --border: 0 0% 45%; /* #737373 - lighter gray border (3.75:1 on bg, 3.48:1 on card, 3.16:1 on popover) */
     --input: 0 0% 20%; /* #333333 - dark gray input background */
     --ring: 203 64% 50%; /* #2E8FC7 - tech-blue focus ring */
 
