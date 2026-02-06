@@ -71,11 +71,13 @@ export function SiteNav() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      <MobileMenu
-        isOpen={mobileMenuOpen}
-        onClose={() => setMobileMenuOpen(false)}
-      />
+      {/* Mobile menu - hidden on desktop via md:hidden */}
+      <div className="md:hidden">
+        <MobileMenu
+          isOpen={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
+        />
+      </div>
     </header>
   );
 }

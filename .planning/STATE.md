@@ -106,8 +106,7 @@ Progress: [███████████████████████
 
 ### Todos
 
-- Fix mobile nav dialog leaking on desktop viewport (ui)
-- Fix home page featured projects section showing empty (ui)
+- None
 
 ### Blockers
 

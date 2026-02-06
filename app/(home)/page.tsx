@@ -120,37 +120,39 @@ export default function HomePage() {
         </div>
       </SectionBackground>
 
-      {/* Section 3: Featured Projects */}
-      <SectionBackground variant="neutral">
-        <div
-          ref={projectsAnim.elementRef}
-          className={cn(
-            "opacity-0 translate-y-5",
-            "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-            projectsAnim.isVisible && "opacity-100 translate-y-0"
-          )}
-        >
-          <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
-            Recent Work
-          </h2>
-          <p className="text-muted-foreground text-center mb-xl">
-            A selection of projects showcasing my approach
-          </p>
-        </div>
-        <ProjectGrid
-          projects={(projects ?? []).slice(0, 3)}
-          loading={projects === undefined}
-        />
-        <MidPageCTA
-          variant="simple"
-          headline="Like What You See?"
-          cta={{
-            text: "Start Your Project",
-            href: "/services",
-            intent: "warm",
-          }}
-        />
-      </SectionBackground>
+      {/* Section 3: Featured Projects - hidden when no projects available */}
+      {(projects === undefined || (projects && projects.length > 0)) && (
+        <SectionBackground variant="neutral">
+          <div
+            ref={projectsAnim.elementRef}
+            className={cn(
+              "opacity-0 translate-y-5",
+              "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
+              projectsAnim.isVisible && "opacity-100 translate-y-0"
+            )}
+          >
+            <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
+              Recent Work
+            </h2>
+            <p className="text-muted-foreground text-center mb-xl">
+              A selection of projects showcasing my approach
+            </p>
+          </div>
+          <ProjectGrid
+            projects={(projects ?? []).slice(0, 3)}
+            loading={projects === undefined}
+          />
+          <MidPageCTA
+            variant="simple"
+            headline="Like What You See?"
+            cta={{
+              text: "Start Your Project",
+              href: "/services",
+              intent: "warm",
+            }}
+          />
+        </SectionBackground>
+      )}
 
       {/* Section 4: Social Proof & Testimonials */}
       <SectionBackground variant="muted">
