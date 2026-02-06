@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation";
 import { PricingCards } from "@/components/pricing/pricing-cards";
 import { CalendlyButton } from "@/components/calendly/calendly-button";
 import { FAQSchema, ServiceSchema } from "@/components/schema";
+import { SectionBackground } from "@/components/portfolio/sections/section-background";
+import { CTABanner } from "@/components/portfolio/sections/cta-banner";
+import { SocialProofDisplay } from "@/components/portfolio/social-proof-display";
 import type { PricingTier } from "@/components/pricing/pricing-card";
 
 // TODO: Move to environment variable
@@ -57,7 +60,7 @@ const serviceTiers: PricingTier[] = [
       "30 days of support after launch",
       "Built on WordPress - easy for you to update",
     ],
-    cta: "Book Your $500 Site Call",
+    cta: "Get Your Business Online",
     ctaAction: "calendly",
     highlighted: true,
     badge: "Most Popular",
@@ -76,7 +79,7 @@ const serviceTiers: PricingTier[] = [
       "Training and documentation included",
       "Timeline and pricing based on scope",
     ],
-    cta: "Discuss Your Project",
+    cta: "Discuss Your Vision",
     ctaAction: "contact",
     highlighted: false,
   },
@@ -94,10 +97,36 @@ const serviceTiers: PricingTier[] = [
       "Flexible engagement (workshop or ongoing)",
       "Remote or on-site options available",
     ],
-    cta: "Learn More",
+    cta: "Level Up Your Team",
     ctaAction: "contact",
     highlighted: false,
   },
+];
+
+const whatsIncluded = [
+  {
+    title: "Mobile-Responsive Design",
+    description: "Looks great on every device, from phones to desktops.",
+  },
+  {
+    title: "SEO Foundation",
+    description:
+      "Basic search optimization so customers can find you on Google.",
+  },
+  {
+    title: "Contact Form",
+    description: "Let customers reach you 24/7, even when you're closed.",
+  },
+  {
+    title: "Content Training",
+    description: "Learn to update your own site with a simple walkthrough.",
+  },
+];
+
+const trustMetrics = [
+  { value: "5 Days", label: "Average WordPress Delivery" },
+  { value: "100%", label: "Satisfaction Guarantee" },
+  { value: "18+ Years", label: "Web Development Experience" },
 ];
 
 export default function ServicesPage() {
@@ -112,78 +141,104 @@ export default function ServicesPage() {
       url={CALENDLY_URL}
       text={tier.cta}
       variant="default"
-      className="w-full"
+      className="w-full bg-accent-warm text-accent-warm-foreground hover:bg-accent-warm/90"
     />
   );
 
   return (
-    <div className="container max-w-6xl py-2xl">
-      {/* Hero Section */}
-      <div className="text-center mb-3xl">
-        <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
-          Services
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          From quick WordPress sites for local businesses to custom web applications -
-          find the right solution for your needs.
-        </p>
-      </div>
+    <div>
+      {/* Section 1: Hero (neutral) */}
+      <SectionBackground variant="neutral">
+        <div className="text-center max-w-3xl mx-auto">
+          <h1 className="font-serif font-semibold text-h1 leading-tight mb-md">
+            Transparent Pricing, Professional Results
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            No hidden fees. No surprise invoices. Choose the right solution for
+            your business.
+          </p>
+        </div>
+      </SectionBackground>
 
-      {/* Pricing Cards */}
-      <PricingCards
-        tiers={serviceTiers}
-        onContactClick={handleContactClick}
-        renderCalendlyButton={renderCalendlyButton}
-      />
+      {/* Section 2: Pricing Cards (gradient for emphasis) */}
+      <SectionBackground variant="gradient">
+        <PricingCards
+          tiers={serviceTiers}
+          onContactClick={handleContactClick}
+          renderCalendlyButton={renderCalendlyButton}
+        />
+      </SectionBackground>
 
-      {/* FAQ Section */}
-      <div className="mt-3xl">
-        <h2 className="font-serif font-medium text-h2 leading-tight mb-xl text-center">
+      {/* Section 3: What's Included (neutral) */}
+      <SectionBackground variant="neutral">
+        <h2 className="font-serif text-h2 leading-tight text-center mb-xl">
+          What Every WordPress Site Includes
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-lg max-w-3xl mx-auto">
+          {whatsIncluded.map((feature) => (
+            <div key={feature.title} className="text-left">
+              <h3 className="font-semibold mb-xs">{feature.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {feature.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </SectionBackground>
+
+      {/* Section 4: FAQ (muted) */}
+      <SectionBackground variant="muted">
+        <h2 className="font-serif text-h2 leading-tight mb-xl text-center">
           Frequently Asked Questions
         </h2>
         <div className="grid gap-lg max-w-3xl mx-auto">
           {faqData.map((faq, index) => (
-            <div key={index} className="border rounded-lg p-lg">
+            <div key={index} className="border rounded-lg p-lg bg-card">
               <h3 className="font-medium mb-xs">{faq.question}</h3>
               <p className="text-muted-foreground faq-answer">{faq.answer}</p>
             </div>
           ))}
         </div>
-      </div>
+      </SectionBackground>
 
-      {/* CTA Section */}
-      <div className="mt-3xl text-center">
-        <h2 className="font-serif font-medium text-h2 leading-tight mb-md">
-          Not sure which option is right for you?
-        </h2>
-        <p className="text-muted-foreground mb-lg">
-          Let&apos;s chat! I&apos;ll help you figure out the best approach for your business.
-        </p>
-        <CalendlyButton
-          url={CALENDLY_URL}
-          text="Schedule a Free Consultation"
-          variant="outline"
-          size="lg"
-        />
-      </div>
-
-      {/* Trust Section */}
-      <div className="mt-3xl border-t pt-2xl">
-        <div className="grid md:grid-cols-3 gap-xl text-center">
-          <div>
-            <div className="text-h3 font-bold text-primary mb-xs">5 Days</div>
-            <p className="text-muted-foreground">Average WordPress site delivery</p>
-          </div>
-          <div>
-            <div className="text-h3 font-bold text-primary mb-xs">100%</div>
-            <p className="text-muted-foreground">Satisfaction guarantee</p>
-          </div>
-          <div>
-            <div className="text-h3 font-bold text-primary mb-xs">18+ Years</div>
-            <p className="text-muted-foreground">Web development experience</p>
-          </div>
+      {/* Section 5: Mid-page CTA (neutral) */}
+      <SectionBackground variant="neutral">
+        <div className="text-center max-w-xl mx-auto">
+          <h2 className="font-serif text-h3 leading-snug mb-md">
+            Ready to Get Started?
+          </h2>
+          <p className="text-muted-foreground mb-lg">
+            Book a free 15-minute call to discuss your project.
+          </p>
+          <CalendlyButton
+            url={CALENDLY_URL}
+            text="Get Your Business Online"
+            variant="default"
+            size="lg"
+            className="bg-accent-warm text-accent-warm-foreground hover:bg-accent-warm/90"
+          />
         </div>
-      </div>
+      </SectionBackground>
+
+      {/* Section 6: Trust Stats (gradient) */}
+      <SectionBackground variant="gradient">
+        <SocialProofDisplay metrics={trustMetrics} />
+      </SectionBackground>
+
+      {/* Section 7: End-page CTA Banner */}
+      <CTABanner
+        headline="Let's Get Your Business Online"
+        description="A professional website is the first step to reaching more customers. Let's make it happen."
+        primaryCta={{
+          text: "Get Your Business Online",
+          href: "/contact",
+          intent: "warm",
+        }}
+        secondaryCta={{
+          text: "View My Work",
+          href: "/projects",
+        }}
+      />
 
       {/* Schema Markup */}
       <FAQSchema questions={faqData} />
