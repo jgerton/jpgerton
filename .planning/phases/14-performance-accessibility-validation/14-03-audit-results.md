@@ -100,3 +100,100 @@ The warm blue-gray dark mode aesthetic from Phase 10 is preserved:
 - Amber accent: dark text on bright amber (unchanged) - 8.89:1
 - Turquoise accent: dark text on turquoise (unchanged) - 8.84:1
 - Only border and primary adjusted; no other color variables changed
+
+---
+
+## Safari CSS Compatibility Audit
+
+**Method:** Code inspection heuristics (no direct Safari testing available)
+**Checked:** Source code + built CSS output (`.next/static/chunks/*.css`)
+
+### Check 1: backdrop-filter Prefixing
+
+**Status:** PASS
+
+The site-nav uses `backdrop-blur-md` (Tailwind utility). In the built CSS, Tailwind v4 / Lightning CSS correctly outputs both:
+- `-webkit-backdrop-filter: var(--tw-backdrop-blur,...)`
+- `backdrop-filter: var(--tw-backdrop-blur,...)`
+
+The `-webkit-` prefix is emitted for `backdrop-blur`, `backdrop-blur-md`, `backdrop-blur-sm`, and the generic `backdrop-filter` utility. Safari requires `-webkit-backdrop-filter` for versions before Safari 15.4, and the standard `backdrop-filter` for 15.4+.
+
+Additionally, the nav header uses `supports-[backdrop-filter]:bg-background/60` which compiles to:
+```css
+@supports ((-webkit-backdrop-filter:var(--tw)) or (backdrop-filter:var(--tw))) { ... }
+```
+This correctly checks for both prefixed and unprefixed support.
+
+### Check 2: CSS Variables in -webkit- Properties
+
+**Status:** PASS (with note)
+
+**Source code:** No instances of `-webkit-*` properties with `var()` in any application source files (app/, components/).
+
+**Built CSS:** Tailwind v4 internally uses `-webkit-backdrop-filter: var(--tw-backdrop-blur,...)` which references Tailwind's own composition variables. This pattern works in Safari 15.4+ (2022) which fully supports CSS custom properties in `-webkit-` properties. Older Safari (pre-14) had bugs with this pattern, but those versions are below our minimum support target.
+
+### Check 3: CSS Grid Gap
+
+**Status:** PASS
+
+The project uses CSS Grid `gap` extensively (via Tailwind `gap-lg`, `gap-xl`, `gap-2xl`, etc.). Grid `gap` property is supported since Safari 12+ (2018). Flexbox `gap` is supported since Safari 14.1+ (2021). Both usages exist in the codebase and are safe.
+
+### Check 4: Smooth Scroll Behavior
+
+**Status:** PASS
+
+The only `scroll-behavior` in the codebase is in the `prefers-reduced-motion` media query:
+```css
+@media (prefers-reduced-motion: reduce) {
+  scroll-behavior: auto !important;
+}
+```
+No `scroll-behavior: smooth` is set in the base styles. The site relies on browser defaults and the motion preference override.
+
+### Check 5: CSS clamp() in Font Sizes
+
+**Status:** PASS
+
+The project uses CSS `clamp()` for all fluid typography tokens (text-hero through text-xs). Safari has supported `clamp()` since version 13.1 (March 2020). No compatibility concerns.
+
+### Check 6: Gradient Syntax
+
+**Status:** PASS
+
+Tailwind v4's `bg-linear-to-br` compiles to standard `linear-gradient(var(--tw-gradient-stops))` with `@supports` progressive enhancement for `oklab` color interpolation:
+```css
+.bg-linear-to-br {
+  --tw-gradient-position: to bottom right;
+  background-image: linear-gradient(var(--tw-gradient-stops));
+}
+@supports (background-image: linear-gradient(in lab, red, red)) {
+  .bg-linear-to-br {
+    --tw-gradient-position: to bottom right in oklab;
+  }
+}
+```
+The base `linear-gradient()` works in all browsers. The `oklab` enhancement gracefully degrades.
+
+### Check 7: color-mix() Progressive Enhancement
+
+**Status:** PASS (noted for awareness)
+
+Tailwind v4 uses `color-mix(in oklab, ...)` for opacity modifiers (e.g., `bg-background/65`, `border-border/40`). This is wrapped in `@supports`:
+```css
+.bg-background\/65 { background-color: hsl(var(--background)); }
+@supports (color:color-mix(in lab, red, red)) {
+  .bg-background\/65 { background-color: color-mix(in oklab, hsl(var(--background)) 65%, transparent); }
+}
+```
+Safari 16.2+ (December 2022) supports `color-mix()`. Older versions fall back to the full-opacity color. The visual difference is minimal (slightly more/less transparent backgrounds) and does not affect functionality.
+
+### Items Requiring Real Safari Testing
+
+These cannot be fully verified without a Safari browser:
+
+1. **Visual rendering of backdrop blur** - The CSS is correct, but visual rendering quality may differ between Safari's and Chrome's blur implementations
+2. **Warm blue-gray dark mode appearance** - Color rendering can vary slightly between browser engines; worth a visual spot-check
+3. **Animation performance** - CSS animations use GPU-accelerated properties (transform, opacity) which should perform well, but Safari's Webkit engine handles compositing differently
+4. **Font rendering** - Lora variable font rendering may differ slightly in Safari's text layout engine
+
+**Recommendation:** These items are not blocking. Schedule a manual Safari spot-check when access to a macOS device is available.
