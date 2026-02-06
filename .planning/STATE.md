@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 14 of 14 (Performance & Accessibility Validation)
-Plan: 2 of 4 in phase
+Plan: 3 of 4 in phase
 Status: In progress
-Last activity: 2026-02-06 - Completed 14-02-PLAN.md (keyboard navigation and focus management)
+Last activity: 2026-02-06 - Completed 14-03-PLAN.md (dark mode contrast & Safari compatibility)
 
-Progress: [██████████████████████████████░.] ~96% (25/27 plans including Phase 14)
+Progress: [██████████████████████████████░.] ~96% (26/27 plans including Phase 14)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 25/27 plans complete (Phase 14: 2/4)
+- v1.1: 7 phases (8-14), 49 requirements mapped, 26/27 plans complete (Phase 14: 3/4)
 
 ## Accumulated Context
 
@@ -102,6 +102,9 @@ Progress: [███████████████████████
 - [14-02] Focus trap uses querySelectorAll on panelRef instead of external library (5 links, no library needed)
 - [14-02] Touch target fixes use min-h/min-w instead of changing base h/w to preserve visual design
 - [14-02] Hero opacity:0 focus issue documented but not fixed (IntersectionObserver fires within a frame)
+- [14-03] Dark mode primary lightened (40% -> 48%) with dark foreground for dual text/button contrast compliance
+- [14-03] Dark mode border lightened (40% -> 45%) to pass 3:1 against elevated surfaces (card, popover)
+- [14-03] No single blue satisfies both white-on-primary and primary-on-dark-bg at 4.5:1; split foreground approach used
 
 ### Research Flags
 
@@ -121,9 +124,9 @@ Progress: [███████████████████████
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Completed 14-02-PLAN.md (keyboard navigation and focus management)
+Stopped at: Completed 14-03-PLAN.md (dark mode contrast & Safari compatibility)
 Resume file: None
-Next action: Execute 14-03-PLAN.md (performance and Lighthouse validation)
+Next action: Execute 14-04-PLAN.md (performance and Lighthouse validation)
 
 ## Deployment Info
 
