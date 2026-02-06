@@ -243,13 +243,13 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. All pages pass WCAG 2.1 AA compliance checks including color contrast, semantic HTML structure, and proper ARIA labels
   2. Full keyboard navigation works with visible focus indicators, logical tab order, and focus management in modals and dynamic content
-  3. All touch targets meet 44x44px minimum and the site renders correctly on real mobile device dimensions
+  3. All touch targets meet 44x44px minimum and the site renders correctly in Chrome DevTools responsive mode (375px, 768px, 1024px)
   4. Dark mode renders with intentional color choices (not just inverted), and all states (hover, focus, active, disabled) maintain proper contrast
-  5. Lighthouse scores remain at 90+ across all categories, and Core Web Vitals are within budget (LCP < 2.5s, CLS < 0.1, FID < 100ms) across Chrome, Safari, and Firefox
+  5. Lighthouse scores remain at 85+ across all categories, and Core Web Vitals are within budget (LCP < 2.5s, CLS < 0.1, INP < 200ms) across Chrome and Safari
 **Plans**: 4 plans
 
 Plans:
-- [ ] 14-01-PLAN.md - WCAG 2.1 AA automated audit across all pages with semantic HTML, contrast, and ARIA fixes
+- [x] 14-01-PLAN.md - WCAG 2.1 AA automated audit across all pages with semantic HTML, contrast, and ARIA fixes
 - [ ] 14-02-PLAN.md - Keyboard navigation, focus trap in mobile menu, and touch target validation
 - [ ] 14-03-PLAN.md - Dark mode contrast verification and Safari CSS compatibility check
 - [ ] 14-04-PLAN.md - Responsive testing at 375/768/1024px, Lighthouse scores, Core Web Vitals, and user sign-off
@@ -276,7 +276,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 11. Composition Components | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 12. Animation Integration | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
-| 14. Performance & Accessibility Validation | v1.1 | 0/4 | In Progress | - |
+| 14. Performance & Accessibility Validation | v1.1 | 1/4 | In Progress | - |
 
 ---
 

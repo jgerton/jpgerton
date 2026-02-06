@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-04)
 ## Current Position
 
 Phase: 14 of 14 (Performance & Accessibility Validation)
-Plan: 0 of 4 in phase
-Status: Not started
-Last activity: 2026-02-06 - Phase 13 complete (visual verification approved)
+Plan: 1 of 4 in phase
+Status: In progress
+Last activity: 2026-02-06 - Completed 14-01-PLAN.md (WCAG 2.1 AA audit and fixes)
 
-Progress: [████████████████████████████░...] 100% plans (23/23), Phase 14 remaining
+Progress: [█████████████████████████████░..] ~93% (24/27 plans including Phase 14)
 
 ## Milestones
 
@@ -24,7 +24,7 @@ Progress: [███████████████████████
 ## Performance Metrics
 
 - v1.0: 7 phases, 39 plans, shipped 2026-02-04
-- v1.1: 7 phases (8-14), 49 requirements mapped, 23/23 plans complete (Phase 14 TBD)
+- v1.1: 7 phases (8-14), 49 requirements mapped, 24/27 plans complete (Phase 14: 1/4)
 
 ## Accumulated Context
 
@@ -96,6 +96,9 @@ Progress: [███████████████████████
 - [13-02] Contact page gets no CTABanner since it IS the conversion page
 - [13-02] CalendlyButton styled with warm accent via className override (wraps third-party PopupButton)
 - [13-02] About page uses CTAButton linking to /services instead of CalendlyButton for lighter CTA presence
+- [14-01] Use sr-only h2 headings to fix hierarchy gaps rather than restructuring visible layout
+- [14-01] Minimal footer in root layout (not separate component) is sufficient for landmark navigation
+- [14-01] "What Clients Say" promoted to h2 on home page since it introduces a distinct section
 
 ### Research Flags
 
@@ -115,9 +118,9 @@ Progress: [███████████████████████
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: Phase 13 complete, visual verification approved (26/28, 2 todos captured)
+Stopped at: Completed 14-01-PLAN.md (WCAG 2.1 AA audit and fixes)
 Resume file: None
-Next action: Plan Phase 14 (Performance & Accessibility Validation)
+Next action: Execute 14-02-PLAN.md (keyboard navigation and focus trap)
 
 ## Deployment Info
 
