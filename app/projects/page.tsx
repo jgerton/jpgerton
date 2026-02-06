@@ -4,6 +4,9 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { ProjectGrid } from "@/components/portfolio/project-grid";
 import { ProjectFilters } from "@/components/portfolio/project-filters";
+import { SectionBackground } from "@/components/portfolio/sections/section-background";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { useQueryState, parseAsArrayOf, parseAsString } from "nuqs";
 import { useMemo, Suspense } from "react";
 
@@ -53,22 +56,33 @@ function ProjectsContent() {
 
   return (
     <main className="min-h-screen bg-background">
-      {/* Content */}
-      <div className="py-2xl px-md">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
-          <p className="text-muted-foreground mb-xl">
-            Browse my portfolio of indie projects and custom development work.
-          </p>
+      {/* Hero area */}
+      <SectionBackground variant="neutral">
+        <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
+        <p className="text-muted-foreground mb-0">
+          Browse my portfolio of web development and custom application work.
+        </p>
+      </SectionBackground>
 
-          <ProjectFilters availableTechs={availableTechs} />
+      {/* Filter + grid area */}
+      <SectionBackground variant="muted">
+        <ProjectFilters availableTechs={availableTechs} />
 
-          <ProjectGrid
-            projects={filteredProjects}
-            loading={allProjects === undefined}
-          />
+        <ProjectGrid
+          projects={filteredProjects}
+          loading={allProjects === undefined}
+        />
+
+        {/* Subtle CTA - lighter presence for browsing page */}
+        <div className="mt-2xl text-center">
+          <p className="text-muted-foreground mb-md">Have a project in mind?</p>
+          <Link href="/contact">
+            <Button variant="outline" size="lg">
+              Let&apos;s Talk
+            </Button>
+          </Link>
         </div>
-      </div>
+      </SectionBackground>
     </main>
   );
 }
@@ -77,12 +91,10 @@ export default function ProjectsPage() {
   return (
     <Suspense fallback={
       <main className="min-h-screen bg-background">
-        <div className="py-2xl px-md">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
-            <p className="text-muted-foreground mb-xl">Loading...</p>
-          </div>
-        </div>
+        <SectionBackground variant="neutral">
+          <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">All Projects</h1>
+          <p className="text-muted-foreground">Loading...</p>
+        </SectionBackground>
       </main>
     }>
       <ProjectsContent />

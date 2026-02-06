@@ -5,6 +5,9 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { CTAButton } from "@/components/portfolio/cta-button";
+import { CaseStudyVisual } from "@/components/portfolio/case-study-visual";
+import { SectionBackground } from "@/components/portfolio/sections/section-background";
 import Link from "next/link";
 import { ExternalLink, Github, ArrowLeft } from "lucide-react";
 
@@ -69,91 +72,146 @@ export default async function ProjectDetailPage({
     "in-progress": "outline" as const,
   };
 
+  // Derive case study data from available project fields
+  // Future enhancement: add dedicated case study fields to Convex schema
+  const caseStudyData = {
+    problem: {
+      heading: "The Challenge",
+      content: project.descriptionLong || project.description,
+    },
+    solution: {
+      heading: "The Approach",
+      content:
+        "Built with a modern tech stack focused on performance, maintainability, and great user experience.",
+    },
+    results: {
+      heading: "The Result",
+      content:
+        "A polished application that demonstrates professional web development capabilities.",
+      metrics: project.techStack.slice(0, 3).map((tech) => `Built with ${tech}`),
+    },
+  };
+
   return (
     <main className="min-h-screen bg-background">
-      {/* Content */}
-      <div className="py-2xl px-md">
-        <div className="max-w-4xl mx-auto">
-          {/* Back navigation */}
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-xs text-muted-foreground hover:text-foreground transition-colors mb-lg"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Projects
-          </Link>
-          {/* Hero Image */}
-          {project.screenshotUrl && (
-            <div className="relative aspect-video mb-xl rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src={project.screenshotUrl}
-                alt={`${project.name} screenshot`}
-                fill
-                sizes="(max-width: 1200px) 100vw, 1200px"
-                priority
-                className="object-cover"
-              />
-            </div>
+      {/* Back navigation + Hero image */}
+      <SectionBackground variant="neutral">
+        <Link
+          href="/projects"
+          className="inline-flex items-center gap-xs text-muted-foreground hover:text-foreground transition-colors mb-lg"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Projects
+        </Link>
+
+        {/* Hero Image */}
+        {project.screenshotUrl && (
+          <div className="relative aspect-video mb-xl rounded-lg overflow-hidden shadow-lg">
+            <Image
+              src={project.screenshotUrl}
+              alt={`${project.name} screenshot`}
+              fill
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              priority
+              className="object-cover"
+            />
+          </div>
+        )}
+
+        {/* Project Header */}
+        <div className="flex items-start justify-between gap-md">
+          <div>
+            <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">
+              {project.name}
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              {project.descriptionLong ?? project.description}
+            </p>
+          </div>
+          <Badge variant={statusVariant[project.status]} className="shrink-0">
+            {project.status}
+          </Badge>
+        </div>
+      </SectionBackground>
+
+      {/* Case Study section */}
+      <SectionBackground variant="gradient">
+        <h2 className="font-serif font-medium text-h2 leading-tight mb-lg">
+          Project Overview
+        </h2>
+        <CaseStudyVisual
+          problem={caseStudyData.problem}
+          solution={caseStudyData.solution}
+          results={caseStudyData.results}
+        />
+      </SectionBackground>
+
+      {/* Tech Stack section */}
+      <SectionBackground variant="neutral">
+        <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Tech Stack</h2>
+        <div className="space-y-md">
+          {Object.entries(project.techCategories).map(([category, techs]) => {
+            if (!techs || techs.length === 0) return null;
+            return (
+              <div key={category}>
+                <h3 className="font-semibold capitalize mb-xs text-muted-foreground">
+                  {category}
+                </h3>
+                <div className="flex flex-wrap gap-xs">
+                  {techs.map((tech) => (
+                    <Badge key={tech} variant="secondary">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </SectionBackground>
+
+      {/* Links section */}
+      <SectionBackground variant="neutral" className="py-xl">
+        <div className="flex flex-wrap gap-md">
+          {project.liveUrl && (
+            <Button asChild>
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                View Live Site
+              </a>
+            </Button>
           )}
+          {project.githubUrl && (
+            <Button asChild variant="outline">
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <Github className="mr-2 h-4 w-4" />
+                View Source
+              </a>
+            </Button>
+          )}
+        </div>
+      </SectionBackground>
 
-          {/* Project Header */}
-          <div className="flex items-start justify-between gap-md mb-lg">
-            <div>
-              <h1 className="font-serif font-semibold text-h1 leading-tight mb-xs">{project.name}</h1>
-              <p className="text-lg text-muted-foreground">
-                {project.descriptionLong ?? project.description}
-              </p>
-            </div>
-            <Badge variant={statusVariant[project.status]} className="shrink-0">
-              {project.status}
-            </Badge>
-          </div>
-
-          {/* Tech Stack */}
-          <div className="mb-xl">
-            <h2 className="font-serif font-medium text-h2 leading-tight mb-md">Tech Stack</h2>
-            <div className="space-y-md">
-              {Object.entries(project.techCategories).map(([category, techs]) => {
-                if (!techs || techs.length === 0) return null;
-                return (
-                  <div key={category}>
-                    <h3 className="font-semibold capitalize mb-xs text-muted-foreground">
-                      {category}
-                    </h3>
-                    <div className="flex flex-wrap gap-xs">
-                      {techs.map((tech) => (
-                        <Badge key={tech} variant="secondary">
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Links */}
-          <div className="flex flex-wrap gap-md">
-            {project.liveUrl && (
-              <Button asChild>
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  View Live Site
-                </a>
+      {/* End-page CTA - lighter treatment */}
+      <SectionBackground variant="muted">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-md">
+            Interested in working together?
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-md">
+            <Link href="/services">
+              <CTAButton intent="warm" size="lg">
+                Get Your Business Online
+              </CTAButton>
+            </Link>
+            <Link href="/contact">
+              <Button variant="outline" size="lg">
+                Get in Touch
               </Button>
-            )}
-            {project.githubUrl && (
-              <Button asChild variant="outline">
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                  <Github className="mr-2 h-4 w-4" />
-                  View Source
-                </a>
-              </Button>
-            )}
+            </Link>
           </div>
         </div>
-      </div>
+      </SectionBackground>
     </main>
   );
 }

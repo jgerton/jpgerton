@@ -1,75 +1,52 @@
-# Jon Gerton's Web Development
+# Jon Gerton's Web Development Services
 
-This website presents services by Jon Gerton, a web developer based in Alaska, specializing in creating professional WordPress sites and custom web applications. Catering primarily to local businesses, the site emphasizes fast, affordable solutions that help clients effectively establish their online presence. It also aims to mentor junior developers while addressing specific business needs.
+This website offers professional web development services, primarily focusing on creating fast, mobile-friendly WordPress sites and custom web applications for businesses. Aimed at local businesses and those seeking quick, effective online solutions, the site emphasizes transparency, fixed pricing, and a straightforward process to help clients get their online presence up and running quickly.
 
-## Home
+## About My Work
 
-The homepage introduces Jon's offerings with a focus on professional WordPress sites starting from $500. It highlights the accessibility and responsiveness of the websites, alongside providing custom development options for diverse projects. 
+This page outlines the process used to build websites, broken down into four clear steps:
+1. **Discovery Call**: A brief chat to understand the client's goals and needs for their website.
+2. **Content & Design**: Construction of the site using the client's content, with one round of revisions available.
+3. **Launch**: Deployment of the site within five business days, handling all technical details.
+4. **Ongoing Support**: Includes 30 days of post-launch support.
 
-- **Core Offerings:**
-  - $500 WordPress Sites
-  - Custom Web Applications
-- **Call to Actions:**
-  - [Get Your $500 Site](/services)
-  - [View Portfolio](/projects)
+Key highlights include:
+- **No Jargon**: Explanations in plain, understandable language.
+- **Fixed Pricing**: Transparent cost expectations with no hidden fees.
+- **Real Experience**: Over 27 years in tech and extensive web development experience.
 
-## Services
-
-This page details the various services offered, including tailored web solutions. Key service areas include:
-
-### $500 WordPress Sites
-Designed for local businesses, this package includes:
-- Delivery within 5 business days
-- Mobile-responsive design
-- Google Maps integration
-- Basic SEO setup
-- 30 days of post-launch support
-
-### Custom Web Applications
-Offers custom features and solutions for unique business models. Contact is required for pricing details.
-
-### Team Growth Accelerator
-Aimed at enhancing team skills in web development with personalized mentorship and architecture guidance. Pricing is also provided on inquiry.
-
-## About
-
-Jon Gerton shares his background and approach to web development. With extensive experience in tech and a passion for supporting local businesses, he focuses on providing practical solutions without jargon. His commitment to fixed pricing and ongoing support sets him apart in the industry.
-
-- **Highlights of His Background:**
-  - 27 years in tech, 18+ years in web development.
-  - Experience in both agency settings and independent projects.
-  
-- **Core Philosophy:**
-  - Simple, effective solutions for businesses of all sizes—whether a basic website or a complex app.
+### Links
+- [Get Your Business Online](/services)
+- [View My Work](/projects)
 
 ## Contact
 
-This page serves as an open invitation for potential clients to discuss projects. Users can send messages, book calls, or connect via email.
+This page serves as a point of communication for potential clients to discuss their projects, whether for WordPress sites or custom web applications. Users can send a message detailing their project or schedule a free 15-minute discovery call.
 
-- **Communication Options:**
-  - Message form for project inquiries
-  - [Schedule a Call](#)
-  - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
-  - [GitHub](https://github.com/jgerton)
-  - [LinkedIn](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+Additional contact methods include:
+- Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+- GitHub: [@jgerton](https://github.com/jgerton)
+- LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+
+## Services
+
+This section gives an overview of available services, including:
+- **$500 WordPress Sites**: Fast delivery (within 5 business days) tailored for local businesses, featuring mobile-responsive design, basic SEO, and 30 days of support post-launch.
+- **Custom Web Applications**: Solutions for unique business needs, built with modern technologies, with pricing provided upon request.
+- **Team Growth Mentoring**: Mentorship and guidance for development teams at flexible engagement levels.
+
+Every WordPress site includes a mobile-responsive design, basic SEO, contact forms, and content training for easy updates.
+
+### Links
+- [View Pricing & Details](/services)
 
 ## FAQ
 
-The FAQ section answers common questions relating to the $500 WordPress sites, including delivery time, included features, and support options. 
+This section addresses common questions, including the timeline for building a WordPress site, what's included in the package, hosting requirements, updating websites afterward, and service availability for clients outside of Alaska.
 
-### Key Questions Addressed:
-- Typical delivery time for WordPress sites.
-- Breakdown of included services in the $500 package.
-- Support and maintenance options post-launch. 
+## Thank You for Contacting
 
-## Contact Thank You
-
-A confirmation message is displayed after a user submits an inquiry, outlining the next steps for communication and project discussion. Users are encouraged to explore the portfolio while waiting for a response.
-
-### What's Next:
-1. Review of submitted project details.
-2. Expect a follow-up email with next steps.
-3. Discussion scheduling if necessary.
+This page confirms receipt of a contact message, outlining the next steps in the communication process, which includes project review and potential discussion on the details.
 
 ### Links
 - [View My Portfolio](/projects)
