@@ -18,7 +18,13 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" size="icon" disabled aria-label="Toggle theme">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="min-h-[44px] min-w-[44px]"
+        disabled
+        aria-label="Toggle theme"
+      >
         <Sun className="h-5 w-5" />
       </Button>
     );
@@ -30,6 +36,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
+      className="min-h-[44px] min-w-[44px]"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       title={isDark ? "Switch to light mode" : "Switch to dark mode"}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}

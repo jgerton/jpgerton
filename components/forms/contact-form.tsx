@@ -100,7 +100,7 @@ export function ContactForm() {
               <FormControl>
                 <select
                   {...field}
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="flex h-10 min-h-[44px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 >
                   <option value="wordpress">$500 WordPress Site</option>
                   <option value="custom-web-app">Custom Web App</option>
@@ -123,7 +123,7 @@ export function ContactForm() {
                 <textarea
                   {...field}
                   rows={5}
-                  className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  className="flex min-h-[44px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   placeholder="What are you looking to build? What's your timeline?"
                 />
               </FormControl>
@@ -136,7 +136,7 @@ export function ContactForm() {
 
         <Button
           type="submit"
-          className="w-full"
+          className="w-full min-h-[44px]"
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? "Sending..." : "Send Message"}
