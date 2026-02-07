@@ -53,11 +53,11 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
   Plans:
   - [x] 17-01-PLAN.md - Blog list page (deps, prose CSS, cards, filtering, pagination)
   - [x] 17-02-PLAN.md - Blog detail page (markdown rendering, OG images, JSON-LD, sitemap, nav link)
-- [ ] Phase 18: Content Integration (3 plans)
+- [x] Phase 18: Content Integration (3/3 plans) - completed 2026-02-07
   Plans:
-  - [ ] 18-01-PLAN.md - Testimonials backend (schema, queries, seed mutation)
-  - [ ] 18-02-PLAN.md - Project detail case study integration (dynamic query with fallback)
-  - [ ] 18-03-PLAN.md - Home page blog section + dynamic testimonials + cleanup
+  - [x] 18-01-PLAN.md - Testimonials backend (schema, queries, seed mutation)
+  - [x] 18-02-PLAN.md - Project detail case study integration (dynamic query with fallback)
+  - [x] 18-03-PLAN.md - Home page blog section + dynamic testimonials + cleanup
 - [ ] Phase 19: Launch Prep + Tech Debt (0/TBD plans)
 
 Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
@@ -83,10 +83,10 @@ Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 | 15. Content Schema + Backend | v1.2 | 2/2 | Complete | 2026-02-07 |
 | 16. Admin Content Management | v1.2 | 3/3 | Complete | 2026-02-07 |
 | 17. Public Blog Pages | v1.2 | 2/2 | Complete | 2026-02-07 |
-| 18. Content Integration | v1.2 | 0/3 | Pending | - |
+| 18. Content Integration | v1.2 | 3/3 | Complete | 2026-02-07 |
 | 19. Launch Prep + Tech Debt | v1.2 | 0/TBD | Pending | - |
 
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-07 (Phase 18 planned)*
+*Last updated: 2026-02-07 (Phase 18 complete)*

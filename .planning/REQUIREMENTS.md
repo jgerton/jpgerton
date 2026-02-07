@@ -9,19 +9,19 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 
 ### Blog System
 
-- [ ] **BLOG-01**: User can create blog post with title, excerpt, and markdown content in admin
+- [x] **BLOG-01**: User can create blog post with title, excerpt, and markdown content in admin
 - [x] **BLOG-02**: User can edit and delete own blog posts in admin
-- [ ] **BLOG-03**: Blog post has draft/published status with publish date tracking
-- [ ] **BLOG-04**: Blog post slug auto-generates from title with manual override
-- [ ] **BLOG-05**: Slug uniqueness enforced server-side with auto-suffix on collision
-- [ ] **BLOG-06**: Blog post can have a cover image (Convex storage)
+- [x] **BLOG-03**: Blog post has draft/published status with publish date tracking
+- [x] **BLOG-04**: Blog post slug auto-generates from title with manual override
+- [x] **BLOG-05**: Slug uniqueness enforced server-side with auto-suffix on collision
+- [x] **BLOG-06**: Blog post can have a cover image (Convex storage)
 - [x] **BLOG-07**: Admin markdown editor with live preview
-- [ ] **BLOG-08**: Blog posts have category assignment (Local Business, Technical, Announcement)
-- [ ] **BLOG-09**: Public blog list page with category filtering
-- [ ] **BLOG-10**: Public blog detail page with server-side markdown rendering
-- [ ] **BLOG-11**: Code blocks render with syntax highlighting (server-side rehype-highlight)
-- [ ] **BLOG-12**: Blog list uses cursor-based pagination (Convex `.paginate()`)
-- [ ] **BLOG-13**: Draft posts not accessible via direct URL on public site
+- [x] **BLOG-08**: Blog posts have category assignment (Local Business, Technical, Announcement)
+- [x] **BLOG-09**: Public blog list page with category filtering
+- [x] **BLOG-10**: Public blog detail page with server-side markdown rendering
+- [x] **BLOG-11**: Code blocks render with syntax highlighting (server-side rehype-highlight)
+- [x] **BLOG-12**: Blog list uses cursor-based pagination (Convex `.paginate()`)
+- [x] **BLOG-13**: Draft posts not accessible via direct URL on public site
 
 ### Case Studies
 
@@ -30,8 +30,8 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 - [ ] **CASE-03**: Case study has quantitative metrics display
 - [x] **CASE-04**: Admin can edit and delete case studies
 - [x] **CASE-05**: Admin can reorder case studies via drag-and-drop
-- [ ] **CASE-06**: Public project pages display linked case study using CaseStudyVisual component
-- [ ] **CASE-07**: Case study data replaces all hardcoded placeholder content
+- [x] **CASE-06**: Public project pages display linked case study using CaseStudyVisual component
+- [x] **CASE-07**: Case study data replaces all hardcoded placeholder content
 
 ### Launch Prep
 
@@ -88,18 +88,18 @@ Which phases cover which requirements. Updated during roadmap creation.
 | BLOG-06 | Phase 15 | Complete |
 | BLOG-07 | Phase 16 | Complete |
 | BLOG-08 | Phase 15 | Complete |
-| BLOG-09 | Phase 17 | Pending |
-| BLOG-10 | Phase 17 | Pending |
-| BLOG-11 | Phase 17 | Pending |
-| BLOG-12 | Phase 17 | Pending |
-| BLOG-13 | Phase 17 | Pending |
+| BLOG-09 | Phase 17 | Complete |
+| BLOG-10 | Phase 17 | Complete |
+| BLOG-11 | Phase 17 | Complete |
+| BLOG-12 | Phase 17 | Complete |
+| BLOG-13 | Phase 17 | Complete |
 | CASE-01 | Phase 15 | Complete |
 | CASE-02 | Phase 15 | Complete |
 | CASE-03 | Phase 15 | Complete |
 | CASE-04 | Phase 16 | Complete |
 | CASE-05 | Phase 16 | Complete |
-| CASE-06 | Phase 18 | Pending |
-| CASE-07 | Phase 18 | Pending |
+| CASE-06 | Phase 18 | Complete |
+| CASE-07 | Phase 18 | Complete |
 | LNCH-01 | Phase 19 | Pending |
 | LNCH-02 | Phase 19 | Pending |
 | LNCH-03 | Phase 19 | Pending |
@@ -114,4 +114,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-06*
-*Last updated: 2026-02-07 (Phase 16 complete)*
+*Last updated: 2026-02-07 (Phase 18 complete)*
