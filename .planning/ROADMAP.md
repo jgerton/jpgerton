@@ -58,7 +58,12 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
   - [x] 18-01-PLAN.md - Testimonials backend (schema, queries, seed mutation)
   - [x] 18-02-PLAN.md - Project detail case study integration (dynamic query with fallback)
   - [x] 18-03-PLAN.md - Home page blog section + dynamic testimonials + cleanup
-- [ ] Phase 19: Launch Prep + Tech Debt (0/TBD plans)
+- [ ] Phase 19: Launch Prep + Tech Debt (0/3 plans)
+  Goal: Site is production-ready with complete SEO/AEO configuration, analytics, default OG image, and all technical debt from v1.1 audit resolved.
+  Plans:
+  - [ ] 19-01-PLAN.md - Default OG image + SEO configuration (robots.ts, layout metadata)
+  - [ ] 19-02-PLAN.md - GA4 custom event tracking (analytics lib, CTA/form wiring)
+  - [ ] 19-03-PLAN.md - Tech debt cleanup + launch verification (orphan removal, Lighthouse audit)
 
 Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 
@@ -84,9 +89,9 @@ Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 | 16. Admin Content Management | v1.2 | 3/3 | Complete | 2026-02-07 |
 | 17. Public Blog Pages | v1.2 | 2/2 | Complete | 2026-02-07 |
 | 18. Content Integration | v1.2 | 3/3 | Complete | 2026-02-07 |
-| 19. Launch Prep + Tech Debt | v1.2 | 0/TBD | Pending | - |
+| 19. Launch Prep + Tech Debt | v1.2 | 0/3 | Pending | - |
 
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-07 (Phase 18 complete)*
+*Last updated: 2026-02-07 (Phase 19 planned)*
