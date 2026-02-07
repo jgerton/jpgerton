@@ -10,23 +10,29 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 15 - Content Schema + Backend
-Plan: Not started
-Status: Ready to begin Phase 15
-Last activity: 2026-02-06 - v1.2 roadmap created
+Plan: 01 of 02 complete
+Status: Phase 15 in progress
+Last activity: 2026-02-07 - Completed 15-01-PLAN.md
 
-Progress: [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 0% (Phase 15 of 19)
+Progress: [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3% (1 of 33 plans complete in v1.2)
 
 ## Milestones
 
 - v1.0 MVP - SHIPPED 2026-02-04 (7 phases, 39 plans)
 - v1.1 Design Polish - SHIPPED 2026-02-06 (7 phases, 22 plans)
-- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 0 plans complete)
+- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 1 of 33 plans complete)
 
 ## Accumulated Context
 
 ### Key Decisions
 
-(Cleared at milestone boundary. Full history in PROJECT.md Key Decisions table.)
+| Phase | Plan | Decision | Rationale |
+|-------|------|----------|-----------|
+| 15 | 01 | Optional cover images for drafts | coverImageId/Alt optional in schema; publish mutation validates presence |
+| 15 | 01 | Category-based blog organization | Three fixed categories sufficient for launch (Local Business, Technical, Announcement) |
+| 15 | 01 | Customizable case study section headings | Section headings stored as strings, not fixed values; defaults set in admin UI |
+| 15 | 01 | Optional projectId link for case studies | Allows case studies for client work outside portfolio projects table |
+| 15 | 01 | Compound status+publishedAt index | Enables efficient "published by date" queries without application-level filtering |
 
 ### Research Flags
 
@@ -48,10 +54,10 @@ Progress: [░░░░░░░░░░░░░░░░░░░░░░░
 
 ## Session Continuity
 
-Last session: 2026-02-06
-Stopped at: v1.2 roadmap creation
+Last session: 2026-02-07
+Stopped at: Completed 15-01-PLAN.md
 Resume file: None
-Next action: /gsd:plan-phase 15
+Next action: /gsd:execute-plan 15-02
 
 ## Deployment Info
 
