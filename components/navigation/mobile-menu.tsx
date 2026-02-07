@@ -94,7 +94,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       {/* Backdrop overlay */}
       <div
         className={`fixed inset-0 z-40 bg-background/80 backdrop-blur-sm transition-opacity duration-[var(--duration-base)] ${
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none invisible"
         }`}
         onClick={onClose}
         aria-hidden="true"
@@ -104,11 +104,12 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       <div
         ref={panelRef}
         className={`fixed inset-y-0 right-0 z-50 w-3/4 max-w-sm bg-background border-l border-border transform transition-transform duration-[var(--duration-base)] ease-[var(--ease-smooth)] ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+          isOpen ? "translate-x-0" : "translate-x-full invisible"
         }`}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
+        aria-hidden={!isOpen}
       >
         <nav className="flex flex-col gap-md p-lg pt-2xl">
           {navLinks.map((link) => (
@@ -116,6 +117,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               key={link.href}
               href={link.href}
               onClick={onClose}
+              tabIndex={isOpen ? 0 : -1}
               className={`text-lg font-medium transition-colors hover:text-primary py-1 ${
                 isActive(link.href)
                   ? "text-primary"
