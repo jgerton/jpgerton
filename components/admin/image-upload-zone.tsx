@@ -11,14 +11,16 @@ interface ImageUploadZoneProps {
   onUploadComplete: (storageId: string) => void;
   currentImageUrl?: string | null;
   className?: string;
+  generateUploadUrlFn?: () => Promise<string>;
 }
 
 export function ImageUploadZone({
   onUploadComplete,
   currentImageUrl,
   className,
+  generateUploadUrlFn,
 }: ImageUploadZoneProps) {
-  const generateUploadUrl = useMutation(api.projects.generateUploadUrl);
+  const defaultGenerateUploadUrl = useMutation(api.projects.generateUploadUrl);
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
 
@@ -30,7 +32,9 @@ export function ImageUploadZone({
 
     try {
       // Generate upload URL immediately before upload
-      const uploadUrl = await generateUploadUrl();
+      const uploadUrl = generateUploadUrlFn
+        ? await generateUploadUrlFn()
+        : await defaultGenerateUploadUrl();
 
       // Upload file to Convex storage
       const result = await fetch(uploadUrl, {
@@ -63,6 +67,7 @@ export function ImageUploadZone({
     },
     maxFiles: 1,
     multiple: false,
+    noDrag: true,
   });
 
   return (
@@ -87,13 +92,13 @@ export function ImageUploadZone({
             className="max-h-48 mx-auto mb-2 rounded"
           />
           <p className="text-sm text-muted-foreground">
-            Drop a new image or click to replace
+            Click to upload a new image
           </p>
         </div>
       ) : (
         <div>
           <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-2" />
-          <p>Drag and drop an image here, or click to browse</p>
+          <p>Click to upload an image</p>
           <p className="text-sm text-muted-foreground mt-1">
             PNG, JPG, WebP up to 10MB
           </p>

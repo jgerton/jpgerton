@@ -23,4 +23,9 @@ export const siteConfig = {
   ],
   locale: "en_US",
   themeColor: "#000000",
-} as const;
+  calendly: {
+    discoveryCallUrl:
+      process.env.NEXT_PUBLIC_CALENDLY_URL ||
+      "https://calendly.com/jongerton/discovery-call",
+  },
+};

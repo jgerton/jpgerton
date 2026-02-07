@@ -10,9 +10,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { SectionBackground } from "@/components/portfolio/sections/section-background";
+import { siteConfig } from "@/lib/site-config";
 
-// TODO: Move to environment variable
-const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
+const CALENDLY_URL = siteConfig.calendly.discoveryCallUrl;
 
 export default function ContactPage() {
   return (

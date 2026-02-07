@@ -7,9 +7,9 @@ import { CalendlyButton } from "@/components/calendly/calendly-button";
 import { PersonSchema } from "@/components/schema";
 import { SectionBackground } from "@/components/portfolio/sections/section-background";
 import { CTAButton } from "@/components/portfolio/cta-button";
+import { siteConfig } from "@/lib/site-config";
 
-// TODO: Move to environment variable
-const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
+const CALENDLY_URL = siteConfig.calendly.discoveryCallUrl;
 
 const processSteps = [
   {

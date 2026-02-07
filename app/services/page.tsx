@@ -8,9 +8,9 @@ import { SectionBackground } from "@/components/portfolio/sections/section-backg
 import { CTABanner } from "@/components/portfolio/sections/cta-banner";
 import { SocialProofDisplay } from "@/components/portfolio/social-proof-display";
 import type { PricingTier } from "@/components/pricing/pricing-card";
+import { siteConfig } from "@/lib/site-config";
 
-// TODO: Move to environment variable
-const CALENDLY_URL = "https://calendly.com/jongerton/discovery-call";
+const CALENDLY_URL = siteConfig.calendly.discoveryCallUrl;
 
 const faqData = [
   {
