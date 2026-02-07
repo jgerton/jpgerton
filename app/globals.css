@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
+@import "highlight.js/styles/github-dark.css";
 
 /* Custom theme configuration for Tailwind v4 */
 @theme {
@@ -300,5 +301,157 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ===== PROSE STYLES ===== */
+/* Custom typography styles for markdown content */
+@layer components {
+  .prose {
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+
+  /* Headings - serif for h2/h3, sans for h4+ */
+  .prose h2 {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-h2);
+    line-height: var(--leading-tight);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h3 {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-h3);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h5 {
+    font-size: var(--font-size-h5);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h6 {
+    font-size: var(--font-size-h6);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  /* Paragraphs */
+  .prose p {
+    margin-bottom: 1.25em;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Lists */
+  .prose ul {
+    margin-left: 1.5em;
+    margin-bottom: 1.25em;
+    list-style: disc;
+  }
+
+  .prose ol {
+    margin-left: 1.5em;
+    margin-bottom: 1.25em;
+    list-style: decimal;
+  }
+
+  .prose li {
+    margin-bottom: 0.5em;
+  }
+
+  /* Blockquotes */
+  .prose blockquote {
+    border-left: 4px solid hsl(var(--primary));
+    padding-left: 1rem;
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 1.25em;
+  }
+
+  /* Code blocks */
+  .prose pre {
+    background: hsl(var(--muted));
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin-bottom: 1.25em;
+  }
+
+  /* Inline code */
+  .prose code {
+    background: hsl(var(--muted));
+    padding: 0.2em 0.4em;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+
+  /* Code blocks inside pre should not double background */
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Links */
+  .prose a {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    opacity: 0.8;
+  }
+
+  /* Images */
+  .prose img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  /* Tables */
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25em;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid hsl(var(--border));
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+
+  .prose th {
+    background: hsl(var(--muted));
+    font-weight: 600;
+  }
+
+  /* Horizontal rules */
+  .prose hr {
+    border: 0;
+    border-top: 1px solid hsl(var(--border));
+    margin: 2em 0;
   }
 }
