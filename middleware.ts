@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
  * Actual auth protection happens in the admin layout component using useConvexAuth().
  * This middleware just handles basic routing.
  */
-export default function middleware(request: NextRequest) {
+export default function middleware(_request: NextRequest) {
   // Let all requests through - auth is handled client-side by Convex Auth
   return NextResponse.next();
 }

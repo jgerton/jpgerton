@@ -47,10 +47,15 @@ export default function HomePage() {
   const testimonials = useQuery(api.testimonials.list);
 
   // Scroll entrance animations for each major section
-  const servicesAnim = useIntersectionObserver<HTMLDivElement>();
-  const projectsAnim = useIntersectionObserver<HTMLDivElement>();
-  const blogAnim = useIntersectionObserver<HTMLDivElement>();
-  const socialProofAnim = useIntersectionObserver<HTMLDivElement>();
+  // Destructure to avoid react-hooks/refs false positive on object property access
+  const { elementRef: servicesRef, isVisible: servicesVisible } =
+    useIntersectionObserver<HTMLDivElement>();
+  const { elementRef: projectsRef, isVisible: projectsVisible } =
+    useIntersectionObserver<HTMLDivElement>();
+  const { elementRef: blogRef, isVisible: blogVisible } =
+    useIntersectionObserver<HTMLDivElement>();
+  const { elementRef: socialProofRef, isVisible: socialProofVisible } =
+    useIntersectionObserver<HTMLDivElement>();
 
   return (
     <main className="min-h-screen bg-background">
@@ -60,11 +65,11 @@ export default function HomePage() {
       {/* Section 2: Services Overview */}
       <SectionBackground variant="gradient">
         <div
-          ref={servicesAnim.elementRef}
+          ref={servicesRef}
           className={cn(
             "opacity-0 translate-y-5",
             "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-            servicesAnim.isVisible && "opacity-100 translate-y-0"
+            servicesVisible && "opacity-100 translate-y-0"
           )}
         >
           <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
@@ -83,10 +88,10 @@ export default function HomePage() {
                   "p-lg text-center",
                   "opacity-0 translate-y-5",
                   "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-                  servicesAnim.isVisible && "opacity-100 translate-y-0"
+                  servicesVisible && "opacity-100 translate-y-0"
                 )}
                 style={{
-                  transitionDelay: servicesAnim.isVisible
+                  transitionDelay: servicesVisible
                     ? `${(index + 1) * 100}ms`
                     : "0ms",
                 }}
@@ -110,11 +115,11 @@ export default function HomePage() {
       {(projects === undefined || (projects && projects.length > 0)) && (
         <SectionBackground variant="neutral">
           <div
-            ref={projectsAnim.elementRef}
+            ref={projectsRef}
             className={cn(
               "opacity-0 translate-y-5",
               "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-              projectsAnim.isVisible && "opacity-100 translate-y-0"
+              projectsVisible && "opacity-100 translate-y-0"
             )}
           >
             <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
@@ -144,11 +149,11 @@ export default function HomePage() {
       {blogPosts && blogPosts.length > 0 && (
         <SectionBackground variant="gradient">
           <div
-            ref={blogAnim.elementRef}
+            ref={blogRef}
             className={cn(
               "opacity-0 translate-y-5",
               "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-              blogAnim.isVisible && "opacity-100 translate-y-0"
+              blogVisible && "opacity-100 translate-y-0"
             )}
           >
             <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
@@ -184,11 +189,11 @@ export default function HomePage() {
       {/* Section 4: Social Proof & Testimonials */}
       <SectionBackground variant="muted">
         <div
-          ref={socialProofAnim.elementRef}
+          ref={socialProofRef}
           className={cn(
             "opacity-0 translate-y-5",
             "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
-            socialProofAnim.isVisible && "opacity-100 translate-y-0"
+            socialProofVisible && "opacity-100 translate-y-0"
           )}
         >
           <SocialProofDisplay metrics={metrics} />

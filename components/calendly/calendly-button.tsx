@@ -85,7 +85,10 @@ export function CalendlyButton({
   }
 
   return (
-    <div onClick={() => trackCTAClick("book_a_call")}>
+    // onClickCapture tracks analytics when the inner PopupButton is clicked.
+    // PopupButton handles its own keyboard/a11y interaction.
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+    <div onClickCapture={() => trackCTAClick("book_a_call")}>
       <PopupButton
         url={url}
         rootElement={document.body}

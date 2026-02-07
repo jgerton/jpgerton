@@ -36,7 +36,7 @@ export function TestimonialCard({
       <figure>
         <blockquote className="border-l-4 border-primary pl-md mb-md">
           <p className="text-base leading-relaxed text-foreground">
-            "{quote}"
+            &ldquo;{quote}&rdquo;
           </p>
         </blockquote>
         <figcaption className="flex items-center gap-md mt-md">
