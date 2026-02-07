@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 
 ## Current Position
 
-Phase: 16 - Admin Content Management
-Plan: 03 of 03 complete (Phase complete)
-Status: Phase complete
-Last activity: 2026-02-07 - Completed 16-03-PLAN.md
+Phase: 17 - Public Blog Pages
+Plan: 01 of 02 complete
+Status: In progress
+Last activity: 2026-02-07 - Completed 17-01-PLAN.md
 
-Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 15% (5 of 33 plans complete in v1.2)
+Progress: [█████░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 18% (6 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -49,6 +49,10 @@ Progress: [████░░░░░░░░░░░░░░░░░░░
 | 16 | 03 | Single markdown editor with section dividers | User decision: ONE editor with headings, not separate editors per section |
 | 16 | 03 | Index-based section parsing | Find heading indices, extract content between - more robust than regex or text matching |
 | 16 | 03 | Heading sync on blur event | Track previous heading values, replace in markdown when input loses focus |
+| 17 | 01 | Client-side filtering and pagination | Simpler for initial launch; posts list small; enables instant filtering without server round-trips |
+| 17 | 01 | Custom prose styles instead of plugin | Full control using existing design tokens; avoids @tailwindcss/typography dependency |
+| 17 | 01 | github-dark syntax theme for all modes | Good contrast in both light and dark modes; familiar GitHub aesthetic |
+| 17 | 01 | Category filter shows only categories with posts | Cleaner UI; avoids confusion from empty category results |
 
 ### Research Flags
 
@@ -71,9 +75,9 @@ Progress: [████░░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 16-03-PLAN.md (case study admin CRUD interface - Phase 16 complete)
+Stopped at: Completed 17-01-PLAN.md (blog list page with category filtering and pagination)
 Resume file: None
-Next action: /gsd:phase 17 (Public Content Pages)
+Next action: Continue Phase 17 - Plan 02 (Blog Detail Page)
 
 ## Deployment Info
 
