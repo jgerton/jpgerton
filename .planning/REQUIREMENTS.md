@@ -80,37 +80,38 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BLOG-01 | Pending | Pending |
-| BLOG-02 | Pending | Pending |
-| BLOG-03 | Pending | Pending |
-| BLOG-04 | Pending | Pending |
-| BLOG-05 | Pending | Pending |
-| BLOG-06 | Pending | Pending |
-| BLOG-07 | Pending | Pending |
-| BLOG-08 | Pending | Pending |
-| BLOG-09 | Pending | Pending |
-| BLOG-10 | Pending | Pending |
-| BLOG-11 | Pending | Pending |
-| BLOG-12 | Pending | Pending |
-| BLOG-13 | Pending | Pending |
-| CASE-01 | Pending | Pending |
-| CASE-02 | Pending | Pending |
-| CASE-03 | Pending | Pending |
-| CASE-04 | Pending | Pending |
-| CASE-05 | Pending | Pending |
-| CASE-06 | Pending | Pending |
-| CASE-07 | Pending | Pending |
-| LNCH-01 | Pending | Pending |
-| LNCH-02 | Pending | Pending |
-| LNCH-03 | Pending | Pending |
-| DEBT-01 | Pending | Pending |
-| DEBT-02 | Pending | Pending |
+| BLOG-01 | Phase 15 | Pending |
+| BLOG-02 | Phase 16 | Pending |
+| BLOG-03 | Phase 15 | Pending |
+| BLOG-04 | Phase 15 | Pending |
+| BLOG-05 | Phase 15 | Pending |
+| BLOG-06 | Phase 15 | Pending |
+| BLOG-07 | Phase 16 | Pending |
+| BLOG-08 | Phase 15 | Pending |
+| BLOG-09 | Phase 17 | Pending |
+| BLOG-10 | Phase 17 | Pending |
+| BLOG-11 | Phase 17 | Pending |
+| BLOG-12 | Phase 17 | Pending |
+| BLOG-13 | Phase 17 | Pending |
+| CASE-01 | Phase 15 | Pending |
+| CASE-02 | Phase 15 | Pending |
+| CASE-03 | Phase 15 | Pending |
+| CASE-04 | Phase 16 | Pending |
+| CASE-05 | Phase 16 | Pending |
+| CASE-06 | Phase 18 | Pending |
+| CASE-07 | Phase 18 | Pending |
+| LNCH-01 | Phase 19 | Pending |
+| LNCH-02 | Phase 19 | Pending |
+| LNCH-03 | Phase 19 | Pending |
+| DEBT-01 | Phase 19 | Pending |
+| DEBT-02 | Phase 16 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 25 total
-- Mapped to phases: 0
-- Unmapped: 25
+- Mapped to phases: 25
+- Unmapped: 0
+- Coverage: 100%
 
 ---
 *Requirements defined: 2026-02-06*
-*Last updated: 2026-02-06 after initial definition*
+*Last updated: 2026-02-06 (traceability added)*

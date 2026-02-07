@@ -4,6 +4,7 @@
 
 - v1.0 MVP - Phases 1-7 (shipped 2026-02-04)
 - v1.1 Design Polish - Phases 8-14 (shipped 2026-02-06)
+- v1.2 Content Layer + Launch - Phases 15-19 (in progress)
 
 ## Phases
 
@@ -37,6 +38,16 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 
 </details>
 
+### v1.2 Content Layer + Launch (Phases 15-19) - IN PROGRESS
+
+- [ ] Phase 15: Content Schema + Backend (0/TBD plans)
+- [ ] Phase 16: Admin Content Management (0/TBD plans)
+- [ ] Phase 17: Public Blog Pages (0/TBD plans)
+- [ ] Phase 18: Content Integration (0/TBD plans)
+- [ ] Phase 19: Launch Prep + Tech Debt (0/TBD plans)
+
+Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -55,8 +66,13 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 | 12. Animation Integration | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 14. Performance & Accessibility Validation | v1.1 | 4/4 | Complete | 2026-02-06 |
+| 15. Content Schema + Backend | v1.2 | 0/TBD | Pending | - |
+| 16. Admin Content Management | v1.2 | 0/TBD | Pending | - |
+| 17. Public Blog Pages | v1.2 | 0/TBD | Pending | - |
+| 18. Content Integration | v1.2 | 0/TBD | Pending | - |
+| 19. Launch Prep + Tech Debt | v1.2 | 0/TBD | Pending | - |
 
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-06 (v1.1 archived)*
+*Last updated: 2026-02-06 (v1.2 added)*
