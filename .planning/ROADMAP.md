@@ -4,7 +4,7 @@
 
 - v1.0 MVP - Phases 1-7 (shipped 2026-02-04)
 - v1.1 Design Polish - Phases 8-14 (shipped 2026-02-06)
-- v1.2 Content Layer + Launch - Phases 15-19 (in progress)
+- v1.2 Content Layer + Launch - Phases 15-19 (shipped 2026-02-07)
 
 ## Phases
 
@@ -38,7 +38,7 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 
 </details>
 
-### v1.2 Content Layer + Launch (Phases 15-19) - IN PROGRESS
+### v1.2 Content Layer + Launch (Phases 15-19) - SHIPPED 2026-02-07
 
 - [x] Phase 15: Content Schema + Backend (2/2 plans) - completed 2026-02-07
   Plans:
@@ -58,12 +58,11 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
   - [x] 18-01-PLAN.md - Testimonials backend (schema, queries, seed mutation)
   - [x] 18-02-PLAN.md - Project detail case study integration (dynamic query with fallback)
   - [x] 18-03-PLAN.md - Home page blog section + dynamic testimonials + cleanup
-- [ ] Phase 19: Launch Prep + Tech Debt (0/3 plans)
-  Goal: Site is production-ready with complete SEO/AEO configuration, analytics, default OG image, and all technical debt from v1.1 audit resolved.
+- [x] Phase 19: Launch Prep + Tech Debt (3/3 plans) - completed 2026-02-07
   Plans:
-  - [ ] 19-01-PLAN.md - Default OG image + SEO configuration (robots.ts, layout metadata)
-  - [ ] 19-02-PLAN.md - GA4 custom event tracking (analytics lib, CTA/form wiring)
-  - [ ] 19-03-PLAN.md - Tech debt cleanup + launch verification (orphan removal, Lighthouse audit)
+  - [x] 19-01-PLAN.md - Default OG image + SEO configuration (robots.ts, layout metadata)
+  - [x] 19-02-PLAN.md - GA4 custom event tracking (analytics lib, CTA/form wiring)
+  - [x] 19-03-PLAN.md - Tech debt cleanup + launch verification (orphan removal, Lighthouse audit)
 
 Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 
@@ -89,9 +88,9 @@ Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 | 16. Admin Content Management | v1.2 | 3/3 | Complete | 2026-02-07 |
 | 17. Public Blog Pages | v1.2 | 2/2 | Complete | 2026-02-07 |
 | 18. Content Integration | v1.2 | 3/3 | Complete | 2026-02-07 |
-| 19. Launch Prep + Tech Debt | v1.2 | 0/3 | Pending | - |
+| 19. Launch Prep + Tech Debt | v1.2 | 3/3 | Complete | 2026-02-07 |
 
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-07 (Phase 19 planned)*
+*Last updated: 2026-02-07 (Phase 19 complete, v1.2 shipped)*

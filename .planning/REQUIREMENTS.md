@@ -35,13 +35,13 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 
 ### Launch Prep
 
-- [ ] **LNCH-01**: Default OG image (1200x630) created and configured for all pages
-- [ ] **LNCH-02**: GA4 measurement ID set via NEXT_PUBLIC_GA_ID environment variable
-- [ ] **LNCH-03**: noindex meta tag removed, site indexable by search engines
+- [x] **LNCH-01**: Default OG image (1200x630) created and configured for all pages
+- [x] **LNCH-02**: GA4 measurement ID set via NEXT_PUBLIC_GA_ID environment variable
+- [x] **LNCH-03**: noindex meta tag removed, site indexable by search engines
 
 ### Tech Debt
 
-- [ ] **DEBT-01**: Orphaned HeroSection component removed
+- [x] **DEBT-01**: Orphaned HeroSection component removed
 - [x] **DEBT-02**: Hardcoded values extracted to configuration (Calendly URL, contract placeholders)
 
 ## Future Requirements
@@ -100,10 +100,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CASE-05 | Phase 16 | Complete |
 | CASE-06 | Phase 18 | Complete |
 | CASE-07 | Phase 18 | Complete |
-| LNCH-01 | Phase 19 | Pending |
-| LNCH-02 | Phase 19 | Pending |
-| LNCH-03 | Phase 19 | Pending |
-| DEBT-01 | Phase 19 | Pending |
+| LNCH-01 | Phase 19 | Complete |
+| LNCH-02 | Phase 19 | Complete |
+| LNCH-03 | Phase 19 | Complete |
+| DEBT-01 | Phase 19 | Complete |
 | DEBT-02 | Phase 16 | Complete |
 
 **Coverage:**
@@ -114,4 +114,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-06*
-*Last updated: 2026-02-07 (Phase 18 complete)*
+*Last updated: 2026-02-07 (Phase 19 complete, v1.2 shipped)*
