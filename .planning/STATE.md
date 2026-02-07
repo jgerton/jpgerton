@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 
 ## Current Position
 
-Phase: 18 - Content Integration
-Plan: 03 of 03 complete
-Status: Phase complete
-Last activity: 2026-02-07 - Completed 18-03-PLAN.md
+Phase: 19 - Launch Prep Tech Debt
+Plan: 01 of 03 complete
+Status: In progress
+Last activity: 2026-02-07 - Completed 19-01-PLAN.md
 
-Progress: [██████████░░░░░░░░░░░░░░░░░░░░░░] 36% (12 of 33 plans complete in v1.2)
+Progress: [██████████░░░░░░░░░░░░░░░░░░░░░░] 39% (13 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -68,6 +68,9 @@ Progress: [██████████░░░░░░░░░░░░░
 | 18 | 03 | Blog section hidden when no posts | Prevents layout shift; blog section is new content users won't expect during load |
 | 18 | 03 | Testimonials show during loading | Consistent with projects pattern - prevents flash of empty state, maintains layout stability |
 | 18 | 03 | Single column grid for blog cards | BlogPostCard is horizontal layout; stacking vertically in single column looks better than multi-column |
+| 19 | 01 | Default OG image uses same blue gradient branding as blog posts | Consistent visual identity across all social sharing previews |
+| 19 | 01 | OG image content locked | Jon Gerton, Custom Websites for $500, jpgerton.com - matches site positioning |
+| 19 | 01 | Only /admin/ disallowed in robots.txt | Removed /api/, /login restrictions - all public routes crawlable for SEO |
 
 ### Research Flags
 
@@ -90,9 +93,9 @@ Progress: [██████████░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 18-03-PLAN.md (Phase 18 complete)
+Stopped at: Completed 19-01-PLAN.md (Phase 19 in progress)
 Resume file: None
-Next action: Plan Phase 19 or audit Phase 18 completion
+Next action: Continue Phase 19 (plans 02-03 remaining)
 
 ## Deployment Info
 
