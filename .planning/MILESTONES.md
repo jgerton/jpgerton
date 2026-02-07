@@ -1,5 +1,33 @@
 # Project Milestones: jpgerton.com
 
+## v1.2 Content Layer + Launch (Shipped: 2026-02-07)
+
+**Delivered:** Complete content management system with blog, case studies, and testimonials backed by Convex, plus full launch prep (OG images, GA4 tracking, SEO configuration) making the site production-ready.
+
+**Phases completed:** 15-19 (13 plans total)
+
+**Key accomplishments:**
+
+- Full content management backend (blogPosts, caseStudies, testimonials) with 25+ Convex functions, draft/publish workflows, soft-delete, and slug collision detection
+- Complete admin CMS with markdown editor (live preview), image uploads, drag-to-reorder, and case study linking to projects
+- Public blog at /blog with category filtering, pagination, markdown rendering, syntax highlighting, dynamic OG images, and JSON-LD structured data
+- Content integration across site: dynamic testimonials on home page, case studies on project detail pages with fallback, blog section on home page
+- Launch prep: default OG image, robots.txt open for indexing, GA4 event tracking on all conversion points and blog engagement
+- Tech debt cleanup: orphaned HeroSection removed, hardcoded values extracted to config
+
+**Stats:**
+
+- 52 source files created/modified (4,673 lines added)
+- 5 phases, 13 plans, 25 requirements (all satisfied)
+- 4 days from start to ship (2026-02-06 to 2026-02-07)
+- 63 commits in milestone
+
+**Git range:** `docs: start milestone v1.2` to `docs(19): complete launch-prep-tech-debt phase`
+
+**What's next:** First client outreach, then v1.3 enhancements (testimonials CRUD, case studies index, blog RSS)
+
+---
+
 ## v1.1 Design Polish (Shipped: 2026-02-06)
 
 **Delivered:** Complete design system overhaul transforming the site from a generic shadcn/ui template into a professionally crafted portfolio with warm typography, WCAG AA accessibility, conversion-optimized layouts, and excellent Core Web Vitals.

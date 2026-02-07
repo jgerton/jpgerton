@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A personal portfolio and services site for Jon Gerton that serves as both a showcase for indie projects and a marketing hub for $500 WordPress sites targeting local service businesses. Built with Next.js 14 and Convex, it features a professionally crafted design system with warm typography (Lora + Inter), WCAG AA accessibility, conversion-optimized page layouts, and a full admin dashboard. Includes complete SEO/AEO treatment, documented WordPress delivery system, and business protection safeguards.
+A personal portfolio and services site for Jon Gerton that serves as both a showcase for indie projects and a marketing hub for $500 WordPress sites targeting local service businesses. Built with Next.js 14 and Convex, it features a professionally crafted design system with warm typography (Lora + Inter), WCAG AA accessibility, conversion-optimized page layouts, and a full admin dashboard with content management (blog, case studies, testimonials). Includes complete SEO/AEO treatment, GA4 analytics, dynamic OG images, documented WordPress delivery system, and business protection safeguards. Production-ready and launched.
 
 ## Core Value
 
@@ -65,33 +65,39 @@ Everything else (admin dashboard, delivery docs, business protection) supports t
 - Shipped WCAG 2.1 AA compliance (landmarks, heading hierarchy, keyboard nav, 44px touch targets)
 - Shipped Core Web Vitals: LCP 132ms, CLS 0, INP 24ms
 
+**Content Layer + Launch (v1.2):**
+
+- Shipped Blog system with markdown editor, live preview, category filtering, pagination, syntax highlighting
+- Shipped Blog SEO: dynamic OG images, JSON-LD Article schema, sitemap integration
+- Shipped Case studies CRUD with project linking, drag-to-reorder, public display on project detail pages
+- Shipped Testimonials backend with seed data and dynamic display on home page
+- Shipped Default OG image (1200x630) with brand-consistent gradient
+- Shipped GA4 custom event tracking (CTA clicks, form submissions, Calendly bookings, blog engagement)
+- Shipped Robots.txt and sitemap configuration for search engine indexing
+- Shipped Tech debt cleanup (orphaned components removed, hardcoded values extracted)
+
 ### Active
 
-**Current Milestone: v1.2 Content Layer + Launch**
-
-**Goal:** Make the site production-ready with admin-managed content (testimonials, case studies, blog) and complete all launch prep items.
-
-**Target features:**
-- Launch prep (OG image, GA4, noindex removal, Calendly env var, contract placeholders)
-- Testimonials CRUD in admin with public display
-- Case studies CRUD in admin with public display
-- Blog system with markdown editor, dual-audience categories, SEO treatment
-- Tech debt cleanup (orphaned components, hardcoded values)
+No active milestone. Planning next milestone.
 
 ### Out of Scope
 
-- ~~Blog/content publishing system~~ - moved to Active for v1.2
 - Client portal with login - foundation exists in Convex, defer until client volume warrants it
 - OAuth login (Google, GitHub) - email/password sufficient for admin
 - Real-time chat or support widget - contact form and Calendly cover the need
 - E-commerce or payment processing - $500 sites paid via Stripe links outside the site
 - Mobile app - web-first, PWA works well
 - Offline mode - real-time Convex queries are core to admin UX
+- Tag system for blog - categories sufficient for dual-audience content
+- Comment system - spam/moderation burden, no clear value for portfolio site
+- WYSIWYG editor - markdown-first approach, better DX
+- Multi-author support - single-author site
 
 ## Context
 
-**Shipped v1.0 + v1.1 with ~7,800 LOC TypeScript/CSS.**
+**Shipped v1.0 + v1.1 + v1.2 with ~12,500 LOC TypeScript/CSS.**
 Tech stack: Next.js 14, Convex, Tailwind v4 (CSS-first), shadcn/ui, Docker, GitHub Actions, Vercel.
+19 phases, 76 plans shipped across 3 milestones. Site is production-ready and launched.
 
 **Background:**
 
@@ -106,21 +112,14 @@ Tech stack: Next.js 14, Convex, Tailwind v4 (CSS-first), shadcn/ui, Docker, GitH
 - Businesses with no website, Facebook-only presence, or broken/outdated sites
 - Fixed-scope: 5-7 page site in 5 days
 
-**Known tech debt (from v1.1 audit):**
+**Known tech debt (from v1.2 audit):**
 
-- Orphaned HeroSection component (replaced by HeroWithGradient)
-- Calendly URL hardcoded in 3 page files (move to env var)
-- Placeholder testimonials and case study content (need admin/data layer)
-- Formal Lighthouse audit not run (expected 95+ based on CWV metrics)
+- Admin UI buttons for unpublish/restore mutations (currently callable via Convex dashboard only)
+- Public /case-studies index page (backend ready, no frontend route yet)
+- Testimonials admin CRUD (managed via Convex dashboard + seed mutation)
+- Testimonials seed mutation requires manual Convex dashboard execution
+- Pre-existing lint warnings in useIntersectionObserver (false positive, correct implementation)
 - 4 Safari items for eventual real-device visual spot-check
-
-**Pre-launch items (from v1.0 audit):**
-
-- Create OG image (1200x630 JPEG)
-- Set NEXT_PUBLIC_GA_ID in Vercel
-- Remove noindex meta tag
-- Move CALENDLY_URL to env variable
-- Fill contract placeholders (phone, state)
 
 ## Constraints
 
@@ -154,7 +153,16 @@ Tech stack: Next.js 14, Convex, Tailwind v4 (CSS-first), shadcn/ui, Docker, GitH
 | Dual CTA pattern | Warm/amber = WordPress, outline/blue = custom inquiry, instant differentiation | Good |
 | Benefit-focused CTA copy | "Get Your Business Online" converts better than "Learn More" | Good |
 | Callback ref over useRef | Handles conditional rendering (loading -> content) correctly | Good |
+| Markdown + rehype-highlight | Server-side rendering, no client JS for blog content, syntax highlighting | Good |
+| Custom prose styles | Full control with existing tokens, avoids @tailwindcss/typography dependency | Good |
+| Client-side blog filtering | Small post count, instant filtering, simpler than server round-trips | Good |
+| Single markdown editor for case studies | One editor with section headings, not separate editors per section | Good |
+| Soft delete with restore | Preserves uploaded images, allows undo, prevents data loss | Good |
+| Published slug immutability | URL stability for SEO and external links | Good |
+| GA4 event tracking on conversions | CTA clicks, form submissions, Calendly bookings, blog engagement | Good |
+| Dynamic OG images via next/og | No external service needed, gradient branding consistent with site | Good |
+| Lightweight testimonials table | No status/publishedAt, managed via dashboard only for now | Good |
 
 ---
 
-*Last updated: 2026-02-06 after v1.2 milestone start*
+*Last updated: 2026-02-07 after v1.2 milestone*
