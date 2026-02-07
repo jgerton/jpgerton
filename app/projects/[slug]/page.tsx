@@ -72,25 +72,46 @@ export default async function ProjectDetailPage({
     "in-progress": "outline" as const,
   };
 
-  // Derive case study data from available project fields
-  // Future enhancement: add dedicated case study fields to Convex schema
-  const caseStudyData = {
-    problem: {
-      heading: "The Challenge",
-      content: project.descriptionLong || project.description,
-    },
-    solution: {
-      heading: "The Approach",
-      content:
-        "Built with a modern tech stack focused on performance, maintainability, and great user experience.",
-    },
-    results: {
-      heading: "The Result",
-      content:
-        "A polished application that demonstrates professional web development capabilities.",
-      metrics: project.techStack.slice(0, 3).map((tech) => `Built with ${tech}`),
-    },
-  };
+  // Fetch linked case study data
+  const caseStudies = await fetchQuery(api.caseStudies.getByProject, {
+    projectId: project._id,
+  });
+  const caseStudy = caseStudies[0]; // Show only the first (most recent) one
+
+  // Use linked case study data if available, otherwise derive from project fields
+  const caseStudyData = caseStudy
+    ? {
+        problem: {
+          heading: caseStudy.problemHeading,
+          content: caseStudy.problemContent,
+        },
+        solution: {
+          heading: caseStudy.solutionHeading,
+          content: caseStudy.solutionContent,
+        },
+        results: {
+          heading: caseStudy.resultsHeading,
+          content: caseStudy.resultsContent,
+          metrics: caseStudy.metrics.map((m) => `${m.label}: ${m.value}`),
+        },
+      }
+    : {
+        problem: {
+          heading: "The Challenge",
+          content: project.descriptionLong || project.description,
+        },
+        solution: {
+          heading: "The Approach",
+          content:
+            "Built with a modern tech stack focused on performance, maintainability, and great user experience.",
+        },
+        results: {
+          heading: "The Result",
+          content:
+            "A polished application that demonstrates professional web development capabilities.",
+          metrics: project.techStack.slice(0, 3).map((tech) => `Built with ${tech}`),
+        },
+      };
 
   return (
     <main className="min-h-screen bg-background">
@@ -137,7 +158,7 @@ export default async function ProjectDetailPage({
       {/* Case Study section */}
       <SectionBackground variant="gradient">
         <h2 className="font-serif font-medium text-h2 leading-tight mb-lg">
-          Project Overview
+          {caseStudy ? "Case Study" : "Project Highlights"}
         </h2>
         <CaseStudyVisual
           problem={caseStudyData.problem}
