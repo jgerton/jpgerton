@@ -55,4 +55,59 @@ export default defineSchema({
   })
     .index("by_status", ["status"])
     .index("by_created", ["createdAt"]),
+
+  // Blog posts for content marketing
+  blogPosts: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.string(),
+    content: v.string(),
+    coverImageId: v.optional(v.id("_storage")),
+    coverImageAlt: v.optional(v.string()),
+    authorId: v.string(),
+    status: v.union(v.literal("draft"), v.literal("published")),
+    publishedAt: v.optional(v.number()),
+    category: v.union(
+      v.literal("Local Business"),
+      v.literal("Technical"),
+      v.literal("Announcement")
+    ),
+    displayOrder: v.number(),
+    isDeleted: v.boolean(),
+    createdAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status", "publishedAt"])
+    .index("by_order", ["displayOrder"]),
+
+  // Case studies for detailed project narratives
+  caseStudies: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    projectId: v.optional(v.id("projects")),
+    problemHeading: v.string(),
+    problemContent: v.string(),
+    solutionHeading: v.string(),
+    solutionContent: v.string(),
+    resultsHeading: v.string(),
+    resultsContent: v.string(),
+    metrics: v.array(
+      v.object({
+        label: v.string(),
+        value: v.string(),
+      })
+    ),
+    coverImageId: v.optional(v.id("_storage")),
+    coverImageAlt: v.optional(v.string()),
+    authorId: v.string(),
+    status: v.union(v.literal("draft"), v.literal("published")),
+    publishedAt: v.optional(v.number()),
+    displayOrder: v.number(),
+    isDeleted: v.boolean(),
+    createdAt: v.number(),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_project", ["projectId"])
+    .index("by_status", ["status", "publishedAt"])
+    .index("by_order", ["displayOrder"]),
 });
