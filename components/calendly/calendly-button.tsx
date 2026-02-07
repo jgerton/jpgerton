@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { trackCTAClick } from "@/lib/analytics";
 
 // Dynamic import with SSR disabled - prevents hydration errors
 // Calendly widget requires browser DOM APIs
@@ -84,12 +85,14 @@ export function CalendlyButton({
   }
 
   return (
-    <PopupButton
-      url={url}
-      rootElement={document.body}
-      text={text}
-      className={buttonClasses}
-      utm={utmParams}
-    />
+    <div onClick={() => trackCTAClick("book_a_call")}>
+      <PopupButton
+        url={url}
+        rootElement={document.body}
+        text={text}
+        className={buttonClasses}
+        utm={utmParams}
+      />
+    </div>
   );
 }

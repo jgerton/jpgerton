@@ -7,6 +7,7 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { contactSchema, type ContactFormData } from "@/lib/validations/contact-schema";
+import { trackFormSubmit } from "@/lib/analytics";
 import {
   Form,
   FormField,
@@ -47,6 +48,9 @@ export function ContactForm() {
         });
         return;
       }
+
+      // Track successful submission
+      trackFormSubmit("contact", { project_type: data.projectType });
 
       // Redirect to thank-you page on success
       router.push("/contact/thank-you");
