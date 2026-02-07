@@ -67,11 +67,20 @@ Everything else (admin dashboard, delivery docs, business protection) supports t
 
 ### Active
 
-(None yet. Run `/gsd:new-milestone` to define next milestone requirements.)
+**Current Milestone: v1.2 Content Layer + Launch**
+
+**Goal:** Make the site production-ready with admin-managed content (testimonials, case studies, blog) and complete all launch prep items.
+
+**Target features:**
+- Launch prep (OG image, GA4, noindex removal, Calendly env var, contract placeholders)
+- Testimonials CRUD in admin with public display
+- Case studies CRUD in admin with public display
+- Blog system with markdown editor, dual-audience categories, SEO treatment
+- Tech debt cleanup (orphaned components, hardcoded values)
 
 ### Out of Scope
 
-- Blog/content publishing system - add later once site proves its value
+- ~~Blog/content publishing system~~ - moved to Active for v1.2
 - Client portal with login - foundation exists in Convex, defer until client volume warrants it
 - OAuth login (Google, GitHub) - email/password sufficient for admin
 - Real-time chat or support widget - contact form and Calendly cover the need
@@ -148,4 +157,4 @@ Tech stack: Next.js 14, Convex, Tailwind v4 (CSS-first), shadcn/ui, Docker, GitH
 
 ---
 
-*Last updated: 2026-02-06 after v1.1 milestone*
+*Last updated: 2026-02-06 after v1.2 milestone start*

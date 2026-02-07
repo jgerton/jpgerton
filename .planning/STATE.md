@@ -5,21 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-02-06)
 
 **Core value:** Local business owners who need a website can see Jon's work, understand the $500 offer, and book a call in under 2 minutes.
-**Current focus:** Planning next milestone
+**Current focus:** v1.2 Content Layer + Launch
 
 ## Current Position
 
-Phase: 14 of 14 complete (all milestones shipped)
-Plan: N/A
-Status: Ready for next milestone
-Last activity: 2026-02-06 - v1.1 Design Polish archived
+Phase: Not started (defining requirements)
+Plan: -
+Status: Defining requirements
+Last activity: 2026-02-06 - Milestone v1.2 started
 
-Progress: [################################] 100% (v1.0 + v1.1 shipped)
+Progress: [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 0%
 
 ## Milestones
 
 - v1.0 MVP - SHIPPED 2026-02-04 (7 phases, 39 plans)
 - v1.1 Design Polish - SHIPPED 2026-02-06 (7 phases, 22 plans)
+- v1.2 Content Layer + Launch - IN PROGRESS
 
 ## Accumulated Context
 
@@ -48,9 +49,9 @@ Progress: [################################] 100% (v1.0 + v1.1 shipped)
 ## Session Continuity
 
 Last session: 2026-02-06
-Stopped at: v1.1 milestone archived
+Stopped at: v1.2 milestone initialization
 Resume file: None
-Next action: Run /gsd:new-milestone to define v1.2 scope
+Next action: Complete research and requirements definition
 
 ## Deployment Info
 
