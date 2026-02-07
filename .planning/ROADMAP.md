@@ -44,7 +44,11 @@ Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
   Plans:
   - [x] 15-01-PLAN.md - Schema definitions + dependency installation
   - [x] 15-02-PLAN.md - Blog posts and case studies Convex modules
-- [ ] Phase 16: Admin Content Management (0/TBD plans)
+- [ ] Phase 16: Admin Content Management (0/3 plans)
+  Plans:
+  - [ ] 16-01-PLAN.md - Shared infrastructure (MarkdownEditor, AdminTabs, ImageUploadZone, Calendly extraction)
+  - [ ] 16-02-PLAN.md - Blog post admin (list, form, create/edit pages)
+  - [ ] 16-03-PLAN.md - Case study admin (list, form, create/edit pages)
 - [ ] Phase 17: Public Blog Pages (0/TBD plans)
 - [ ] Phase 18: Content Integration (0/TBD plans)
 - [ ] Phase 19: Launch Prep + Tech Debt (0/TBD plans)
@@ -70,7 +74,7 @@ Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 | 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
 | 14. Performance & Accessibility Validation | v1.1 | 4/4 | Complete | 2026-02-06 |
 | 15. Content Schema + Backend | v1.2 | 2/2 | Complete | 2026-02-07 |
-| 16. Admin Content Management | v1.2 | 0/TBD | Pending | - |
+| 16. Admin Content Management | v1.2 | 0/3 | Pending | - |
 | 17. Public Blog Pages | v1.2 | 0/TBD | Pending | - |
 | 18. Content Integration | v1.2 | 0/TBD | Pending | - |
 | 19. Launch Prep + Tech Debt | v1.2 | 0/TBD | Pending | - |
@@ -78,4 +82,4 @@ Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-07 (Phase 15 complete)*
+*Last updated: 2026-02-07 (Phase 16 planned)*
