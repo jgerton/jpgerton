@@ -1,57 +1,69 @@
 # Get Your Business Online
 
-This website offers professional web development services, specializing in creating fast, mobile-friendly WordPress sites for local businesses. With a focus on clear communication and transparent pricing, the site caters to individuals or businesses looking to establish or enhance their online presence efficiently.
+This website provides professional web development services, specializing in delivering WordPress sites quickly and efficiently. It targets local businesses needing a fast, reliable online presence and offers tailored web applications and mentorship for development teams. The site emphasizes transparency, client support, and practical solutions to meet various business needs.
 
 ## About the Process
 
-The website outlines a straightforward, four-step process to get businesses online:
+The service consists of a straightforward four-step approach to get businesses online:
 
-1. **Discovery Call**: A brief conversation to discuss business needs and goals.
-2. **Content & Design**: Building the site with provided content and branding, followed by a review period.
-3. **Launch**: The site goes live within five business days, with all technical aspects managed.
-4. **Ongoing Support**: A 30-day support period is included post-launch for any questions.
+1. **Discovery Call**: A 15-minute discussion to understand the business and website needs.
+2. **Content & Design**: Building the site with client content and branding, followed by a review process.
+3. **Launch**: The site goes live within five business days, with all technicalities managed.
+4. **Ongoing Support**: Includes 30 days of support after launch and ongoing availability for questions.
 
-### Key Expectations
+### What You Can Expect
 
-- **No Jargon**: Simple, clear explanations throughout the process.
-- **Fixed Pricing**: Transparent costs for WordPress sites without surprise invoices.
-- **Experience**: Over 27 years in tech and 18+ years in web development to ensure quality.
-- **Continued Support**: Ongoing assistance after launch.
+- **No Jargon**: Clear explanations in plain language.
+- **Fixed Pricing**: Transparent pricing for WordPress projects.
+- **Real Experience**: Over 27 years in tech, with a focus on practical web development for local businesses.
+
+### Ready to Get Started?
+
+Engagement begins with a discussion about the client's needs. [Get Your Business Online](/services) or [View My Work](/projects).
 
 ## Services Offered
 
-The site details various services including:
+The website outlines various services designed to fit different business requirements.
 
-### WordPress Sites
-- **Price**: $500
-- **Delivery**: Online within 5 business days
-- **Features**: Mobile-friendly design, Google Maps integration, contact form, basic SEO, and a round of revisions.
+### $500 WordPress Sites
+
+- **Fast Setup**: Get online in 5 business days.
+- **Mobile-Friendly**: Designed for all devices.
+- **SEO Basics**: Initial search optimization included.
+- **Client Support**: One round of revisions and 30 days of post-launch support.
 
 ### Custom Web Applications
-- **Customization**: Tailored solutions for individual business needs with contact-based pricing.
 
-### Team Growth Mentoring
-- **Focus**: Mentoring developers with personalized support, code reviews, and best practices in web development.
+- **Tailored Solutions**: Custom features and architecture specific to client workflows.
+- **Modern Tech Stack**: Utilizing tools like React and Node.
+- **Ongoing Maintenance**: Available post-launch.
 
-## FAQs
+### Team Growth Accelerator
 
-1. **Delivery Time for WordPress Sites**: Usually within 5 business days after receiving content and payment.
-2. **What’s Included in the Package**: A professional 5-7 page website with necessary features.
-3. **Self-Management**: Training is provided to help clients update their own sites after development.
+- **Mentorship**: Personalized guidance for development teams.
+- **Best Practices**: Insights into modern web development techniques.
+
+## Frequently Asked Questions
+
+The site addresses common queries related to the services, including timelines for development, included features, and update capabilities. Key points include:
+
+- Delivery of WordPress sites typically takes five business days.
+- Basic WordPress sites come with essential features and training for client updates.
+- Services can accommodate clients irrespective of their location.
+
+### Next Steps
+
+Interested clients can book a free 15-minute call to begin discussions about their projects. [Get Your Business Online](/contact) or [View My Work](/projects).
 
 ## Contact Information
 
-Anyone interested in the services can reach out directly:
+Clients are encouraged to reach out to discuss projects, with multiple communication options available:
+
 - **Email**: [jon@jpgerton.com](mailto:jon@jpgerton.com)
-- **Schedule a Call**: Offers a free 15-minute discovery call for inquiries.
+- **Book a Call**: Schedule a discovery call to discuss project details.
 
-## Thank You Page
+### Thank You Page
 
-After a contact message is sent, the website confirms receipt and outlines the next steps:
-1. Review of project details.
-2. Response via email with further instructions.
-3. Possible follow-up discussion through a scheduled call.
+After contacting, clients receive a confirmation that their message has been received, along with information on next steps and links to view the portfolio.
 
-## Conclusion
-
-This platform is ideal for local businesses looking for efficient, professional web solutions, whether for a quick WordPress site or a more complex custom application.
+[View My Portfolio](/projects)

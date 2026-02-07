@@ -9,7 +9,6 @@
 // - Spacing: p-lg card padding, gap-md grids, gap-lg section grids
 // - Buttons: CTAButton for conversion points, Button for navigation/secondary
 
-export { HeroSection } from "./hero-section";
 export { ProjectCard } from "./project-card";
 export { ProjectCardEnhanced } from "./project-card-enhanced";
 export { ProjectGrid } from "./project-grid";
