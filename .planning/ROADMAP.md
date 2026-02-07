@@ -3,7 +3,7 @@
 ## Milestones
 
 - [x] **v1.0 MVP** - Phases 1-7 (shipped 2026-02-04)
-- [ ] **v1.1 Design Polish** - Phases 8-14 (in progress)
+- [x] **v1.1 Design Polish** - Phases 8-14 (shipped 2026-02-06)
 
 ## Phases
 
@@ -107,7 +107,7 @@ Plans:
 
 </details>
 
-### v1.1 Design Polish (In Progress)
+### v1.1 Design Polish (Complete - 2026-02-06)
 
 **Milestone Goal:** The site looks and feels like a verified professional agency, not a generic shadcn/ui template. Every page demonstrates the design craft expected from someone selling web design services.
 
@@ -123,7 +123,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 11: Composition Components** - Build portfolio-specific composed components (testimonials, case studies, social proof)
 - [x] **Phase 12: Animation Integration** - Add hover states, micro-interactions, scroll-triggered animations, and reduced-motion support
 - [x] **Phase 13: Page-Level Integration** - Apply design system across all pages with strategic CTA placement and visual hierarchy
-- [ ] **Phase 14: Performance & Accessibility Validation** - Verify WCAG AA compliance, cross-browser testing, Lighthouse scores, Core Web Vitals
+- [x] **Phase 14: Performance & Accessibility Validation** - Verify WCAG AA compliance, cross-browser testing, Lighthouse scores, Core Web Vitals
 
 ## Phase Details
 
@@ -250,9 +250,9 @@ Plans:
 
 Plans:
 - [x] 14-01-PLAN.md - WCAG 2.1 AA automated audit across all pages with semantic HTML, contrast, and ARIA fixes
-- [ ] 14-02-PLAN.md - Keyboard navigation, focus trap in mobile menu, and touch target validation
-- [ ] 14-03-PLAN.md - Dark mode contrast verification and Safari CSS compatibility check
-- [ ] 14-04-PLAN.md - Responsive testing at 375/768/1024px, Lighthouse scores, Core Web Vitals, and user sign-off
+- [x] 14-02-PLAN.md - Keyboard navigation, focus trap in mobile menu, and touch target validation
+- [x] 14-03-PLAN.md - Dark mode contrast verification and Safari CSS compatibility check
+- [x] 14-04-PLAN.md - Responsive testing at 375/768/1024px, Lighthouse scores, Core Web Vitals, and user sign-off
 
 ## Progress
 
@@ -276,7 +276,7 @@ Phases execute in numeric order: 8 -> 9 -> 10 -> 11 -> 12 -> 13 -> 14
 | 11. Composition Components | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 12. Animation Integration | v1.1 | 3/3 | Complete | 2026-02-05 |
 | 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
-| 14. Performance & Accessibility Validation | v1.1 | 1/4 | In Progress | - |
+| 14. Performance & Accessibility Validation | v1.1 | 4/4 | Complete | 2026-02-06 |
 
 ---
 
@@ -297,4 +297,4 @@ No orphaned requirements. No duplicate mappings.
 ---
 
 *Roadmap created: 2026-02-04*
-*Last updated: 2026-02-06 (Phase 14 planned)*
+*Last updated: 2026-02-06 (v1.1 Design Polish complete)*
