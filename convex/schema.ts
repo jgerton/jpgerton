@@ -110,4 +110,16 @@ export default defineSchema({
     .index("by_project", ["projectId"])
     .index("by_status", ["status", "publishedAt"])
     .index("by_order", ["displayOrder"]),
+
+  // Testimonials for social proof
+  testimonials: defineTable({
+    quote: v.string(),
+    name: v.string(),
+    title: v.string(),
+    company: v.string(),
+    photoId: v.optional(v.id("_storage")),
+    displayOrder: v.number(),
+    isDeleted: v.boolean(),
+    createdAt: v.number(),
+  }).index("by_order", ["displayOrder"]),
 });
