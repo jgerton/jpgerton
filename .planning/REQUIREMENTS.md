@@ -10,12 +10,12 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 ### Blog System
 
 - [ ] **BLOG-01**: User can create blog post with title, excerpt, and markdown content in admin
-- [ ] **BLOG-02**: User can edit and delete own blog posts in admin
+- [x] **BLOG-02**: User can edit and delete own blog posts in admin
 - [ ] **BLOG-03**: Blog post has draft/published status with publish date tracking
 - [ ] **BLOG-04**: Blog post slug auto-generates from title with manual override
 - [ ] **BLOG-05**: Slug uniqueness enforced server-side with auto-suffix on collision
 - [ ] **BLOG-06**: Blog post can have a cover image (Convex storage)
-- [ ] **BLOG-07**: Admin markdown editor with live preview
+- [x] **BLOG-07**: Admin markdown editor with live preview
 - [ ] **BLOG-08**: Blog posts have category assignment (Local Business, Technical, Announcement)
 - [ ] **BLOG-09**: Public blog list page with category filtering
 - [ ] **BLOG-10**: Public blog detail page with server-side markdown rendering
@@ -28,8 +28,8 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 - [ ] **CASE-01**: Admin can create case study linked to existing project
 - [ ] **CASE-02**: Case study has problem, solution, and results sections with markdown content
 - [ ] **CASE-03**: Case study has quantitative metrics display
-- [ ] **CASE-04**: Admin can edit and delete case studies
-- [ ] **CASE-05**: Admin can reorder case studies via drag-and-drop
+- [x] **CASE-04**: Admin can edit and delete case studies
+- [x] **CASE-05**: Admin can reorder case studies via drag-and-drop
 - [ ] **CASE-06**: Public project pages display linked case study using CaseStudyVisual component
 - [ ] **CASE-07**: Case study data replaces all hardcoded placeholder content
 
@@ -42,7 +42,7 @@ Requirements for v1.2 Content Layer + Launch. Each maps to roadmap phases.
 ### Tech Debt
 
 - [ ] **DEBT-01**: Orphaned HeroSection component removed
-- [ ] **DEBT-02**: Hardcoded values extracted to configuration (Calendly URL, contract placeholders)
+- [x] **DEBT-02**: Hardcoded values extracted to configuration (Calendly URL, contract placeholders)
 
 ## Future Requirements
 
@@ -81,12 +81,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | BLOG-01 | Phase 15 | Complete |
-| BLOG-02 | Phase 16 | Pending |
+| BLOG-02 | Phase 16 | Complete |
 | BLOG-03 | Phase 15 | Complete |
 | BLOG-04 | Phase 15 | Complete |
 | BLOG-05 | Phase 15 | Complete |
 | BLOG-06 | Phase 15 | Complete |
-| BLOG-07 | Phase 16 | Pending |
+| BLOG-07 | Phase 16 | Complete |
 | BLOG-08 | Phase 15 | Complete |
 | BLOG-09 | Phase 17 | Pending |
 | BLOG-10 | Phase 17 | Pending |
@@ -96,15 +96,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CASE-01 | Phase 15 | Complete |
 | CASE-02 | Phase 15 | Complete |
 | CASE-03 | Phase 15 | Complete |
-| CASE-04 | Phase 16 | Pending |
-| CASE-05 | Phase 16 | Pending |
+| CASE-04 | Phase 16 | Complete |
+| CASE-05 | Phase 16 | Complete |
 | CASE-06 | Phase 18 | Pending |
 | CASE-07 | Phase 18 | Pending |
 | LNCH-01 | Phase 19 | Pending |
 | LNCH-02 | Phase 19 | Pending |
 | LNCH-03 | Phase 19 | Pending |
 | DEBT-01 | Phase 19 | Pending |
-| DEBT-02 | Phase 16 | Pending |
+| DEBT-02 | Phase 16 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 25 total
@@ -114,4 +114,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-06*
-*Last updated: 2026-02-07 (Phase 15 complete)*
+*Last updated: 2026-02-07 (Phase 16 complete)*

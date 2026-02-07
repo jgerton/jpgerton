@@ -1,88 +1,77 @@
-# Get Your Business Online
+# Online Business Solutions
 
-This website offers professional web development services, primarily focusing on creating WordPress sites for local businesses. With a straightforward four-step process, users can quickly establish an online presence, tailored to their specific needs. Alongside WordPress site development, the site offers custom web applications and team mentoring to enhance tech skills.
+This website offers a streamlined process to help local businesses establish their online presence swiftly and professionally through affordable web development services. It caters primarily to small business owners who need effective, mobile-friendly websites without any technical jargon or surprises.
 
-## About My Work
+## About Me
 
-This section outlines the approach taken in web development, emphasizing a **four-step process**:
-1. **Discovery Call**: A 15-minute conversation to understand the client's business and website needs.
-2. **Content & Design**: Building the site using the client's content, followed by a round of revisions.
-3. **Launch**: The website goes live within 5 business days, with all technical aspects managed.
-4. **Ongoing Support**: Includes 30 days of post-launch support for any inquiries.
+This page outlines the straightforward process followed to get businesses online in four easy steps: 
+
+1. **Discovery Call**: A brief 15-minute chat to understand business goals.
+2. **Content & Design**: The website is built using the client's content and brand, with one round of changes allowed for review.
+3. **Launch**: The site goes live within five business days.
+4. **Ongoing Support**: Clients receive 30 days of post-launch support for any questions or needs.
 
 ### What You Can Expect
-- **No Jargon**: Clear explanations ensure clients understand the process.
-- **Fixed Pricing**: Transparent pricing with no hidden fees or surprises.
-- **Real Experience**: Over 27 years in tech, with extensive knowledge of web development.
-- **Ongoing Support**: Continuous availability for questions after launch.
 
-### A Bit About Me
-The developer has significant experience in the tech industry, transitioning from systems administration to full-stack development. The motivation to help local businesses succeed online is a driving force behind the services provided.
-
-### Ready to Get Started?
-Interested individuals are encouraged to initiate a discussion about their web presence needs by visiting the services page or viewing past projects.
+- **No Jargon**: Explanations in plain English.
+- **Fixed Pricing**: No surprise invoices for WordPress projects.
+- **Real Experience**: Over 27 years in tech and 18+ years in web development.
+- **Ongoing Support**: Continued availability for client queries.
 
 ### Links
+
 - [Get Your Business Online](/services)
 - [View My Work](/projects)
 
 ## Contact
 
-This page provides a way for potential clients to reach out regarding their projects. Options include sending a message or scheduling a discovery call.
+The contact page invites potential clients to initiate conversations about their projects. Users can send a message regarding their needs or schedule a free 15-minute discovery call.
 
 ### Get in Touch
-- **Send a Message**: Fill out a form regarding project details, which will receive a response within 1 business day.
-- **Book a Call**: A free 15-minute call can be booked for quicker discussions about project needs.
 
-### Other Ways to Connect
-- Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
-- GitHub: [@jgerton](https://github.com/jgerton)
-- LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+- Input fields for User Name, Email, and Project Description.
+- **Alternative Contact Methods**: 
+  - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+  - GitHub: [@jgerton](https://github.com/jgerton)
+  - LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
 ## Services
 
-Here, the offerings of the site are outlined, focusing on transparent pricing and professional results. The main services include:
+This section details the available services, emphasizing transparent pricing and professional results.
 
 ### $500 WordPress Sites
-Designed for local businesses that need a quick online presence:
-- Launch in 5 business days
-- Mobile-friendly design
-- Basic SEO and a contact form
-- One round of revisions and 30 days of support included
+
+- Quick setup in 5 business days.
+- Responsive design optimized for all devices.
+- Contact form, basic SEO, and one round of revisions included.
+- 30 days of support after launch.
 
 ### Custom Web Applications
-For businesses with specific needs, these solutions are tailored with:
-- Modern tech stack considerations
-- Ongoing maintenance and training included
+
+- Tailored solutions with a modern tech stack.
+- Pricing on request.
 
 ### Team Growth Accelerator
-This service is aimed at helping developers level up their skills through personalized mentorship.
+
+- Paid mentorship services for developer teams.
+- Personalized engagement, including code reviews and best practices.
 
 ### What Every WordPress Site Includes
+
 - Mobile-responsive design
 - Basic SEO setup
-- 24/7 contact capabilities
-- Content training for updates
+- Contact form integration
+- Content training for easy updates
 
 ### Frequently Asked Questions
-Addresses key concerns about the web development process including timelines, package inclusions, and support details.
 
-### Ready to Get Started?
-Encourages visitors to book a free call or get started with their web project.
+This section addresses common inquiries, including delivery timelines and post-launch support. 
 
-### Links
-- [Get Your Business Online](/contact)
-- [View My Work](/projects)
+## Thank You Page
 
-## Thank You
-
-A page that confirms receipt of inquiries, detailing the next steps including project review and potential follow-up discussions.
-
-### While You Wait...
-Visitors are encouraged to explore the portfolio to see examples of recent work and the quality of services provided.
+This page confirms receipt of inquiries and outlines the next steps in the communication process. It reassures clients about the review and response timeline and encourages them to explore the project portfolio while waiting.
 
 ### Links
+
 - [View My Portfolio](/projects)
 - [Back to Home](/)
-
-This website encapsulates a dedicated approach to web development, focusing on delivering value to local businesses through efficient and clear communication, and professional web solutions.
