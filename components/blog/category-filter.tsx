@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
+import { trackBlogCategoryFilter } from "@/lib/analytics";
 
 export interface CategoryFilterProps {
   categories: string[];
@@ -21,7 +22,10 @@ export function CategoryFilter({
     >
       <button
         type="button"
-        onClick={() => onCategoryChange(null)}
+        onClick={() => {
+          trackBlogCategoryFilter("all");
+          onCategoryChange(null);
+        }}
         className="cursor-pointer"
       >
         <Badge
@@ -39,7 +43,10 @@ export function CategoryFilter({
         <button
           key={category}
           type="button"
-          onClick={() => onCategoryChange(category)}
+          onClick={() => {
+            trackBlogCategoryFilter(category);
+            onCategoryChange(category);
+          }}
           className="cursor-pointer"
         >
           <Badge

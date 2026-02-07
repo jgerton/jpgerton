@@ -10,6 +10,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import { BlogPostContent } from "@/components/blog/blog-post-content";
+import { BlogReadTracker } from "@/components/blog/blog-read-tracker";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -159,6 +160,9 @@ export default async function BlogPostPage({
 
         {/* Markdown content */}
         <BlogPostContent content={post.content} />
+
+        {/* Read completion tracker */}
+        <BlogReadTracker slug={slug} readTimeMinutes={post.readingTime} />
 
         {/* Bottom CTA */}
         <div className="mt-2xl pt-xl border-t border-border">
