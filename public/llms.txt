@@ -1,65 +1,57 @@
-# Jon Gerton Web Development
+# Get Your Business Online
 
-Jon Gerton offers professional web development services specializing in WordPress sites and custom web applications. Aimed at local businesses and organizations, the website serves as a platform for potential clients to learn about his services, view pricing, and reach out for projects. With a focus on quick turnarounds and personalized support, the site highlights the value of professional online presence for business growth.
+This website offers professional web development services, specializing in creating fast, mobile-friendly WordPress sites for local businesses. With a focus on clear communication and transparent pricing, the site caters to individuals or businesses looking to establish or enhance their online presence efficiently.
 
-## Home
+## About the Process
 
-This section outlines the primary offerings and value propositions of Jon Gerton Web Development. It emphasizes:
-- **Fast, Professional WordPress Sites** at $500, designed to be live within 5 business days.
-- **Custom Web Applications** tailored to unique business needs.
-- **Team Growth Mentoring** to help developers enhance their skills.
+The website outlines a straightforward, four-step process to get businesses online:
 
-### Links
-- [Get Your Business Online](/services)
-- [See My Work](/projects)
+1. **Discovery Call**: A brief conversation to discuss business needs and goals.
+2. **Content & Design**: Building the site with provided content and branding, followed by a review period.
+3. **Launch**: The site goes live within five business days, with all technical aspects managed.
+4. **Ongoing Support**: A 30-day support period is included post-launch for any questions.
 
-## Services
+### Key Expectations
 
-The services page presents transparent pricing and highlights various offerings, including:
-### $500 WordPress Sites
-- Professional and mobile-friendly sites delivered in 5 days.
-- Basic SEO, contact forms, and ongoing support included.
+- **No Jargon**: Simple, clear explanations throughout the process.
+- **Fixed Pricing**: Transparent costs for WordPress sites without surprise invoices.
+- **Experience**: Over 27 years in tech and 18+ years in web development to ensure quality.
+- **Continued Support**: Ongoing assistance after launch.
+
+## Services Offered
+
+The site details various services including:
+
+### WordPress Sites
+- **Price**: $500
+- **Delivery**: Online within 5 business days
+- **Features**: Mobile-friendly design, Google Maps integration, contact form, basic SEO, and a round of revisions.
 
 ### Custom Web Applications
-- Tailored solutions with modern technology (React, Node).
-- Pricing based on project scope.
+- **Customization**: Tailored solutions for individual business needs with contact-based pricing.
 
-### Team Growth Accelerator
-- Mentorship for developers including code review and architecture guidance.
+### Team Growth Mentoring
+- **Focus**: Mentoring developers with personalized support, code reviews, and best practices in web development.
 
-### FAQ
-Common questions regarding project timelines, pricing, and hosting requirements are addressed, providing clarity on what clients can expect.
+## FAQs
 
-## About
+1. **Delivery Time for WordPress Sites**: Usually within 5 business days after receiving content and payment.
+2. **What’s Included in the Package**: A professional 5-7 page website with necessary features.
+3. **Self-Management**: Training is provided to help clients update their own sites after development.
 
-This page details Jon Gerton's work philosophy and process. It describes a straightforward four-step method, from discovery calls to ongoing support after project launch. Key highlights include:
-- A focus on clear communication without technical jargon.
-- Fixed pricing with no hidden fees.
-- 18+ years of experience in web development.
+## Contact Information
 
-### Links
-- [Get Your Business Online](/services)
-- [View My Work](/projects)
-
-## Contact
-
-Visitors can get in touch to discuss projects or schedule a discovery call. Key options include:
-- Sending a message via a contact form.
-- Scheduling a 15-minute call for quick inquiries.
-
-### Links
-- Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
-- GitHub: [@jgerton](https://github.com/jgerton)
-- LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
+Anyone interested in the services can reach out directly:
+- **Email**: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+- **Schedule a Call**: Offers a free 15-minute discovery call for inquiries.
 
 ## Thank You Page
 
-This page confirms receipt of messages sent through the contact form. It outlines the next steps that will be taken, including reviewing project details and potentially scheduling calls for deeper discussions.
+After a contact message is sent, the website confirms receipt and outlines the next steps:
+1. Review of project details.
+2. Response via email with further instructions.
+3. Possible follow-up discussion through a scheduled call.
 
-## Blog
+## Conclusion
 
-The blog section is currently in loading state, suggesting that it may include articles or updates related to web development in the future.
-
-## Projects
-
-This page is intended to showcase all completed projects, but is currently in a loading state.
+This platform is ideal for local businesses looking for efficient, professional web solutions, whether for a quick WordPress site or a more complex custom application.
