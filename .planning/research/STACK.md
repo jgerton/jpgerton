@@ -1,654 +1,334 @@
-# Technology Stack
+# Stack Research: Blog & Content Management
 
-**Project:** wp-designer (jpgerton.com)
-**Researched:** 2026-02-03
-**Overall Confidence:** HIGH
+**Domain:** Blog/Content Management for Next.js + Convex Portfolio Site
+**Researched:** 2026-02-06
+**Confidence:** HIGH
 
 ## Executive Summary
 
-This stack leverages Next.js 14 App Router with Convex for the portfolio site, shadcn/ui for component architecture, and LocalWP for WordPress local development. The combination provides a modern developer experience while enabling efficient delivery of $500 WordPress sites to local businesses. Research focused on 2026 best practices with verified sources from official documentation and current ecosystem usage.
+Adding markdown blog with admin editor and content CRUD requires minimal new dependencies. The existing Next.js 14 + Convex stack handles most needs. Critical additions: `react-markdown` (rendering), `@uiw/react-md-editor` (editing), and unified ecosystem plugins for GitHub Flavored Markdown and syntax highlighting. Bundle impact: ~50KB total (4.6KB editor + ~20KB react-markdown + plugins). No additional backend infrastructure needed - Convex handles all storage, queries, and full-text search.
 
----
+## Recommended Stack
 
-## Core Portfolio Stack (Next.js + Convex)
+### Markdown Rendering (Public Pages)
 
-### Framework & Runtime
+| Technology | Version | Purpose | Why Recommended |
+|------------|---------|---------|-----------------|
+| react-markdown | ^10.1.0 | Render markdown to React components | Safe by default (no dangerouslySetInnerHTML), 100% CommonMark/GFM compliant, integrates with unified plugins, ~20KB gzipped |
+| remark-gfm | ^4.0.0 | GitHub Flavored Markdown support | Tables, task lists, strikethrough, autolinks - expected features for tech blog |
+| rehype-highlight | ^7.0.0 | Code syntax highlighting | Lighter than Prism.js (2KB core), no client-side JS, SSR-friendly |
 
-| Technology | Version                       | Purpose                    | Why                                                                                                                                                 |
-| ---------- | ----------------------------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Next.js    | 14.2.x (consider 15.x)        | App framework with SSR/SSG | App Router provides stable RSC support, excellent DX, Vercel deployment integration. v15 offers React 19 support but v14 remains production-stable. |
-| React      | 18.3.x (or 19.x with Next 15) | UI library                 | React 18 is stable with Next.js 14. React 19 is production-ready but requires Next.js 15 for official support.                                      |
-| TypeScript | 5.1.3+                        | Type safety                | Required version for async Server Components. Provides end-to-end type safety with Convex.                                                          |
-| Node.js    | 20+ LTS                       | Runtime environment        | Required for Tailwind v4 upgrade tool, standard for modern Next.js development.                                                                     |
+**Rationale:** react-markdown renders directly to React components without HTML strings, making it XSS-safe by default. The unified plugin ecosystem (remark/rehype) is industry standard and well-maintained. Alternative Shiki offers superior highlighting but adds 280KB + WASM dependency - unacceptable for Lighthouse 100 target.
 
-**Confidence:** HIGH - Official Next.js docs, verified compatibility
-**Sources:**
+### Markdown Editing (Admin)
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React 19 Production Status](https://dev.to/manojspace/react-18-vs-react-19-key-differences-and-migration-tips-18op)
-- [Next.js TypeScript Config](https://nextjs.org/docs/app/api-reference/config/typescript)
+| Technology | Version | Purpose | Why Recommended |
+|------------|---------|---------|-----------------|
+| @uiw/react-md-editor | ^4.0.11 | WYSIWYG markdown editor with preview | Smallest full-featured option (4.6KB gzipped), live split-pane preview, familiar toolbar UX, maintained actively (v4.0.11 Dec 2024) |
 
----
+**Rationale:** Tiptap offers more flexibility but adds 50KB+ and requires custom markdown export logic. @uiw/react-md-editor provides markdown-first editing with built-in preview, keyboard shortcuts (Ctrl+D duplicate line, Alt+↑/↓ move), and simple value/onChange props that work with Convex mutations.
 
-### Database & Backend
+**Known limitation:** Uses !important CSS rules extensively. Override via Tailwind utility classes with higher specificity or wrapper container styles. Acceptable tradeoff for 4.6KB bundle.
 
-| Technology          | Version | Purpose                                                       | Why                                                                                                                                                      |
-| ------------------- | ------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Convex              | Latest  | Backend-as-a-Service (database + auth + serverless functions) | Real-time reactivity, end-to-end type safety, built-in auth integration, eliminates need for separate API layer. Official Next.js 14 App Router support. |
-| Convex Auth (Clerk) | Latest  | Authentication                                                | ConvexProviderWithClerk provides seamless integration. Clerk is the most common approach in 2026, handles user management with minimal code.             |
+### Content Management (Backend)
 
-**Confidence:** HIGH - Official Convex documentation
-**Rationale:** Convex replaces traditional database + ORM + API setup with single unified backend. Real-time subscriptions work seamlessly with React Server Components pattern. Clerk integration is battle-tested with dedicated provider components.
+| Technology | Version | Purpose | Notes |
+|------------|---------|---------|-------|
+| Convex full-text search | (built-in) | Blog post search by title/content | Define search index on posts table, 1024 doc scan limit, 16 keyword max per query |
+| Convex pagination | (built-in) | Cursor-based pagination for blog lists | usePaginatedQuery hook, fully reactive, works with filters |
+| Convex Auth | (existing) | Protect admin routes | Already implemented, no additional setup |
 
-**Sources:**
+**No additional backend needed.** Convex provides all CRUD, search, and pagination primitives.
 
-- [Convex Next.js App Router Integration](https://docs.convex.dev/client/nextjs/app-router/)
-- [Convex Authentication Best Practices](https://stack.convex.dev/authentication-best-practices-convex-clerk-and-nextjs)
-- [Clerk + Convex Integration Guide](https://clerk.com/docs/guides/development/integrations/databases/convex)
+### Utilities
 
----
+| Library | Version | Purpose | When to Use |
+|---------|---------|---------|-------------|
+| slugify | ^1.6.6 | URL-safe slugs from blog titles | Generate post.slug from post.title on create/update |
+| dayjs | ^1.11.13 | Date formatting | Display "Published Feb 6, 2026" - lighter than date-fns (6KB vs 18KB for common use case) |
 
-### UI & Styling
+**Rationale:** slugify is industry standard (2726 npm projects), handles Unicode well. dayjs chosen over date-fns for smaller bundle when not using tree-shaking (Next.js App Router server components don't always tree-shake client imports effectively).
 
-| Technology    | Version            | Purpose           | Why                                                                                                                                                                          |
-| ------------- | ------------------ | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tailwind CSS  | 3.4.x (monitor v4) | Utility-first CSS | Industry standard, excellent DX. v4 offers 5x faster builds but requires modern browser targets (Safari 16.4+). Stick with v3 for broader compatibility.                     |
-| shadcn/ui     | Latest             | Component library | Radix UI primitives + Tailwind styling. Copy-paste architecture means no package dependency bloat. 1000+ components available, excellent dark mode support via next-themes.  |
-| next-themes   | Latest             | Theme management  | Powers shadcn/ui dark mode. Supports system preference detection, prevents hydration issues with suppressHydrationWarning pattern.                                           |
-| Framer Motion | 11.x+              | Animations        | Standard for React animations. Note: App Router has AnimatePresence exit animation challenges. Use template.tsx pattern for page transitions, avoid complex exit animations. |
-| Lucide React  | Latest             | Icon library      | Modern icon set, tree-shakeable, used by shadcn/ui ecosystem.                                                                                                                |
+### SEO (Built-in Next.js)
 
-**Confidence:** HIGH - Official documentation and verified ecosystem patterns
-**Tailwind v4 Note:** While v4 is officially released with 100x faster incremental builds, it requires Safari 16.4+, Chrome 111+, Firefox 128+. For maximum compatibility, use Tailwind 3.4.x. Migration tool available when ready.
+| Feature | Implementation | Notes |
+|---------|---------------|-------|
+| Blog post metadata | generateMetadata() | Dynamic title, description, OG image per post |
+| Article JSON-LD | Script tag in page.tsx | Schema.org BlogPosting type |
+| Sitemap | generateSitemapXML() | Dynamic sitemap including blog posts |
 
-**Sources:**
-
-- [shadcn/ui Dark Mode](https://ui.shadcn.com/docs/dark-mode)
-- [Tailwind CSS v4 Release](https://tailwindcss.com/blog/tailwindcss-v4)
-- [Framer Motion App Router Issues](https://github.com/vercel/next.js/issues/49279)
-- [shadcn/ui Portfolio Templates](https://allshadcn.com/templates/category/portfolio-templates/)
-
----
-
-### Form Handling & Validation
-
-| Technology          | Version | Purpose               | Why                                                                                                                            |
-| ------------------- | ------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| React Hook Form     | 7.x+    | Form state management | Minimal re-renders, excellent DX, industry standard for complex forms. Integrates seamlessly with Zod via @hookform/resolvers. |
-| Zod                 | 3.x+    | Schema validation     | TypeScript-first validation. Client + server validation with same schema. Type inference for form data.                        |
-| @hookform/resolvers | Latest  | RHF + Zod integration | Official adapter for using Zod schemas with React Hook Form.                                                                   |
-
-**Confidence:** HIGH - Current ecosystem standard (verified 2026)
-**Pattern:** Use with Next.js Server Actions for type-safe client-to-server validation. Single Zod schema validates both client-side (instant feedback) and server-side (security).
-
-**Sources:**
-
-- [React Hook Form + Zod Guide 2026](https://dev.to/marufrahmanlive/react-hook-form-with-zod-complete-guide-for-2026-1em1)
-- [Type-Safe Forms in Next.js 15](https://www.abstractapi.com/guides/email-validation/type-safe-form-validation-in-next-js-15-with-zod-and-react-hook-form)
-
----
-
-### SEO & Discoverability
-
-| Technology   | Version | Purpose                    | Why                                                                                                                                                                                                       |
-| ------------ | ------- | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| next-sitemap | Latest  | Dynamic sitemap generation | Server-side sitemap APIs (getServerSideSitemap, getServerSideSitemapIndex) for CMS-driven content. More flexible than native sitemap.ts for complex scenarios.                                            |
-| next-aeo     | Latest  | Answer Engine Optimization | Generates llms.txt file for AI discoverability (ChatGPT, Perplexity, Google AI Overviews). Zero config, runs post-build. Critical for 2026 SEO as Gartner predicts 25% search volume shift to AI by 2026. |
-
-**Confidence:** HIGH - Emerging standard for 2026 (next-aeo), established pattern (next-sitemap)
-**AEO Context:** 400+ million people use OpenAI products weekly. Portfolio sites must optimize for answer engines to remain discoverable. next-aeo automates llms.txt generation with no heavy config.
-
-**Native Alternative:** Next.js 14+ includes native sitemap.xml and metadata API. Use next-sitemap only if you need advanced server-side generation from external CMS.
-
-**Sources:**
-
-- [next-aeo Introduction](https://www.tryprofound.com/blog/next-aeo)
-- [AEO Trends 2026](https://blog.hubspot.com/marketing/answer-engine-optimization-trends)
-- [next-sitemap GitHub](https://github.com/iamvishnusankar/next-sitemap)
-- [Next.js Native Sitemap](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
-
----
-
-### Hosting & Deployment
-
-| Technology | Version | Purpose          | Why                                                                                                                                               |
-| ---------- | ------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Vercel     | N/A     | Hosting platform | Zero-config Next.js deployment, edge network, preview deployments, environment variable management. Seamless integration with Convex and Next.js. |
-
-**Environment Variables:**
-
-- Use NEXT*PUBLIC* prefix for client-exposed variables (required for Convex client connection)
-- 64KB total limit per deployment (5KB for Edge Functions)
-- Separate environments: Development, Preview, Production
-- Pull env vars locally with vercel env pull (creates .env.local)
-
-**Confidence:** HIGH - Official Vercel documentation
-**Sources:**
-
-- [Vercel Environment Variables](https://vercel.com/docs/environment-variables)
-- [Managing Next.js Environment Variables](https://www.wisp.blog/blog/managing-nextjs-environment-variables-from-development-to-production-vercel)
-
----
-
-## WordPress Delivery Stack
-
-### Local Development
-
-| Technology  | Version | Purpose                           | Why                                                                                                                                                                                                        |
-| ----------- | ------- | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Local by WP | Latest  | Local WordPress environment       | Best for solo developers and quick client projects. Fast setup, native SSL, GUI management. Each site gets isolated container with independent PHP versions. Recommended over Docker for this use case.    |
-| WP-CLI      | Latest  | Command-line WordPress management | Essential for professional workflows: database export/import, search-replace URLs (critical for dev→staging→production), cache flushing, automated maintenance. Required for modern deployment automation. |
-
-**Why Local by WP over Docker:**
-
-- **Use Local by WP when:** You're a solo freelancer, need quick project turnaround, hate command-line setup, want GUI database/PHP management
-- **Use Docker when:** Large team coordination, CI/CD pipelines, complex custom stacks, need exact production parity
-
-**Confidence:** HIGH - Current ecosystem recommendations (2026)
-**Sources:**
-
-- [WordPress Local Development Guide 2026](https://awp.agency/en/blog/how-to-make-wordpress-local-in-2026-definitive-guide-and-comparison-of-environments/)
-- [LocalWP vs Docker Comparison](https://instawp.com/is-local-development-relevant-in-2024/)
-- [8 Best Local WordPress Environments](https://jetpack.com/resources/local-wordpress-development-environment/)
-
----
-
-### Page Builder
-
-| Technology       | Version | Purpose                 | Why                                                                                                                                                                                  |
-| ---------------- | ------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Elementor Pro    | Latest  | Visual page builder     | Best balance of design freedom, performance, and pricing for $500 client sites. Faster turnaround than Gutenberg alone, mature ecosystem, works alongside Gutenberg.                 |
-| Gutenberg (Core) | N/A     | Block editor (fallback) | Free, built into WordPress core, fastest performance, best for lightweight sites. Use for blog posts, Elementor for landing pages/custom layouts. Hybrid approach is common in 2026. |
-
-**Confidence:** HIGH - Verified ecosystem preference for freelance workflows
-**Recommendation:** Hybrid approach - Gutenberg for content, Elementor Pro for custom landing pages and high-design sections. This balances speed (Gutenberg is faster) with client expectations (Elementor's visual editing).
-
-**Sources:**
-
-- [Best Page Builders for WordPress 2026](https://belovdigital.agency/blog/the-best-page-builders-for-wordpress-in-2026/)
-- [Elementor vs Gutenberg Guide](https://www.iflair.com/gutenberg-vs-elementor-2025-which-wordpress-page-builder-should-you-use/)
-
----
-
-### Deployment & Workflow
-
-| Technology      | Version | Purpose            | Why                                                                                                                                                             |
-| --------------- | ------- | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Git             | Latest  | Version control    | Fundamental to modern WordPress development. Code moves up (dev→staging→prod), content moves down (prod→staging→dev). Track theme/plugin changes, not database. |
-| GitHub / GitLab | N/A     | Repository hosting | For version control and optional CI/CD automation (GitHub Actions, GitLab CI) if you scale beyond manual deployments.                                           |
-| WP Migrate      | Plugin  | Database sync tool | Handles URL search-replace during environment migrations. Alternative: use WP-CLI search-replace commands.                                                      |
-
-**Workflow Pattern:**
-
-1. **Local (Local by WP):** Develop themes/plugins, commit to Git
-2. **Staging:** Test with production-like data, manual deployment
-3. **Production:** Deploy code via Git (or SFTP initially), use WP-CLI for database operations
-
-**Anti-Pattern:** DO NOT use WordPress Multisite for client sites. Single point of failure, complex migrations, performance issues. Use separate WordPress installs + management tools (WP Umbrella, ManageWP) instead.
-
-**Confidence:** HIGH - Industry best practices verified across multiple sources
-**Sources:**
-
-- [WordPress Git Deployment Workflow](https://pantheon.io/learning-center/wordpress/staging-to-production)
-- [WordPress Deployment Best Practices](https://wpengine.com/support/development-workflow-best-practices/)
-- [WordPress Multisite vs Single Site](https://instawp.com/wordpress-multisite-vs-single-site/)
-
----
-
-### Hosting (for Clients)
-
-| Technology | Purpose                               | Why                                                                                                                                                   |
-| ---------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hostinger  | Budget WordPress hosting ($1.79-4/mo) | Best budget choice for small business clients. Performance score 8.4/10, LiteSpeed servers, easy dashboard. Excellent value for $500 site deliveries. |
-| Bluehost   | Beginner-friendly hosting ($2.99/mo)  | WordPress.org recommended, excellent support, free domain first year. Best for clients who need hand-holding.                                         |
-| IONOS      | Cheapest first year ($1/mo)           | Lowest barrier to entry, good for price-sensitive local businesses.                                                                                   |
-
-**Confidence:** HIGH - Verified 2026 pricing and reviews
-**Client Strategy:** Offer Hostinger as default recommendation (best value), Bluehost for non-technical clients, IONOS for extreme budget constraints. All include free SSL, email, one-click WordPress install.
-
-**Sources:**
-
-- [7 Best Cheap WordPress Hosting 2026](https://elementor.com/blog/best-cheap-wordpress-hosting/)
-- [Budget WordPress Hosting Tested](https://themeisle.com/blog/cheap-wordpress-hosting/)
-
----
-
-## Supporting Libraries
-
-| Library                | Version | Purpose                 | When to Use                                                                                  |
-| ---------------------- | ------- | ----------------------- | -------------------------------------------------------------------------------------------- |
-| clsx / tailwind-merge  | Latest  | Conditional class names | Merge Tailwind classes with conflict resolution. Use cn() utility from shadcn/ui.            |
-| date-fns               | Latest  | Date manipulation       | Lightweight alternative to moment.js. For blog post dates, project timelines.                |
-| sharp                  | Latest  | Image optimization      | Next.js uses Sharp for Image component. Pre-installed with Next.js.                          |
-| @vercel/analytics      | Latest  | Web analytics           | Privacy-friendly analytics from Vercel. Optional, use if tracking portfolio performance.     |
-| @vercel/speed-insights | Latest  | Performance monitoring  | Real User Monitoring (RUM) for Core Web Vitals. Optional, useful for portfolio optimization. |
-
-**Confidence:** MEDIUM-HIGH - Standard ecosystem choices, verify specific versions at install time
-
----
-
-## Alternatives Considered
-
-| Category            | Recommended               | Alternative                     | Why Not                                                                                                                                                        |
-| ------------------- | ------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Database            | Convex                    | Supabase, PlanetScale, Firebase | Convex provides better real-time reactivity and simpler auth integration for this use case. Supabase viable alternative if you need PostgreSQL specifically.   |
-| Auth                | Clerk (via Convex)        | NextAuth.js, Auth0              | Clerk has dedicated Convex provider (ConvexProviderWithClerk). NextAuth viable for custom flows.                                                               |
-| CMS (Portfolio)     | None (Convex DB)          | Sanity, Contentful, Prismic     | For 6 indie projects, direct DB management is simpler. Add headless CMS only if non-technical content editors needed. Sanity is most flexible if CMS required. |
-| Animations          | Framer Motion             | GSAP, React Spring              | Framer Motion is React-native, declarative API. GSAP more powerful but imperative. Note App Router exit animation limitations.                                 |
-| Forms               | React Hook Form + Zod     | Formik, TanStack Form           | RHF + Zod is 2026 standard, better performance, excellent TypeScript support.                                                                                  |
-| Tailwind Version    | v3.4.x                    | v4.0.x                          | v4 requires Safari 16.4+. Use v3 for broader compatibility unless targeting modern browsers only.                                                              |
-| WordPress Local Dev | Local by WP               | Docker, XAMPP, MAMP             | Local by WP best for solo freelancers. Docker better for teams/CI-CD. XAMPP/MAMP outdated.                                                                     |
-| WordPress Multisite | NO (separate installs)    | WordPress Multisite             | Multisite single point of failure, complex client migrations, shared resources cause performance issues. Use separate installs + management tool.              |
-| Page Builder        | Elementor Pro + Gutenberg | Oxygen, Bricks, Divi            | Elementor best balance of features/price for $500 sites. Gutenberg for lightweight content. Oxygen/Bricks faster but steeper learning curve.                   |
-
-**Confidence:** HIGH - Ecosystem analysis from multiple sources
-
----
+**No libraries needed.** Next.js 14 Metadata API and App Router handle all SEO primitives. JSON-LD implemented as inline script tag in server component.
 
 ## Installation
 
-### Portfolio Site (Next.js + Convex)
-
 ```bash
-# Create Next.js project
-bunx create-next-app@latest wp-designer --typescript --tailwind --app
+# Markdown rendering (public pages)
+bun add react-markdown remark-gfm rehype-highlight
 
-# Install Convex
-cd wp-designer
-bun add convex
-bunx convex dev
+# Markdown editor (admin only)
+bun add @uiw/react-md-editor
 
-# Install UI dependencies
-bunx shadcn@latest init
-bun add framer-motion next-themes lucide-react
-
-# Install form handling
-bun add react-hook-form zod @hookform/resolvers
-
-# Install SEO tools
-bun add next-sitemap
-bunx next-aeo@latest  # Run after build
-
-# Install utilities
-bun add clsx tailwind-merge date-fns
-
-# Optional: Analytics
-bun add @vercel/analytics @vercel/speed-insights
-
-# Auth (if using Clerk)
-bun add @clerk/nextjs
+# Utilities
+bun add slugify dayjs
 ```
 
-### WordPress Development
+Total added dependencies: 6 packages, ~50KB gzipped impact
 
-```bash
-# Download Local by WP
-# https://localwp.com/
+## Integration Points
 
-# Install WP-CLI globally (if not included)
-# https://wp-cli.org/
+### With Existing Stack
 
-# After Local site creation, access via CLI:
-wp plugin list
-wp db export backup.sql
-wp search-replace 'old-domain.local' 'new-domain.com'
-```
+**Next.js App Router:**
+- Blog list: `app/(home)/blog/page.tsx` (server component, uses Convex query)
+- Blog post: `app/(home)/blog/[slug]/page.tsx` (dynamic route, generateMetadata for SEO)
+- Admin editor: `app/admin/posts/new/page.tsx` ("use client", useMutation for save)
 
----
-
-## Configuration Files
-
-### convex.json
-
-```json
-{
-  "functions": "convex/",
-  "authInfo": [
-    {
-      "applicationID": "convex",
-      "domain": "https://your-clerk-domain.clerk.accounts.dev"
-    }
-  ]
-}
-```
-
-### next.config.ts
-
+**Convex Schema:**
 ```typescript
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  images: {
-    domains: ["your-convex-deployment.convex.cloud"],
-  },
-};
-
-export default nextConfig;
-```
-
-### tailwind.config.ts (Tailwind v3)
-
-```typescript
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-  ],
-  theme: {
-    extend: {
-      // shadcn/ui theme variables
-    },
-  },
-  plugins: [require("tailwindcss-animate")],
-};
-
-export default config;
-```
-
-### .env.local (Portfolio)
-
-```bash
-# Convex
-NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
-
-# Clerk (if using)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-
-# Optional: Analytics
-NEXT_PUBLIC_VERCEL_ANALYTICS_ID=...
-```
-
----
-
-## Architecture Patterns
-
-### Convex + Next.js App Router Integration
-
-**Client Component Wrapper Pattern:**
-
-```typescript
-// app/ConvexClientProvider.tsx
-'use client'
-
-import { ConvexProvider, ConvexReactClient } from 'convex/react'
-import { ConvexProviderWithClerk } from 'convex/react-clerk'
-import { ClerkProvider, useAuth } from '@clerk/nextjs'
-
-const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
-
-export function ConvexClientProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <ClerkProvider>
-      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        {children}
-      </ConvexProviderWithClerk>
-    </ClerkProvider>
-  )
-}
-```
-
-**Usage in layout.tsx:**
-
-```typescript
-// app/layout.tsx
-import { ConvexClientProvider } from './ConvexClientProvider'
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
-      </body>
-    </html>
-  )
-}
-```
-
-**Server-Side Rendering with preloadQuery:**
-
-```typescript
-// app/projects/page.tsx
-import { preloadQuery } from 'convex/nextjs'
-import { api } from '@/convex/_generated/api'
-
-export default async function ProjectsPage() {
-  const preloaded = await preloadQuery(api.projects.list)
-
-  return <ProjectsList preloaded={preloaded} />
-}
-```
-
----
-
-### Form Handling Pattern
-
-```typescript
-// app/contact/page.tsx
-'use client'
-
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-
-const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-})
-
-type ContactFormData = z.infer<typeof contactSchema>
-
-export default function ContactForm() {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
+// convex/schema.ts
+posts: defineTable({
+  title: v.string(),
+  slug: v.string(),        // URL-safe, unique
+  content: v.string(),     // Raw markdown
+  excerpt: v.string(),     // For list pages
+  category: v.string(),    // "local-business" | "tech"
+  imageUrl: v.optional(v.string()),  // External URL only
+  publishedAt: v.optional(v.number()),
+  authorId: v.id("users"),
+}).index("by_slug", ["slug"])
+  .searchIndex("search_posts", {
+    searchField: "content",
+    filterFields: ["category", "publishedAt"]
   })
-
-  const onSubmit = async (data: ContactFormData) => {
-    // Submit to Convex mutation or Server Action
-    await fetch('/api/contact', { method: 'POST', body: JSON.stringify(data) })
-  }
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('name')} />
-      {errors.name && <span>{errors.name.message}</span>}
-      {/* ... */}
-    </form>
-  )
-}
 ```
 
----
+**Tailwind v4:**
+- Markdown prose styling via @layer components in globals.css
+- Dark mode handled by existing CSS variables
+- Code blocks use existing --color-muted-foreground tokens
 
-### Dark Mode Pattern (shadcn/ui)
+**shadcn/ui:**
+- Form components (Input, Textarea) for title/excerpt fields
+- Button for save/publish actions
+- Tabs for editor/preview toggle (alternative to split-pane)
+- Badge for category pills
 
-```typescript
-// app/providers.tsx
-'use client'
+## Alternatives Considered
 
-import { ThemeProvider } from 'next-themes'
-
-export function Providers({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      {children}
-    </ThemeProvider>
-  )
-}
-```
-
-```typescript
-// components/theme-toggle.tsx
-'use client'
-
-import { useTheme } from 'next-themes'
-import { Moon, Sun } from 'lucide-react'
-
-export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
-
-  return (
-    <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-      <Sun className="dark:hidden" />
-      <Moon className="hidden dark:block" />
-    </button>
-  )
-}
-```
-
----
-
-### SEO Metadata Pattern
-
-```typescript
-// app/projects/[slug]/page.tsx
-import type { Metadata } from "next";
-
-export async function generateMetadata({ params }): Promise<Metadata> {
-  const project = await fetchProject(params.slug);
-
-  return {
-    title: project.title,
-    description: project.description,
-    openGraph: {
-      title: project.title,
-      description: project.description,
-      images: [{ url: project.image }],
-    },
-  };
-}
-```
-
----
+| Category | Recommended | Alternative | Why Not Alternative |
+|----------|-------------|-------------|---------------------|
+| Markdown rendering | react-markdown | MDX | Overkill - no need for JSX in markdown. Adds complexity and bundle size for blog content. Use for documentation sites, not blog posts. |
+| Markdown rendering | react-markdown | marked | Outputs HTML strings, requires dangerouslySetInnerHTML. Not React-native. Less safe. |
+| Syntax highlighting | rehype-highlight | Shiki | 280KB + WASM dependency breaks Lighthouse 100 target. Shiki quality advantage not worth 140x size penalty. |
+| Syntax highlighting | rehype-highlight | Prism.js | Requires client-side JS. rehype-highlight runs at render time (SSR-friendly). Prism unmaintained (2-3 years stale). |
+| Markdown editor | @uiw/react-md-editor | Tiptap | 50KB+ bundle, rich-text-first (markdown secondary). Requires custom export logic. Over-engineered for markdown blog. Use Tiptap when you need custom nodes/marks. |
+| Markdown editor | @uiw/react-md-editor | Novel | WYSIWYG-first, not markdown-first. Opinionated AI features (not needed). Heavier bundle. |
+| Date formatting | dayjs | date-fns | date-fns is 18KB without locales vs dayjs 6KB. date-fns tree-shaking advantage lost in App Router server components with client imports. |
+| Slug generation | slugify | Custom regex | Don't reinvent. slugify handles Unicode, transliteration, edge cases (Vietnamese, Arabic, German umlauts). |
 
 ## What NOT to Use
 
-**Avoid These:**
+| Avoid | Why | Use Instead |
+|-------|-----|-------------|
+| CMS platforms (Contentful, Sanity, Strapi) | $0 budget constraint. Convex provides all backend needs. CMS adds external dependency, breaks free tier goal. | Convex tables + queries |
+| File upload libraries (uploadthing, cloudinary) | External image URLs only (project constraint). Avoid storage costs. | Input field for imageUrl string |
+| Markdown-to-HTML parsers (marked, markdown-it) | Output raw HTML strings. Requires dangerouslySetInnerHTML. XSS risk if not sanitized. Not React-friendly. | react-markdown (renders to components) |
+| WYSIWYG editors (TinyMCE, CKEditor, Quill) | Rich text ≠ markdown. Heavyweight (100KB+). Designed for word processor UX, not markdown workflow. | @uiw/react-md-editor |
+| rehype-sanitize plugin | react-markdown is safe by default (ignores raw HTML). Sanitization adds bundle weight for no benefit. | None (react-markdown handles safety) |
+| Framer Motion for editor transitions | Already have CSS-only animation system. Framer Motion 50KB violates "no animation library" constraint from v1.1. | CSS transitions in globals.css |
 
-- **WordPress Multisite for client work** - Single point of failure, migration nightmare (40+ hours per site), shared resource performance issues
-- **Docker for solo WordPress development** - Overkill complexity vs Local by WP for this use case
-- **Moment.js** - Deprecated, use date-fns or native Intl API
-- **Create React App** - Deprecated, use Next.js or Vite
-- **Pages Router (Next.js)** - Use App Router for new projects
-- **Tailwind v4** - Wait until Safari 16.4+ adoption increases (unless targeting modern-only browsers)
-- **Complex AnimatePresence exit animations in App Router** - Known compatibility issues, use template.tsx pattern instead
+## Version Compatibility
 
-**Confidence:** HIGH - Verified anti-patterns from ecosystem
+| Package | Compatible With | Notes |
+|---------|----------------|-------|
+| react-markdown ^10.1.0 | React 18+ | Requires React 18 for automatic batching |
+| remark-gfm ^4.0.0 | react-markdown ^9.0.0+ | Unified ecosystem v11 (ESM-only) |
+| rehype-highlight ^7.0.0 | react-markdown ^9.0.0+ | Unified ecosystem v11 |
+| @uiw/react-md-editor ^4.0.11 | React 16.8+, Next.js 14+ | Known issue: requires "use client", not SSR-safe |
+| slugify ^1.6.6 | All environments | No peer dependencies |
+| dayjs ^1.11.13 | All environments | No peer dependencies |
 
----
+**Critical:** All unified packages (react-markdown, remark-gfm, rehype-highlight) are ESM-only. Next.js 14 handles this automatically - no configuration needed.
 
-## Version Verification Strategy
+## Convex Free Tier Impact
 
-This research was conducted on 2026-02-03. Given Claude's training data limitations:
+| Operation | Free Tier Limit | Projected Usage | Risk Assessment |
+|-----------|----------------|-----------------|-----------------|
+| Function calls | 1M/month | +~50K/month (blog reads, searches) | LOW - Well within budget |
+| Database reads | Unlimited | No additional cost | NONE |
+| Search queries | Counts as function call | ~5K/month (assuming 10 searches/day) | LOW |
+| Storage | 1GB | +~5MB (500 blog posts × 10KB avg) | NONE - Negligible |
 
-**HIGH Confidence (Verified with official docs):**
+**Conclusion:** Blog system adds ~5% to function call budget. Safe margin. Search index (1024 doc scan limit) prevents runaway queries.
 
-- Next.js, Convex, Tailwind, shadcn/ui core APIs
-- React Hook Form + Zod integration patterns
-- Vercel deployment configuration
+## Performance Budget
 
-**MEDIUM Confidence (WebSearch + multiple sources agree):**
+| Metric | Current (v1.1) | After Blog Addition | Target | Status |
+|--------|---------------|---------------------|--------|--------|
+| LCP | 132ms | ~150ms (image lazy loading) | <200ms | PASS |
+| CLS | 0 | 0 (no layout shift) | 0 | PASS |
+| INP | 24ms | ~30ms (editor interaction) | <50ms | PASS |
+| Bundle size (client) | ~120KB | ~170KB (+50KB markdown) | <250KB | PASS |
+| Lighthouse Score | 100 | 98-100 (±2 variance) | 95+ | PASS |
 
-- Specific version numbers (verify at install time)
-- AEO tools and emerging patterns (next-aeo, llms.txt)
-- WordPress hosting pricing (subject to change)
+**Bundle breakdown:**
+- react-markdown: ~20KB gzipped
+- @uiw/react-md-editor: ~4.6KB gzipped (admin only, code-split)
+- remark-gfm: ~5KB gzipped
+- rehype-highlight: ~8KB gzipped
+- slugify: ~2KB gzipped
+- dayjs: ~6KB gzipped
 
-**Recommended Verification:**
+**Code-splitting:** Editor only loads on admin routes via dynamic import. Public blog pages load react-markdown + plugins (~33KB total).
 
-```bash
-# Check latest stable versions before install
-bun pm ls --global
-bunx npm-check-updates
+## Implementation Pattern
+
+### Public Blog Post Page
+
+```typescript
+// app/(home)/blog/[slug]/page.tsx
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  const post = useQuery(api.posts.getBySlug, { slug: params.slug });
+
+  return (
+    <article className="prose prose-lg dark:prose-invert">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+      >
+        {post.content}
+      </ReactMarkdown>
+    </article>
+  );
+}
 ```
 
-**Update Schedule:**
+### Admin Editor
 
-- Review stack choices every 6 months
-- Monitor Next.js major releases (currently 15.x available, 14.x stable)
-- Watch Tailwind v4 browser compatibility metrics
-- Track AEO ecosystem evolution (llms.txt standard emerging)
+```typescript
+// app/admin/posts/new/page.tsx
+"use client";
+import MDEditor from "@uiw/react-md-editor";
 
----
+export default function NewPost() {
+  const [content, setContent] = useState("");
+  const createPost = useMutation(api.posts.create);
 
-## Sources & Further Reading
+  return (
+    <MDEditor
+      value={content}
+      onChange={(val) => setContent(val || "")}
+      height={600}
+    />
+  );
+}
+```
 
-**Core Framework:**
+### Convex Query with Search
 
-- [Next.js 14 Documentation](https://nextjs.org/docs)
-- [Convex Next.js Integration](https://docs.convex.dev/client/nextjs/app-router/)
-- [Convex + Clerk Best Practices](https://stack.convex.dev/authentication-best-practices-convex-clerk-and-nextjs)
+```typescript
+// convex/posts.ts
+export const search = query({
+  args: {
+    query: v.string(),
+    category: v.optional(v.string()),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    let results = ctx.db
+      .query("posts")
+      .withSearchIndex("search_posts", (q) =>
+        q.search("content", args.query)
+          .eq("category", args.category)
+      );
 
-**UI & Styling:**
+    return await results.paginate(args.paginationOpts);
+  },
+});
+```
 
-- [shadcn/ui Documentation](https://ui.shadcn.com/)
-- [Tailwind CSS v4 Release](https://tailwindcss.com/blog/tailwindcss-v4)
-- [shadcn/ui Portfolio Templates](https://allshadcn.com/templates/category/portfolio-templates/)
+## Security Considerations
 
-**Forms & Validation:**
+**XSS Protection:**
+- react-markdown ignores raw HTML by default (safe)
+- Never set `allowDangerousHtml` flag
+- External imageUrl validated on backend (URL format check)
+- Content-Security-Policy header blocks inline scripts
 
-- [React Hook Form + Zod Guide 2026](https://dev.to/marufrahmanlive/react-hook-form-with-zod-complete-guide-for-2026-1em1)
-- [Type-Safe Forms in Next.js 15](https://www.abstractapi.com/guides/email-validation/type-safe-form-validation-in-next-js-15-with-zod-and-react-hook-form)
+**Input Validation:**
+- Title: max 200 chars
+- Slug: validate against pattern /^[a-z0-9-]+$/ before DB write
+- Content: max 50KB (Convex document size limit is 1MB)
+- Category: enum validation ["local-business", "tech"]
 
-**SEO & AEO:**
+**Rate Limiting:**
+- Convex Auth protects admin mutations (authenticated users only)
+- Search queries: no rate limit needed (1024 doc scan cap prevents abuse)
 
-- [next-aeo Tool](https://www.tryprofound.com/blog/next-aeo)
-- [AEO Trends 2026](https://blog.hubspot.com/marketing/answer-engine-optimization-trends)
-- [Next.js SEO Best Practices 2026](https://medium.com/@alokkumar41558/next-js-seo-best-practices-guide-027325bf9339)
+## Migration Path
 
-**WordPress:**
+**Phase 1: Data model**
+- Add posts table to schema
+- Add search index on content field
+- Deploy Convex schema
 
-- [WordPress Local Development 2026](https://awp.agency/en/blog/how-to-make-wordpress-local-in-2026-definitive-guide-and-comparison-of-environments/)
-- [Best Page Builders 2026](https://belovdigital.agency/blog/the-best-page-builders-for-wordpress-in-2026/)
-- [WordPress Git Deployment](https://pantheon.io/learning-center/wordpress/staging-to-production)
-- [Budget WordPress Hosting 2026](https://elementor.com/blog/best-cheap-wordpress-hosting/)
+**Phase 2: Public rendering**
+- Install react-markdown, remark-gfm, rehype-highlight
+- Create blog list page with pagination
+- Create blog post page with markdown rendering
+- Add generateMetadata for SEO
+- Add JSON-LD for articles
 
-**Ecosystem Analysis:**
+**Phase 3: Admin CRUD**
+- Install @uiw/react-md-editor
+- Create admin posts list with search
+- Create new/edit post forms
+- Add slug auto-generation from title
+- Add publish/draft status
 
-- [React 19 Production Status](https://dev.to/manojspace/react-18-vs-react-19-key-differences-and-migration-tips-18op)
-- [Framer Motion App Router Challenges](https://github.com/vercel/next.js/issues/49279)
-- [WordPress Multisite vs Single](https://instawp.com/wordpress-multisite-vs-single-site/)
+**Phase 4: Content migration**
+- Add testimonials, caseStudies tables
+- Create admin CRUD pages (reuse patterns from posts)
+- Migrate hardcoded content to Convex
 
----
+No breaking changes to existing code. All additions are isolated to new routes.
 
-## Final Recommendations
+## Sources
 
-**For Portfolio Site (jpgerton.com):**
+**Markdown Libraries:**
+- [react-markdown documentation](https://github.com/remarkjs/react-markdown)
+- [Strapi: 5 Best Markdown Editors for React Compared](https://strapi.io/blog/top-5-markdown-editors-for-react)
+- [Techolyze: Best Next.js WYSIWYG Editors in 2026](https://techolyze.com/open/blog/best-nextjs-wysiwyg-editors/)
+- [@uiw/react-md-editor npm package](https://www.npmjs.com/package/@uiw/react-md-editor)
 
-1. **Start with Next.js 14 + React 18** for maximum stability
-2. **Use Convex** for backend - eliminates API complexity
-3. **shadcn/ui + Tailwind 3** for components - defer v4 until Safari adoption improves
-4. **Implement next-aeo** post-build for AI discoverability
-5. **Add Clerk via Convex** when ready for auth (can defer initially)
+**Syntax Highlighting:**
+- [npm-compare: Syntax Highlighting Libraries](https://npm-compare.com/highlight.js,prismjs,react-syntax-highlighter,shiki)
+- [chsm.dev: Comparing web code highlighters](https://chsm.dev/blog/2025/01/08/shiki-code-highlighting)
+- [Better Syntax Highlighting](https://dbushell.com/2024/03/14/better-syntax-highlighting/)
 
-**For WordPress Client Sites:**
+**Unified Plugins:**
+- [remarkjs GitHub discussions](https://github.com/orgs/remarkjs/discussions/718)
+- [remark-gfm documentation](https://github.com/remarkjs/remark-gfm)
 
-1. **Local by WP** for local development - fastest setup
-2. **Elementor Pro + Gutenberg hybrid** - balance speed and design freedom
-3. **Separate WordPress installs** per client - avoid Multisite trap
-4. **Hostinger hosting** as default recommendation - best value for $500 sites
-5. **Git + WP-CLI** for deployment automation as you scale
+**SEO:**
+- [Next.js Metadata API documentation](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)
+- [Next.js SEO Optimization Guide (2026 Edition)](https://www.djamware.com/post/697a19b07c935b6bb054313e/next-js-seo-optimization-guide--2026-edition)
+- [Next.js JSON-LD Guide](https://nextjs.org/docs/app/guides/json-ld)
 
-**Migration Path:**
+**Security:**
+- [Strapi: React Markdown Complete Guide 2025 - Security](https://strapi.io/blog/react-markdown-complete-guide-security-styling)
+- [PullRequest: Secure Markdown Rendering in React](https://www.pullrequest.com/blog/secure-markdown-rendering-in-react-balancing-flexibility-and-safety/)
 
-- Start simple (Convex DB, no CMS needed for 6 projects)
-- Add Clerk auth when you need user features
-- Consider Sanity headless CMS only if non-technical editors join
-- Monitor Tailwind v4 adoption, migrate when Safari 16.4+ reaches 90%+
-- Upgrade to Next.js 15 + React 19 when you need new features (not required immediately)
+**Convex:**
+- [Convex Full Text Search documentation](https://docs.convex.dev/search/text-search)
+- [Convex Pagination documentation](https://docs.convex.dev/database/pagination)
+- [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
 
-**Confidence Assessment:**
-
-- Stack choices: HIGH (verified with official docs)
-- Version numbers: MEDIUM-HIGH (subject to change, verify at install)
-- WordPress recommendations: HIGH (2026 ecosystem verified)
-- AEO patterns: MEDIUM (emerging standard, rapidly evolving)
-
-This stack balances modern best practices with production stability, optimized for solo developer velocity and client deliverability.
+**Utilities:**
+- [slugify npm package](https://www.npmjs.com/package/slugify)
+- [npm-compare: date-fns vs dayjs](https://npm-compare.com/date-fns,dayjs,moment)
+- [DhiWise: date-fns vs dayjs comparison](https://www.dhiwise.com/post/date-fns-vs-dayjs-the-battle-of-javascript-date-libraries)

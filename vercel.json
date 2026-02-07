@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "develop": false
+    }
+  },
+  "github": {
+    "enabled": true,
+    "autoAlias": true
+  },
+  "framework": "nextjs",
+  "buildCommand": "bun run build",
+  "installCommand": "bun install"
+}

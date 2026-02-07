@@ -1,165 +1,81 @@
 # Roadmap: jpgerton.com
 
-## Overview
+## Milestones
 
-This roadmap transforms Jon Gerton's portfolio vision into a dual-purpose platform serving local business owners seeking $500 WordPress sites and custom development clients. The journey starts with infrastructure foundation and public-facing content, layers on admin capabilities for content management, optimizes for discoverability through SEO/AEO, and culminates with WordPress delivery documentation enabling revenue operations. Each phase delivers verifiable user outcomes that build toward the core value: local business owners can see Jon's work, understand the $500 offer, and book a call in under 2 minutes.
+- v1.0 MVP - Phases 1-7 (shipped 2026-02-04)
+- v1.1 Design Polish - Phases 8-14 (shipped 2026-02-06)
+- v1.2 Content Layer + Launch - Phases 15-19 (shipped 2026-02-07)
 
 ## Phases
 
-**Phase Numbering:**
+<details>
+<summary>v1.0 MVP (Phases 1-7) - SHIPPED 2026-02-04</summary>
 
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+- [x] Phase 1: Infrastructure (5/5 plans) - completed 2026-02-04
+- [x] Phase 2: Projects & Home (4/4 plans) - completed 2026-02-04
+- [x] Phase 3: Services & Contact (7/7 plans) - completed 2026-02-04
+- [x] Phase 4: Admin Dashboard (7/7 plans) - completed 2026-02-04
+- [x] Phase 5: SEO, AEO & Performance (6/6 plans) - completed 2026-02-04
+- [x] Phase 6: WordPress Delivery System (6/6 plans) - completed 2026-02-04
+- [x] Phase 7: Business Protection (4/4 plans) - completed 2026-02-04
 
-Decimal phases appear between their surrounding integers in numeric order.
+Full details: [milestones/v1.0-ROADMAP.md](milestones/v1.0-ROADMAP.md)
 
-- [ ] **Phase 1: Infrastructure** - Foundation setup (Next.js, Convex, Docker, Tailwind, dark mode)
-- [ ] **Phase 2: Projects & Home** - Public portfolio content showcasing 6 indie projects
-- [ ] **Phase 3: Services & Contact** - Conversion-focused pages with Calendly and contact form
-- [ ] **Phase 4: Admin Dashboard** - Content management interface with authentication
-- [ ] **Phase 5: SEO, AEO & Performance** - Discoverability and optimization layer
-- [ ] **Phase 6: WordPress Delivery System** - Revenue operations documentation and templates
+</details>
 
-## Phase Details
+<details>
+<summary>v1.1 Design Polish (Phases 8-14) - SHIPPED 2026-02-06</summary>
 
-### Phase 1: Infrastructure
+- [x] Phase 8: Design Token Foundation (3/3 plans) - completed 2026-02-05
+- [x] Phase 9: Component Variant Extensions (3/3 plans) - completed 2026-02-05
+- [x] Phase 10: Typography & Color System (3/3 plans) - completed 2026-02-05
+- [x] Phase 11: Composition Components (3/3 plans) - completed 2026-02-05
+- [x] Phase 12: Animation Integration (3/3 plans) - completed 2026-02-05
+- [x] Phase 13: Page-Level Integration (3/3 plans) - completed 2026-02-06
+- [x] Phase 14: Performance & Accessibility Validation (4/4 plans) - completed 2026-02-06
 
-**Goal**: Developer can run the application locally and deploy to production with proper Git workflow and styling capabilities.
-**Depends on**: Nothing (first phase)
-**Requirements**: INFRA-01, INFRA-02, INFRA-03, INFRA-04, INFRA-05, INFRA-06, INFRA-07, INFRA-08, INFRA-09, INFRA-10, INFRA-11, INFRA-12
-**Success Criteria** (what must be TRUE):
+Full details: [milestones/v1.1-ROADMAP.md](milestones/v1.1-ROADMAP.md)
 
-1. `docker compose up` starts the entire dev environment on ports 3400-3499
-2. Code changes on host filesystem reflect immediately in running containers (volume mounts)
-3. No direct `bun dev` or `npx convex dev` on host - all execution through Docker
-4. Next.js app renders with Tailwind styles and shadcn/ui components working
-5. Convex backend connects successfully with type-safe queries executable from frontend
-6. User can toggle between dark and light mode with preference persisting across sessions
-7. Application deploys to Vercel only when merged to main branch (not on develop commits)
-8. GitHub repo has develop branch as default working branch, main branch protected
-9. GitHub Actions runs lint, type-check, and build on every PR
-10. PRs require passing checks before merge to main is allowed
-    **Plans**: 5 plans in 5 waves
+</details>
 
-Plans:
+<details>
+<summary>v1.2 Content Layer + Launch (Phases 15-19) - SHIPPED 2026-02-07</summary>
 
-- [ ] 01-01-PLAN.md - Initialize Next.js 14 with Git branching (main/develop)
-- [ ] 01-02-PLAN.md - Create Dockerized development environment with hot reload
-- [ ] 01-03-PLAN.md - Integrate Convex backend with type-safe queries
-- [ ] 01-04-PLAN.md - Configure Tailwind, shadcn/ui, and dark mode toggle
-- [ ] 01-05-PLAN.md - Setup GitHub Actions CI and Vercel deployment
+- [x] Phase 15: Content Schema + Backend (2/2 plans) - completed 2026-02-07
+- [x] Phase 16: Admin Content Management (3/3 plans) - completed 2026-02-07
+- [x] Phase 17: Public Blog Pages (2/2 plans) - completed 2026-02-07
+- [x] Phase 18: Content Integration (3/3 plans) - completed 2026-02-07
+- [x] Phase 19: Launch Prep + Tech Debt (3/3 plans) - completed 2026-02-07
 
-### Phase 2: Projects & Home
+Full details: [milestones/v1.2-ROADMAP.md](milestones/v1.2-ROADMAP.md)
 
-**Goal**: Visitor can view Jon's portfolio of 6 indie projects with descriptions, tech stacks, and links.
-**Depends on**: Phase 1
-**Requirements**: PROJ-01, PAGE-01, PAGE-02, PAGE-03, PROJ-02, PROJ-03
-**Success Criteria** (what must be TRUE):
-
-1. Visitor lands on home page and sees hero section with clear value proposition
-2. Home page displays 6 featured projects with screenshots and one-line descriptions
-3. Visitor can navigate to dedicated projects page showing filterable grid of all 6 projects
-4. Clicking a project card navigates to detail page with full description, tech stack tags, live URL, and GitHub repo link
-5. Project data model in Convex supports future reordering and featured flag functionality
-   **Plans**: TBD
-
-Plans:
-
-- [ ] 02-01: TBD during planning
-
-### Phase 3: Services & Contact
-
-**Goal**: Local business owner can understand the $500 WordPress offer and book a discovery call.
-**Depends on**: Phase 2
-**Requirements**: PAGE-04, SERV-01, SERV-02, SERV-03, SERV-04, SERV-05, PAGE-05, CONT-01, CONT-02, CONT-03, CONT-04, CONT-05, PAGE-06
-**Success Criteria** (what must be TRUE):
-
-1. Visitor navigates to services page and sees 3 distinct service tiers with clear pricing for $500 WordPress package
-2. $500 tier displays deliverables list (5-7 pages, mobile responsive, contact form, Google Maps, basic SEO)
-3. Visitor clicks "Book Your $500 Site Call" button and accesses Calendly booking interface
-4. Visitor submits contact form with name, email, message and receives confirmation
-5. Form submission stores in Convex database and triggers email notification
-6. Visitor can read about Jon's background and philosophy on dedicated about page
-7. Each page presents distinct CTAs matching visitor intent (WordPress booking vs custom inquiry)
-   **Plans**: TBD
-
-Plans:
-
-- [ ] 03-01: TBD during planning
-
-### Phase 4: Admin Dashboard
-
-**Goal**: Jon can manage project content and contact submissions without code deployments.
-**Depends on**: Phase 3
-**Requirements**: ADMIN-01, ADMIN-02, ADMIN-03, ADMIN-04, ADMIN-05, ADMIN-06
-**Success Criteria** (what must be TRUE):
-
-1. Jon logs into /admin route with email/password and accesses protected dashboard
-2. Dashboard home displays recent contact form submissions with quick stats
-3. Jon can create new project entry with all fields (name, description, screenshots, tech stack, links)
-4. Jon can edit existing project details and changes appear on public site immediately
-5. Jon can delete project and it disappears from public pages
-6. Jon can reorder projects via drag-and-drop and featured projects appear first on home page
-7. Jon can view contact submissions list, mark as read, and archive processed inquiries
-   **Plans**: TBD
-
-Plans:
-
-- [ ] 04-01: TBD during planning
-
-### Phase 5: SEO, AEO & Performance
-
-**Goal**: Search engines and AI assistants can discover, index, and recommend the portfolio site with optimal performance.
-**Depends on**: Phase 4
-**Requirements**: SEO-01, SEO-02, SEO-03, SEO-04, SEO-05, SEO-06, SEO-07, SEO-08, ANLYT-01, ANLYT-02, ANLYT-03, PERF-01, PERF-02, PERF-03, PERF-04
-**Success Criteria** (what must be TRUE):
-
-1. Every page has proper title tag, meta description, and Open Graph tags for social sharing
-2. Google Search Console shows all pages indexed with semantic HTML structure (h1, h2, landmarks)
-3. JSON-LD schema markup (LocalBusiness, Service, Person) validates in Google Rich Results Test
-4. Services page includes FAQ section with speakable markup for AI assistant discoverability
-5. llms.txt file generates via next-aeo for ChatGPT/Perplexity/Google AI Overviews discovery
-6. Dynamic sitemap.xml exists and includes all public pages
-7. Google Analytics 4 tracks page views and Calendly conversions with UTM parameters
-8. Lighthouse audit shows performance score > 90 on mobile and desktop
-9. Page load completes in under 3 seconds on standard connection
-10. All images load via Next.js Image component with automatic optimization
-11. Site displays correctly on iOS and Android devices without layout breaks
-    **Plans**: TBD
-
-Plans:
-
-- [ ] 05-01: TBD during planning
-
-### Phase 6: WordPress Delivery System
-
-**Goal**: Jon can deliver $500 WordPress sites profitably with documented processes protecting scope and payment.
-**Depends on**: Phase 5
-**Requirements**: WPDEL-01, WPDEL-02, WPDEL-03, WPDEL-04, WPDEL-05, WPDEL-06
-**Success Criteria** (what must be TRUE):
-
-1. Starter template documentation lists pre-configured theme and essential plugins for 5-day delivery
-2. Content workflow documentation guides intake process from client meeting through Claude-assisted drafting to approval
-3. Local staging setup instructions enable spinning up new client site in under 30 minutes
-4. Handoff checklist covers deployment steps, DNS configuration, and credentials transfer process
-5. Payment protection documentation enforces 50% upfront requirement and final payment before launch
-6. Scope control template documents included deliverables and change request process to prevent scope creep
-   **Plans**: TBD
-
-Plans:
-
-- [ ] 06-01: TBD during planning
+</details>
 
 ## Progress
 
-**Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Infrastructure | v1.0 | 5/5 | Complete | 2026-02-04 |
+| 2. Projects & Home | v1.0 | 4/4 | Complete | 2026-02-04 |
+| 3. Services & Contact | v1.0 | 7/7 | Complete | 2026-02-04 |
+| 4. Admin Dashboard | v1.0 | 7/7 | Complete | 2026-02-04 |
+| 5. SEO, AEO & Performance | v1.0 | 6/6 | Complete | 2026-02-04 |
+| 6. WordPress Delivery System | v1.0 | 6/6 | Complete | 2026-02-04 |
+| 7. Business Protection | v1.0 | 4/4 | Complete | 2026-02-04 |
+| 8. Design Token Foundation | v1.1 | 3/3 | Complete | 2026-02-05 |
+| 9. Component Variant Extensions | v1.1 | 3/3 | Complete | 2026-02-05 |
+| 10. Typography & Color System | v1.1 | 3/3 | Complete | 2026-02-05 |
+| 11. Composition Components | v1.1 | 3/3 | Complete | 2026-02-05 |
+| 12. Animation Integration | v1.1 | 3/3 | Complete | 2026-02-05 |
+| 13. Page-Level Integration | v1.1 | 3/3 | Complete | 2026-02-06 |
+| 14. Performance & Accessibility Validation | v1.1 | 4/4 | Complete | 2026-02-06 |
+| 15. Content Schema + Backend | v1.2 | 2/2 | Complete | 2026-02-07 |
+| 16. Admin Content Management | v1.2 | 3/3 | Complete | 2026-02-07 |
+| 17. Public Blog Pages | v1.2 | 2/2 | Complete | 2026-02-07 |
+| 18. Content Integration | v1.2 | 3/3 | Complete | 2026-02-07 |
+| 19. Launch Prep + Tech Debt | v1.2 | 3/3 | Complete | 2026-02-07 |
 
-| Phase                        | Plans Complete | Status           | Completed |
-| ---------------------------- | -------------- | ---------------- | --------- |
-| 1. Infrastructure            | 0/5            | Ready to execute | -         |
-| 2. Projects & Home           | 0/TBD          | Not started      | -         |
-| 3. Services & Contact        | 0/TBD          | Not started      | -         |
-| 4. Admin Dashboard           | 0/TBD          | Not started      | -         |
-| 5. SEO, AEO & Performance    | 0/TBD          | Not started      | -         |
-| 6. WordPress Delivery System | 0/TBD          | Not started      | -         |
+---
+
+*Roadmap created: 2026-02-04*
+*Last updated: 2026-02-07 (v1.2 milestone archived)*

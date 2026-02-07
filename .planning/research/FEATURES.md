@@ -1,255 +1,488 @@
-# Feature Landscape
+# Feature Research: Blog System & Content Management
 
-**Domain:** Developer Portfolio + Freelance Services Site
-**Researched:** 2026-02-03
-**Confidence:** HIGH (verified with current sources, dual-audience context)
+**Domain:** Blog/Content Management for Portfolio/Agency Site
+**Project:** jpgerton.com (WordPress services + technical portfolio)
+**Researched:** 2026-02-06
+**Confidence:** HIGH
 
 ## Executive Summary
 
-jpgerton.com serves two distinct audiences with different conversion goals:
+Portfolio sites in 2026 use blogs for dual-purpose content marketing: local business SEO (geographic + service keywords) and thought leadership (technical expertise). The research reveals a clear pattern: markdown-based workflows for single authors, minimal admin dashboards, and SEO-first architecture. Testimonials and case studies serve as social proof, often integrated into both dedicated pages and sprinkled throughout case study narratives.
 
-1. **Local business owners** (WordPress clients) - Need simple pricing, testimonials, booking
-2. **Hiring managers/custom clients** - Need technical depth, project showcases, capabilities
+**Key insight:** The blog must serve TWO distinct audiences (local businesses + tech hiring managers) without feeling fragmented. Category-based filtering and different content types (local business guides vs technical deep-dives) solve this elegantly.
 
-The feature set must serve both without confusing either. Research shows 72% of tech hiring managers prioritize portfolios over resumes, while local business clients respond to social proof and clear pricing. The winning approach: shared foundation (projects, testimonials, contact) with audience-specific CTAs and content depth.
+---
 
-## Table Stakes
+## Feature Landscape
 
-Features users expect. Missing these means visitors leave immediately.
+### Table Stakes (Users Expect These)
 
-| Feature                    | Why Expected                                                       | Complexity | Dependencies                  | Notes                                                      |
-| -------------------------- | ------------------------------------------------------------------ | ---------- | ----------------------------- | ---------------------------------------------------------- |
-| **Live Deployed Projects** | Recruiters spend ~5 minutes per candidate, need proof of real work | Medium     | Hosting, images, descriptions | 3-5 polished projects minimum, not everything you've built |
-| **Project Descriptions**   | Context matters - what problem did you solve, how, why?            | Low        | None                          | Include goal, scope, challenges, results for each          |
-| **Tech Stack Display**     | Both audiences need to know what you work with                     | Low        | None                          | Per-project + overall skills section                       |
-| **Contact Form**           | Primary conversion path for custom work                            | Low        | Email service                 | Keep to 3 fields max (25% conversion vs longer forms)      |
-| **Mobile Responsive**      | 32.5% conversion increase with mobile-optimized CTAs               | Medium     | Responsive framework          | Test across devices, all CTAs accessible                   |
-| **Fast Load Times**        | 7% conversion loss per second after 3s load                        | Medium     | Image optimization, hosting   | Use Lighthouse for testing                                 |
-| **Professional Domain**    | yourname.com is fundamental professionalism signal                 | Low        | Domain registrar              | jpgerton.com already decided                               |
-| **Testimonials**           | 86% of buyers use ratings to influence decisions                   | Low        | Client permission             | Photos, names, designations increase credibility           |
-| **GitHub Integration**     | Demonstrates actual code, standard expectation for developers      | Low        | GitHub API or links           | Link to profile + individual project repos                 |
-| **Clear Navigation**       | Single-page or multi, must be intuitive                            | Low        | None                          | Keep it simple, don't bury contact info                    |
-| **About/Bio Section**      | Visitors want to know who they're hiring                           | Low        | None                          | Brief, relevant to audience segment                        |
-| **Services List**          | Local business clients need to know what you offer                 | Low        | None                          | Specific to $500 WordPress package for that audience       |
+| Feature | Why Expected | Complexity | Dependencies | Notes |
+|---------|--------------|------------|--------------|-------|
+| **Blog post list page** | Standard on all blogs | Low | None | Filter by category, sort by date |
+| **Individual post pages** | Core reading experience | Low | None | Full markdown rendering, syntax highlighting |
+| **Category filtering** | Users expect to browse by topic | Low | Blog posts exist | Essential for dual-audience content |
+| **Author byline** | Social proof, credibility | Low | None | Name + photo (even single-author) |
+| **Publish date** | Freshness indicator, trust | Low | None | Display + sort capability |
+| **SEO metadata** | Bare minimum for discovery | Medium | None | Title, description, OG image per post |
+| **Article schema markup** | Google expects this | Low | Blog posts exist | BlogPosting type, author, datePublished |
+| **Responsive design** | Mobile-first web (50%+ traffic) | Low | Existing design system | Already handled by Tailwind |
+| **Syntax highlighting** | Expected for technical posts | Low | Markdown renderer | react-syntax-highlighter |
+| **Testimonial display page** | Social proof expectation | Low | None | Grid/list of all testimonials |
+| **Case study detail pages** | Portfolio standard | Medium | Existing CaseStudyVisual component | Challenge/Approach/Results format |
+| **Admin CRUD for posts** | Can't rely on Git workflow only | Medium | Convex auth | Create, edit, delete, publish/draft |
+| **Admin CRUD for testimonials** | Need to manage social proof | Low | Convex auth | Author, company, quote, photo |
+| **Admin CRUD for case studies** | Content management necessity | Medium | Convex auth | Challenge/approach/results + metrics |
 
-## Differentiators
+### Differentiators (Competitive Advantage)
 
-Features that set your site apart. Not expected, but highly valued when present.
+| Feature | Value Proposition | Complexity | Dependencies | Notes |
+|---------|-------------------|------------|--------------|-------|
+| **Markdown live preview editor** | Better DX than WYSIWYG, cleaner output | Medium | @uiw/react-md-editor | Two audiences see "I know markdown" = technical credibility |
+| **Dual-audience category system** | Serves both local + tech audiences without fragmentation | Low | Categories table | "Local Business" vs "Technical" top-level categories |
+| **Auto-generated OG images** | Unique social share images per post, zero design work | Medium | next/og ImageResponse | Uses post title + category color |
+| **Code snippet embedding** | Technical posts need runnable examples | Medium | MDX or react-markdown plugins | Differentiates from local-only competitors |
+| **Testimonial attribution richness** | Company name, logo, role, project type | Low | Testimonials schema | Better than "- John D." quotes |
+| **Case study metrics display** | Quantified results (50% faster, 10K visitors) | Low | Case studies schema | Separates amateur from pro portfolios |
+| **Related posts** | Keeps users engaged, reduces bounce | Medium | Category/tag relationships | Algorithm: same category + recent |
+| **Reading time estimate** | UX polish, expected on modern blogs | Low | Word count calculation | ~200 words/minute average |
+| **Draft/publish workflow** | Preview before going live | Low | Boolean field in schema | Essential for quality control |
+| **Slug customization** | SEO-friendly URLs, brand control | Low | Slug field + validation | Auto-generate from title, allow override |
 
-| Feature                                  | Value Proposition                                                       | Complexity | Dependencies                      | Notes                                                      |
-| ---------------------------------------- | ----------------------------------------------------------------------- | ---------- | --------------------------------- | ---------------------------------------------------------- |
-| **Dual-Audience Smart Routing**          | Avoid confusion - guide visitors to relevant content based on intent    | Medium     | Admin dashboard, content flags    | "Need a WordPress site?" vs "Custom development?" CTAs     |
-| **Calendly Integration**                 | Eliminates scheduling friction, 121% more conversions than generic CTAs | Low        | Calendly account, UTM tracking    | Embedded for $500 WordPress clients specifically           |
-| **Admin Dashboard (Content Management)** | Update projects, testimonials, services without code deployment         | High       | Convex integration, auth          | Already decided for this project                           |
-| **Case Study Format**                    | Deeper storytelling beyond project cards                                | Medium     | Time to write, images             | Metrics, before/after, client quotes                       |
-| **Video Demos/Walkthroughs**             | Show personality, explain complex projects                              | Medium     | Video hosting, recording          | Optional but high engagement                               |
-| **Pricing Transparency**                 | $500 WordPress package clearly stated builds trust                      | Low        | None                              | Local business clients expect this (freelance avg $1k-$5k) |
-| **Dark/Light Mode Toggle**               | Modern UX expectation for dev portfolios                                | Low        | CSS variables, localStorage       | Common in 2026 portfolios                                  |
-| **Interactive Elements**                 | Custom animations, 3D components demonstrate skills                     | High       | Animation libraries, perf testing | Don't sacrifice page speed (7%/sec loss)                   |
-| **Blog/Articles**                        | Demonstrates expertise, SEO benefits                                    | Medium     | CMS, writing time                 | Defer to post-MVP unless critical                          |
-| **Service Packages**                     | Tiered options (low/medium/high commitment) increase conversions        | Low        | Pricing research                  | $500 WP site (low), custom quote (high)                    |
-| **Google Reviews Display**               | 86% of local business buyers trust Google reviews                       | Low        | Google My Business API            | Specific to local business audience                        |
-| **Email Newsletter Signup**              | Low-commitment CTA for not-yet-ready visitors                           | Low        | Email service integration         | Medium conversion option                                   |
-| **UTM Tracking & Analytics**             | Know which campaigns/sources bring bookings                             | Low        | Google Analytics, UTM parameters  | Track Calendly conversions                                 |
-| **Before/After Showcases**               | Visual proof of transformation for local business clients               | Low        | Client permission, screenshots    | Powerful for WordPress package marketing                   |
-| **Live Chat**                            | Immediate engagement, but high maintenance                              | Medium     | Chat service subscription         | Consider async contact form first                          |
+### Anti-Features (Commonly Requested, Often Problematic)
 
-## Anti-Features
+| Anti-Feature | Why Requested | Why Problematic | Alternative | Priority |
+|--------------|---------------|-----------------|-------------|----------|
+| **Tag system** | "More ways to organize" | Creates duplicate content, keyword cannibalization, URL explosion | Use categories only, 1 primary category per post | AVOID |
+| **Multi-author support** | "Future-proofing" | Complex permissions, workflow overhead, YAGNI for single author | Hard-code author, add later if needed | DEFER |
+| **Comment system** | "Engagement!" | Spam magnet, moderation burden, low ROI for portfolio site | Contact form + social media discussion | AVOID |
+| **Newsletter integration** | "Build email list" | Separate concern, premium features need $, low open rates | Link to Substack/ConvertKit if needed later | DEFER |
+| **Post series/collections** | "Organize related posts" | Adds UI complexity, categories + "Part 1/2/3" in title works | Manual linking in post content | DEFER |
+| **Infinite scroll** | "Modern UX" | Breaks back button, kills SEO for pagination, accessibility issues | Simple pagination or "load more" | AVOID |
+| **Social share buttons** | "Virality!" | Slow page load (3rd party scripts), low actual usage, privacy concerns | Native browser share API on mobile, copy link | AVOID |
+| **View counter** | "Show popularity" | Vanity metric, new posts look unpopular, DB writes on read | Omit entirely, use internal analytics | AVOID |
+| **Rich media embedding** | "Embed videos/tweets" | Security risk (XSS), performance hit, breaks when 3rd party changes | Markdown image + link to source | DEFER |
+| **Version history** | "Track changes" | Complex UI, storage overhead, Git already does this | Git history is enough for single author | AVOID |
 
-Features to explicitly NOT build. Common mistakes in this domain.
-
-| Anti-Feature                           | Why Avoid                                                | What to Do Instead                                                  |
-| -------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Every Project You've Ever Built**    | Dilutes portfolio, overwhelms visitors                   | Curate 3-5 best, most relevant projects (quality over quantity)     |
-| **Outdated Projects**                  | Signals you're not current with technology               | Review annually, remove projects older than 2-3 years               |
-| **Overly Complex Navigation**          | Frustrates users, they leave                             | Single-page or simple multi-page, make contact obvious              |
-| **Excessive Animations/Sound Effects** | Distracts from work, frustrates users, hurts performance | Subtle interactions only, no auto-playing media                     |
-| **Template-Only Design**               | "Bootstrap only" signals you can't write custom code     | Show custom code abilities, use frameworks as foundation not crutch |
-| **Broken Links**                       | Immediate credibility killer                             | Test all project links before launch, regular audits                |
-| **Generic "Learn More" CTAs**          | 42% lower click-through than specific CTAs               | "Book Your $500 WordPress Site" vs "Learn More"                     |
-| **Long Contact Forms**                 | Each field reduces completion rate                       | 3 fields maximum (name, email, message)                             |
-| **Unclear Target Audience**            | Generic portfolios appeal to no one                      | Dual-audience routing, specific CTAs per segment                    |
-| **Missing Context on Projects**        | "What I built" without "why" or "how"                    | Include problem, approach, results for each                         |
-| **Social Media Feed Embedding**        | Distracting, performance hit, maintenance burden         | Link to profiles, don't embed live feeds                            |
-| **PDF Resume Download**                | Necessary evil, but don't make it primary CTA            | Offer it, but emphasize live projects and contact form              |
-| **Auto-Playing Videos**                | Annoying, accessibility issue, performance cost          | Click-to-play only                                                  |
-| **"Under Construction" Sections**      | Unprofessional, incomplete feeling                       | Launch complete sections only, add features later                   |
-| **Complex Blog/CMS from Start**        | Scope creep, delays launch                               | Defer blog to post-MVP unless writing is core service               |
-| **Custom Booking System**              | Reinventing wheel, maintenance burden                    | Use Calendly or similar (proven, tracked, integrated)               |
+---
 
 ## Feature Dependencies
 
 ```
-FOUNDATION (Launch blockers):
-├── Live Projects (3-5 minimum)
-│   ├── Deployed & working
-│   ├── Descriptions with context
-│   └── Tech stack listed
-├── Contact Form (3 fields max)
-├── Mobile Responsive Design
-└── Fast Performance (< 3s load)
+Blog System:
+  Posts Table (Convex)
+    ├─> Admin CRUD UI
+    ├─> Public List Page
+    │     ├─> Category Filter
+    │     └─> Date Sort
+    ├─> Public Detail Page
+    │     ├─> Markdown Renderer
+    │     ├─> Syntax Highlighter
+    │     ├─> Article Schema
+    │     └─> OG Image Generation
+    └─> Admin Editor
+          ├─> Markdown Live Preview
+          ├─> Slug Auto-generation
+          └─> Draft/Publish Toggle
 
-CONVERSION LAYER (Post-foundation):
-├── Testimonials (3-5 minimum)
-│   └── Photos + names + roles
-├── Calendly Integration
-│   └── UTM tracking configured
-├── Clear CTAs
-│   ├── "Book $500 WordPress Site"
-│   └── "Discuss Custom Project"
-└── Pricing Display ($500 package)
+Testimonials System:
+  Testimonials Table (Convex)
+    ├─> Admin CRUD UI
+    ├─> Public Display Page (grid/list)
+    └─> Existing TestimonialCard Component (replace placeholder data)
 
-DIFFERENTIATION (Post-MVP):
-├── Admin Dashboard (already planned)
-│   └── Requires: Convex + auth + UI
-├── Dual-Audience Routing
-│   └── Requires: Admin dashboard
-├── Case Studies
-│   └── Requires: Client permission + time
-├── Google Reviews
-│   └── Requires: Google My Business account
-└── Analytics & Tracking
-    └── Requires: GA4 + UTM setup
-
-DEFERRED (Nice to have):
-├── Blog/Articles
-├── Video Demos
-├── Dark Mode
-├── Newsletter
-└── Live Chat
+Case Studies System:
+  Case Studies Table (Convex)
+    ├─> Admin CRUD UI
+    ├─> Public Detail Pages
+    └─> Existing CaseStudyVisual Component (replace placeholder data)
 ```
 
-## Audience-Specific Feature Mapping
+**Critical path:** Posts table → Admin editor → Public list/detail pages → SEO (schema + OG images)
 
-### Local Business Owners ($500 WordPress Clients)
+**Existing components to leverage:**
+- TestimonialCard (components/portfolio/TestimonialCard.tsx) - already built, just needs real data
+- CaseStudyVisual (components/portfolio/CaseStudyVisual.tsx) - already built, just needs real data
+- Admin dashboard layout - extends existing Projects CRUD patterns
 
-**High Priority:**
+---
 
-- Clear $500 pricing display
-- Calendly booking CTA (prominent)
-- Testimonials from local businesses
-- Before/after WordPress site showcases
-- Google Reviews integration
-- Simple contact form (backup to Calendly)
-- "What you get" package details
+## MVP Definition
 
-**Low Priority:**
+### Launch With (v1.2 - This Milestone)
 
-- Technical depth on projects
-- GitHub links
-- Resume/PDF download
-- Blog/articles
+**Blog System:**
+- [ ] Posts table (Convex schema: title, slug, content, category, publishedAt, draft)
+- [ ] Admin post editor with markdown live preview (@uiw/react-md-editor)
+- [ ] Admin post list (draft/published filter, edit/delete actions)
+- [ ] Public /blog page (list all published posts, filter by category)
+- [ ] Public /blog/[slug] pages (full post, Article schema, syntax highlighting)
+- [ ] Category system (Local Business, Technical, Announcement - simple enum)
+- [ ] Auto-generated OG images (next/og ImageResponse with title + category color)
+- [ ] SEO metadata per post (title tag, meta description, canonical URL)
+- [ ] Reading time estimate
+- [ ] Slug auto-generation (title → kebab-case, with manual override)
 
-### Hiring Managers / Custom Project Clients
+**Testimonials System:**
+- [ ] Testimonials table (Convex schema: author, role, company, quote, photoUrl, projectType)
+- [ ] Admin testimonials CRUD (create/edit/delete)
+- [ ] Public /testimonials page (grid display using existing TestimonialCard)
+- [ ] Replace placeholder testimonials in existing components with real data
 
-**High Priority:**
+**Case Studies System:**
+- [ ] Case studies table (Convex schema: title, slug, challenge, approach, results, metrics, featured)
+- [ ] Admin case studies CRUD (create/edit/delete)
+- [ ] Public /case-studies page (list view)
+- [ ] Public /case-studies/[slug] pages (detail view using existing CaseStudyVisual)
+- [ ] Replace placeholder case studies in existing components with real data
 
-- Live deployed projects (3-5)
-- Technical descriptions (stack, challenges, solutions)
-- GitHub integration
-- Case studies with metrics
-- Skills/tech stack showcase
-- Contact form for custom inquiries
-- Resume/LinkedIn links
+**Launch Prep:**
+- [ ] Default OG image for non-blog pages (home, services, about, contact)
+- [ ] Site-wide structured data (Organization schema, WebSite schema with sitelinks searchbox)
+- [ ] Analytics placeholder (GA4 or Plausible, config only, Jon decides later)
+- [ ] 404 page (with helpful navigation back to main sections)
 
-**Low Priority:**
+**Rationale for MVP:**
+- Gets blog live for SEO content marketing (primary milestone goal)
+- Activates existing placeholder components (testimonials, case studies)
+- Completes site's content foundation (all major sections live)
+- OG images improve social sharing (portfolio visibility)
 
-- $500 WordPress pricing (may confuse or undersell)
-- Calendly for immediate booking (custom work needs scoping)
-- Package details
+### Add After Validation (v1.3+)
 
-**Shared Features:**
+**Blog Enhancements:**
+- [ ] Related posts algorithm (same category, sort by date, limit 3)
+- [ ] Tag system (IF category proves insufficient - research first)
+- [ ] Search functionality (client-side with Fuse.js or Algolia if traffic justifies)
+- [ ] RSS feed (nice-to-have for technical audience)
+- [ ] Code snippet copy button (UX polish for technical posts)
 
-- Professional design
-- Fast performance
-- Mobile responsive
-- Testimonials
-- About/bio
-- Clear navigation
+**Content Management:**
+- [ ] Bulk actions in admin (delete multiple, change category)
+- [ ] Image upload for blog posts (currently markdown image URLs only)
+- [ ] Testimonial featured toggle (highlight best on homepage)
+- [ ] Case study image galleries (currently single hero image)
 
-## MVP Recommendation
+**Analytics & Optimization:**
+- [ ] Popular posts widget (if analytics show traffic patterns)
+- [ ] A/B test CTA placements in blog posts
+- [ ] Performance monitoring for markdown rendering
 
-For MVP (launch-ready), prioritize:
+### Future Consideration (v2+)
 
-### Phase 1: Foundation (Weeks 1-2)
+- [ ] Multi-author support (if hiring or guest posts materialize)
+- [ ] Newsletter integration (if email list strategy emerges)
+- [ ] Comment system (explore Giscus - GitHub Discussions based, free)
+- [ ] Content scheduling (publish at future date)
+- [ ] Series/collections UI (if post series become common)
+- [ ] Internationalization (if serving non-English markets)
+- [ ] Video embedding (if creating video content)
 
-1. **3 Best Projects** - Deployed, described, with tech stacks
-2. **Contact Form** - 3 fields, email integration
-3. **Mobile Responsive** - Test across devices
-4. **Fast Performance** - Image optimization, Lighthouse score > 90
+---
 
-### Phase 2: Conversion (Weeks 3-4)
+## Feature Prioritization Matrix
 
-5. **3-5 Testimonials** - With photos, names, roles
-6. **Dual CTAs** - "Book $500 Site" + "Custom Work" routing
-7. **$500 Package Details** - What's included, clear pricing
-8. **Calendly Embed** - For WordPress client bookings only
+| Feature | User Value | Implementation Cost | Priority | Rationale |
+|---------|------------|---------------------|----------|-----------|
+| Blog post CRUD | 10 | Medium | P0 | Core milestone deliverable |
+| Markdown live preview | 8 | Medium | P0 | DX + credibility for tech audience |
+| Category filtering | 9 | Low | P0 | Solves dual-audience problem |
+| Auto OG images | 7 | Medium | P0 | Social sharing essential for portfolio visibility |
+| Article schema | 9 | Low | P0 | Google SEO table stakes |
+| Testimonials CRUD | 8 | Low | P0 | Leverages existing component, social proof |
+| Case studies CRUD | 8 | Medium | P0 | Leverages existing component, portfolio depth |
+| Syntax highlighting | 9 | Low | P0 | Required for technical posts |
+| Reading time | 5 | Low | P1 | Easy win, modern UX expectation |
+| Related posts | 6 | Medium | P1 | Engagement, but needs content first |
+| Slug customization | 7 | Low | P0 | SEO control essential |
+| Draft/publish toggle | 8 | Low | P0 | Quality control necessity |
+| Default OG images | 6 | Low | P0 | Complete SEO coverage |
+| Site-wide schema | 7 | Low | P0 | Organization + WebSite types |
+| RSS feed | 4 | Low | P2 | Nice-to-have for subset of users |
+| Search | 5 | High | P2 | YAGNI until content volume justifies |
+| Tags | 3 | Medium | P3 | Anti-feature (duplicate content risk) |
+| Comments | 2 | High | P3 | Anti-feature (spam, moderation) |
+| Newsletter | 5 | High | P2 | Separate concern, defer to 3rd party |
 
-### Phase 3: Differentiation (Weeks 5-6)
+**Priority levels:**
+- **P0:** Must ship in v1.2 (this milestone)
+- **P1:** Add in v1.3 after initial content published
+- **P2:** Evaluate after 3+ months of blog traffic data
+- **P3:** Avoid or defer indefinitely
 
-9. **Admin Dashboard** - For updating projects/testimonials
-10. **GitHub Integration** - Links to repos
-11. **UTM Tracking** - Know what's converting
+---
 
-### Defer to Post-MVP:
+## Complexity Estimates
 
-- **Blog/Articles** - Time-consuming, not launch-critical
-- **Video Demos** - Nice to have, production effort
-- **Google Reviews** - Need existing GMB presence
-- **Case Studies** - Deeper than project cards, can evolve from launch projects
-- **Dark Mode** - Polish, not conversion driver
-- **Newsletter** - Marketing channel, not launch requirement
-- **Before/After Showcases** - Need client permission, can add iteratively
+**Low complexity (1-2 hours):**
+- Convex schema definitions (posts, testimonials, case studies)
+- Admin list views (reuse existing Projects CRUD patterns)
+- Category filtering (enum + filter UI)
+- Reading time calculation (word count / 200)
+- Article schema markup (static JSON-LD)
+- Slug generation (simple string transform)
+- Draft/publish toggle (boolean field)
 
-## Complexity Analysis
+**Medium complexity (3-8 hours):**
+- Markdown editor with live preview (integrate @uiw/react-md-editor)
+- Admin post editor form (validation, auto-save to drafts)
+- Public blog list page (layout, filtering, sorting)
+- Public blog post pages (markdown rendering, syntax highlighting)
+- OG image generation (next/og setup, dynamic rendering)
+- Testimonials CRUD (form + validation)
+- Case studies CRUD (multi-field form, metrics input)
+- Default OG images (template design + generation)
 
-| Complexity | Features                                                                                                                                                                                                    | Est. Effort     |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
-| **Low**    | Contact form, testimonials, pricing display, nav, about, services list, GitHub links, CTAs, dark mode toggle, newsletter signup, email list, UTM params                                                     | 1-3 days total  |
-| **Medium** | Project showcases, mobile responsive, performance optimization, Calendly integration, case studies, video hosting, dual-audience routing, admin dashboard UI, analytics setup, Google reviews, before/after | 1-2 weeks total |
-| **High**   | Admin dashboard (full), interactive elements, live chat, custom animations                                                                                                                                  | 2-4 weeks total |
+**High complexity (8+ hours):**
+- Related posts algorithm (if needs ML/similarity beyond category matching)
+- Search functionality (indexing, UI, performance)
+- Multi-author permissions (not in scope)
+- Comment moderation system (not in scope)
 
-## Quality Gates
+**Total estimated effort for v1.2 MVP:** ~30-40 hours (P0 features only)
 
-Before launching each feature:
+---
 
-- [ ] **Mobile tested** - Works on iOS and Android
-- [ ] **Performance tested** - Lighthouse score maintained
-- [ ] **Links verified** - All CTAs, projects, GitHub links work
-- [ ] **Analytics configured** - Can track conversions
-- [ ] **Cross-browser tested** - Chrome, Safari, Firefox minimum
-- [ ] **Accessibility checked** - Keyboard nav, screen reader friendly
-- [ ] **Content proofread** - No typos, clear language per audience
+## Research Findings by Category
+
+### Blog Systems on Portfolio Sites (2026)
+
+**Purpose:** Dual-purpose content marketing
+- Local business SEO (geographic + service keywords)
+- Thought leadership (technical expertise showcase)
+- Consistency > volume (1 quality post/week > 10 rushed posts)
+
+**Content strategy patterns:**
+- "Ultimate Guides" and "How-To" posts perform best
+- Geographic targeting for local (e.g., "Anchorage WordPress developer")
+- Technical depth for hiring managers (e.g., "Next.js 16 performance optimization")
+- Google rewards expertise and authentic insights (helpful content update)
+
+**Technical implementation:**
+- Markdown-based workflows dominate for single authors
+- Live preview expected (WYSIWYG creates messy HTML)
+- Static site generation preferred (performance + SEO)
+- Next.js App Router + markdown = standard 2026 stack
+
+**SEO requirements:**
+- Article schema markup (BlogPosting type)
+- author, datePublished, dateModified, headline, image properties
+- One primary category per post (avoid tag-based duplicate content)
+- Canonical URLs for each post
+- OG images (1200x630px, unique per post)
+- Sitemap inclusion
+
+**Anti-patterns to avoid:**
+- Tag systems that create duplicate content
+- Infinite scroll (breaks back button, SEO pagination)
+- Feature creep (bloated CMS = slow editing)
+- Plugin overload (each adds code, slows site)
+- AI-generated shallow content (Google penalizes)
+
+### Markdown Editors (2026)
+
+**Top choices for React/Next.js:**
+- **@uiw/react-md-editor:** Lightweight, comment sections + blog editors, fast implementation
+- **MDXEditor:** Advanced WYSIWYG, eliminates preview pane, inline formatting
+- **react-markdown + SimpleMDE:** Classic split-pane approach
+
+**Implementation pattern:**
+- useState for content
+- Live preview with react-markdown or MDX
+- Syntax highlighting with react-syntax-highlighter
+- Auto-save to drafts (prevent content loss)
+
+**Admin dashboard design (2026 trends):**
+- Minimalism (show only what matters)
+- Content management without coding
+- Distraction-free writing environment
+
+### Testimonial Management
+
+**Display patterns:**
+- Grid layout for testimonials page (3-column on desktop)
+- Sprinkled throughout case studies (quotes at relevant stages)
+- Homepage social proof section (3-5 featured)
+- "Featured in" badges for authority
+
+**Schema requirements:**
+- Author name + role + company (attribution richness)
+- Author photo (headshot, builds trust)
+- Quote (150-300 words ideal)
+- Optional: project type, date, star rating
+
+**Admin needs:**
+- Simple CRUD (create/edit/delete)
+- Featured toggle (highlight best)
+- Photo upload or URL
+- No moderation workflow (manually added, not user-submitted)
+
+### Case Study Management
+
+**Structure (universal pattern):**
+1. **Challenge:** Client problem, context, stakes
+2. **Approach:** Solution, methodology, why this way
+3. **Results:** Quantified outcomes, metrics, client quote
+
+**Display patterns:**
+- Dedicated case study pages (detail view)
+- Portfolio grid (card preview with challenge/result)
+- Visual timeline or step-by-step
+- Metrics highlighted (badges, large numbers)
+
+**Content elements:**
+- Hero image or screenshot
+- Client logo + industry
+- Tags for filtering (industry, technology, service type)
+- Metrics (50% faster, 10K visitors, $5K revenue increase)
+- Testimonial quote (integrated in Results section)
+- Before/after comparisons
+
+**Admin needs:**
+- Multi-field form (title, challenge, approach, results, metrics)
+- Slug customization
+- Image upload (hero + gallery)
+- Featured toggle (homepage display)
+- Draft/publish workflow
+
+### OG Image Generation (Next.js 2026)
+
+**Current standard:** next/og with ImageResponse (preferred over @vercel/og)
+- Runs on Edge Runtime
+- Supports flexbox layouts, custom fonts
+- Renders JSX to image using Satori
+- 1200x630px optimal dimensions
+- Cache for 1 year (rarely change)
+
+**Implementation:**
+- `app/blog/[slug]/opengraph-image.tsx` for dynamic per-post
+- `app/opengraph-image.tsx` for default site-wide
+- Use post title + category color for visual differentiation
+
+**Template design patterns:**
+- Post title (large, serif font)
+- Category badge (color-coded)
+- Site branding (logo or domain)
+- Gradient or pattern background
+
+### Launch Prep Checklist
+
+**SEO completeness:**
+- [x] Home page meta + OG (already done in v1.1)
+- [x] Projects pages meta + OG (already done)
+- [x] Services page meta + OG (already done)
+- [x] About/Contact meta + OG (already done)
+- [ ] Blog post dynamic meta + OG
+- [ ] Default OG for non-blog pages
+- [ ] Organization schema (site-wide)
+- [ ] WebSite schema with sitelinks searchbox
+- [ ] Article schema per blog post
+- [ ] Sitemap.xml including blog posts
+
+**Analytics:**
+- [ ] GA4 or Plausible config
+- [ ] Event tracking (CTA clicks, form submissions)
+- [ ] Core Web Vitals monitoring
+
+**Error handling:**
+- [ ] 404 page (helpful navigation)
+- [ ] 500 page (generic error)
+- [ ] Form validation errors (user-friendly)
+
+**Performance:**
+- [ ] Image optimization (already using next/image)
+- [ ] Markdown rendering performance (memoization)
+- [ ] OG image caching (1 year)
+
+---
+
+## Confidence Assessment
+
+| Area | Confidence | Rationale |
+|------|------------|-----------|
+| Blog system patterns | HIGH | Multiple authoritative sources, consistent 2026 patterns |
+| Markdown editor choice | HIGH | @uiw/react-md-editor verified via official docs + comparison articles |
+| SEO requirements | HIGH | Google official docs for Article schema, verified OG image specs |
+| Testimonial display | HIGH | Consistent patterns across portfolio examples |
+| Case study structure | HIGH | Universal Challenge/Approach/Results format confirmed |
+| Anti-features | MEDIUM | Based on SEO best practices (tags = duplicate content) and CMS common mistakes articles |
+| Complexity estimates | MEDIUM | Based on similar Convex + Next.js patterns from v1.0/v1.1 |
+
+**Sources of uncertainty:**
+- Exact markdown library choice (@uiw vs MDXEditor) - both viable, @uiw simpler
+- Related posts algorithm specifics - needs A/B testing with real content
+- Analytics platform (GA4 vs Plausible) - deferred to Jon's preference
+
+---
+
+## Gaps to Address
+
+**Decisions needed from Jon:**
+1. Analytics platform preference (GA4 free but complex, Plausible paid but simple)
+2. Whether to enable tags in addition to categories (research recommends category-only)
+3. Comment strategy (recommend defer to social media, but confirm)
+4. Newsletter integration timing (recommend defer to v1.3+)
+
+**Technical unknowns to explore during implementation:**
+1. Markdown rendering performance with large posts (may need memoization or SSG)
+2. OG image generation Edge Runtime limits on Vercel free tier
+3. Convex query performance with 50+ blog posts (pagination strategy)
+
+**Content strategy gaps:**
+1. Initial blog post topics (needs content calendar)
+2. Testimonial collection process (email template for clients)
+3. Case study selection (which of 6 projects get full treatment)
+
+---
 
 ## Sources
 
-### Table Stakes Research
+### Blog & Portfolio Best Practices
+- [5 Best Portfolio Website Builders Creators Are Using in 2026](https://emergent.sh/learn/best-portfolio-website-builders)
+- [How to Make a Portfolio Website: The Definitive Guide for 2026](https://elementor.com/blog/how-to-make-a-portfolio-website/)
+- [Best Web Developer Portfolio Examples from Top Developers in 2026](https://elementor.com/blog/best-web-developer-portfolio-examples/)
+- [23 portfolio website examples, plus best practices to attract clients | Webflow Blog](https://webflow.com/blog/design-portfolio-examples)
+- [Starting a Blog in 2026: An Overview | by Neasa Schukat | Medium](https://medium.com/creative-black-pug-studio/starting-a-blog-in-2026-an-overview-0f9d3d97bfed)
 
-- [Colorlib: 22 Best Developer Portfolios (Examples) 2026](https://colorlib.com/wp/developer-portfolios/)
-- [Elementor: Best Web Developer Portfolio Examples from Top Developers in 2026](https://elementor.com/blog/best-web-developer-portfolio-examples/)
-- [Nucamp: Top 10 Full Stack Portfolio Projects for 2026](https://www.nucamp.co/top-10-full-stack-portfolio-projects-for-2026-that-actually-get-you-hired)
-- [ApplyBuddy: How to Build a Strong Tech Portfolio in 2026](https://applybuddy.co.uk/how-to-build-a-strong-tech-portfolio-in-2026/)
+### Testimonial & Case Study Management
+- [Testimonial's Portfolio Page Builder: A New Way to Showcase Your Business](https://testimonial.to/resources/portfolio-builder)
+- [I Tried 25 Testimonial Collection Tools (These 9 Work Best in 2026)](https://wiserreview.com/blog/testimonial-software/)
+- [Showcase of Case Studies in Design Portfolios — Smashing Magazine](https://www.smashingmagazine.com/2009/09/showcase-of-case-studies-in-design-portfolios/)
+- [The Ultimate UX Case Study Template & Structure (2026 Guide)](https://blog.uxfol.io/ux-case-study-template/)
+- [How to write the perfect web design case study to win more clients | Webflow Blog](https://webflow.com/blog/write-the-perfect-case-study)
 
-### Conversion Optimization
+### Markdown Editors for React/Next.js
+- [GitHub - uiwjs/react-md-editor: A simple markdown editor with preview, implemented with React.js and TypeScript.](https://github.com/uiwjs/react-md-editor)
+- [5 Best Markdown Editors for React Compared](https://strapi.io/blog/top-5-markdown-editors-for-react)
+- [Build a Markdown Blog with Next.js and React Markdown | The Tech Pulse](https://medium.com/the-tech-pulse/just-files-build-a-blog-with-next-js-and-react-markdown-305935c86aca)
+- [Building a Feature-Rich Markdown Editor in Next.js | by @rnab | Medium](https://arnab-k.medium.com/building-a-feature-rich-markdown-editor-in-next-js-71c83b9c9787)
+- [12 Best Markdown Editors for 2026 (Our Top Picks)](https://www.shyeditor.com/blog/post/best-markdown-editor)
 
-- [Sixth City Marketing: 30+ Call-to-Action Statistics for 2026](https://www.sixthcitymarketing.com/call-to-action-stats/)
-- [Good Fellas: Small Business Website Must-Haves: 2026 Conversion Checklist](https://www.goodfellastech.com/blog/small-business-website-must-haves-2026-conversion-checklist)
-- [WebFX: 5 Examples of Websites That Convert in 2026](https://www.webfx.com/blog/web-design/examples-of-websites-that-convert/)
+### SEO & Schema Markup
+- [Learn About Article Schema Markup | Google Search Central | Documentation | Google for Developers](https://developers.google.com/search/docs/appearance/structured-data/article)
+- [Schema Markup for Blogs: A Complete Guide to Boosting SEO and Visibility](https://www.pageoptimizer.pro/blog/schema-markup-for-blogs-a-complete-guide-to-boosting-seo-and-visibility)
+- [Schema Markup Guide: Step-by-Step SEO Strategy for 2026](https://www.clickrank.ai/schema-markup/)
+- [Categories and Tags on Your Blog: How to Use Them the Right Way | SEO / SEM Agency: Delante Blog](https://delante.co/categories-and-tags-on-the-blog/)
+- [Taxonomy SEO: How to optimize your categories and tags • Yoast](https://yoast.com/taxonomy-seo-categories-tags/)
 
-### Freelance Services
+### OG Image Generation
+- [Generate Dynamic OG Images with Next.js 16](https://makerkit.dev/blog/tutorials/dynamic-og-image)
+- [How to Automatically Generate Unique OG Images for Every Page in Next.js 15.4+ | Build with Matija](https://www.buildwithmatija.com/blog/complete-guide-dynamic-og-image-generation-for-next-js-15)
+- [Getting Started: Metadata and OG images | Next.js](https://nextjs.org/docs/app/getting-started/metadata-and-og-images)
+- [Metadata Files: opengraph-image and twitter-image | Next.js](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/opengraph-image)
 
-- [Rapyd Cloud: Unlock Your WordPress Freelancing Potential](https://rapyd.cloud/blog/wordpress-freelance-success-guide/)
-- [Pressable: WordPress Freelancing: The Ultimate Guide](https://pressable.com/blog/a-complete-guide-to-starting-your-wordpress-freelance-business/)
-- [Prismic: How much should you charge for a website in 2026?](https://prismic.io/blog/how-much-should-you-charge-for-a-website)
+### Content Strategy & Business Blogging
+- [The Ultimate Guide to Blogging for Business in 2026 (and Why You Should Still Do It!)](https://www.socialnicole.com/ultimate-guide-blogging-for-business-2026/)
+- [Why do we need SEO in 2026: The complete guide](https://nestcontent.com/blog/why-do-we-need-seo)
+- [How to Build Your 2026 Content Strategy | Intrepid Digital](https://www.intrepidonline.com/blog/content/how-build-your-2026-content-strategy/)
+- [23 Business Blogging Statistics of 2026 (Latest Data)](https://www.demandsage.com/business-blogging-statistics/)
 
-### Anti-Features & Mistakes
+### CMS Anti-Patterns & Common Mistakes
+- [How to Avoid Common CMS Mistakes in 2026](https://digiteins.com/how-to-avoid-common-cms-mistakes/)
+- [CMS Feature Creep Is Real: Why Too Many Options Hurt Teams](https://www.concretecms.com/about/blog/web-design/cms-feature-creep-is-real-why-too-many-options-hurt-teams)
+- [17 SEO mistakes to avoid in 2026 - Productive Blogging](https://www.productiveblogging.com/seo-mistakes-to-avoid/)
+- [How Tags and Categories Create Duplicate Content: Use with Caution](https://savyagency.com/tags-and-categories-create-duplicate-content/)
 
-- [Dev Portfolio Templates: 5 Mistakes Developers Make](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
-- [LinkedIn: How to Avoid Common Web Developer Portfolio Mistakes](https://www.linkedin.com/advice/0/what-most-important-things-avoid-your-web-developer-lk51e)
-- [DEV Community: What I learned after reviewing over 40 developer portfolios](https://dev.to/kethmars/what-i-learned-after-reviewing-over-40-developer-portfolios-9-tips-for-a-better-portfolio-4me7)
-
-### Technical Implementation
-
-- [WeWeb: Admin Dashboard: Ultimate Guide, Templates & Examples (2026)](https://www.weweb.io/blog/admin-dashboard-ultimate-guide-templates-examples)
-- [Webflow: Integrate Calendly with Webflow](https://webflow.com/integrations/calendly)
-- [Able CDP: Calendly Conversion Tracking And Attribution](https://www.ablecdp.com/integration-setup/calendly)
+### CMS Platforms for Portfolio Sites
+- [CMS for Portfolio Website · BCMS](https://thebcms.com/cms-for-portfolio-website)
+- [18 CMS Platforms For Building Portfolio Websites | Marketer Interview](https://marketerinterview.com/18-cms-platforms-for-building-portfolio-websites/)

@@ -1,0 +1,49 @@
+# Get Your Business Online
+
+This website provides professional web development services focused on helping local businesses establish their online presence quickly and effectively. With an emphasis on straightforward communication and fixed pricing, it caters to small business owners who need reliable, user-friendly websites, such as WordPress sites, as well as custom web applications.
+
+## About My Work
+
+The "How I Work" page outlines a simple four-step process to help clients get online efficiently:
+1. **Discovery Call** - A brief chat to understand the client's goals and needs.
+2. **Content & Design** - Building the site using client-provided content and brand elements, with a chance for one round of revisions.
+3. **Launch** - The site goes live within 5 business days, with all technical details managed.
+4. **Ongoing Support** - Clients receive 30 days of support post-launch with continued availability for questions.
+
+**What You Can Expect:**
+- **No Jargon:** Clear explanations without technical jargon.
+- **Fixed Pricing:** Transparent costs with no hidden fees.
+- **Real Experience:** Over 18 years in web development, offering insights into effective solutions.
+
+## Services Offered
+
+The services page provides detailed information on offerings, including:
+- **$500 WordPress Sites:** Professional, mobile-friendly websites delivered in 5 business days, inclusive of SEO and customer support.
+- **Custom Web Applications:** Tailored solutions for unique business requirements with modern technology stacks.
+- **Team Growth Accelerator:** Mentorship and support for development teams to enhance skills and best practices.
+
+### Features of WordPress Sites
+- Mobile-responsive designs.
+- Basic search engine optimization for better visibility.
+- Contact forms to enhance customer communication.
+
+## Contact Me
+
+The contact page invites visitors to discuss their projects. It includes options for:
+- **Sending a Message:** Clients can describe their needs and expect a response within one business day.
+- **Booking a Call:** Scheduling a free 15-minute discovery call.
+- **Other Connections:** Direct email and social media links to facilitate communication.
+
+## FAQ
+
+This section answers common questions related to the services, including delivery timelines, what’s included in the WordPress package, and support for post-launch updates. It clarifies that the services are available to businesses outside Alaska and emphasizes the ease of updating the website following a brief training.
+
+## Thank You Page
+
+After a contact form submission, clients receive confirmation that their message has been received, along with next steps for project discussion.
+
+## Links
+- [Get Your Business Online](/services)
+- [View My Work](/projects)
+- [Send a Message](/contact)
+- [Book a Call](/contact)

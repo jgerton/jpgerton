@@ -1,565 +1,964 @@
-# Architecture Patterns: Next.js 14 + Convex Portfolio Site
+# Architecture Research: Blog & Content Management Integration
 
-**Project:** jpgerton.com
-**Researched:** 2026-02-03
+**Domain:** Blog/Content Management for Next.js 14 + Convex Portfolio Site
+**Researched:** 2026-02-06
 **Confidence:** HIGH
 
 ## Executive Summary
 
-Modern Next.js 14 + Convex applications follow a **strict separation of concerns** pattern where backend logic lives in the `convex/` folder and frontend code lives in `app/` or `src/app/`. The architecture emphasizes server-first rendering with client components for reactive features, unified through a provider-based pattern that maintains a persistent WebSocket connection for real-time data synchronization.
+This research covers integrating blog posts, testimonials, and case studies into the existing jpgerton.com portfolio architecture (Next.js 14 App Router + Convex + Tailwind v4). The architecture extends proven patterns from the existing projects table to new content types while maintaining server-first rendering for SEO and leveraging Convex's real-time capabilities for admin features.
 
-For a portfolio site with admin dashboard, this translates to:
+**Key architectural decisions:**
+- Markdown stored in Convex, rendered server-side with remark/rehype
+- Three new tables: blogPosts, testimonials, caseStudies
+- Existing admin layout pattern extended with new tabs
+- Existing composition components (TestimonialCard, CaseStudyVisual) populated with real data
+- Server Components for public pages, Client Components for admin CRUD
+- Static generation for blog posts with ISR fallback
 
-- **Public pages** rendered as Server Components for optimal SEO and performance
-- **Admin dashboard** using Client Components for reactive CRUD operations
-- **Shared data layer** in Convex providing type-safe queries and mutations
-- **Authentication boundary** enforced via Next.js middleware and Convex Auth
-
-## Recommended Architecture
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    Next.js App (Frontend)                    │
-│ ┌─────────────────────────────────────────────────────────┐ │
-│ │  App Router                                             │ │
-│ │  ├── / (public pages - Server Components)              │ │
-│ │  │   ├── Home, Projects, Services, Contact, About      │ │
-│ │  │   └── SEO optimized, static when possible           │ │
-│ │  │                                                       │ │
-│ │  ├── /admin (protected - Client Components)            │ │
-│ │  │   ├── Dashboard, Projects CRUD, Contact Manager     │ │
-│ │  │   └── Reactive UI, optimistic updates               │ │
-│ │  │                                                       │ │
-│ │  └── middleware.ts (auth boundary)                     │ │
-│ └─────────────────────────────────────────────────────────┘ │
-│                           │                                  │
-│                 ConvexClientProvider                         │
-│                  (WebSocket connection)                      │
-│                           │                                  │
-└───────────────────────────┼──────────────────────────────────┘
-                            │
-┌───────────────────────────┼──────────────────────────────────┐
-│                    Convex Backend                            │
-│ ┌─────────────────────────────────────────────────────────┐ │
-│ │  convex/                                                │ │
-│ │  ├── schema.ts (data model)                            │ │
-│ │  │   ├── projects table                                │ │
-│ │  │   └── contactSubmissions table                      │ │
-│ │  │                                                       │ │
-│ │  ├── queries/ (read operations)                        │ │
-│ │  │   ├── getProjects.ts                                │ │
-│ │  │   ├── getProject.ts                                 │ │
-│ │  │   └── getContactSubmissions.ts                      │ │
-│ │  │                                                       │ │
-│ │  ├── mutations/ (write operations)                     │ │
-│ │  │   ├── createProject.ts, updateProject.ts, etc.     │ │
-│ │  │   ├── deleteProject.ts, reorderProjects.ts         │ │
-│ │  │   └── createContactSubmission.ts                    │ │
-│ │  │                                                       │ │
-│ │  └── auth.ts (Convex Auth configuration)              │ │
-│ └─────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Component Boundaries
-
-### 1. Next.js Frontend Layer
-
-| Component                                        | Responsibility                     | Type              | Communicates With                      |
-| ------------------------------------------------ | ---------------------------------- | ----------------- | -------------------------------------- |
-| **Public Pages** (`app/`, `app/projects/`, etc.) | Render marketing/portfolio content | Server Components | Convex queries (via preload)           |
-| **Admin Pages** (`app/admin/*`)                  | Provide CRUD interface             | Client Components | Convex queries & mutations (via hooks) |
-| **ConvexClientProvider**                         | Establish WebSocket connection     | Client Component  | ConvexReactClient                      |
-| **middleware.ts**                                | Protect admin routes               | Middleware        | Convex Auth                            |
-| **Layout Components**                            | Shared UI structure                | Server or Client  | Child components                       |
-
-### 2. Convex Backend Layer
-
-| Component      | Responsibility                   | Communicates With       |
-| -------------- | -------------------------------- | ----------------------- |
-| **schema.ts**  | Define data model, validation    | All queries/mutations   |
-| **queries/**   | Read operations with indexes     | Database tables         |
-| **mutations/** | Write operations with validation | Database tables         |
-| **auth.ts**    | Authentication configuration     | Convex Auth, middleware |
-
-### 3. Data Tables
-
-| Table                  | Purpose                  | Fields                                                                            | Relationships          |
-| ---------------------- | ------------------------ | --------------------------------------------------------------------------------- | ---------------------- |
-| **projects**           | Store portfolio projects | id, title, description, techStack, imageUrl, liveUrl, githubUrl, order, createdAt | None (simple list)     |
-| **contactSubmissions** | Store contact form data  | id, name, email, message, source (calendly/form), status, createdAt               | None                   |
-| **users**              | Admin authentication     | id, email, name, role                                                             | Managed by Convex Auth |
-
-## Data Flow Patterns
-
-### Pattern 1: Public Page Rendering (SSR)
+## System Overview
 
 ```
-User visits /projects
-    ↓
-Server Component renders
-    ↓
-Calls Convex query via preloadQuery (server-side)
-    ↓
-Returns HTML with project data
-    ↓
-Client hydrates (no WebSocket needed for read-only)
+┌─────────────────────────────────────────────────────────────────┐
+│                        PUBLIC SITE                              │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  /blog (list) ────────┐                                        │
+│  /blog/[slug] ────────┼──> Server Components                   │
+│  /projects/[slug] ────┘    ├─> generateMetadata (SEO)         │
+│                            ├─> fetchQuery (Convex SSR)         │
+│                            └─> react-markdown (RSC)            │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                        ADMIN DASHBOARD                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  /admin/blog ─────────┐                                        │
+│  /admin/testimonials ─┼──> Client Components                   │
+│  /admin/case-studies ─┘    ├─> useQuery/useMutation           │
+│                            ├─> dnd-kit (drag reorder)          │
+│                            └─> ConfirmDialog (delete)          │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                        CONVEX BACKEND                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  blogPosts table ─────┐                                        │
+│  testimonials table ──┼──> Schema + Indexes                    │
+│  caseStudies table ───┘    ├─> Queries (list, getBySlug)      │
+│                            ├─> Mutations (CRUD + reorder)      │
+│                            └─> Auth checks (getAuthUserId)     │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-**When to use:** Public pages, SEO-critical content, static data
-**Benefits:** Optimal performance, SEO friendly, no client-side data fetching delay
-
-### Pattern 2: Admin Dashboard (Reactive)
+## Recommended Project Structure
 
 ```
-Admin visits /admin/projects
-    ↓
-Client Component mounts
-    ↓
-useQuery hook subscribes via WebSocket
-    ↓
-Convex returns data + maintains subscription
-    ↓
-Admin edits project
-    ↓
-useMutation triggers write
-    ↓
-Mutation executes, DB updates
-    ↓
-All subscribed useQuery hooks auto-update
-    ↓
-UI re-renders with new data
+wp-designer/
+├── app/
+│   ├── (home)/
+│   │   └── page.tsx                    # Existing landing page
+│   ├── blog/
+│   │   ├── page.tsx                    # NEW: Blog list (Server Component)
+│   │   └── [slug]/
+│   │       └── page.tsx                # NEW: Blog post detail (Server Component)
+│   ├── admin/
+│   │   ├── layout.tsx                  # MODIFY: Add blog/testimonials/case-studies tabs
+│   │   ├── blog/
+│   │   │   ├── page.tsx                # NEW: Blog list admin (Client Component)
+│   │   │   ├── new/
+│   │   │   │   └── page.tsx            # NEW: Create blog post
+│   │   │   └── [id]/
+│   │   │       └── edit/
+│   │   │           └── page.tsx        # NEW: Edit blog post
+│   │   ├── testimonials/
+│   │   │   ├── page.tsx                # NEW: Testimonials admin
+│   │   │   └── ...                     # NEW: CRUD pages
+│   │   └── case-studies/
+│   │       ├── page.tsx                # NEW: Case studies admin
+│   │       └── ...                     # NEW: CRUD pages
+│   ├── projects/
+│   │   └── [slug]/
+│   │       └── page.tsx                # MODIFY: Add real case study data
+│   └── about/
+│       └── page.tsx                    # MODIFY: Add real testimonials
+├── components/
+│   ├── admin/
+│   │   ├── admin-tabs.tsx              # MODIFY: Add new tabs
+│   │   ├── markdown-editor.tsx         # NEW: Rich markdown editor
+│   │   ├── sortable-blog-list.tsx      # NEW: Drag-to-reorder blog posts
+│   │   ├── sortable-testimonial-list.tsx # NEW: Drag-to-reorder testimonials
+│   │   └── blog-post-form.tsx          # NEW: Blog post form fields
+│   ├── blog/
+│   │   ├── blog-post-card.tsx          # NEW: Blog preview card
+│   │   ├── blog-post-content.tsx       # NEW: Markdown renderer wrapper
+│   │   └── blog-post-meta.tsx          # NEW: Author, date, reading time
+│   └── portfolio/
+│       ├── testimonial-card.tsx        # EXISTING: Already supports props
+│       ├── case-study-visual.tsx       # EXISTING: Already supports props
+│       └── social-proof-display.tsx    # EXISTING: Already supports metrics
+├── convex/
+│   ├── schema.ts                       # MODIFY: Add new tables
+│   ├── blogPosts.ts                    # NEW: Blog queries/mutations
+│   ├── testimonials.ts                 # NEW: Testimonials queries/mutations
+│   ├── caseStudies.ts                  # NEW: Case studies queries/mutations
+│   └── projects.ts                     # EXISTING: Pattern to replicate
+└── lib/
+    ├── markdown.ts                     # NEW: remark/rehype utilities
+    ├── slug.ts                         # NEW: Slug generation/validation
+    └── reading-time.ts                 # NEW: Calculate reading time
 ```
 
-**When to use:** Admin CRUD operations, real-time features
-**Benefits:** Automatic reactivity, optimistic updates, no manual cache invalidation
+## Convex Schema Design
 
-### Pattern 3: Contact Form Submission
-
-```
-Visitor fills form on /contact (Client Component section)
-    ↓
-useMutation("createContactSubmission")
-    ↓
-Mutation validates data
-    ↓
-Inserts to contactSubmissions table
-    ↓
-Returns success/error
-    ↓
-UI shows confirmation
-```
-
-**When to use:** User-generated content, form submissions
-**Benefits:** Validation enforced at backend, automatic retry on network failure
-
-### Pattern 4: Authentication Flow
-
-```
-User navigates to /admin
-    ↓
-middleware.ts intercepts
-    ↓
-Checks convexAuth.isAuthenticated()
-    ↓
-If NO: redirect to /signin
-    ↓
-If YES: allow access
-    ↓
-Admin page calls authenticated queries
-    ↓
-Convex verifies JWT token
-    ↓
-Returns user-specific data
-```
-
-**When to use:** All protected routes
-**Benefits:** Centralized auth check, prevents unauthorized access
-
-## Architectural Patterns to Follow
-
-### Pattern 1: Provider Wrapping
-
-**What:** Wrap app with ConvexClientProvider that instantiates ConvexReactClient
-
-**Implementation:**
+### New Tables (add to schema.ts)
 
 ```typescript
-// app/ConvexClientProvider.tsx
-"use client";
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
-export function ConvexClientProvider({ children }) {
-  return (
-    <ConvexAuthNextjsProvider>
-      {children}
-    </ConvexAuthNextjsProvider>
-  );
-}
+export default defineSchema({
+  ...authTables,
 
-// app/layout.tsx
-export default function RootLayout({ children }) {
-  return (
-    <html>
-      <body>
-        <ConvexClientProvider>
-          {children}
-        </ConvexClientProvider>
-      </body>
-    </html>
-  );
-}
-```
+  // EXISTING: healthChecks, projects, contactSubmissions
 
-**Why:** Establishes WebSocket connection once, available throughout component tree
+  // NEW: Blog posts table
+  blogPosts: defineTable({
+    title: v.string(),
+    slug: v.string(),
+    excerpt: v.string(),                    // Short description (160 chars max)
+    content: v.string(),                    // Full markdown content
+    coverImageId: v.optional(v.id("_storage")), // Convex storage ID
+    authorId: v.id("users"),                // Reference to auth user
+    status: v.union(
+      v.literal("draft"),
+      v.literal("published"),
+      v.literal("archived")
+    ),
+    publishedAt: v.optional(v.number()),    // null for drafts
+    tags: v.array(v.string()),              // ["Next.js", "TypeScript"]
+    displayOrder: v.number(),               // For manual ordering
+    createdAt: v.number(),                  // Date.now()
+  })
+    .index("by_slug", ["slug"])
+    .index("by_status", ["status"])
+    .index("by_published", ["publishedAt"])
+    .index("by_order", ["displayOrder"]),
 
-### Pattern 2: Helper Function Extraction
+  // NEW: Testimonials table
+  testimonials: defineTable({
+    quote: v.string(),
+    name: v.string(),
+    title: v.string(),                      // Job title
+    company: v.string(),
+    photoId: v.optional(v.id("_storage")),  // Convex storage ID
+    featured: v.boolean(),                  // Show on home page
+    displayOrder: v.number(),
+    createdAt: v.number(),
+  })
+    .index("by_featured", ["featured"])
+    .index("by_order", ["displayOrder"]),
 
-**What:** Keep `query`/`mutation` wrappers thin, put logic in `convex/model/` helpers
-
-**Implementation:**
-
-```typescript
-// convex/model/projects.ts
-export function validateProject(project) {
-  // validation logic
-}
-
-// convex/mutations/createProject.ts
-import { validateProject } from "../model/projects";
-
-export default mutation(async (ctx, args) => {
-  validateProject(args);
-  return await ctx.db.insert("projects", args);
+  // NEW: Case studies table
+  caseStudies: defineTable({
+    projectId: v.id("projects"),            // Link to project
+    problemHeading: v.string(),
+    problemContent: v.string(),
+    solutionHeading: v.string(),
+    solutionContent: v.string(),
+    resultsHeading: v.string(),
+    resultsContent: v.string(),
+    metrics: v.array(v.string()),           // ["50% faster", "20K users"]
+    createdAt: v.number(),
+  })
+    .index("by_project", ["projectId"]),
 });
 ```
 
-**Why:** Easier testing, reusability, cleaner separation of concerns
+**Key design decisions:**
 
-### Pattern 3: Index-Based Queries
+1. **Slug uniqueness**: No unique constraint (Convex doesn't support), validate in mutation
+2. **Author reference**: Uses Convex Auth userId, not embedded user data
+3. **Image storage**: Uses Convex storage IDs, resolved to URLs in queries
+4. **Ordering**: Manual displayOrder field (like projects table pattern)
+5. **Timestamps**: Manual createdAt field (Date.now()), use _creationTime for audit trail
+6. **Case studies**: Linked to projects table, not standalone content
 
-**What:** Use `.withIndex()` instead of `.filter()` for better performance
+## Data Flow Patterns
 
-**Implementation:**
+### Blog Post Creation Flow
 
-```typescript
-// Good: indexed query
-const projects = await ctx.db
-  .query("projects")
-  .withIndex("by_order")
-  .order("asc")
-  .collect();
+```
+1. Admin opens /admin/blog/new
+   └─> Client Component with form + markdown editor
 
-// Avoid: filtering in code
-const projects = await ctx.db
-  .query("projects")
-  .collect()
-  .filter((p) => p.published === true);
+2. Admin fills form, uploads cover image
+   ├─> useMutation(api.blogPosts.generateUploadUrl)
+   ├─> POST to upload URL (Convex storage)
+   └─> Receive storageId
+
+3. Admin clicks "Save Draft"
+   └─> useMutation(api.blogPosts.create, {
+         title, slug, excerpt, content, coverImageId,
+         status: "draft", tags, ...
+       })
+
+4. Mutation validates + inserts
+   ├─> getAuthUserId(ctx) - auth check
+   ├─> Check slug uniqueness
+   ├─> Set displayOrder (max + 1)
+   ├─> ctx.db.insert("blogPosts", {...})
+   └─> Return postId
+
+5. Admin navigates to blog list
+   └─> useQuery(api.blogPosts.list) shows new draft
 ```
 
-**Why:** Orders of magnitude faster, leverages database indexes
+### Blog Post Rendering Flow (Public Site)
 
-### Pattern 4: Pagination Over Collect
+```
+1. User navigates to /blog/my-first-post
+   └─> Server Component: app/blog/[slug]/page.tsx
 
-**What:** Use `.take(limit)` instead of `.collect()` for potentially large datasets
+2. generateMetadata runs first
+   ├─> await fetchQuery(api.blogPosts.getBySlug, { slug })
+   ├─> Return { title, description, openGraph {...} }
+   └─> Next.js sets <head> tags (SEO)
 
-**Implementation:**
+3. Page component renders
+   ├─> await fetchQuery(api.blogPosts.getBySlug, { slug })
+   ├─> if (!post) notFound()
+   ├─> Pass post.content to <BlogPostContent>
+   └─> Server Component renders markdown
 
-```typescript
-// Good: limited results
-const recentSubmissions = await ctx.db
-  .query("contactSubmissions")
-  .order("desc")
-  .take(50);
+4. BlogPostContent processes markdown
+   ├─> import { unified } from "unified"
+   ├─> .use(remarkParse)           # Parse markdown
+   ├─> .use(remarkGfm)             # GitHub tables/strikethrough
+   ├─> .use(remarkRehype)          # Convert to HTML
+   ├─> .use(rehypeHighlight)       # Code syntax highlighting
+   ├─> .use(rehypeReact)           # Convert to React elements
+   └─> Return React tree (no client JS for markdown)
 
-// Risky: unbounded query
-const allSubmissions = await ctx.db.query("contactSubmissions").collect(); // Could be 10,000+ records
+5. Next.js streams HTML to browser
+   └─> Fully SEO-friendly (crawlers see rendered content)
 ```
 
-**Why:** Prevents database bandwidth exhaustion, faster queries
+### Testimonial Integration Flow
 
-### Pattern 5: Optimistic Updates for CRUD
+```
+1. Admin creates testimonial at /admin/testimonials/new
+   └─> useMutation(api.testimonials.create, { quote, name, title, company, photoId, featured })
 
-**What:** Update UI immediately, then sync with backend
+2. About page renders testimonials
+   ├─> Server Component: app/about/page.tsx
+   ├─> const testimonials = await fetchQuery(api.testimonials.list, { featured: true })
+   └─> <TestimonialCard {...testimonial} /> (existing component)
+
+3. TestimonialCard receives real data
+   ├─> photo URL resolved from photoId by query
+   ├─> name/title/company from database
+   └─> No code changes needed (already accepts props)
+```
+
+## Component Responsibilities
+
+### New Components
+
+| Component | Type | Responsibility | Implementation |
+|-----------|------|---------------|----------------|
+| `blog/page.tsx` | Server | Blog list page, pagination | fetchQuery + BlogPostCard grid |
+| `blog/[slug]/page.tsx` | Server | Blog post detail, SEO | generateMetadata + BlogPostContent |
+| `BlogPostCard` | Server | Blog preview in list | Card with image, title, excerpt, tags |
+| `BlogPostContent` | Server | Markdown renderer | unified pipeline (remark/rehype) |
+| `BlogPostMeta` | Server | Author, date, reading time | Avatar + formatted date |
+| `admin/blog/page.tsx` | Client | Blog admin list | useQuery + SortableBlogList |
+| `admin/blog/new/page.tsx` | Client | Create blog post | MarkdownEditor + form |
+| `MarkdownEditor` | Client | Rich markdown editing | Textarea with preview, syntax highlighting |
+| `SortableBlogList` | Client | Drag-to-reorder blog posts | dnd-kit (like SortableProjectList) |
+
+### Modified Components
+
+| Component | Change | Reason |
+|-----------|--------|--------|
+| `admin/layout.tsx` | Add tabs: Blog, Testimonials, Case Studies | Consistent admin nav |
+| `admin/admin-tabs.tsx` | Add 3 new tab entries | Navigation |
+| `projects/[slug]/page.tsx` | Query caseStudies table, populate CaseStudyVisual | Replace placeholder data |
+| `about/page.tsx` | Query testimonials table, map to TestimonialCard | Replace placeholder data |
+
+### Unchanged Components (already support props)
+
+| Component | Why It Works |
+|-----------|--------------|
+| `TestimonialCard` | Already accepts quote, name, title, company, photo props |
+| `CaseStudyVisual` | Already accepts problem, solution, results sections |
+| `SocialProofDisplay` | Already accepts metrics array |
+
+## Architectural Patterns
+
+### Pattern 1: Server-Side Markdown Rendering
+
+**What:** Render markdown to React on the server using unified/remark/rehype
+
+**When:** Blog post content, case study descriptions
+
+**Why:** SEO, performance (no client-side parsing), security (sanitized HTML)
 
 **Implementation:**
 
 ```typescript
-const updateProject = useMutation(api.mutations.updateProject);
-const optimisticUpdate = useOptimisticUpdate();
+// lib/markdown.ts
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
+import remarkRehype from "remark-rehype";
+import rehypeHighlight from "rehype-highlight";
+import rehypeReact from "rehype-react";
+import * as prod from "react/jsx-runtime";
 
-function handleSave(projectId, changes) {
-  optimisticUpdate(projectId, changes); // UI updates now
-  updateProject({ id: projectId, ...changes }); // Backend syncs later
+export async function renderMarkdown(content: string) {
+  const file = await unified()
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype)
+    .use(rehypeHighlight)
+    .use(rehypeReact, prod)
+    .process(content);
+
+  return file.result;
+}
+
+// components/blog/blog-post-content.tsx (Server Component)
+import { renderMarkdown } from "@/lib/markdown";
+
+export async function BlogPostContent({ content }: { content: string }) {
+  const rendered = await renderMarkdown(content);
+  return <article className="prose prose-lg">{rendered}</article>;
 }
 ```
 
-**Why:** Instant feedback, better UX, automatic rollback on errors
+### Pattern 2: Convex Storage for Images
+
+**What:** Upload images to Convex storage, store IDs in database, resolve URLs in queries
+
+**When:** Blog cover images, testimonial photos, project screenshots
+
+**Why:** Free CDN, automatic cleanup, type-safe references, existing pattern
+
+**Implementation:**
+
+```typescript
+// convex/blogPosts.ts
+export const generateUploadUrl = mutation({
+  args: {},
+  handler: async (ctx) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Unauthorized");
+    return await ctx.storage.generateUploadUrl();
+  },
+});
+
+export const getBySlug = query({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const post = await ctx.db
+      .query("blogPosts")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+
+    if (!post) return null;
+
+    const coverImageUrl = post.coverImageId
+      ? await ctx.storage.getUrl(post.coverImageId)
+      : null;
+
+    return { ...post, coverImageUrl };
+  },
+});
+```
+
+### Pattern 3: Slug Generation and Validation
+
+**What:** Generate URL-safe slugs from titles, validate uniqueness
+
+**When:** Creating/editing blog posts, case studies
+
+**Why:** SEO-friendly URLs, prevent duplicates, handle special characters
+
+**Implementation:**
+
+```typescript
+// lib/slug.ts
+export function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")                   // Decompose accents
+    .replace(/[\u0300-\u036f]/g, "")   // Remove accents
+    .trim()
+    .replace(/[^a-z0-9\s-]/g, "")      // Remove special chars
+    .replace(/\s+/g, "-")               // Spaces to hyphens
+    .replace(/-+/g, "-")                // Collapse hyphens
+    .replace(/^-|-$/g, "");             // Trim hyphens
+}
+
+// Zod validation
+import { z } from "zod";
+
+export const slugSchema = z
+  .string()
+  .min(1)
+  .max(200)
+  .regex(/^[a-z0-9][a-z0-9._-]*$/, "Invalid slug format");
+
+// convex/blogPosts.ts mutation
+export const create = mutation({
+  args: { slug: v.string(), ... },
+  handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) throw new Error("Unauthorized");
+
+    // Validate slug uniqueness
+    const existing = await ctx.db
+      .query("blogPosts")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+
+    if (existing) {
+      throw new Error(`Slug "${args.slug}" already exists`);
+    }
+
+    // Insert...
+  },
+});
+```
+
+### Pattern 4: SEO Metadata Generation
+
+**What:** Export async generateMetadata from page components to set dynamic <head> tags
+
+**When:** Blog post pages, project pages, case study pages
+
+**Why:** SEO, social sharing (Open Graph), Next.js best practice
+
+**Implementation:**
+
+```typescript
+// app/blog/[slug]/page.tsx
+import type { Metadata } from "next";
+import { fetchQuery } from "convex/nextjs";
+import { api } from "@/convex/_generated/api";
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+
+  const post = await fetchQuery(api.blogPosts.getBySlug, { slug });
+
+  if (!post) {
+    return { title: "Post Not Found" };
+  }
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    authors: [{ name: "Jon Gerton" }],
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      publishedTime: post.publishedAt
+        ? new Date(post.publishedAt).toISOString()
+        : undefined,
+      images: post.coverImageUrl
+        ? [{ url: post.coverImageUrl, width: 1200, height: 630 }]
+        : undefined,
+    },
+  };
+}
+```
+
+### Pattern 5: Admin CRUD with dnd-kit Reordering
+
+**What:** Replicate existing projects admin pattern for blog posts
+
+**When:** Admin blog list, testimonials list, case studies list
+
+**Why:** Consistent UX, proven pattern, manual ordering control
+
+**Implementation:**
+
+```typescript
+// app/admin/blog/page.tsx (Client Component)
+"use client";
+
+import { useQuery, useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { SortableBlogList } from "@/components/admin/sortable-blog-list";
+
+export default function AdminBlogPage() {
+  const posts = useQuery(api.blogPosts.list);
+  const reorder = useMutation(api.blogPosts.reorder);
+  const remove = useMutation(api.blogPosts.remove);
+
+  const handleReorder = async (reorderedPosts) => {
+    const postIds = reorderedPosts.map((p) => p._id);
+    await reorder({ postIds });
+  };
+
+  return (
+    <div>
+      <h1>Blog Posts</h1>
+      <SortableBlogList
+        posts={posts}
+        onReorder={handleReorder}
+        onDelete={(post) => setDeleteTarget(post)}
+      />
+    </div>
+  );
+}
+
+// components/admin/sortable-blog-list.tsx
+// Copy SortableProjectList pattern, swap "project" with "post"
+```
 
 ## Anti-Patterns to Avoid
 
-### Anti-Pattern 1: Client Components for Static Content
+### Anti-Pattern 1: Client-Side Markdown Rendering for SEO Content
 
-**What:** Using `"use client"` for pages that don't need interactivity
+**What:** Using `"use client"` + react-markdown for blog post pages
 
-**Why bad:**
+**Why bad:** Crawlers may not execute client JS, slower initial render, larger bundle
 
-- Larger bundle sizes
-- Slower initial page load
-- Missed SEO opportunities
-- Unnecessary WebSocket connections
+**Instead:** Use Server Component with unified/rehype-react pipeline
 
-**Instead:** Use Server Components for public pages, add `"use client"` only where needed
+**Detection:** Blog post content appears blank when JS disabled
 
 ---
 
-### Anti-Pattern 2: Passing Functions Through Server/Client Boundary
+### Anti-Pattern 2: Storing Markdown in Separate Files
 
-**What:** Trying to pass callbacks or functions from Server to Client Components
+**What:** Storing markdown in `/content` directory, reading via fs.readFile
 
-**Why bad:**
+**Why bad:** Breaks Convex real-time model, requires build-time sync, admin can't edit
 
-- Functions cannot be serialized
-- React will throw errors
-- Breaks server/client separation
+**Instead:** Store markdown as string field in Convex blogPosts table
 
-**Instead:** Use Server Actions for server-side logic, client-side handlers for interactions
+**Detection:** Admin can't create posts without deploying code
 
 ---
 
-### Anti-Pattern 3: Array-Based Relationships
+### Anti-Pattern 3: Embedding User Data in Posts
 
-**What:** Storing arrays of IDs like `projectIds: [id1, id2, id3]`
+**What:** Storing authorName, authorEmail directly in blogPosts table
 
-**Why bad:**
+**Why bad:** Duplication, stale data when user updates profile, no referential integrity
 
-- Cannot index arrays in Convex
-- Limited to 8192 entries
-- Query performance degrades
-- Difficult to query "find all projects in category X"
+**Instead:** Store authorId reference, join in query
 
-**Instead:** Use join tables with indexed references for many-to-many relationships
+**Example:**
 
----
+```typescript
+// WRONG
+blogPosts: defineTable({
+  authorName: v.string(),
+  authorEmail: v.string(),
+})
 
-### Anti-Pattern 4: Using Date.now() in Queries
+// RIGHT
+blogPosts: defineTable({
+  authorId: v.id("users"),
+})
 
-**What:** Filtering by current time in query functions
-
-**Why bad:**
-
-- Queries don't re-run when time changes
-- Results become stale
-- Users see outdated data
-
-**Instead:** Pass timestamps as arguments or use scheduled functions to update status fields
-
----
-
-### Anti-Pattern 5: Spoofable Access Control
-
-**What:** Checking user permissions based on client-provided parameters
-
-**Why bad:**
-
-- Client can manipulate request parameters
-- Security vulnerability
-- No guarantee of identity
-
-**Instead:** Always check `ctx.auth.getUserIdentity()` in mutations, never trust client input
+// In query
+export const getBySlug = query({
+  handler: async (ctx, args) => {
+    const post = await ctx.db.query("blogPosts")...;
+    const author = await ctx.db.get(post.authorId);
+    return { ...post, author };
+  },
+});
+```
 
 ---
 
-### Anti-Pattern 6: Circular Schema References
+### Anti-Pattern 4: Manual Image Hosting
 
-**What:** Table A references table B, table B references table A (both required)
+**What:** Uploading images to external CDN (Cloudinary, Imgix), storing URLs
 
-**Why bad:**
+**Why bad:** Extra cost, manual cleanup, broken links, ignores Convex storage
 
-- Schema validation fails
-- Cannot insert initial records
-- Database constraints violated
+**Instead:** Use Convex storage with generateUploadUrl pattern (already proven in projects table)
 
-**Instead:** Make one reference nullable, or reconsider relationship structure
+**Detection:** Image URLs are external domains, not Convex storage URLs
+
+---
+
+### Anti-Pattern 5: Timestamps Without Timezone Awareness
+
+**What:** Storing timestamps as locale strings ("2026-02-06 3:00 PM")
+
+**Why bad:** Ambiguous timezone, unparseable, unsortable
+
+**Instead:** Store as Unix timestamp (Date.now()), format in UI
+
+**Example:**
+
+```typescript
+// WRONG
+createdAt: v.string(), // "2026-02-06 3:00 PM"
+
+// RIGHT
+createdAt: v.number(), // 1707235200000
+
+// In UI
+new Date(post.createdAt).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+```
+
+---
+
+### Anti-Pattern 6: Coupling TestimonialCard to Testimonials Table
+
+**What:** Fetching testimonials data inside TestimonialCard component
+
+**Why bad:** Component becomes client-only, can't be reused with hardcoded data
+
+**Instead:** Keep TestimonialCard presentational (props only), fetch in parent
+
+**Detection:** Component has "use client" and useQuery inside
+
+## Integration Points with Existing Architecture
+
+### Integration Point 1: Admin Tabs Navigation
+
+**File:** `components/admin/admin-tabs.tsx`
+
+**Change:** Add 3 new tabs
+
+```typescript
+const tabs = [
+  { name: "Projects", href: "/admin/projects" },
+  { name: "Contacts", href: "/admin/contacts" },
+  { name: "Blog", href: "/admin/blog" },              // NEW
+  { name: "Testimonials", href: "/admin/testimonials" }, // NEW
+  { name: "Case Studies", href: "/admin/case-studies" }, // NEW
+];
+```
+
+**Impact:** Minimal, follows existing pattern
+
+---
+
+### Integration Point 2: Projects Detail Page
+
+**File:** `app/projects/[slug]/page.tsx`
+
+**Current:** Uses placeholder data for CaseStudyVisual
+
+```typescript
+const caseStudyData = {
+  problem: { heading: "The Challenge", content: project.descriptionLong },
+  solution: { heading: "The Approach", content: "Built with modern tech..." },
+  results: { heading: "The Result", content: "A polished application...", metrics: [...] },
+};
+```
+
+**Change:** Query caseStudies table
+
+```typescript
+const project = await fetchQuery(api.projects.getBySlug, { slug });
+const caseStudy = await fetchQuery(api.caseStudies.getByProjectId, { projectId: project._id });
+
+const caseStudyData = caseStudy
+  ? {
+      problem: { heading: caseStudy.problemHeading, content: caseStudy.problemContent },
+      solution: { heading: caseStudy.solutionHeading, content: caseStudy.solutionContent },
+      results: { heading: caseStudy.resultsHeading, content: caseStudy.resultsContent, metrics: caseStudy.metrics },
+    }
+  : defaultCaseStudyData; // Fallback
+```
+
+**Impact:** Moderate, requires new query, backward compatible with fallback
+
+---
+
+### Integration Point 3: About Page Testimonials
+
+**File:** `app/about/page.tsx`
+
+**Current:** No testimonials section (or hardcoded)
+
+**Change:** Add testimonials section
+
+```typescript
+const testimonials = await fetchQuery(api.testimonials.list, { featured: true });
+
+return (
+  <SectionBackground variant="muted">
+    <h2 className="font-serif text-h2 mb-lg">What Clients Say</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+      {testimonials.map((t) => (
+        <TestimonialCard key={t._id} {...t} />
+      ))}
+    </div>
+  </SectionBackground>
+);
+```
+
+**Impact:** Low, TestimonialCard already exists and accepts props
+
+---
+
+### Integration Point 4: Home Page Blog Preview
+
+**File:** `app/(home)/page.tsx`
+
+**Change:** Add "Latest Posts" section above footer CTA
+
+```typescript
+const latestPosts = await fetchQuery(api.blogPosts.listPublished, { limit: 3 });
+
+return (
+  <>
+    {/* Existing hero, projects, services... */}
+
+    <SectionBackground variant="neutral">
+      <h2 className="font-serif text-h2 mb-lg">Latest Posts</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-lg">
+        {latestPosts.map((post) => (
+          <BlogPostCard key={post._id} {...post} />
+        ))}
+      </div>
+      <div className="text-center mt-lg">
+        <Link href="/blog">
+          <Button variant="outline">View All Posts</Button>
+        </Link>
+      </div>
+    </SectionBackground>
+
+    {/* Existing footer CTA */}
+  </>
+);
+```
+
+**Impact:** Low, new section but follows existing patterns
 
 ## Build Order Recommendations
 
-Based on component dependencies and architectural patterns, here's the recommended implementation sequence:
+### Phase 1: Foundation (Schema + Basic Queries)
 
-### Phase 1: Foundation (Week 1)
+**Why first:** Establishes data model, unblocks all other work
 
-**Goal:** Establish core architecture and data layer
+**Tasks:**
+1. Add blogPosts, testimonials, caseStudies tables to schema.ts
+2. Create convex/blogPosts.ts with list, getBySlug, create, update, remove, reorder mutations
+3. Create convex/testimonials.ts (mirror projects.ts pattern)
+4. Create convex/caseStudies.ts (mirror projects.ts pattern)
+5. Deploy schema: `bunx convex deploy`
 
-1. **Convex Setup**
-   - Initialize Convex project (`npx convex dev`)
-   - Define schema.ts (projects, contactSubmissions tables)
-   - Create basic queries (getProjects, getProject)
-   - Create basic mutations (createProject, updateProject, deleteProject)
-
-2. **Next.js Setup**
-   - Initialize Next.js 14 with App Router
-   - Install Convex client libraries
-   - Create ConvexClientProvider
-   - Wire up layout.tsx with provider
-
-**Why first:** Everything depends on data layer and provider setup
+**Validation:** Run queries in Convex dashboard, insert test data
 
 ---
 
-### Phase 2: Public Pages (Week 2)
+### Phase 2: Admin UI (CRUD Pages)
 
-**Goal:** Ship viewable portfolio site
+**Why second:** Enables content creation before public pages
 
-1. **Server Components**
-   - Home page (Server Component)
-   - Projects page (Server Component with preloadQuery)
-   - Services page (static)
-   - About page (static)
+**Tasks:**
+1. Create components/admin/markdown-editor.tsx (textarea + preview)
+2. Create components/admin/sortable-blog-list.tsx (copy SortableProjectList pattern)
+3. Create app/admin/blog/page.tsx (list with drag-to-reorder)
+4. Create app/admin/blog/new/page.tsx (form + markdown editor)
+5. Create app/admin/blog/[id]/edit/page.tsx (edit form)
+6. Repeat for testimonials and case-studies
+7. Update components/admin/admin-tabs.tsx (add 3 tabs)
 
-2. **Contact Page**
-   - Client Component for form
-   - useMutation for form submission
-   - Success/error handling
-
-**Why second:** Public site can ship before admin, validates architecture
+**Validation:** Create test blog post, testimonial, case study via admin
 
 ---
 
-### Phase 3: Authentication (Week 2)
+### Phase 3: Public Blog Pages (SEO-Optimized)
 
-**Goal:** Secure admin section
+**Why third:** Requires content from Phase 2, benefits from admin testing
 
-1. **Convex Auth Setup**
-   - Configure auth.ts
-   - Create auth provider wrappers
-   - Add email/password provider
+**Tasks:**
+1. Create lib/markdown.ts (unified/remark/rehype pipeline)
+2. Create lib/slug.ts (slugify + validation)
+3. Create lib/reading-time.ts (calculate from word count)
+4. Create components/blog/blog-post-content.tsx (markdown renderer)
+5. Create components/blog/blog-post-card.tsx (preview card)
+6. Create components/blog/blog-post-meta.tsx (author, date, reading time)
+7. Create app/blog/page.tsx (list with pagination)
+8. Create app/blog/[slug]/page.tsx (detail with generateMetadata)
 
-2. **Next.js Middleware**
-   - Create middleware.ts
-   - Protect /admin/\* routes
-   - Handle redirects
-
-3. **Sign In Page**
-   - Sign in form
-   - Session management
-
-**Why third:** Authentication blocks admin features, but doesn't block public launch
+**Validation:** Visit /blog, click post, check SEO with Lighthouse
 
 ---
 
-### Phase 4: Admin Dashboard (Week 3)
+### Phase 4: Integration with Existing Pages
 
-**Goal:** Enable content management
+**Why fourth:** Depends on testimonials/case studies data from Phase 2
 
-1. **Dashboard Home**
-   - Recent activity display
-   - Quick stats (project count, submission count)
+**Tasks:**
+1. Modify app/projects/[slug]/page.tsx to query caseStudies table
+2. Modify app/about/page.tsx to query testimonials table
+3. Modify app/(home)/page.tsx to add "Latest Posts" section
+4. Update testimonials/case studies to use real Avatar URLs from storage
 
-2. **Projects CRUD**
-   - List view (Client Component with useQuery)
-   - Create/Edit forms
-   - Delete confirmation
-   - Drag-to-reorder (useMutation for order updates)
-
-3. **Contact Submissions Manager**
-   - List view with filters
-   - Status updates (new/read/archived)
-   - Search functionality
-
-**Why fourth:** Admin requires auth and data layer, delivers full functionality
+**Validation:** Check projects detail page shows real case study, about page shows testimonials
 
 ---
 
-### Phase 5: Polish & SEO (Week 4)
+### Phase 5: Polish (Search, Tags, Analytics)
 
-**Goal:** Optimize for discoverability
+**Why last:** Nice-to-have features, requires Phase 3 complete
 
-1. **SEO Basics**
-   - Meta tags (title, description, OG)
-   - Semantic HTML
-   - Sitemap generation
+**Tasks:**
+1. Add tag filtering to blog list page
+2. Add search input (client-side filter or Convex search index)
+3. Add "Related Posts" to blog detail (same tags)
+4. Add reading progress indicator
+5. Add social share buttons
 
-2. **AEO Treatment**
-   - JSON-LD schema markup (Person, Organization, WebSite)
-   - FAQ sections with schema
-   - Speakable content markup
-
-3. **Performance**
-   - Image optimization (next/image)
-   - Route prefetching
-   - Lighthouse audit compliance
-
-**Why last:** Functional site must exist before optimization makes sense
-
----
-
-## Dependency Graph
-
-```
-Phase 1 (Foundation)
-    ├─> Phase 2 (Public Pages) [depends on queries]
-    └─> Phase 3 (Auth) [depends on schema]
-            └─> Phase 4 (Admin) [depends on auth + mutations]
-                    └─> Phase 5 (SEO) [depends on content]
-```
-
-**Critical path:** Foundation → Auth → Admin
-**Parallel track:** Public Pages can develop independently after Foundation
+**Validation:** Filter by tag, search posts, click related post
 
 ## Scalability Considerations
 
-| Concern           | At 100 visitors/month           | At 10K visitors/month  | At 100K visitors/month         |
-| ----------------- | ------------------------------- | ---------------------- | ------------------------------ |
-| **Database**      | Free tier sufficient (1M calls) | Free tier likely OK    | May need paid tier ($25/month) |
-| **Hosting**       | Vercel free tier                | Vercel free tier       | Vercel Pro ($20/month)         |
-| **Images**        | Local storage in public/        | Consider Cloudinary/S3 | Required CDN integration       |
-| **Contact forms** | Manual review adequate          | Need spam filtering    | Add CAPTCHA, rate limiting     |
-| **Admin users**   | Single admin (you)              | 2-3 admins             | Role-based access control      |
+### At Launch (< 100 posts)
 
-**Current architecture supports:** Up to 10K visitors/month without major changes
+**Approach:** Simple pagination, no search index
 
-## Security Boundaries
+**Implementation:**
 
-### 1. Authentication Boundary
+```typescript
+export const listPublished = query({
+  args: { limit: v.optional(v.number()), offset: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 10;
+    const offset = args.offset ?? 0;
 
-- **Enforced by:** Next.js middleware + Convex Auth
-- **Protects:** All /admin/\* routes
-- **Token flow:** JWT issued by Convex, validated on every request
+    const posts = await ctx.db
+      .query("blogPosts")
+      .withIndex("by_published")
+      .order("desc")
+      .filter((q) => q.eq(q.field("status"), "published"))
+      .collect();
 
-### 2. Authorization Boundary
+    const paginated = posts.slice(offset, offset + limit);
+    return { posts: paginated, total: posts.length };
+  },
+});
+```
 
-- **Enforced by:** Mutation argument validation + getUserIdentity()
-- **Protects:** Write operations (create/update/delete)
-- **Pattern:** Check auth in every mutation, never trust client input
+**Constraints:** O(n) query, acceptable under 1000 posts
 
-### 3. Data Validation Boundary
+---
 
-- **Enforced by:** Convex schema + mutation validators
-- **Protects:** Database integrity
-- **Pattern:** Validate on insert/update, reject invalid data
+### At Growth (1K+ posts)
 
-### 4. CSRF Protection
+**Approach:** Cursor-based pagination, tag indexes
 
-- **Enforced by:** Next.js Server Actions + Convex mutations (POST only)
-- **Protects:** State-changing operations
-- **Pattern:** Never perform side effects on GET requests
+**Implementation:**
+
+```typescript
+// Add index to schema
+blogPosts: defineTable({...})
+  .index("by_published_desc", ["status", "publishedAt"])
+
+export const listPublished = query({
+  args: { cursor: v.optional(v.number()), limit: v.optional(v.number()) },
+  handler: async (ctx, args) => {
+    const limit = args.limit ?? 20;
+    const cursor = args.cursor;
+
+    let query = ctx.db
+      .query("blogPosts")
+      .withIndex("by_published_desc", (q) => q.eq("status", "published"))
+      .order("desc");
+
+    if (cursor) {
+      query = query.filter((q) => q.lt(q.field("publishedAt"), cursor));
+    }
+
+    const posts = await query.take(limit + 1);
+    const hasMore = posts.length > limit;
+    const results = hasMore ? posts.slice(0, limit) : posts;
+    const nextCursor = hasMore ? results[results.length - 1].publishedAt : null;
+
+    return { posts: results, nextCursor, hasMore };
+  },
+});
+```
+
+**Benefits:** O(1) cursor lookup, infinite scroll support
+
+---
+
+### At Scale (10K+ posts, high traffic)
+
+**Approach:** Convex search index, static generation with ISR
+
+**Implementation:**
+
+```typescript
+// Define search index in schema
+import { defineSchema, defineTable } from "convex/server";
+import { v } from "convex/values";
+
+blogPosts: defineTable({...})
+  .searchIndex("search_title_content", {
+    searchField: "title",
+    filterFields: ["status"],
+  })
+
+// Search query
+export const search = query({
+  args: { searchTerm: v.string() },
+  handler: async (ctx, args) => {
+    const results = await ctx.db
+      .query("blogPosts")
+      .withSearchIndex("search_title_content", (q) =>
+        q.search("title", args.searchTerm).eq("status", "published")
+      )
+      .take(20);
+
+    return results;
+  },
+});
+
+// Next.js ISR (app/blog/[slug]/page.tsx)
+export const revalidate = 3600; // Revalidate every hour
+```
+
+**Benefits:** Full-text search, CDN caching for published posts
 
 ## Sources
 
-**High Confidence (Official Documentation):**
+**Convex Documentation:**
+- [Convex Schemas](https://docs.convex.dev/database/schemas) - Schema field types and validation
+- [Convex File Storage](https://docs.convex.dev/file-storage) - Upload patterns and CDN integration
+- [Convex Likes & Reactions](https://www.convex.dev/can-do/likes-and-reactions) - Real-time interaction patterns
+- [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/) - Query optimization
 
-- [Next.js Architecture](https://nextjs.org/docs/architecture)
-- [Convex Developer Hub - Next.js](https://docs.convex.dev/client/nextjs/app-router/)
-- [Convex React Client](https://docs.convex.dev/client/react)
-- [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
-- [Convex Schemas](https://docs.convex.dev/database/schemas)
-- [Convex Auth with Next.js](https://labs.convex.dev/auth/authz/nextjs)
-- [Backend Components](https://stack.convex.dev/backend-components)
+**Next.js Documentation:**
+- [Next.js MDX Guide](https://nextjs.org/docs/app/guides/mdx) - Markdown integration with App Router
+- [Next.js generateMetadata](https://nextjs.org/docs/app/api-reference/functions/generate-metadata) - Dynamic SEO metadata
+- [Next.js Getting Started: Metadata and OG images](https://nextjs.org/docs/app/getting-started/metadata-and-og-images) - SEO setup
 
-**Medium Confidence (Community & Examples):**
+**Markdown Processing:**
+- [react-markdown GitHub](https://github.com/remarkjs/react-markdown) - Server component support
+- [Markdown Syntax Highlighting with Next.js App Router](https://colinhemphill.com/blog/markdown-syntax-highlighting-with-the-nextjs-app-router) - rehype-highlight patterns
+- [Strapi React Markdown Guide](https://strapi.io/blog/react-markdown-complete-guide-security-styling) - Security and styling tips
 
-- [Convex Next.js App Router Demo](https://github.com/get-convex/convex-nextjs-app-router-demo)
-- [Next.js Architecture in 2026 - Server-First Patterns](https://www.yogijs.tech/blog/nextjs-project-architecture-app-router)
-- [Convex CRUD Patterns](https://www.freecodecamp.org/news/build-crud-app-react-and-convex/)
-- [Convex Schema Best Practices Gist](https://gist.github.com/srizvi/966e583693271d874bf65c2a95466339)
-- [Relationship Structures in Convex](https://stack.convex.dev/relationship-structures-let-s-talk-about-schemas)
-- [Next.js Folder Structure 2026 Guide](https://www.codebydeep.com/blog/next-js-folder-structure-best-practices-for-scalable-applications-2026-guide)
+**Patterns and Best Practices:**
+- [Next.js SEO Optimization Guide 2026](https://www.djamware.com/post/697a19b07c935b6bb054313e/next-js-seo-optimization-guide--2026-edition) - Current SEO best practices
+- [Infinite Scroll with Next.js Server Actions](https://blog.logrocket.com/implementing-infinite-scroll-next-js-server-actions/) - Pagination patterns
+- [How to slugify a string in JavaScript](https://byby.dev/js-slugify-string) - Slug generation patterns
+
+**Community Resources:**
+- [GitHub: markdown-site](https://github.com/waynesutton/markdown-site) - Convex + markdown publishing framework
+- [Convex Best Practices Gist](https://gist.github.com/srizvi/966e583693271d874bf65c2a95466339) - Schema design patterns

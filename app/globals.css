@@ -1,13 +1,457 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@import "highlight.js/styles/github-dark.css";
 
-:root {
-  --font-inter: "Inter", system-ui, sans-serif;
+/* Custom theme configuration for Tailwind v4 */
+@theme {
+  /* ===== BRAND COLORS (from CONTEXT.md) ===== */
+  --color-corporate-blue: #003F75;
+  --color-tech-blue: #2884BD;
+  --color-turquoise: #0FACB0;
+  --color-soft-black: #1A1A1A;
+  --color-graphite: #696969;
+
+  /* ===== SPACING SCALE (8pt grid) ===== */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* ===== SHADOW ELEVATION SYSTEM ===== */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* ===== ANIMATION DURATION TOKENS ===== */
+  --duration-fast: 150ms;
+  --duration-entrance: 250ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+
+  /* ===== CUSTOM EASING FUNCTIONS ===== */
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* ===== BORDER RADIUS ===== */
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+
+  /* ===== FONT FAMILY ===== */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-lora), ui-serif, Georgia, serif;
+
+  /* ===== FLUID TYPOGRAPHY SCALE (1.2x ratio, 400-1280px viewport) ===== */
+  /* Hero H1: 60px mobile -> 72px desktop (special, larger than scale) */
+  --font-size-hero: clamp(3.75rem, 1.364vw + 3.409rem, 4.5rem);
+  /* H1: 40px -> 52px */
+  --font-size-h1: clamp(2.5rem, 1.364vw + 2.159rem, 3.25rem);
+  /* H2: 33px -> 43px */
+  --font-size-h2: clamp(2.063rem, 1.136vw + 1.778rem, 2.688rem);
+  /* H3: 28px -> 36px */
+  --font-size-h3: clamp(1.75rem, 0.909vw + 1.523rem, 2.25rem);
+  /* H4: 23px -> 30px (Inter, not Lora) */
+  --font-size-h4: clamp(1.438rem, 0.795vw + 1.239rem, 1.875rem);
+  /* H5: 19px -> 25px (Inter) */
+  --font-size-h5: clamp(1.188rem, 0.682vw + 1.017rem, 1.563rem);
+  /* H6: 16px -> 21px (Inter) */
+  --font-size-h6: clamp(1rem, 0.568vw + 0.858rem, 1.313rem);
+  /* Body base: 16px -> 18px */
+  --font-size-base: clamp(1rem, 0.227vw + 0.943rem, 1.125rem);
+  /* Small: 14px -> 16px */
+  --font-size-sm: clamp(0.875rem, 0.227vw + 0.818rem, 1rem);
+  /* Extra small: 12px -> 14px */
+  --font-size-xs: clamp(0.75rem, 0.227vw + 0.693rem, 0.875rem);
+
+  /* ===== MAX-WIDTH CONTAINER SCALE =====
+   * Restores Tailwind v4 default container widths that are
+   * overridden by --spacing-* tokens sharing the same names.
+   * Without these, max-w-2xl resolves to 48px (--spacing-2xl)
+   * instead of 42rem (672px). */
+  --max-width-xs: 20rem;
+  --max-width-sm: 24rem;
+  --max-width-md: 28rem;
+  --max-width-lg: 32rem;
+  --max-width-xl: 36rem;
+  --max-width-2xl: 42rem;
+  --max-width-3xl: 48rem;
+  --max-width-4xl: 56rem;
+  --max-width-5xl: 64rem;
+  --max-width-6xl: 72rem;
+  --max-width-7xl: 80rem;
+
+  /* ===== LINE HEIGHT TOKENS ===== */
+  /* Scale inversely with font size: larger text needs tighter line height */
+  --leading-tight: 1.1;     /* H1, H2, hero headings */
+  --leading-snug: 1.25;     /* H3, H4 */
+  --leading-normal: 1.5;    /* Body text */
+  --leading-relaxed: 1.6;   /* Long-form content, prose */
 }
 
-body {
-  font-family: var(--font-inter);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Semantic color mappings - wraps CSS variables defined in @layer base */
+@theme inline {
+  /* shadcn/ui semantic colors - these create Tailwind utilities automatically */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Warm accent (amber/gold) */
+  --color-accent-warm: hsl(var(--accent-warm));
+  --color-accent-warm-foreground: hsl(var(--accent-warm-foreground));
+}
+
+/* CSS Variables for shadcn/ui theming */
+@layer base {
+  /* ===== COLOR SYSTEM - WCAG AA VERIFIED =====
+   * All foreground/background pairs: 4.5:1+ (text)
+   * All UI element pairs: 3:1+ (borders, inputs)
+   * Light mode: 9 pairs verified
+   * Dark mode: 12 pairs verified (including cross-surface)
+   * Last verified: 2026-02-06 (14-03 dark mode audit)
+   * ============================================ */
+
+  :root {
+    /* Base colors - pure white background with dark gray text */
+    --background: 0 0% 100%; /* #FFFFFF - white background */
+    --foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Card colors - same as background for seamless look */
+    --card: 0 0% 100%; /* #FFFFFF - white cards */
+    --card-foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Popover colors - same as background for consistency */
+    --popover: 0 0% 100%; /* #FFFFFF - white popovers */
+    --popover-foreground: 0 0% 10%; /* #1A1A1A - soft black text (17.4:1 contrast) */
+
+    /* Primary brand - corporate blue, high contrast */
+    --primary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
+    --primary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Secondary brand - tech blue, adjusted for WCAG AA */
+    --secondary: 203 64% 38%; /* #246B96 - darker tech-blue (4.81:1 contrast, was 4.27) */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Muted UI elements - subtle gray backgrounds */
+    --muted: 0 0% 96%; /* #F5F5F5 - light gray background */
+    --muted-foreground: 0 0% 42%; /* #6B6B6B - darker gray text (4.74:1 contrast, was 4.35) */
+
+    /* Accent highlights - turquoise, adjusted for WCAG AA */
+    --accent: 178 92% 26%; /* #06666A - darker turquoise (4.85:1 contrast, was 2.55) */
+    --accent-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Destructive actions - red, adjusted for WCAG AA */
+    --destructive: 0 84% 50%; /* #F01F1F - darker red (4.52:1 contrast, was 3.78) */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Form elements - subtle gray for inputs and borders */
+    --border: 0 0% 55%; /* #8C8C8C - medium gray border (3.36:1 contrast) */
+    --input: 0 0% 90%; /* #E6E6E6 - light gray input background */
+    --ring: 210 100% 23%; /* #003F75 - corporate-blue focus ring */
+    --radius: 8px;
+
+    /* Warm accent - amber/gold for CTAs and highlights */
+    --accent-warm: 38 92% 50%; /* #E69500 - honey gold (8.16:1 contrast with dark text) */
+    --accent-warm-foreground: 0 0% 10%; /* #1A1A1A - dark text on amber */
+
+    /* Admin-specific colors (distinct backstage aesthetic) */
+    --admin-bg: 220 14% 96%; /* #F2F4F5 - cool gray background */
+    --admin-sidebar: 220 14% 100%; /* #FFFFFF - white sidebar */
+    --admin-border: 220 13% 91%; /* #E5E8EA - cool gray border */
+  }
+
+  .dark {
+    /* Base colors - warm blue-gray background, NOT pure black */
+    --background: 220 15% 10%; /* #161A1D - warm blue-gray base (15.83:1 contrast) */
+    --foreground: 210 20% 95%; /* #F0F3F5 - slightly cool white for readability */
+
+    /* Color elevation: lighter = higher surface */
+    --card: 220 15% 13%; /* #1E2225 - elevated from background +3% (14.70:1 contrast) */
+    --card-foreground: 210 20% 95%; /* #F0F3F5 - same foreground for consistency */
+
+    /* Popover - more elevated */
+    --popover: 220 15% 16%; /* #262B30 - more elevated +6% from bg (13.35:1 contrast) */
+    --popover-foreground: 210 20% 95%; /* #F0F3F5 - consistent foreground */
+
+    /* Primary brand - tech blue for dark mode, lightened for text-as-link contrast */
+    --primary: 203 64% 48%; /* #2C8DC9 - lighter tech-blue (4.87:1 as text on bg, 4.52:1 on card) */
+    --primary-foreground: 220 20% 10%; /* #14181F - dark text on primary (5.07:1 contrast) */
+
+    /* Secondary brand - corporate blue swapped to secondary in dark mode */
+    --secondary: 210 100% 23%; /* #003F75 - corporate-blue (11.16:1 contrast) */
+    --secondary-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Muted UI elements - follows elevation pattern */
+    --muted: 220 15% 15%; /* #232830 - between card and popover (6.29:1 contrast with muted-fg) */
+    --muted-foreground: 210 10% 65%; /* #9CA5AD - subtle text */
+
+    /* Accent highlights - turquoise, adjusted for WCAG AA */
+    --accent: 178 92% 42%; /* #0FC4C9 - lighter turquoise (8.84:1 contrast, was 2.55) */
+    --accent-foreground: 0 0% 10%; /* #1A1A1A - dark text for better contrast */
+
+    /* Destructive actions - red, already passing */
+    --destructive: 0 62% 50%; /* #CF2F2F - red (5.10:1 contrast) */
+    --destructive-foreground: 0 0% 100%; /* #FFFFFF - white text */
+
+    /* Form elements - dark gray for inputs and borders */
+    --border: 0 0% 45%; /* #737373 - lighter gray border (3.75:1 on bg, 3.48:1 on card, 3.16:1 on popover) */
+    --input: 0 0% 20%; /* #333333 - dark gray input background */
+    --ring: 203 64% 50%; /* #2E8FC7 - tech-blue focus ring */
+
+    /* Warm accent - richer, warmer amber in dark mode */
+    --accent-warm: 38 95% 55%; /* #F4A832 - brighter amber for dark backgrounds (8.89:1 contrast) */
+    --accent-warm-foreground: 0 0% 10%; /* #1A1A1A - dark text on bright amber */
+
+    /* Admin-specific colors (dark mode) */
+    --admin-bg: 220 14% 10%; /* #171A1C - dark cool gray background */
+    --admin-sidebar: 220 14% 13%; /* #1E2124 - slightly lighter sidebar */
+    --admin-border: 220 13% 20%; /* #303538 - cool gray border */
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Admin layout utilities */
+  .admin-layout {
+    background-color: hsl(var(--admin-bg));
+  }
+  .bg-admin {
+    background-color: hsl(var(--admin-bg));
+  }
+  .bg-admin-sidebar {
+    background-color: hsl(var(--admin-sidebar));
+  }
+  .border-admin {
+    border-color: hsl(var(--admin-border));
+  }
+
+  /* Focus ring animation - smooth keyboard focus appearance */
+  *:focus-visible {
+    transition: box-shadow var(--duration-fast) var(--ease-smooth);
+  }
+}
+
+/* ===== CSS KEYFRAME ANIMATIONS ===== */
+/* GPU-accelerated entrance animations for scroll-triggered content */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ===== ANIMATION UTILITY CLASSES ===== */
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up var(--duration-entrance) var(--ease-smooth) both;
+  }
+
+  .animate-fade-in {
+    animation: fade-in var(--duration-entrance) var(--ease-smooth) both;
+  }
+}
+
+/* ===== ACCESSIBILITY: REDUCED MOTION SUPPORT ===== */
+/* Global animation disable for motion-sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== PROSE STYLES ===== */
+/* Custom typography styles for markdown content */
+@layer components {
+  .prose {
+    max-width: 65ch;
+    margin: 0 auto;
+  }
+
+  /* Headings - serif for h2/h3, sans for h4+ */
+  .prose h2 {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-h2);
+    line-height: var(--leading-tight);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h3 {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-h3);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h5 {
+    font-size: var(--font-size-h5);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose h6 {
+    font-size: var(--font-size-h6);
+    line-height: var(--leading-snug);
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  /* Paragraphs */
+  .prose p {
+    margin-bottom: 1.25em;
+    line-height: var(--leading-relaxed);
+  }
+
+  /* Lists */
+  .prose ul {
+    margin-left: 1.5em;
+    margin-bottom: 1.25em;
+    list-style: disc;
+  }
+
+  .prose ol {
+    margin-left: 1.5em;
+    margin-bottom: 1.25em;
+    list-style: decimal;
+  }
+
+  .prose li {
+    margin-bottom: 0.5em;
+  }
+
+  /* Blockquotes */
+  .prose blockquote {
+    border-left: 4px solid hsl(var(--primary));
+    padding-left: 1rem;
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+    margin-bottom: 1.25em;
+  }
+
+  /* Code blocks */
+  .prose pre {
+    background: hsl(var(--muted));
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin-bottom: 1.25em;
+  }
+
+  /* Inline code */
+  .prose code {
+    background: hsl(var(--muted));
+    padding: 0.2em 0.4em;
+    border-radius: var(--radius-sm);
+    font-size: 0.875em;
+  }
+
+  /* Code blocks inside pre should not double background */
+  .prose pre code {
+    background: transparent;
+    padding: 0;
+  }
+
+  /* Links */
+  .prose a {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose a:hover {
+    opacity: 0.8;
+  }
+
+  /* Images */
+  .prose img {
+    max-width: 100%;
+    border-radius: var(--radius-md);
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+  }
+
+  /* Tables */
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.25em;
+  }
+
+  .prose th,
+  .prose td {
+    border: 1px solid hsl(var(--border));
+    padding: 0.5rem 1rem;
+    text-align: left;
+  }
+
+  .prose th {
+    background: hsl(var(--muted));
+    font-weight: 600;
+  }
+
+  /* Horizontal rules */
+  .prose hr {
+    border: 0;
+    border-top: 1px solid hsl(var(--border));
+    margin: 2em 0;
+  }
 }

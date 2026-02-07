@@ -3,7 +3,11 @@
     "allow": [
       "WebFetch(domain:docs.convex.dev)",
       "WebFetch(domain:labs.convex.dev)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(Get-ChildItem -Recurse -Depth 3)",
+      "Bash(Where-Object { $_FullName -notmatch 'node_modules' -and $_FullName -notmatch '\\\\.next' -and $_FullName -notmatch '\\\\.git\\\\\\\\' })",
+      "Bash(Select-Object FullName)",
+      "Bash(npx convex:*)"
     ]
   }
 }
