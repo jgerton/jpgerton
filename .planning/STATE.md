@@ -121,6 +121,12 @@ Progress: [███████████████████████
 
 - None
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 001 | Fix mobile nav dialog leaking on desktop viewport | 2026-02-06 | ac4a77e | [001-fix-mobile-nav-dialog-leak-on-desktop](./quick/001-fix-mobile-nav-dialog-leak-on-desktop/) |
+
 ## Session Continuity
 
 Last session: 2026-02-06
