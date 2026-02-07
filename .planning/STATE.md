@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 
 ## Current Position
 
-Phase: 15 - Content Schema + Backend
-Plan: 02 of 02 complete
-Status: Phase 15 complete
-Last activity: 2026-02-07 - Completed 15-02-PLAN.md
+Phase: 16 - Admin Content Management
+Plan: 01 of 03 complete
+Status: In progress
+Last activity: 2026-02-07 - Completed 16-01-PLAN.md
 
-Progress: [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 6% (2 of 33 plans complete in v1.2)
+Progress: [███░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9% (3 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -38,6 +38,10 @@ Progress: [██░░░░░░░░░░░░░░░░░░░░░
 | 15 | 02 | Published slug immutability | URL stability for published content (SEO, external links) - enforced in update mutations |
 | 15 | 02 | Publish validation before state change | Cover image, alt text, minimums checked; descriptive errors thrown before patch |
 | 15 | 02 | Soft delete preserves storage files | Allows restore without losing uploaded images (cover images intact) |
+| 16 | 01 | Markdown editor code-splitting | Use next/dynamic with ssr: false for @uiw/react-md-editor to prevent hydration errors |
+| 16 | 01 | Click-to-upload only (no drag-drop) | Simpler UX; set noDrag: true in useDropzone config |
+| 16 | 01 | Backward-compatible ImageUploadZone | Optional generateUploadUrlFn prop with fallback to api.projects.generateUploadUrl |
+| 16 | 01 | Remove 'as const' from siteConfig | Enable dynamic env variable usage for calendly.discoveryCallUrl |
 
 ### Research Flags
 
@@ -60,9 +64,9 @@ Progress: [██░░░░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 15-02-PLAN.md (Phase 15 complete)
+Stopped at: Completed 16-01-PLAN.md (shared admin infrastructure)
 Resume file: None
-Next action: /gsd:execute-phase 16
+Next action: /gsd:execute-plan 16-02 or 16-03 (wave-parallel compatible)
 
 ## Deployment Info
 
