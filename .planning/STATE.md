@@ -9,18 +9,18 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 
 ## Current Position
 
-Phase: 17 - Public Blog Pages
-Plan: 02 of 02 complete
-Status: Phase complete
-Last activity: 2026-02-07 - Completed 17-02-PLAN.md
+Phase: 18 - Content Integration
+Plan: 01 of 03 complete
+Status: In progress
+Last activity: 2026-02-07 - Completed 18-01-PLAN.md
 
-Progress: [█████████░░░░░░░░░░░░░░░░░░░░░░░░] 27% (9 of 33 plans complete in v1.2)
+Progress: [█████████░░░░░░░░░░░░░░░░░░░░░░░░] 30% (10 of 33 plans complete in v1.2)
 
 ## Milestones
 
 - v1.0 MVP - SHIPPED 2026-02-04 (7 phases, 39 plans)
 - v1.1 Design Polish - SHIPPED 2026-02-06 (7 phases, 22 plans)
-- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 7 of 33 plans complete)
+- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 10 of 33 plans complete)
 
 ## Accumulated Context
 
@@ -57,6 +57,8 @@ Progress: [█████████░░░░░░░░░░░░░░
 | 17 | 02 | Dynamic OG images via ImageResponse | No external service needed; generates at build/runtime; uses gradient branding |
 | 17 | 02 | Inline styles only for OG images | ImageResponse limitation - no Tailwind, no CSS variables, only flexbox subset |
 | 17 | 02 | Blog nav link between Projects and Services | Logical flow - portfolio first, then blog, then services/conversion |
+| 18 | 01 | Testimonials table is lightweight | No status/publishedAt fields (simpler than blog/case studies) - managed via isDeleted only |
+| 18 | 01 | Seed mutation is idempotent | Checks for existing data first to prevent duplicate inserts on multiple runs |
 
 ### Research Flags
 
@@ -79,9 +81,9 @@ Progress: [█████████░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Phase 17 verified and complete
+Stopped at: Completed 18-01-PLAN.md
 Resume file: None
-Next action: Plan Phase 18 (Content Integration) via /gsd:plan-phase 18
+Next action: Execute 18-02-PLAN.md (testimonials admin) or 18-03-PLAN.md (home integration)
 
 ## Deployment Info
 
