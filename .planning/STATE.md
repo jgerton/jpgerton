@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 18 - Content Integration
-Plan: 02 of 03 complete
-Status: In progress
-Last activity: 2026-02-07 - Completed 18-02-PLAN.md
+Plan: 03 of 03 complete
+Status: Phase complete
+Last activity: 2026-02-07 - Completed 18-03-PLAN.md
 
-Progress: [█████████░░░░░░░░░░░░░░░░░░░░░░░░] 33% (11 of 33 plans complete in v1.2)
+Progress: [██████████░░░░░░░░░░░░░░░░░░░░░░] 36% (12 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -63,6 +63,11 @@ Progress: [█████████░░░░░░░░░░░░░░
 | 18 | 02 | Metrics transformation pattern | Transform {label, value} objects to "Label: Value" strings for CaseStudyVisual component |
 | 18 | 02 | Section heading based on data source | "Case Study" for real linked data, "Project Highlights" for fallback - transparency for users |
 | 18 | 02 | Fallback data intentionally similar | Maintains consistency for projects without case studies using project.descriptionLong and techStack |
+| 18 | 03 | Blog section heading: "Insights & Updates" | User decision locked in plan instructions |
+| 18 | 03 | Blog section CTA: "Read More" to /blog | User decision locked in plan instructions |
+| 18 | 03 | Blog section hidden when no posts | Prevents layout shift; blog section is new content users won't expect during load |
+| 18 | 03 | Testimonials show during loading | Consistent with projects pattern - prevents flash of empty state, maintains layout stability |
+| 18 | 03 | Single column grid for blog cards | BlogPostCard is horizontal layout; stacking vertically in single column looks better than multi-column |
 
 ### Research Flags
 
@@ -85,9 +90,9 @@ Progress: [█████████░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 18-02-PLAN.md
+Stopped at: Completed 18-03-PLAN.md (Phase 18 complete)
 Resume file: None
-Next action: Execute 18-03-PLAN.md (home page integration) to complete Phase 18
+Next action: Plan Phase 19 or audit Phase 18 completion
 
 ## Deployment Info
 
