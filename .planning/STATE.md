@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 19 - Launch Prep Tech Debt
-Plan: 01 of 03 complete
+Plan: 02 of 03 complete
 Status: In progress
-Last activity: 2026-02-07 - Completed 19-01-PLAN.md
+Last activity: 2026-02-07 - Completed 19-02-PLAN.md
 
-Progress: [██████████░░░░░░░░░░░░░░░░░░░░░░] 39% (13 of 33 plans complete in v1.2)
+Progress: [██████████░░░░░░░░░░░░░░░░░░░░░░] 42% (14 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -71,6 +71,11 @@ Progress: [██████████░░░░░░░░░░░░░
 | 19 | 01 | Default OG image uses same blue gradient branding as blog posts | Consistent visual identity across all social sharing previews |
 | 19 | 01 | OG image content locked | Jon Gerton, Custom Websites for $500, jpgerton.com - matches site positioning |
 | 19 | 01 | Only /admin/ disallowed in robots.txt | Removed /api/, /login restrictions - all public routes crawlable for SEO |
+| 19 | 02 | Track CTA clicks with optional trackingName prop | Allows opt-in tracking without breaking existing usage |
+| 19 | 02 | Fire Calendly tracking on wrapper div click | PopupButton is third-party, wrapping is cleanest approach |
+| 19 | 02 | Track form submit only after successful submission | Avoids counting failed submissions as conversions |
+| 19 | 02 | Use intersection observer with 50% threshold for read completion | User must scroll to visible portion of sentinel to count as read |
+| 19 | 02 | Make CTAButton a client component | Required for onClick handler, asChild pattern still works with Link |
 
 ### Research Flags
 
