@@ -10,6 +10,7 @@ import { MidPageCTA } from "@/components/portfolio/sections/mid-page-cta";
 import { SocialProofDisplay } from "@/components/portfolio/social-proof-display";
 import { TestimonialCard } from "@/components/portfolio/testimonial-card";
 import { ProjectGrid } from "@/components/portfolio/project-grid";
+import { BlogPostCard } from "@/components/blog/blog-post-card";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { LocalBusinessSchema } from "@/components/schema";
@@ -40,30 +41,15 @@ const metrics = [
   { value: "100%", label: "Client Satisfaction" },
 ];
 
-// Placeholder testimonials - replace with real data via admin/data layer later
-const testimonials = [
-  {
-    quote:
-      "Jon delivered our website ahead of schedule and it looks incredible. Our phone started ringing the week we launched.",
-    name: "Sarah Mitchell",
-    title: "Owner",
-    company: "Northern Lights Bakery",
-  },
-  {
-    quote:
-      "Finally, a developer who speaks plain English. Jon explained everything clearly and the site does exactly what we need.",
-    name: "Marcus Chen",
-    title: "Manager",
-    company: "Anchorage Auto Detail",
-  },
-];
-
 export default function HomePage() {
   const projects = useQuery(api.projects.list);
+  const blogPosts = useQuery(api.blogPosts.listPublished, {});
+  const testimonials = useQuery(api.testimonials.list);
 
   // Scroll entrance animations for each major section
   const servicesAnim = useIntersectionObserver<HTMLDivElement>();
   const projectsAnim = useIntersectionObserver<HTMLDivElement>();
+  const blogAnim = useIntersectionObserver<HTMLDivElement>();
   const socialProofAnim = useIntersectionObserver<HTMLDivElement>();
 
   return (
@@ -154,6 +140,47 @@ export default function HomePage() {
         </SectionBackground>
       )}
 
+      {/* Section 3.5: Blog Posts - hidden when no posts */}
+      {blogPosts && blogPosts.length > 0 && (
+        <SectionBackground variant="gradient">
+          <div
+            ref={blogAnim.elementRef}
+            className={cn(
+              "opacity-0 translate-y-5",
+              "transition-[opacity,transform] duration-[var(--duration-entrance)] ease-[var(--ease-smooth)]",
+              blogAnim.isVisible && "opacity-100 translate-y-0"
+            )}
+          >
+            <h2 className="font-serif font-medium text-h2 leading-tight text-center mb-xs">
+              Insights &amp; Updates
+            </h2>
+            <p className="text-muted-foreground text-center mb-xl">
+              Tips and stories for local businesses getting online
+            </p>
+            <div className="grid grid-cols-1 gap-lg">
+              {blogPosts.slice(0, 3).map((post) => (
+                <BlogPostCard
+                  key={post._id}
+                  title={post.title}
+                  slug={post.slug}
+                  excerpt={post.excerpt}
+                  coverImageUrl={post.coverImageUrl}
+                  coverImageAlt={post.coverImageAlt}
+                  category={post.category}
+                  readingTime={post.readingTime}
+                  publishedAt={post.publishedAt ?? 0}
+                />
+              ))}
+            </div>
+            <div className="text-center mt-xl">
+              <Button asChild variant="link">
+                <Link href="/blog">Read More</Link>
+              </Button>
+            </div>
+          </div>
+        </SectionBackground>
+      )}
+
       {/* Section 4: Social Proof & Testimonials */}
       <SectionBackground variant="muted">
         <div
@@ -166,14 +193,26 @@ export default function HomePage() {
         >
           <SocialProofDisplay metrics={metrics} />
 
-          <h2 className="font-serif text-h3 leading-snug text-center mt-2xl mb-lg">
-            What Clients Say
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
-            {testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.name} {...testimonial} />
-            ))}
-          </div>
+          {(testimonials === undefined ||
+            (testimonials && testimonials.length > 0)) && (
+            <>
+              <h2 className="font-serif text-h3 leading-snug text-center mt-2xl mb-lg">
+                What Clients Say
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                {(testimonials ?? []).map((testimonial) => (
+                  <TestimonialCard
+                    key={testimonial._id}
+                    quote={testimonial.quote}
+                    name={testimonial.name}
+                    title={testimonial.title}
+                    company={testimonial.company}
+                    photo={testimonial.photoUrl ?? undefined}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </SectionBackground>
 
