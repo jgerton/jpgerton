@@ -48,28 +48,28 @@ Requirements for Design Polish milestone. Each maps to roadmap phases (continuin
 
 ### Trust Signals
 
-- [ ] **TRST-01**: Hero section storytelling (emotional tone, clear value prop, prominent CTA)
-- [ ] **TRST-02**: CTA placement strategy (above fold, mid-page, end-page on key pages)
-- [ ] **TRST-03**: Dual CTA design (WordPress booking vs custom inquiry, visually differentiated)
-- [ ] **TRST-04**: Action-oriented CTA copy ("Book Your $500 Site" not "Learn More")
+- [x] **TRST-01**: Hero section storytelling (emotional tone, clear value prop, prominent CTA)
+- [x] **TRST-02**: CTA placement strategy (above fold, mid-page, end-page on key pages)
+- [x] **TRST-03**: Dual CTA design (WordPress booking vs custom inquiry, visually differentiated)
+- [x] **TRST-04**: Action-oriented CTA copy ("Book Your $500 Site" not "Learn More")
 - [x] **TRST-05**: Testimonial section design with real client presentation format
 - [x] **TRST-06**: Case study visual format (problem, solution, results with metrics)
 - [x] **TRST-07**: Metrics callouts near CTAs (projects completed, years experience, technologies)
-- [ ] **TRST-08**: Visual hierarchy improvements guiding attention through conversion flow
+- [x] **TRST-08**: Visual hierarchy improvements guiding attention through conversion flow
 - [x] **TRST-09**: Professional visual elements that differentiate from generic templates (brand color prominence, custom gradients, typography personality)
 
 ### Accessibility & Dark Mode
 
-- [ ] **A11Y-01**: WCAG 2.1 AA compliance across all pages (color contrast, semantic HTML, ARIA labels)
-- [ ] **A11Y-02**: Keyboard navigation with visible focus indicators and logical tab order
-- [ ] **A11Y-03**: Touch-friendly targets (44x44px minimum per WCAG 2.2)
-- [ ] **A11Y-04**: Screen reader compatible (semantic HTML: nav, main, article, section)
-- [ ] **A11Y-05**: Dark mode fully tested with intentional color choices (not just inverted)
-- [ ] **A11Y-06**: Focus management in modals and dynamic content
-- [ ] **A11Y-07**: Cross-browser validation (Chrome, Safari, Firefox)
-- [ ] **A11Y-08**: Mobile responsive refinement tested on real device dimensions
-- [ ] **A11Y-09**: Lighthouse scores maintained at 90+ across all categories post-polish
-- [ ] **A11Y-10**: Core Web Vitals within budget (LCP < 2.5s, CLS < 0.1, FID < 100ms)
+- [x] **A11Y-01**: WCAG 2.1 AA compliance across all pages (color contrast, semantic HTML, ARIA labels)
+- [x] **A11Y-02**: Keyboard navigation with visible focus indicators and logical tab order
+- [x] **A11Y-03**: Touch-friendly targets (44x44px minimum per WCAG 2.2)
+- [x] **A11Y-04**: Screen reader compatible (semantic HTML: nav, main, article, section)
+- [x] **A11Y-05**: Dark mode fully tested with intentional color choices (not just inverted)
+- [x] **A11Y-06**: Focus management in modals and dynamic content
+- [x] **A11Y-07**: Cross-browser validation (Chrome, Safari, Firefox)
+- [x] **A11Y-08**: Mobile responsive refinement tested on real device dimensions
+- [x] **A11Y-09**: Lighthouse scores maintained at 90+ across all categories post-polish
+- [x] **A11Y-10**: Core Web Vitals within budget (LCP < 2.5s, CLS < 0.1, FID < 100ms)
 
 ## v2 Requirements
 
@@ -143,25 +143,25 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INTR-08 | Phase 12 | Complete |
 | INTR-09 | Phase 12 | Complete |
 | INTR-10 | Phase 12 | Complete |
-| TRST-01 | Phase 13 | Pending |
-| TRST-02 | Phase 13 | Pending |
-| TRST-03 | Phase 13 | Pending |
-| TRST-04 | Phase 13 | Pending |
+| TRST-01 | Phase 13 | Complete |
+| TRST-02 | Phase 13 | Complete |
+| TRST-03 | Phase 13 | Complete |
+| TRST-04 | Phase 13 | Complete |
 | TRST-05 | Phase 11 | Complete |
 | TRST-06 | Phase 11 | Complete |
 | TRST-07 | Phase 11 | Complete |
-| TRST-08 | Phase 13 | Pending |
+| TRST-08 | Phase 13 | Complete |
 | TRST-09 | Phase 11 | Complete |
-| A11Y-01 | Phase 14 | Pending |
-| A11Y-02 | Phase 14 | Pending |
-| A11Y-03 | Phase 14 | Pending |
-| A11Y-04 | Phase 14 | Pending |
-| A11Y-05 | Phase 14 | Pending |
-| A11Y-06 | Phase 14 | Pending |
-| A11Y-07 | Phase 14 | Pending |
-| A11Y-08 | Phase 14 | Pending |
-| A11Y-09 | Phase 14 | Pending |
-| A11Y-10 | Phase 14 | Pending |
+| A11Y-01 | Phase 14 | Complete |
+| A11Y-02 | Phase 14 | Complete |
+| A11Y-03 | Phase 14 | Complete |
+| A11Y-04 | Phase 14 | Complete |
+| A11Y-05 | Phase 14 | Complete |
+| A11Y-06 | Phase 14 | Complete |
+| A11Y-07 | Phase 14 | Complete |
+| A11Y-08 | Phase 14 | Complete |
+| A11Y-09 | Phase 14 | Complete |
+| A11Y-10 | Phase 14 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 49 total
@@ -170,4 +170,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-02-04*
-*Last updated: 2026-02-05 (Phase 12 complete)*
+*Last updated: 2026-02-06 (v1.1 milestone audit - all 49 requirements complete)*
