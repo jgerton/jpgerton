@@ -1,522 +1,718 @@
-# Domain Pitfalls
+# Pitfalls Research: Blog and Content Management
 
-**Domain:** Portfolio/Agency Site Design Polish (Next.js + Tailwind v4 + shadcn/ui)
-**Researched:** 2026-02-04
+**Domain:** Adding blog/content management to Next.js 14 + Convex portfolio site
+**Researched:** 2026-02-06
 **Confidence:** HIGH
 
 ## Executive Summary
 
-When polishing an existing portfolio site that sells web design services, the most dangerous pitfall is the "cobbler's children" paradox: making the designer's own site look worse than the default template it replaced. The research reveals three critical failure modes:
+Adding a blog and content management system to an existing portfolio site carries high integration risk. The research reveals three categories of critical failures:
 
-1. **Performance regression through design polish** - Animation, custom fonts, and visual effects that tank the existing 100/96/100 Lighthouse scores
-2. **Accessibility breakage through aesthetic changes** - Color contrast failures, focus state removal, semantic structure loss that violate WCAG and hurt SEO
-3. **Brand confusion through over-customization** - Breaking shadcn/ui's cohesive design system while creating inconsistent spacing, typography, and component behavior
+1. **Performance regression through markdown overhead** - Code highlighting, large bundles, and client-side rendering can drop Lighthouse scores from 100 to 60-70
+2. **Security vulnerabilities from user content** - XSS through markdown rendering, unsafe HTML, and inadequate sanitization
+3. **Scalability pitfalls from naive queries** - Exhausting Convex free tier (1M calls/month) with unbounded queries and poor pagination
 
-The dual audience (non-technical local business owners + technical hiring managers) makes this especially treacherous: changes that impress one audience can alienate the other. Local business owners want warm and professional, hiring managers want clean code and good performance metrics.
+The dual constraints of maintaining existing quality (Lighthouse 100, WCAG AA) while adding dynamic features (blog, admin, CMS) makes this especially challenging. Most tutorials show greenfield blog setups; integrating into a working production site with placeholder data requires careful migration.
 
 ---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Tailwind v4 Migration Gotchas
+### Pitfall 1: Convex Free Tier Overrun with Naive Pagination
 
-**What goes wrong:**
-Project is using Tailwind v4 (config shows `tailwindcss: ^4.1.18`). V4 has breaking changes that look fine in dev but break in production, especially around CSS variable syntax, dark mode, and plugin compatibility. The transition-transform property now uses 4 separate properties (transform, translate, scale, rotate) that the upgrade tool doesn't catch.
+**What goes wrong:** Blog listing pages consume excessive Convex function calls, exhausting the 1M monthly limit within days. A single user browsing the blog generates dozens of queries.
 
-**Why it happens:**
-- V4's CSS-first approach replaces JavaScript config with @theme directive
-- CSS variable syntax changed: `bg-[--brand-color]` becomes `bg-(--brand-color)`
-- Dark mode behavior changed fundamentally
-- Browser support now requires Safari 16.4+, Chrome 111+, Firefox 128+
+**Why it happens:** Using `.collect()` on unbounded queries or implementing client-side pagination that fetches ALL posts then slices them in React. Each page view triggers new queries, and reactive subscriptions re-run on every data change.
 
 **How to avoid:**
-- Run visual regression tests before/after any Tailwind customization
-- Test dark mode explicitly - it "does not seem to work the same way as it did in v3"
-- Validate CSS variable usage follows v4 parentheses syntax
-- Check that custom brand colors (corporate-blue, tech-blue, turquoise) work in both light/dark modes
-- Never assume upgrade tool caught everything - manually review transition and transform utilities
+- Use Convex's built-in cursor-based pagination (`.paginate()`)
+- Apply `.withIndex()` on paginated queries for performance
+- Use `.take(N)` for preview lists, not `.collect()` then slice
+- Cache listing queries with Next.js ISR (revalidate: 3600) to reduce Convex calls
+- Avoid useQuery in components that re-render frequently
 
 **Warning signs:**
-- Dark mode toggle stops working or colors look wrong
-- Custom animations stutter or behave differently
-- Browser console shows CSS @property errors
-- Styles work in dev but break in production build
+- Convex dashboard shows high read operations
+- Blog listing page slower than expected
+- Function call count climbing rapidly in analytics
 
-**Phase to address:** Foundation phase (Phase 1-2)
+**Phase to address:** Phase 1 (Schema Design) - Define indexes; Phase 2 (Blog Listing) - Implement pagination correctly
+
+**Code smell:**
+```typescript
+// BAD: Fetches everything, unbounded
+const allPosts = useQuery(api.posts.list);
+const page = allPosts?.slice(start, end);
+
+// GOOD: Cursor-based pagination with index
+const { results, continueCursor } = usePaginatedQuery(
+  api.posts.listPaginated,
+  { status: "published" },
+  { initialNumItems: 10 }
+);
+```
+
+**Impact:** Could exhaust 1M free tier calls in 2-3 weeks with moderate traffic. Upgrade to paid tier ($25/mo for 25M calls) required.
 
 ---
 
-### Pitfall 2: Over-Animation Performance Cliff
+### Pitfall 2: XSS Vulnerability in Markdown Rendering
 
-**What goes wrong:**
-Adding animations to "polish" the site (fade-ins, parallax, hover effects, page transitions) tanks page load from <3s to >8s and drops Lighthouse performance from 100 to sub-70. JavaScript-based animations cause jank and performance bottlenecks. Google explicitly states a responsive site that takes 8+ seconds to load "isn't really responsive - it's hostile."
+**What goes wrong:** User-supplied markdown (from admin) renders malicious JavaScript, allowing attackers to hijack admin sessions or inject tracking scripts.
 
-**Why it happens:**
-- Developers confuse "polished" with "animated"
-- Animating properties beyond transform/opacity forces CPU rendering
-- Multiple simultaneous animations overwhelm lower-end devices
-- React component re-renders triggered by animation state
-- Animation libraries (Framer Motion, GSAP) add bundle size
+**Why it happens:** Using `dangerouslySetInnerHTML` with unsanitized markdown-to-HTML conversion, or rendering raw HTML embedded in markdown without filtering.
 
 **How to avoid:**
-- Restrict animations to GPU-accelerated properties only (transform, opacity)
-- Animate wrapper divs with CSS to force GPU usage for 60fps
-- Use Tailwind's built-in animations (already has tailwindcss-animate plugin)
-- Limit simultaneous animations - if more than 3 elements animate at once, cut it
-- Test on mobile/low-end devices, not just dev machine
-- Add reduce-motion support: `@media (prefers-reduced-motion: reduce)`
-- Weekly Lighthouse runs to catch regressions before they compound
+- Use `react-markdown` instead of `dangerouslySetInnerHTML` (converts to React components, not raw HTML)
+- If using `rehype-raw` for HTML support, pair with `rehype-sanitize` or DOMPurify
+- Implement strict Content Security Policy (CSP) with nonces
+- Never trust markdown input, even from "admin" users (defense in depth)
+- Validate frontmatter separately from markdown body
 
 **Warning signs:**
+- Using `dangerouslySetInnerHTML` anywhere in blog rendering code
+- Raw HTML tags appearing in rendered output
+- No CSP headers in Next.js config
+
+**Phase to address:** Phase 3 (Markdown Rendering) - Security-first implementation
+
+**Code pattern:**
+```typescript
+// BAD: XSS vulnerable
+<div dangerouslySetInnerHTML={{ __html: marked(markdown) }} />
+
+// GOOD: React components, auto-sanitized
+import ReactMarkdown from 'react-markdown';
+import rehypeSanitize from 'rehype-sanitize';
+
+<ReactMarkdown rehypePlugins={[rehypeSanitize]}>
+  {markdown}
+</ReactMarkdown>
+```
+
+**Impact:** CRITICAL security vulnerability. Could compromise admin accounts, inject malware, or deface site.
+
+---
+
+### Pitfall 3: Hydration Mismatch in Markdown Editor Preview
+
+**What goes wrong:** Markdown preview in admin editor shows hydration errors, flashing/re-rendering, or mismatched content between server and client.
+
+**Why it happens:** Rendering preview on server (SSR) with different markdown processor settings than client, or using browser-only APIs (localStorage for draft state) during SSR.
+
+**How to avoid:**
+- Make editor preview a Client Component with `"use client"`
+- Use `useEffect` to delay preview rendering until after hydration
+- Store draft state in React state, not localStorage during render
+- Use identical markdown processor configuration for SSR and client
+- Consider `suppressHydrationWarning` only for timestamps/dates, not content
+
+**Warning signs:**
+- Console errors: "Text content does not match server-rendered HTML"
+- Preview flashes or re-renders on page load
+- Different output in preview vs published post
+
+**Phase to address:** Phase 5 (Admin Markdown Editor) - Client-only preview component
+
+**Code pattern:**
+```typescript
+// BAD: SSR + browser API = hydration mismatch
+const [draft, setDraft] = useState(localStorage.getItem('draft'));
+
+// GOOD: Client-only, hydration-safe
+'use client';
+const [draft, setDraft] = useState('');
+useEffect(() => {
+  setDraft(localStorage.getItem('draft') || '');
+}, []);
+```
+
+**Impact:** Degrades UX, confuses editors, risks publishing wrong content if preview doesn't match output.
+
+---
+
+### Pitfall 4: Slug Collision on Publish
+
+**What goes wrong:** Publishing a new post fails silently or overwrites existing post because slugs collide ("my-post" vs "my-post-2").
+
+**Why it happens:** Generating slugs client-side without checking uniqueness, or using title-to-slug conversion that produces duplicates for similar titles.
+
+**How to avoid:**
+- Generate slugs server-side in Convex mutation with uniqueness check
+- Define unique index on `slug` field in schema
+- Append `-2`, `-3` suffix automatically if collision detected
+- Validate slug format (lowercase, hyphens, alphanumeric only)
+- Allow manual slug override in admin UI
+
+**Warning signs:**
+- Posts not appearing after publish
+- URL redirects to wrong post
+- Schema validation errors on insert
+
+**Phase to address:** Phase 1 (Schema Design) - Unique index; Phase 4 (Admin CRUD) - Slug generation logic
+
+**Code pattern:**
+```typescript
+// Convex schema
+posts: defineTable({
+  slug: v.string(),
+  title: v.string(),
+  // ...
+}).index("by_slug", ["slug"]), // Must be unique!
+
+// Mutation: check uniqueness
+const existing = await ctx.db
+  .query("posts")
+  .withIndex("by_slug", (q) => q.eq("slug", slug))
+  .first();
+
+if (existing && existing._id !== postId) {
+  // Append suffix or throw error
+  slug = `${slug}-${Date.now()}`;
+}
+```
+
+**Impact:** Silent data loss, broken URLs, SEO damage from duplicate content.
+
+---
+
+### Pitfall 5: Missing Canonical URLs Causing Duplicate Content Penalty
+
+**What goes wrong:** Blog posts accessible via multiple URLs (`/blog/post`, `/blog/post/`, `/blog/post?ref=twitter`) get flagged as duplicate content by Google, diluting SEO ranking.
+
+**Why it happens:** Not setting canonical URL in Next.js metadata, or setting wrong canonical (pointing to draft URL instead of published URL).
+
+**How to avoid:**
+- Use Next.js `generateMetadata` to set canonical URL for every post
+- Strip query params and trailing slashes from canonical
+- Use absolute URLs (https://jpgerton.com/blog/my-post), not relative
+- Test with Google Search Console for duplicate content warnings
+- Ensure pagination pages don't canonicalize to page 1 (each page is unique content)
+
+**Warning signs:**
+- Search Console shows duplicate content issues
+- Same post indexed multiple times
+- Traffic split across URL variations
+
+**Phase to address:** Phase 3 (Markdown Rendering) - Add metadata generation
+
+**Code pattern:**
+```typescript
+// app/blog/[slug]/page.tsx
+export async function generateMetadata({ params }) {
+  const post = await fetchConvex(api.posts.getBySlug, { slug: params.slug });
+
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: {
+      canonical: `https://jpgerton.com/blog/${params.slug}`, // Absolute URL
+    },
+    openGraph: {
+      url: `https://jpgerton.com/blog/${params.slug}`,
+      // ...
+    },
+  };
+}
+```
+
+**Impact:** SEO ranking drops, lower search visibility, wasted link equity across duplicates.
+
+---
+
+### Pitfall 6: Code Syntax Highlighter Bundle Size Explosion
+
+**What goes wrong:** Adding `highlight.js` or `Prism` to markdown rendering adds 200-500KB to bundle, dropping Lighthouse performance score from 100 to 70-80.
+
+**Why it happens:** Importing full syntax highlighter library with all languages, or client-side highlighting that blocks rendering.
+
+**How to avoid:**
+- Use server-side syntax highlighting (e.g., Bright for RSC, `rehype-highlight` with specific languages)
+- Import only needed languages (JS, TS, CSS, Bash), not all 200+ languages
+- Use `next/dynamic` with `ssr: false` to lazy-load highlighter only on posts with code blocks
+- Consider CSS-only highlighting for simple cases (GitHub-style)
+- Monitor bundle size with `bun run build` analyzer
+
+**Warning signs:**
+- Bundle size jumps by 200KB+ after adding code highlighting
 - Lighthouse performance score drops below 90
-- Page load exceeds 3 seconds
-- Janky scrolling or hover effects
-- High CPU usage in Chrome DevTools Performance tab
-- First Contentful Paint (FCP) regresses
+- First Contentful Paint (FCP) increases
+- Total Blocking Time (TBT) increases
 
-**Phase to address:** Throughout all phases (continuous monitoring)
+**Phase to address:** Phase 3 (Markdown Rendering) - Server-side, selective language import
+
+**Code pattern:**
+```typescript
+// BAD: Full library, client-side
+import hljs from 'highlight.js'; // 500KB!
+
+// GOOD: Server-side, specific languages only
+import rehypeHighlight from 'rehype-highlight';
+import langJavaScript from 'highlight.js/lib/languages/javascript';
+import langTypescript from 'highlight.js/lib/languages/typescript';
+
+<ReactMarkdown
+  rehypePlugins={[
+    [rehypeHighlight, {
+      languages: { javascript: langJavaScript, typescript: langTypescript }
+    }]
+  ]}
+>
+  {markdown}
+</ReactMarkdown>
+```
+
+**Impact:** Violates "maintain Lighthouse 100" constraint, degrades Core Web Vitals, poor mobile UX.
 
 ---
 
-### Pitfall 3: shadcn/ui Customization Hell
+### Pitfall 7: Testimonials and Case Studies Still Using Placeholder Data
 
-**What goes wrong:**
-Customizing shadcn/ui components to look "less generic" breaks the design system consistency, creates maintenance nightmares, and accidentally removes accessibility features. Components become YOUR problem - dependency issues (like the cmdk Combobox breakage), bundle size bloat, and manual update burden.
+**What goes wrong:** After launching blog with real content, testimonials and case studies on homepage still show placeholder data, looking unprofessional.
 
-**Why it happens:**
-- shadcn/ui copies components into your codebase - you own them
-- No central theme means brand color updates require touching dozens of files
-- Developers customize without understanding component structure
-- Breaking changes in underlying libraries (Radix UI) break your custom components
-- Button API has "questionable designs" that tempt bad customization
+**Why it happens:** Existing `TestimonialCard` and `CaseStudyVisual` components were built with hardcoded props, never wired to Convex. Blog launch focused on new features, not refactoring existing.
 
 **How to avoid:**
-- Create a central theme BEFORE customizing individual components
-- Document every customization with rationale (why it differs from default)
-- When changing shadcn component, test ALL interactive states (hover, focus, disabled, error, loading)
-- Use semantic color tokens, not literal values: `bg-primary` not `bg-blue-500`
-- Keep shadcn component customizations in a single directory (`components/ui/`)
-- If updating a component, diff against current shadcn version to see what changed upstream
-- Test with keyboard navigation to ensure accessibility preserved
+- Plan migration phase explicitly before blog launch
+- Create `testimonials` and `caseStudies` Convex tables
+- Refactor components to use `useQuery` instead of props
+- Add admin CRUD for testimonials/case studies alongside blog
+- QA checklist must include "all data is dynamic, no placeholders"
 
 **Warning signs:**
-- Spacing inconsistencies across similar components
-- Focus outlines missing or invisible
-- Color contrast fails WCAG checks
-- Components behave differently in light vs dark mode
-- ESLint jsx-a11y warnings (project has this plugin enabled)
+- Grep for hardcoded testimonial text in components
+- No Convex queries for testimonials/case studies
+- Admin panel missing CRUD for these entities
 
-**Phase to address:** Design System Foundation (Phase 2)
+**Phase to address:** Phase 4 (Admin CRUD) or separate migration phase before blog launch
+
+**Code pattern:**
+```typescript
+// BEFORE (Phase 11 composition):
+<TestimonialCard
+  quote="Amazing work on my site!"
+  author="Jane Smith"
+  role="Small Business Owner"
+/>
+
+// AFTER (Dynamic data):
+const testimonials = useQuery(api.testimonials.listFeatured);
+{testimonials?.map(t => <TestimonialCard key={t._id} testimonial={t} />)}
+```
+
+**Impact:** Damages credibility, looks like demo site, undermines professional positioning.
 
 ---
 
-### Pitfall 4: Color Contrast Failures in Dark Mode
+### Pitfall 8: Convex Schema Migration Breaks Existing Queries
 
-**What goes wrong:**
-83.6% of websites fail WCAG color contrast requirements. When polishing colors for "warm, approachable, professional" feel, subtle color changes on dark backgrounds become invisible. Pure black (#000000) creates halation effect and eye strain. Focus outlines blend into interface. Interactive states (hover, disabled) fail contrast checks. Sites offer dark mode toggle thinking it fixes contrast issues - it doesn't.
+**What goes wrong:** Adding new required fields to `projects` table breaks existing portfolio page because Convex enforces schema on reads.
 
-**Why it happens:**
-- Designers test on good monitors with high contrast ratio
-- HSL color variables look fine in light mode, fail in dark mode
-- Simple color inversion (light to dark) creates high contrast discomfort
-- Focus states rely on subtle color shifts that disappear on dark backgrounds
-- Contrast checking happens as afterthought, not during design
+**Why it happens:** Pushing schema with new required fields before migrating existing documents, or not understanding Convex schema evolution rules.
 
 **How to avoid:**
-- Test every color combination with contrast checker (aim for WCAG AA minimum 4.5:1 for text, 3:1 for UI)
-- Avoid pure black (#000000) and pure white (#ffffff) - use #0a0a0a and #fafafa instead
-- Test dark mode on ACTUAL dark theme, not just inverted palette
-- Ensure focus indicators are visible in BOTH themes (minimum 3:1 contrast against background)
-- Check all interactive states: default, hover, focus, active, disabled, error
-- Use `next-themes` package (already in deps) to test theme switching
-- More than 80% of users opt for dark mode when given choice - don't treat it as afterthought
+- Always add new fields as `v.optional()` first
+- Run migration mutation to populate field on existing docs
+- After migration complete, change schema to required
+- Use Convex Migrations component for complex changes
+- Test schema changes on dev deployment first
 
 **Warning signs:**
-- Browser accessibility DevTools flags contrast violations
-- Focus states hard to see when tabbing through interface
-- Text on colored backgrounds feels hard to read
-- Dark mode looks like simple color inversion
-- Hiring managers comment that site "feels hard to use"
+- Schema push rejected with validation errors
+- Queries returning empty results after schema change
+- TypeScript errors about missing required fields
 
-**Phase to address:** Color System (Phase 3)
+**Phase to address:** Phase 1 (Schema Design) - Document migration strategy
+
+**Migration workflow:**
+```typescript
+// Step 1: Add as optional
+projects: defineTable({
+  // ... existing fields
+  category: v.optional(v.string()), // NEW
+})
+
+// Step 2: Migrate data
+internalMutation(async ({ db }) => {
+  const projects = await db.query("projects").collect();
+  for (const project of projects) {
+    if (!project.category) {
+      await db.patch(project._id, { category: "uncategorized" });
+    }
+  }
+});
+
+// Step 3: Change to required
+projects: defineTable({
+  // ... existing fields
+  category: v.string(), // Now required
+})
+```
+
+**Impact:** Site outage, broken portfolio page, emergency rollback required.
 
 ---
 
-### Pitfall 5: Design Token Inconsistency
+### Pitfall 9: RSS Feed and Sitemap Forgotten Until Launch
 
-**What goes wrong:**
-Ad-hoc spacing decisions create visual chaos: one section uses `gap-4`, another `gap-6`, third uses `gap-5`. Typography sizes vary randomly (text-base here, text-lg there). No consistent spacing scale means "fixing" one area breaks visual rhythm elsewhere. Without central tokens, updating brand color requires 40+ file changes.
+**What goes wrong:** Blog launches without RSS feed or sitemap, missing SEO opportunities and frustrating users who want to subscribe.
 
-**Why it happens:**
-- Tailwind makes it TOO easy to use arbitrary values
-- Developers pick spacing that "looks right" without system
-- No design tokens defined upfront
-- Each component built in isolation
-- Copy-paste leads to divergent values
+**Why it happens:** Treating RSS/sitemap as "nice to have" instead of core feature, or assuming Next.js auto-generates them (it doesn't).
 
 **How to avoid:**
-- Define spacing scale in CSS variables BEFORE building components
-- Tailwind config (lines 55-58) has radius variables - extend this to spacing
-- Create spacing scale: `--spacing-xs`, `--spacing-sm`, `--spacing-md`, `--spacing-lg`, `--spacing-xl`
-- Typography scale: `--text-xs` through `--text-5xl` with consistent line-heights
-- Document the system: "Use --spacing-md (1rem) for component internal padding"
-- Lint for arbitrary values: `[&:not(.arbitrary-allowed)]:gap-[17px]` should fail CI
-- Run spacing audit: grep for `gap-`, `p-`, `m-` and document most common values
+- Add RSS and sitemap to Phase 2 (Blog Listing) acceptance criteria
+- Use Next.js `app/sitemap.ts` and `app/blog/rss.xml/route.ts` conventions
+- Include blog posts, portfolio projects, and static pages in sitemap
+- Validate RSS with feed validator before launch
+- Link RSS in footer and blog header
 
 **Warning signs:**
-- Same component has different spacing on different pages
-- Visual rhythm feels "off" but can't pinpoint why
-- Spacing values include oddities like `gap-7`, `p-11`, `mt-13`
-- Typography line-heights inconsistent (some tight, some loose)
-- Developers ask "what spacing should I use?" repeatedly
+- No `sitemap.ts` or RSS route in codebase
+- Google Search Console shows "no sitemap submitted"
+- Users asking for RSS feed in feedback
 
-**Phase to address:** Design System Foundation (Phase 2)
+**Phase to address:** Phase 2 (Blog Listing) - Build alongside pagination
+
+**Code pattern:**
+```typescript
+// app/sitemap.ts
+export default async function sitemap() {
+  const posts = await fetchConvex(api.posts.listPublished);
+
+  return [
+    { url: 'https://jpgerton.com', lastModified: new Date() },
+    ...posts.map(post => ({
+      url: `https://jpgerton.com/blog/${post.slug}`,
+      lastModified: new Date(post.updatedAt),
+    })),
+  ];
+}
+```
+
+**Impact:** Poor SEO, reduced discoverability, missed subscriber opportunities.
 
 ---
 
-### Pitfall 6: Mobile Responsive Regression
+### Pitfall 10: Open Graph Images Not Generated for Blog Posts
 
-**What goes wrong:**
-Polishing desktop design breaks mobile experience. Navigation becomes unusable, content gets cut off, touch targets too small, performance craters. Google's mobile-first indexing means sites not accessible on mobile "will not be indexed at all, regardless of their desktop performance." This is "the definitive end of desktop-first web development."
+**What goes wrong:** Sharing blog posts on Twitter/LinkedIn shows generic site OG image or no preview, reducing click-through.
 
-**Why it happens:**
-- Designers test on desktop, assume mobile "just works"
-- Responsive design treated as afterthought after desktop polish
-- Fixed widths or heights break on smaller screens
-- Desktop hover states don't translate to touch
-- Images optimized for desktop are huge on mobile
+**Why it happens:** Not implementing per-post OG images, or using static images that don't scale for dynamic content.
 
 **How to avoid:**
-- Mobile-first design: build small screen first, enhance for desktop
-- Test on REAL mobile devices, not just DevTools responsive mode
-- Touch targets minimum 44x44px (Apple) or 48x48px (Google)
-- No hover-only interactions - provide touch alternatives
-- Use Next.js Image component (already using) with responsive sizes prop
-- Test hamburger menu on actual phone - does it work with thumb?
-- Validate scroll behavior - no horizontal scroll on mobile
-- Check Lighthouse mobile score (currently 96) doesn't regress
+- Use Next.js OG Image Generation (`ImageResponse`) to create dynamic previews
+- Include post title, excerpt, and branding in OG image
+- Set dimensions to 1200x630 (standard OG size)
+- Test with Twitter Card Validator and LinkedIn Post Inspector
+- Add OG metadata to `generateMetadata` for each post
 
 **Warning signs:**
-- Lighthouse mobile score drops below 90
-- Navigation menu hard to open/close on phone
-- Text requires pinch-to-zoom
-- Buttons too small to tap accurately
-- Horizontal scrollbar appears
-- Layout shifts when rotating device
+- Shared links show no preview image
+- All blog posts show same generic OG image
+- Social media shares have low engagement
 
-**Phase to address:** Throughout all phases (continuous validation)
+**Phase to address:** Phase 6 (Launch Prep) - OG image generation route
 
----
+**Code pattern:**
+```typescript
+// app/blog/[slug]/opengraph-image.tsx
+export default async function OGImage({ params }) {
+  const post = await fetchConvex(api.posts.getBySlug, { slug: params.slug });
 
-### Pitfall 7: SEO/Accessibility Coupling Breakage
+  return new ImageResponse(
+    <div style={{ /* OG layout */ }}>
+      <h1>{post.title}</h1>
+      <p>{post.excerpt}</p>
+    </div>,
+    { width: 1200, height: 630 }
+  );
+}
+```
 
-**What goes wrong:**
-Design changes break accessibility AND SEO simultaneously. Technical SEO and accessibility "break in the same places" - div soup confuses screen readers and crawlers identically. Infinite scroll traps keyboard users. Hover-only navigation fails for screen readers and Google. When accessibility breaks, crawlability suffers. Organizations now correlate web accessibility with SEO performance, AI response quality, usability, and conversion rates.
-
-**Why it happens:**
-- Semantic HTML replaced with divs for "design flexibility"
-- ARIA attributes removed or used incorrectly
-- Heading hierarchy broken for visual design
-- Links styled as buttons (or vice versa)
-- JavaScript-only content that can't be parsed without pre-rendering
-- Focus on visual polish ignores document structure
-
-**How to avoid:**
-- Semantic HTML first: use `<nav>`, `<main>`, `<article>`, `<section>`, `<aside>`
-- Heading hierarchy matters: h1 → h2 → h3, no skipping levels
-- Links for navigation (`<a href>`), buttons for actions (`<button>`)
-- Test with keyboard only: Tab, Shift+Tab, Enter, Space
-- Use next-aeo package (already in deps) to verify structured data
-- Screen reader testing: NVDA (free on Windows) or VoiceOver (Mac)
-- Lighthouse accessibility audit catches 57% of issues - remaining 43% need manual testing
-
-**Warning signs:**
-- Lighthouse accessibility score drops below 100
-- Can't navigate site with keyboard only
-- Headings don't form logical outline
-- Links announce as "link" with no context
-- Google Search Console shows indexing issues
-- eslint-plugin-jsx-a11y (already installed) shows warnings
-
-**Phase to address:** Throughout all phases (validation gate)
-
----
-
-### Pitfall 8: "Looks Done But Isn't" - The Generic Template Trap
-
-**What goes wrong:**
-Site gets "polished" but still looks like default shadcn/ui template. This is THE core problem: making a web designer's portfolio that screams "I used a template." Visual hierarchy weak, spacing generic, no personality, CTAs blend into content. For someone selling web design services, this is fatal credibility loss.
-
-**Why it happens:**
-- Default shadcn components used without customization
-- No custom brand elements (illustrations, patterns, textures)
-- Typography uses default Inter font without hierarchy
-- Colors use default slate grays instead of warm brand palette
-- Layout follows standard "hero → cards → footer" pattern
-- No unique visual elements that say "this is Jon Gerton"
-
-**How to avoid:**
-- Identify "template smell": if it could be anyone's site, it fails
-- Custom brand elements: hand-crafted illustrations, unique patterns, subtle textures
-- Typography personality: adjust font weights, letter spacing, line heights
-- Use the defined brand colors (corporate-blue, tech-blue, turquoise) prominently
-- Visual storytelling: large banner/slider headers are cliche - avoid them
-- Add personality through micro-interactions, not just big animations
-- "After years of polished grids and AI-generated sameness, the industry is quietly rebelling with warmth, texture, and personality"
-
-**Warning signs:**
-- Could swap logo and it looks like someone else's site
-- All components use default shadcn styling
-- Color palette is slate-based neutrals only
-- No custom visual elements beyond stock photos
-- Typography lacks hierarchy (everything looks same weight)
-- Feedback from users: "nice site" but no memorable elements
-
-**Phase to address:** Brand Identity (Phase 4)
-
----
-
-## Moderate Pitfalls
-
-Mistakes that cause delays, technical debt, or suboptimal UX.
-
-### Pitfall 9: Weak Portfolio CTA Strategy
-
-**What goes wrong:** CTAs say "Explore My Journey" instead of "Book Your $500 Website"
-**Impact:** Conversion rate suffers - visitors unsure what action to take
-**Fix:** Action hierarchy - Primary (see work), Secondary (learn about you), Tertiary (contact)
-**Stats:** Right CTA in right location increases conversions 22-48%, arrow on button adds 26% clicks
-**Phase:** CTA Optimization (Phase 5)
-
-### Pitfall 10: Multiple Competing CTAs
-
-**What goes wrong:** Every section has different CTA, creating "button festival"
-**Impact:** Decision paralysis - visitors don't know which action is primary
-**Fix:** One primary CTA per page, secondary CTAs visually subordinate
-**Phase:** CTA Optimization (Phase 5)
-
-### Pitfall 11: Missing Urgency Signals
-
-**What goes wrong:** No indication of availability, booking timeline, or demand
-**Impact:** Visitors delay decision, never return
-**Fix:** Subtle urgency: "Currently booking projects for Q2 2026", "3 slots available this month"
-**Phase:** CTA Optimization (Phase 5)
+**Impact:** Lower social media engagement, unprofessional appearance, lost traffic.
 
 ---
 
 ## Technical Debt Patterns
 
-### Pattern 1: CSS Variable Scope Confusion
-**Problem:** Mixing Tailwind v4 CSS-first config with v3 JavaScript config patterns
-**Detection:** Look for mix of `@theme` directive and tailwind.config.ts extensions
-**Fix:** Choose one system - v4 uses CSS `@theme`, not JS config
-**Cost to fix later:** 4-8 hours refactor + regression testing
-
-### Pattern 2: Arbitrary Value Proliferation
-**Problem:** `gap-[23px]`, `text-[17px]`, `mt-[13px]` scattered throughout codebase
-**Detection:** Grep for `\[.*px\]` pattern in class names
-**Fix:** Replace with design tokens or add to Tailwind theme
-**Cost to fix later:** 2-3 hours + visual regression testing
-
-### Pattern 3: Inline Style Escape Hatch Overuse
-**Problem:** Using `style={{}}` props instead of Tailwind classes
-**Detection:** Grep for `style={{` in components
-**Fix:** Convert to Tailwind utilities or CSS variables
-**Cost to fix later:** 1-2 hours per component
-
-### Pattern 4: Component Variant Duplication
-**Problem:** Same button styled 5 different ways across site
-**Detection:** Count button class name variations
-**Fix:** Use class-variance-authority (already in deps) to centralize variants
-**Cost to fix later:** 3-5 hours + testing all button instances
+| Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
+|----------|-------------------|----------------|-----------------|
+| Hardcoded blog posts in markdown files | No database setup, simple deployment | Can't edit without redeployment, no search, no filtering | Proof of concept only |
+| Client-side markdown rendering | Simpler code, no SSR complexity | XSS risk, poor SEO, slow rendering | Never for production blog |
+| `.collect()` instead of `.paginate()` | Works for small datasets | Exhausts Convex limits, performance degrades | Dev environment only |
+| Skip RSS/sitemap | Ship faster | SEO penalty, manual outreach required | MVP if committed to add in v1.1 |
+| Generic OG images for all posts | One image, done | Low social engagement | Personal blog with minimal sharing |
+| Admin without auth | Faster development | Anyone can edit content | Local dev only, NEVER production |
 
 ---
 
 ## Performance Traps
 
-### Trap 1: Unoptimized Custom Fonts
-**Risk:** Adding Google Fonts or custom typefaces incorrectly tanks FCP
-**Prevention:** Use Next.js font optimization (`next/font/google`), preload font files, subset fonts
-**Monitoring:** Watch First Contentful Paint in Lighthouse
+| Trap | Symptoms | Prevention | When It Breaks |
+|------|----------|------------|----------------|
+| Importing full highlight.js | Bundle +500KB, Lighthouse 70 | Server-side highlighting, specific languages only | First code snippet added |
+| Fetching all posts for pagination | Slow listing page, high Convex usage | Cursor-based pagination with indexes | 10+ blog posts |
+| No image optimization in markdown | LCP 3-5s, poor mobile UX | `next/image` or `rehype-img-size` plugin | First image-heavy post |
+| Client-side syntax highlighting | Blocking JavaScript, TBT spike | Server-side with rehype plugins | Production traffic |
+| Unbounded search queries | Timeout after 100+ posts | Full-text search indexes, pagination | 50+ posts |
+| Re-rendering markdown on every keystroke | Editor lag, CPU spike | Debounce preview updates (300ms) | Long blog posts (2000+ words) |
 
-### Trap 2: Large Background Images/Videos
-**Risk:** Hero sections with 5MB background videos or 3000px images
-**Prevention:** Use Next.js Image with priority prop for above-fold images, video poster images, lazy load below-fold content
-**Monitoring:** Largest Contentful Paint (LCP) metric
+**Lighthouse preservation checklist:**
+- [ ] Code highlighting is server-side
+- [ ] Images use `next/image` or optimized
+- [ ] JavaScript bundle under 200KB
+- [ ] No blocking scripts in markdown content
+- [ ] Fonts preloaded (Inter, Lora already configured)
+- [ ] CSS-only animations (existing constraint met)
 
-### Trap 3: Render-Blocking CSS
-**Risk:** Custom CSS files block initial render
-**Prevention:** Inline critical CSS, defer non-critical CSS, use Tailwind's built-in tree-shaking
-**Monitoring:** Total Blocking Time (TBT) metric
+---
 
-### Trap 4: JavaScript Bundle Bloat
-**Risk:** Animation libraries, UI libraries, utilities add 200KB+ to bundle
-**Prevention:** Code split with dynamic imports, tree-shake unused exports, check bundle analyzer
-**Monitoring:** Lighthouse performance score, bundle size in build output
+## Security Mistakes
+
+| Mistake | Risk | Prevention |
+|---------|------|------------|
+| Using `dangerouslySetInnerHTML` for markdown | XSS, session hijacking | Use `react-markdown` with `rehype-sanitize` |
+| No auth check in blog mutations | Anyone can publish/delete posts | `getAuthUserId(ctx)` in all mutations |
+| Storing markdown with embedded `<script>` tags | Persistent XSS | Sanitize on input AND output |
+| No CSP headers | XSS exploitation easier | Add strict CSP to `next.config.js` |
+| Trusting frontmatter without validation | Schema injection, type errors | Validate with Zod before parsing |
+| Admin routes not protected | Public content management | Middleware check for `/admin/*` routes |
+| Draft posts accessible via direct URL | Content leaks before publish | Status check in query, not just UI |
+
+**Security checklist:**
+- [ ] All admin mutations require auth
+- [ ] Markdown rendered with sanitization
+- [ ] CSP headers configured
+- [ ] Frontmatter validated (Zod or similar)
+- [ ] Draft posts require auth to view
+- [ ] No `dangerouslySetInnerHTML` in codebase
 
 ---
 
 ## "Looks Done But Isn't" Checklist
 
-Use this to validate design polish actually improves the site:
+Features that appear complete but have critical gaps:
 
-**Visual Identity**
-- [ ] Brand colors (corporate-blue, tech-blue, turquoise) used prominently, not just defined
-- [ ] Typography hierarchy clear: h1 distinct from h2, p from small text
-- [ ] Spacing follows consistent scale (no random gap-7, p-11, mt-13)
-- [ ] Components have consistent border-radius (config has --radius variable)
-- [ ] Dark mode intentionally designed, not just color inversion
+- [ ] **Blog post detail page** - Works, but no canonical URL set (SEO issue)
+- [ ] **Markdown editor** - Renders preview, but no XSS sanitization
+- [ ] **Pagination** - Shows pages, but uses `.collect()` + slice (will break at scale)
+- [ ] **Code highlighting** - Works, but imported full library (500KB bundle)
+- [ ] **Admin CRUD** - Can create posts, but no slug uniqueness check (collision risk)
+- [ ] **Testimonials section** - Displays on homepage, but hardcoded data (not dynamic)
+- [ ] **Search functionality** - Filters posts, but no index (slow with 100+ posts)
+- [ ] **Social sharing** - Share buttons present, but generic OG images
+- [ ] **Draft workflow** - Can mark as draft, but accessible via direct URL
+- [ ] **RSS feed** - Generated, but no validation (may not parse correctly)
+- [ ] **Sitemap** - Created, but not submitted to Search Console
+- [ ] **Image upload** - Works, but no size limits (could exhaust Convex storage)
+- [ ] **Categories/tags** - Display on posts, but no index page for browsing
+- [ ] **Related posts** - Shows suggestions, but query fetches all posts (unbounded)
 
-**Performance**
-- [ ] Lighthouse performance 90+ (currently 100, don't regress)
-- [ ] Lighthouse accessibility 100 (maintain)
-- [ ] Lighthouse best practices 100 (currently 100, maintain)
-- [ ] Page load under 3 seconds (currently sub-3s)
-- [ ] First Contentful Paint under 1.8s
-- [ ] Largest Contentful Paint under 2.5s
-- [ ] Cumulative Layout Shift under 0.1
+**Validation tests:**
+```bash
+# RSS feed validation
+curl https://jpgerton.com/blog/rss.xml | xmllint --valid -
 
-**Accessibility**
-- [ ] All interactive elements keyboard accessible (Tab navigation works)
-- [ ] Focus indicators visible in light AND dark mode
-- [ ] Color contrast meets WCAG AA (4.5:1 text, 3:1 UI)
-- [ ] Semantic HTML (nav, main, article, section, aside)
-- [ ] Heading hierarchy logical (no skipped levels)
-- [ ] ARIA labels on icon-only buttons
-- [ ] Form inputs have associated labels
-- [ ] Error messages announce to screen readers
+# Lighthouse CI
+bun run build && lighthouse http://localhost:3400/blog --view
 
-**Brand Personality**
-- [ ] Site feels like "Jon Gerton" not "generic developer"
-- [ ] Visual elements beyond stock components (custom illustrations, patterns, textures)
-- [ ] Typography has personality (weights, spacing, rhythm)
-- [ ] Micro-interactions add delight without hurting performance
-- [ ] Color palette reflects "warm, approachable, professional" (not cold slate grays)
-- [ ] Layout breaks away from standard template patterns
+# Bundle size check
+bun run build && du -sh .next/static/chunks/*.js | sort -h
 
-**Conversion Flow**
-- [ ] Primary CTA obvious on every page (Book Your $500 Website)
-- [ ] CTA hierarchy clear (primary visually dominant)
-- [ ] No competing CTAs creating confusion
-- [ ] Urgency signals present but not aggressive
-- [ ] Path to Calendly booking frictionless
-- [ ] Services page clearly explains $500 offer value
-
-**Technical Quality**
-- [ ] No console errors or warnings
-- [ ] ESLint passes (no jsx-a11y violations)
-- [ ] TypeScript strict mode passes
-- [ ] Build succeeds without warnings
-- [ ] All images use Next.js Image component
-- [ ] Responsive design tested on real mobile devices
-- [ ] Works in Safari, Chrome, Firefox
+# Convex query performance
+# Check Convex dashboard for queries taking >100ms
+```
 
 ---
 
 ## Recovery Strategies
 
-### If Performance Tanks
-1. **Identify the culprit:** Run Lighthouse before/after specific changes
-2. **Check bundle size:** `bun run build` shows size breakdown
-3. **Profile with DevTools:** Performance tab shows what's slow
-4. **Remove animations first:** Often the quickest win
-5. **Optimize images:** Check all images use Next.js Image with proper sizes
-6. **Code split:** Dynamic imports for below-fold content
+| Pitfall | Recovery Cost | Recovery Steps |
+|---------|---------------|----------------|
+| Exhausted Convex free tier mid-month | $25 immediate upgrade | 1. Upgrade to Pro plan<br>2. Add ISR caching to reduce queries<br>3. Audit query patterns for inefficiency |
+| XSS vulnerability exploited | HIGH - incident response | 1. Take admin offline immediately<br>2. Audit all posts for malicious content<br>3. Deploy sanitization fix<br>4. Reset all admin sessions |
+| Slug collision overwrote post | MEDIUM - data recovery | 1. Restore from Convex backup (automatic)<br>2. Add unique index to schema<br>3. Regenerate colliding slugs |
+| Lighthouse score dropped to 60 | LOW - optimization sprint | 1. Identify bundle bloat with analyzer<br>2. Switch to server-side highlighting<br>3. Add image optimization<br>4. Re-test and iterate |
+| Missing canonical URLs, SEO penalty | MEDIUM - SEO recovery | 1. Add canonical metadata to all posts<br>2. Submit updated sitemap to Search Console<br>3. Wait 2-4 weeks for re-indexing |
+| Hydration errors in preview | LOW - component refactor | 1. Convert editor to Client Component<br>2. Delay preview until `useEffect`<br>3. Test with Strict Mode enabled |
+| Schema migration broke portfolio | HIGH - emergency rollback | 1. Rollback schema to previous version<br>2. Plan migration with optional fields<br>3. Test on dev deployment first |
 
-### If Accessibility Breaks
-1. **Run Lighthouse:** Catches 57% of issues automatically
-2. **Keyboard test:** Can you navigate entire site with Tab/Enter only?
-3. **Screen reader test:** NVDA on Windows, VoiceOver on Mac
-4. **Contrast check:** Use browser DevTools accessibility panel
-5. **Semantic HTML:** View page source, ensure proper tags
-6. **Fix ESLint:** `bun run lint` shows jsx-a11y violations
+**Emergency rollback procedure:**
+```bash
+# Convex schema rollback
+bunx convex deploy --schema-only --prev-version
 
-### If Dark Mode Fails
-1. **Test theme toggle:** Use next-themes `useTheme` hook to verify switching
-2. **Check CSS variables:** All colors use `hsl(var(--variable))` syntax?
-3. **Validate contrast:** Light mode passing doesn't mean dark mode does
-4. **Test all states:** Hover, focus, active, disabled in both themes
-5. **Browser DevTools:** Force color scheme to test without toggle
+# Next.js deployment rollback (Vercel)
+vercel rollback <deployment-url>
 
-### If Design Feels Generic
-1. **Audit components:** Count how many use default shadcn styling
-2. **Brand color usage:** Grep for corporate-blue, tech-blue, turquoise usage
-3. **Typography audit:** Check font weights, sizes, spacing variations
-4. **Layout patterns:** Does structure match common templates?
-5. **Visual elements:** List custom illustrations, patterns, textures (should be >3)
-
----
-
-## Pitfall-to-Phase Mapping
-
-| Pitfall | Risk Level | Phase(s) Affected | Mitigation Timing |
-|---------|------------|-------------------|-------------------|
-| Tailwind v4 Migration Gotchas | CRITICAL | 1-2 Foundation | Before any customization |
-| Over-Animation Performance | HIGH | All phases | Continuous monitoring |
-| shadcn/ui Customization Hell | HIGH | 2 Design System | Before component changes |
-| Color Contrast Dark Mode | HIGH | 3 Color System | During color changes |
-| Design Token Inconsistency | MEDIUM | 2 Design System | Before component work |
-| Mobile Responsive Regression | HIGH | All phases | Continuous validation |
-| SEO/Accessibility Coupling | CRITICAL | All phases | Validation gate |
-| Generic Template Trap | MEDIUM | 4 Brand Identity | During visual polish |
-| Weak CTA Strategy | MEDIUM | 5 CTA Optimization | During conversion work |
+# Local verification
+docker compose up
+bun run build  # Check for errors
+```
 
 ---
 
 ## Phase-Specific Warnings
 
-| Phase Topic | Likely Pitfall | Mitigation |
-|-------------|---------------|------------|
-| Foundation | Tailwind v4 breaking changes | Test dark mode explicitly before building on it |
-| Design System | Design token inconsistency | Define spacing/typography scale BEFORE components |
-| Color System | Dark mode contrast failures | Test WCAG contrast in both themes simultaneously |
-| Brand Identity | Generic template trap | Add 3+ custom visual elements (illustrations, patterns) |
-| CTA Optimization | Multiple competing CTAs | One primary CTA per page, others subordinate |
+| Phase | Topic | Likely Pitfall | Mitigation |
+|-------|-------|---------------|------------|
+| 1 | Schema Design | Adding required fields without migration plan | Start with `v.optional()`, document upgrade path |
+| 1 | Indexes | Missing index on `slug` causes slow lookups | Add `by_slug` index, unique constraint |
+| 2 | Blog Listing | Using `.collect()` for pagination | Use `.paginate()` with cursor |
+| 2 | Query Performance | No index on `status` + `publishedAt` | Add compound index for published posts query |
+| 3 | Markdown Rendering | XSS via `dangerouslySetInnerHTML` | Use `react-markdown` with `rehype-sanitize` |
+| 3 | Code Highlighting | Full library import (500KB) | Server-side, specific languages only |
+| 3 | SEO Metadata | Missing canonical URLs | Implement `generateMetadata` for all posts |
+| 4 | Admin CRUD | No slug uniqueness check | Server-side validation in mutation |
+| 4 | Data Migration | Testimonials still hardcoded | Migrate to Convex, create admin UI |
+| 5 | Markdown Editor | Hydration mismatch in preview | Client Component with `useEffect` delay |
+| 5 | Draft State | localStorage conflicts with SSR | Store drafts in Convex, not browser |
+| 6 | Launch Prep | RSS/sitemap forgotten | Add to acceptance criteria, validate before launch |
+| 6 | OG Images | Generic images for all posts | Dynamic generation with `ImageResponse` |
+| 6 | Analytics | No event tracking for blog interactions | Add PostHog/Plausible for read time, scrolls |
+
+---
+
+## Integration-Specific Warnings (Next.js + Convex + Tailwind v4)
+
+### Convex Reactive Queries with SSR
+**Pitfall:** Using `useQuery` in Server Components causes build errors.
+**Fix:** Use `fetchQuery` from `convex/nextjs` in Server Components, `useQuery` only in Client Components.
+
+### Tailwind v4 Prose Styling
+**Pitfall:** `@tailwindcss/typography` not compatible with Tailwind v4 yet (as of Feb 2026).
+**Fix:** Define custom prose styles in `globals.css` under `@layer utilities`, or wait for v4 plugin.
+
+### Docker + Convex Dev Mode
+**Pitfall:** Convex dev server runs on host, but Next.js in container can't reach `localhost:3001`.
+**Fix:** Run `bunx convex dev` on host (not in container), Next.js can access via host.docker.internal or run Convex in separate container.
+
+### Lora Font with Code Blocks
+**Pitfall:** Code blocks inherit `font-serif` (Lora) from heading context, looks unprofessional.
+**Fix:** Explicitly set `font-mono` on `<code>` and `<pre>` elements in markdown styles.
+
+### Existing useIntersectionObserver Hook
+**Pitfall:** Hook uses callback ref pattern, easy to misuse with markdown-rendered content.
+**Fix:** Ensure ref attached to wrapper div, not markdown-generated elements that mount conditionally.
+
+---
+
+## Vercel + Convex Cost Traps
+
+### Vercel Free Tier Limits
+- 100 GB bandwidth/month
+- 6,000 build minutes/month
+- 100 GB-hours serverless execution/month
+
+**Trap:** Blog with images and high traffic can exceed bandwidth.
+**Mitigation:** Use Cloudflare CDN for images, or optimize with `next/image` (auto-serves WebP).
+
+### Convex Free Tier Limits
+- 1M function calls/month
+- 1 GB storage
+- 1 GB file storage
+
+**Trap:** Each blog listing page view = 1-3 queries (posts + categories + featured). 10K visitors = 30K calls. With homepage testimonials (now dynamic) + portfolio = 50K calls easily.
+
+**Usage projection:**
+```
+Homepage views: 5K/month × 3 queries = 15K
+Blog listing: 3K/month × 2 queries = 6K
+Blog post views: 8K/month × 1 query = 8K
+Portfolio: 2K/month × 1 query = 2K
+Admin edits: 100/month × 5 mutations = 500
+Total: ~32K calls/month (3% of free tier)
+```
+
+**When to worry:** If traffic 10x (realistic for viral post), jumps to 320K calls/month (32% of limit). Still safe, but watch dashboard.
+
+**When to upgrade:** Sustained 100K+ calls/month, or need team collaboration (free tier is single user).
+
+---
+
+## Common Mistakes from Other Platforms
+
+### WordPress Habits to Unlearn
+- **Don't:** Store images in markdown as base64 strings (Convex has file storage).
+- **Don't:** Use shortcodes `[gallery id="1"]` (React components instead).
+- **Don't:** Rely on auto-save every 30 seconds (implement explicit save in admin).
+
+### CMS Migration Gotchas
+- **Contentful/Sanity patterns:** They use rich text objects, not markdown strings. Convex stores raw markdown, simpler but less structured.
+- **Ghost patterns:** Ghost auto-generates slugs on title change. Convex requires explicit slug generation in mutation.
 
 ---
 
 ## Sources
 
-**Tailwind v4:**
-- [Tailwind CSS v4.0 Complete Migration Guide](https://medium.com/@mernstackdevbykevin/tailwind-css-v4-0-complete-migration-guide-breaking-changes-you-need-to-know-7f99944a9f95)
-- [Upgrading to Tailwind v4: Missing Defaults, Broken Dark Mode](https://github.com/tailwindlabs/tailwindcss/discussions/16517)
-- [Tailwind CSS 4: What's New and Should You Migrate?](https://www.codewithseb.com/blog/tailwind-css-4-whats-new-migration-guide)
+**Next.js App Router and Markdown Performance:**
+- [Building a Markdown-driven blog using Next.js 13 and App Router](https://www.singlehanded.dev/blog/building-markdown-blog-with-nextjs-app-router)
+- [Building a High-Performance Blog with Next.js 15 App Router: A Complete Guide](https://dev.to/dylan-neanix/building-a-high-performance-blog-with-nextjs-15-app-router-a-complete-guide-16jo)
+- [Next.js Best Practices in 2025: Performance & Architecture](https://www.raftlabs.com/blog/building-with-next-js-best-practices-and-benefits-for-performance-first-teams/)
 
-**Performance:**
-- [React & Next.js Best Practices 2026: Performance](https://fabwebstudio.com/blog/react-nextjs-best-practices-2026-performance-scale)
-- [Website Animations in 2026: Pros, Cons & Best Practices](https://www.shadowdigital.cc/resources/do-you-need-website-animations)
-- [How We Boosted React Website Performance with Heavy Animations](https://medium.com/@ssd_design/how-to-improve-performance-on-a-react-website-with-heavy-design-and-animation-ae7d655da349)
+**Convex Schema Design and Query Performance:**
+- [Opinionated guidelines and best practices for building Convex projects](https://gist.github.com/srizvi/966e583693271d874bf65c2a95466339)
+- [10 Essential Tips for New Convex Developers](https://www.schemets.com/blog/10-convex-developer-tips-pitfalls-productivity)
+- [Queries that scale](https://stack.convex.dev/queries-that-scale)
+- [Intro to Convex Query Performance](https://stack.convex.dev/convex-query-performance)
+- [Paginated Queries | Convex Developer Hub](https://docs.convex.dev/database/pagination)
 
-**shadcn/ui:**
-- [What I DON'T Like About shadcn/ui](https://dev.to/this-is-learning/what-i-dont-like-about-shadcnui-3amf)
-- [How to Make Shadcn UI Components Actually Yours](https://ui.spectrumhq.in/blog/shadcn-customization-guide)
-- [Customizing shadcn/ui Themes Without Breaking Updates](https://medium.com/@sureshdotariya/customizing-shadcn-ui-themes-without-breaking-updates-a3140726ca1e)
+**Markdown Security (XSS):**
+- [React Markdown Complete Guide 2025: Security & Styling Tips](https://strapi.io/blog/react-markdown-complete-guide-security-styling)
+- [Secure Markdown Rendering in React: Balancing Flexibility and Safety](https://www.pullrequest.com/blog/secure-markdown-rendering-in-react-balancing-flexibility-and-safety/)
+- [XSS Attacks in Next.js: How to Secure Your App Like a Pro!](https://medium.com/@kayahuseyin/xss-attacks-in-next-js-how-to-secure-your-app-like-a-pro-9a81d3513d62)
+- [Avoiding XSS via Markdown in React](https://medium.com/javascript-security/avoiding-xss-via-markdown-in-react-91665479900)
 
-**Accessibility & SEO:**
-- [SEO Accessibility: Make Your Site Searchable for All](https://searchengineland.com/guide/seo-accessibility)
-- [Accessibility as a Ranking Factor: Hidden SEO Benefit [2026]](https://searchatlas.com/blog/accessibility-a11y-seo-ranking-factor-2026/)
-- [Color Contrast Accessibility: Complete WCAG 2025 Guide](https://www.allaccessible.org/blog/color-contrast-accessibility-wcag-guide-2025)
-- [Dark Mode Design Best Practices in 2026](https://www.tech-rz.com/blog/dark-mode-design-best-practices-in-2026/)
+**SEO and Canonical URLs:**
+- [Canonical Tags for SEO: How to Fix Duplicate Content URLs](https://backlinko.com/canonical-url-guide)
+- [How to Use Canonical URL for SEO: Best Practices & Common Mistakes](https://wideripples.com/how-use-canonical-url-seo/)
+- [Canonicalization and SEO: A guide for 2026](https://searchengineland.com/canonicalization-seo-448161)
+- [How to Specify a Canonical with rel="canonical" | Google Search Central](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls)
 
-**Portfolio Design:**
-- [5 Mistakes Developers Make in Their Portfolio Websites](https://www.devportfoliotemplates.com/blog/5-mistakes-developers-make-in-their-portfolio-websites)
-- [How to Design Portfolio Homepages That Land You Job in 2026](https://uxplaybook.org/articles/6-ux-portfolio-homepage-mistakes-2026)
-- [6 Wildly Common Portfolio Mistakes Designers Make](https://workspace.fiverr.com/blog/6-wildly-common-portfolio-mistakes-designers-might-make/)
+**Next.js Metadata and Open Graph:**
+- [Next.js SEO Optimization Guide (2026 Edition)](https://www.djamware.com/post/697a19b07c935b6bb054313e/next-js-seo-optimization-guide--2026-edition)
+- [Getting Started: Metadata and OG images | Next.js](https://nextjs.org/docs/app/getting-started/metadata-and-og-images)
+- [Automate Open Graph Image Creation in Next.js](https://www.davegray.codes/posts/automate-open-graph-images-nextjs)
+- [Complete Guide to Dynamic OG Images in Next.js(15+)](https://medium.com/@uyiosazeeirvin/complete-guide-to-dynamic-og-images-in-next-js-15-5f69fd583dbe)
 
-**Responsive Design:**
-- [Responsive Web Design in 2026: Why Mobile-First](https://www.alfdesigngroup.com/post/responsive-web-design-why-mobile-first-ux)
-- [Responsive Design Best Practices: Complete 2026 Guide](https://pxlpeak.com/blog/web-design/responsive-design-best-practices)
+**Code Highlighting and Bundle Size:**
+- [React Markdown Complete Guide 2025: Security & Styling Tips](https://strapi.io/blog/react-markdown-complete-guide-security-styling)
+- [Code highlighting and bundle optimizations](https://fatfisz.com/blog/code-highlighting-and-bundle-optimizations)
 
-**Design Systems:**
-- [Tailwind CSS Best Practices 2025-2026: Design Tokens](https://www.frontendtools.tech/blog/tailwind-css-best-practices-design-system-patterns)
-- [Design Systems & Design Tokens Complete Guide](https://design.dev/guides/design-systems/)
+**RSS and Sitemaps:**
+- [How to Add a Sitemap & RSS Feed in Next.js App Router](https://spacejelly.dev/posts/how-to-add-a-sitemap-rss-feed-in-next-js-app-router)
+- [Next.js: How to Build an RSS Feed](https://www.davegray.codes/posts/nextjs-how-to-build-an-rss-feed)
+- [Learn Pro Sitemap in Next.js 15: Built-in sitemap.ts vs Custom XML](https://techolyze.com/open/blog/nextjs-15-sitemap-guide-built-in-vs-xml/)
 
-**CTA Optimization:**
-- [7 CTA Best Practices in 2026](https://thelakehousedigital.com/cta-best-practices/)
-- [Conversion Optimization 2026: Small Business Guide](https://theclaymedia.com/conversion-optimization-2026/)
+**Lighthouse Performance:**
+- [Lighthouse performance scoring | Chrome for Developers](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring)
+- [Next.js performance tuning: practical fixes for better Lighthouse scores](https://www.qed42.com/insights/next-js-performance-tuning-practical-fixes-for-better-lighthouse-scores)
+- [Google Lighthouse: How To Achieve Highest Score In 2026](https://wpdeveloper.com/google-lighthouse-how-to-achieve-highest-score/)
 
----
+**Convex Migrations:**
+- [Intro to Migrations](https://stack.convex.dev/intro-to-migrations)
+- [Stateful Online Migrations using Mutations](https://stack.convex.dev/migrating-data-with-mutations)
+- [Lightweight Migrations](https://stack.convex.dev/lightweight-zero-downtime-migrations)
 
-*Pitfalls research for: jpgerton.com design polish*
-*Researched: 2026-02-04*
-*Stack context: Next.js 16, Tailwind v4, shadcn/ui, Convex*
+**Slug Generation:**
+- [Reddit Style Title Slugs for your Next.js URLs](https://repraze.com/posts/oX7H0aAbeS3Q/reddit-style-title-slugs-for-your-next_js-urls)
+- [Guide to the WordPress sanitize_title Function for Safe Slug Generation](https://smartupworld.com/sanitize_title-wordpress-function/)
+- [URL Slug pattern](https://patterns.dataincubator.org/book/url-slug.html)
+
+**Frontmatter Validation:**
+- [Using Frontmatter in Markdown](https://www.markdownlang.com/advanced/frontmatter.html)
+- [Do you know the best practices for Frontmatter in markdown?](https://www.ssw.com.au/rules/best-practices-for-frontmatter-in-markdown)
+
+**Hydration Errors:**
+- [Next.js Hydration Errors in 2026: The Real Causes, Fixes, and Prevention Checklist](https://medium.com/@blogs-world/next-js-hydration-errors-in-2026-the-real-causes-fixes-and-prevention-checklist-4a8304d53702)
+- [Text content does not match server-rendered HTML | Next.js](https://nextjs.org/docs/messages/react-hydration-error)
+- [Fixing Hydration Errors in server-rendered Components | Sentry](https://sentry.io/answers/hydration-error-nextjs/)
+
+**Vercel Pricing and Limits:**
+- [Vercel Pricing: Hobby, Pro, and Enterprise plans](https://vercel.com/pricing)
+- [Limits](https://vercel.com/docs/limits)
+- [How to Lower Vercel Hosting Costs by 35% in 2026](https://pagepro.co/blog/vercel-hosting-costs/)
+
+**Convex Pricing:**
+- [ConvexDB Pricing Guide: Plans, Features & Cost Optimization](https://airbyte.com/data-engineering-resources/convexdb-pricing)
+- [Plans and Pricing](https://www.convex.dev/pricing)

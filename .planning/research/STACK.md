@@ -1,400 +1,334 @@
-# Stack Research - Design Polish & Enhancement
+# Stack Research: Blog & Content Management
 
-**Domain:** Professional agency portfolio site design enhancement
-**Researched:** 2026-02-04
+**Domain:** Blog/Content Management for Next.js + Convex Portfolio Site
+**Researched:** 2026-02-06
 **Confidence:** HIGH
 
 ## Executive Summary
 
-For design polish of jpgerton.com, the validated core stack (Next.js 14, Tailwind v4, shadcn/ui) is already excellent. This research focuses on enhancement libraries and patterns to elevate from "generic template" to "verified professional agency."
-
-Key findings:
-- **Framer Motion** (v12.31.0) for micro-interactions and page transitions
-- **Variable fonts** (Inter + Lora) for warm, approachable typography
-- **Tailwind v4 features** underused: container queries, @property, design tokens
-- **shadcn/ui components** underused: Accordion, Carousel, Tabs for content hierarchy
-- **CVA patterns** for component variant consistency
-- **Icon enhancement** via Phosphor Icons for multi-weight visual variety
-
-The stack below addresses the "warm, approachable, professional" brand requirement while maintaining performance and avoiding bloat.
-
----
+Adding markdown blog with admin editor and content CRUD requires minimal new dependencies. The existing Next.js 14 + Convex stack handles most needs. Critical additions: `react-markdown` (rendering), `@uiw/react-md-editor` (editing), and unified ecosystem plugins for GitHub Flavored Markdown and syntax highlighting. Bundle impact: ~50KB total (4.6KB editor + ~20KB react-markdown + plugins). No additional backend infrastructure needed - Convex handles all storage, queries, and full-text search.
 
 ## Recommended Stack
 
-### Animation & Motion
+### Markdown Rendering (Public Pages)
 
 | Technology | Version | Purpose | Why Recommended |
 |------------|---------|---------|-----------------|
-| **framer-motion** | ^12.31.0 | Page transitions, micro-interactions, scroll animations | Industry standard with 12M+ monthly downloads. Best DX for Next.js App Router. GPU-accelerated animations, declarative API. Perfect for portfolio showcases and interaction polish. |
-| **tailwindcss-animate** | ^1.0.7 | ✅ Already installed | Lightweight utility animations. Keep for simple hover states and transitions. Use Framer Motion for complex animations. |
+| react-markdown | ^10.1.0 | Render markdown to React components | Safe by default (no dangerouslySetInnerHTML), 100% CommonMark/GFM compliant, integrates with unified plugins, ~20KB gzipped |
+| remark-gfm | ^4.0.0 | GitHub Flavored Markdown support | Tables, task lists, strikethrough, autolinks - expected features for tech blog |
+| rehype-highlight | ^7.0.0 | Code syntax highlighting | Lighter than Prism.js (2KB core), no client-side JS, SSR-friendly |
 
-**Rationale:** Framer Motion is the fastest-growing animation library (Motion v12 has no breaking changes from v11). Despite App Router challenges with AnimatePresence, template.tsx approach works well for page transitions. Use for: hero animations, project card hovers, scroll-triggered reveals, form micro-interactions.
+**Rationale:** react-markdown renders directly to React components without HTML strings, making it XSS-safe by default. The unified plugin ecosystem (remark/rehype) is industry standard and well-maintained. Alternative Shiki offers superior highlighting but adds 280KB + WASM dependency - unacceptable for Lighthouse 100 target.
 
-### Typography & Fonts
-
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| **Inter (Variable)** | Latest | ✅ Already using | Modern sans-serif, 414B+ Google Fonts requests/year. Excellent for UI/body text. Already configured via `--font-inter`. |
-| **Lora (Variable)** | Latest | Serif headlines, project descriptions | Warm serif with calligraphic roots. Pairs perfectly with Inter for "approachable professional" vibe. Variable font = 100-200KB vs 400-800KB static files. |
-
-**Font Pairing Strategy:**
-- **Primary:** Inter (Variable) for UI, navigation, body text
-- **Accent:** Lora (Variable) for hero headlines, project titles, pull quotes
-- **Rationale:** "Lora + Nunito" and "Roboto + Lora" are top-rated warm/professional pairings. You already have Inter (similar to Roboto but better metrics). Lora adds warmth without sacrificing credibility.
-
-**Implementation:**
-```typescript
-// app/layout.tsx - Add Lora
-import { Inter, Lora } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const lora = Lora({ subsets: ['latin'], variable: '--font-lora', weight: ['400', '500', '600', '700'] })
-
-// Add to className
-className={`${inter.variable} ${lora.variable}`}
-```
-
-```css
-/* globals.css - Add to @theme */
---font-serif: var(--font-lora), ui-serif, Georgia, serif;
-```
-
-### Icon System (Enhancement)
+### Markdown Editing (Admin)
 
 | Technology | Version | Purpose | Why Recommended |
 |------------|---------|---------|-----------------|
-| **lucide-react** | ^0.563.0 | ✅ Already installed | Keep for primary icons. Clean, consistent stroke icons. 1000+ icons, good defaults. |
-| **@phosphor-icons/react** | ^2.1.7 | Accent icons with weight variety | Add for visual hierarchy. Offers thin/light/regular/bold/fill/duotone weights. Use sparingly for hero sections, service cards where visual weight matters. |
+| @uiw/react-md-editor | ^4.0.11 | WYSIWYG markdown editor with preview | Smallest full-featured option (4.6KB gzipped), live split-pane preview, familiar toolbar UX, maintained actively (v4.0.11 Dec 2024) |
 
-**Icon Strategy:**
-- **Primary (90%):** Lucide React - navigation, UI, forms, consistent stroke style
-- **Accent (10%):** Phosphor Icons - hero features, service benefits, visual differentiation
-- **Rationale:** Lucide lacks variety (stroke-only). Phosphor adds 6 weight variations without switching libraries constantly. Install as optional enhancement, not replacement.
+**Rationale:** Tiptap offers more flexibility but adds 50KB+ and requires custom markdown export logic. @uiw/react-md-editor provides markdown-first editing with built-in preview, keyboard shortcuts (Ctrl+D duplicate line, Alt+↑/↓ move), and simple value/onChange props that work with Convex mutations.
 
-**When to use Phosphor:**
-- Hero section feature highlights (use `duotone` for visual interest)
-- Service tier comparisons (use `fill` for active state)
-- Section dividers (use `thin` for subtle decoration)
+**Known limitation:** Uses !important CSS rules extensively. Override via Tailwind utility classes with higher specificity or wrapper container styles. Acceptable tradeoff for 4.6KB bundle.
 
-### Component Variant Management
+### Content Management (Backend)
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| **class-variance-authority** | ^0.7.1 | ✅ Already installed | CVA powers shadcn/ui variants. Use more intentionally for button variants, card styles, heading hierarchy. Ensures consistent component APIs across the site. |
-| **clsx** | ^2.1.1 | ✅ Already installed | Conditional classes. Keep using. |
-| **tailwind-merge** | ^3.4.0 | ✅ Already installed | Conflict resolution via `cn()` utility. Essential for component composition. |
+| Technology | Version | Purpose | Notes |
+|------------|---------|---------|-------|
+| Convex full-text search | (built-in) | Blog post search by title/content | Define search index on posts table, 1024 doc scan limit, 16 keyword max per query |
+| Convex pagination | (built-in) | Cursor-based pagination for blog lists | usePaginatedQuery hook, fully reactive, works with filters |
+| Convex Auth | (existing) | Protect admin routes | Already implemented, no additional setup |
 
-**CVA Best Practice:** Create variant-driven components for buttons, cards, badges, headings. Example:
-```typescript
-const headingVariants = cva("font-serif", {
-  variants: {
-    level: {
-      h1: "text-5xl md:text-6xl font-bold tracking-tight",
-      h2: "text-4xl md:text-5xl font-semibold",
-      h3: "text-3xl font-medium",
-    },
-    style: {
-      serif: "font-lora",
-      sans: "font-inter",
-    }
-  },
-  defaultVariants: { level: "h2", style: "serif" }
-})
-```
+**No additional backend needed.** Convex provides all CRUD, search, and pagination primitives.
 
-### Form Enhancement
+### Utilities
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| **react-hook-form** | ^7.71.1 | ✅ Already installed | Industry standard. Keep using with shadcn Form components. |
-| **zod** | ^4.3.6 | ✅ Already installed | TypeScript-first validation. Keep using with zodResolver. |
+| Library | Version | Purpose | When to Use |
+|---------|---------|---------|-------------|
+| slugify | ^1.6.6 | URL-safe slugs from blog titles | Generate post.slug from post.title on create/update |
+| dayjs | ^1.11.13 | Date formatting | Display "Published Feb 6, 2026" - lighter than date-fns (6KB vs 18KB for common use case) |
 
-**Note:** Shadcn/ui is deprecating `<Form>` abstraction in favor of `<Field>` component. Monitor for updates, but current pattern (FormField + FormControl + FormMessage) works well.
+**Rationale:** slugify is industry standard (2726 npm projects), handles Unicode well. dayjs chosen over date-fns for smaller bundle when not using tree-shaking (Next.js App Router server components don't always tree-shake client imports effectively).
 
-### Theme & Dark Mode
+### SEO (Built-in Next.js)
 
-| Technology | Version | Purpose | Why Recommended |
-|------------|---------|---------|-----------------|
-| **next-themes** | ^0.4.6 | ✅ Already installed | Perfect integration with Tailwind. System preference support. No flash on load. Keep current implementation. |
+| Feature | Implementation | Notes |
+|---------|---------------|-------|
+| Blog post metadata | generateMetadata() | Dynamic title, description, OG image per post |
+| Article JSON-LD | Script tag in page.tsx | Schema.org BlogPosting type |
+| Sitemap | generateSitemapXML() | Dynamic sitemap including blog posts |
 
-**Dark Mode Best Practices (2026):**
-- ✅ Use dark gray (#121212) not pure black
-- ✅ Reduce saturation of accent colors in dark mode
-- ✅ Maintain 4.5:1 contrast for body text, 3:1 for large text
-- ✅ Use `disableTransitionOnChange` to prevent flash
-
-**Review:** Check `globals.css` dark mode colors against 2026 contrast guidelines. Your current HSL approach is correct.
-
----
-
-## Supporting Libraries
-
-### Underused shadcn/ui Components (Already Available)
-
-| Component | Purpose | When to Use | Design Impact |
-|-----------|---------|-------------|---------------|
-| **Accordion** | Content hierarchy, FAQ, service details | Services page (tier comparison details), About page (experience timeline) | Reduces cognitive load, reveals complexity progressively |
-| **Tabs** | Content organization | Projects page (filter by category), Services page (view by tier) | Cleaner than filter dropdowns, familiar pattern |
-| **Carousel** | Image galleries, testimonials | Project detail pages (screenshots), Home (client logos) | Professional showcase pattern, mobile-friendly |
-| **Badge** | Status indicators, tags | Project cards (tech stack tags), Service tiers (labels) | Visual categorization, scannability |
-
-**Action:** Audit current pages and replace custom implementations with these accessible primitives. They're built on Radix UI (WAI-ARIA compliant) and already installed.
-
-### Tailwind v4 Features to Leverage
-
-| Feature | Purpose | Implementation | Design Impact |
-|---------|---------|----------------|---------------|
-| **Container Queries** | Responsive components based on container width | Use `@container` and `@min-*/@max-*` variants | Cards that adapt to sidebar width, not viewport. More flexible layouts. |
-| **@property** | Typed CSS variables with transitions | Define gradient transitions, animated color shifts | Smooth gradient animations (can't do this with standard CSS vars) |
-| **Design Tokens via @theme** | Centralized design system | ✅ You're already using this correctly | Maintain current approach. Ensure all spacing uses tokens, not arbitrary values. |
-| **Color-mix()** | Dynamic color blending | Generate hover states, opacity variants | Reduces custom color definitions |
-
-**Container Query Example:**
-```css
-/* For project cards that need to adapt to grid column width */
-.project-card {
-  @container;
-}
-
-.project-card-content {
-  @apply flex flex-col;
-
-  @media @min-md {
-    @apply flex-row items-center;
-  }
-}
-```
-
----
+**No libraries needed.** Next.js 14 Metadata API and App Router handle all SEO primitives. JSON-LD implemented as inline script tag in server component.
 
 ## Installation
 
 ```bash
-# Animation
-bun add framer-motion
+# Markdown rendering (public pages)
+bun add react-markdown remark-gfm rehype-highlight
 
-# Typography (use Next.js font loader, no install needed)
-# Inter: Already configured
-# Lora: Add to layout.tsx import
+# Markdown editor (admin only)
+bun add @uiw/react-md-editor
 
-# Icon enhancement (optional, strategic use)
-bun add @phosphor-icons/react
-
-# Everything else is already installed
+# Utilities
+bun add slugify dayjs
 ```
 
----
+Total added dependencies: 6 packages, ~50KB gzipped impact
+
+## Integration Points
+
+### With Existing Stack
+
+**Next.js App Router:**
+- Blog list: `app/(home)/blog/page.tsx` (server component, uses Convex query)
+- Blog post: `app/(home)/blog/[slug]/page.tsx` (dynamic route, generateMetadata for SEO)
+- Admin editor: `app/admin/posts/new/page.tsx` ("use client", useMutation for save)
+
+**Convex Schema:**
+```typescript
+// convex/schema.ts
+posts: defineTable({
+  title: v.string(),
+  slug: v.string(),        // URL-safe, unique
+  content: v.string(),     // Raw markdown
+  excerpt: v.string(),     // For list pages
+  category: v.string(),    // "local-business" | "tech"
+  imageUrl: v.optional(v.string()),  // External URL only
+  publishedAt: v.optional(v.number()),
+  authorId: v.id("users"),
+}).index("by_slug", ["slug"])
+  .searchIndex("search_posts", {
+    searchField: "content",
+    filterFields: ["category", "publishedAt"]
+  })
+```
+
+**Tailwind v4:**
+- Markdown prose styling via @layer components in globals.css
+- Dark mode handled by existing CSS variables
+- Code blocks use existing --color-muted-foreground tokens
+
+**shadcn/ui:**
+- Form components (Input, Textarea) for title/excerpt fields
+- Button for save/publish actions
+- Tabs for editor/preview toggle (alternative to split-pane)
+- Badge for category pills
 
 ## Alternatives Considered
 
-| Recommended | Alternative | When to Use Alternative |
-|-------------|-------------|-------------------------|
-| **Framer Motion** | GSAP | Complex timeline-based animations, marketing sites with heavy animation. Overkill for portfolio. 69KB vs 119KB but steeper learning curve. |
-| **Framer Motion** | React Spring | Physics-based animations (drag, throw). Good for interactive playgrounds. Less intuitive for page transitions. |
-| **Framer Motion** | AutoAnimate | Zero-config list animations. Too limited for portfolio polish needs. |
-| **Inter + Lora** | Montserrat + Karla | More geometric/modern. Use if pivoting to "tech startup" vs "agency" brand. |
-| **Inter + Lora** | PT Sans + Libre Baskerville | More literary/editorial. Use for content-heavy blog, not services site. |
-| **Phosphor Icons** | React Icons (40K+ icons) | Need access to Font Awesome, Material, Ionicons in one package. 40K icons = decision fatigue. Phosphor's 1500 icons with 6 weights is better constrained choice. |
-| **Phosphor Icons** | Heroicons | Made by Tailwind team, only 290 icons, 2 styles. Too limited for variety needs. Keep Lucide as primary. |
-
----
+| Category | Recommended | Alternative | Why Not Alternative |
+|----------|-------------|-------------|---------------------|
+| Markdown rendering | react-markdown | MDX | Overkill - no need for JSX in markdown. Adds complexity and bundle size for blog content. Use for documentation sites, not blog posts. |
+| Markdown rendering | react-markdown | marked | Outputs HTML strings, requires dangerouslySetInnerHTML. Not React-native. Less safe. |
+| Syntax highlighting | rehype-highlight | Shiki | 280KB + WASM dependency breaks Lighthouse 100 target. Shiki quality advantage not worth 140x size penalty. |
+| Syntax highlighting | rehype-highlight | Prism.js | Requires client-side JS. rehype-highlight runs at render time (SSR-friendly). Prism unmaintained (2-3 years stale). |
+| Markdown editor | @uiw/react-md-editor | Tiptap | 50KB+ bundle, rich-text-first (markdown secondary). Requires custom export logic. Over-engineered for markdown blog. Use Tiptap when you need custom nodes/marks. |
+| Markdown editor | @uiw/react-md-editor | Novel | WYSIWYG-first, not markdown-first. Opinionated AI features (not needed). Heavier bundle. |
+| Date formatting | dayjs | date-fns | date-fns is 18KB without locales vs dayjs 6KB. date-fns tree-shaking advantage lost in App Router server components with client imports. |
+| Slug generation | slugify | Custom regex | Don't reinvent. slugify handles Unicode, transliteration, edge cases (Vietnamese, Arabic, German umlauts). |
 
 ## What NOT to Use
 
 | Avoid | Why | Use Instead |
 |-------|-----|-------------|
-| **Anime.js** | Less optimized than Framer Motion for React. Not declarative. | Framer Motion for all animations |
-| **React Transition Group** | Low-level, requires more code. Framer Motion is higher-level abstraction. | Framer Motion `<AnimatePresence>` |
-| **Pure black (#000) backgrounds** | Creates harsh contrast, visual strain in dark mode | Dark gray (#121212) already in use |
-| **Font Awesome (via CDN)** | Render-blocking, licensing complexity, bundle size | Lucide React (already installed) |
-| **Multiple icon libraries** | Inconsistent visual style, decision fatigue | Lucide (primary) + Phosphor (strategic accents only) |
-| **Arbitrary Tailwind values everywhere** | `text-[17px]`, `mt-[23px]` breaks design system | Use design tokens from @theme config |
-| **Custom animation keyframes in CSS** | Not GPU-accelerated, harder to maintain | Framer Motion (GPU-accelerated, declarative) |
-| **@apply for one-off utilities** | Defeats purpose of utility-first CSS | Use @apply only for true component patterns (CVA) |
-
----
-
-## Stack Patterns by Use Case
-
-### Micro-Interactions (Buttons, Cards, Hovers)
-
-**Pattern:** Framer Motion `whileHover`, `whileTap`, `whileFocus`
-
-```tsx
-<motion.div
-  whileHover={{ scale: 1.02, y: -4 }}
-  whileTap={{ scale: 0.98 }}
-  transition={{ type: "spring", stiffness: 300, damping: 20 }}
->
-  <Card>...</Card>
-</motion.div>
-```
-
-**Why:** GPU-accelerated transforms, spring physics feel natural, consistent across all interactive elements.
-
-### Page Transitions (Route Changes)
-
-**Pattern:** `template.tsx` with Framer Motion exit animations
-
-```tsx
-// app/template.tsx
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.3, ease: "easeOut" }}
->
-  {children}
-</motion.div>
-```
-
-**Why:** App Router limitation workaround. Template re-renders on navigation. Avoid AnimatePresence (fragile in App Router).
-
-### Scroll Animations (Reveal on Scroll)
-
-**Pattern:** Framer Motion `whileInView` with viewport detection
-
-```tsx
-<motion.section
-  initial={{ opacity: 0, y: 50 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-100px" }}
-  transition={{ duration: 0.6 }}
->
-  <ProjectShowcase />
-</motion.section>
-```
-
-**Why:** Built-in Intersection Observer. `once: true` prevents re-animation on scroll up. Margin triggers before element is fully visible.
-
-### Typography Hierarchy
-
-**Pattern:** CVA + font family variables
-
-```tsx
-const heading = cva("tracking-tight", {
-  variants: {
-    level: {
-      h1: "font-lora text-5xl md:text-6xl font-bold",
-      h2: "font-lora text-4xl md:text-5xl font-semibold",
-      h3: "font-inter text-2xl md:text-3xl font-medium",
-    }
-  }
-})
-```
-
-**Why:** h1/h2 use Lora (warm, approachable). h3+ use Inter (clean, professional). Consistent API across components.
-
-### Icon Usage
-
-**Pattern:** Lucide for UI, Phosphor for visual accents
-
-```tsx
-// Navigation, forms, UI controls
-import { Menu, X, ChevronRight } from 'lucide-react'
-
-// Hero features, service benefits (visual hierarchy)
-import { Lightbulb, RocketLaunch, CheckCircle } from '@phosphor-icons/react'
-<RocketLaunch size={48} weight="duotone" className="text-accent" />
-```
-
-**Why:** Lucide provides consistency. Phosphor's weight variants add visual hierarchy without icon style clash.
-
-### Component Variants (Buttons, Cards)
-
-**Pattern:** CVA with compoundVariants
-
-```tsx
-const button = cva("inline-flex items-center justify-center rounded-md", {
-  variants: {
-    variant: {
-      default: "bg-primary text-primary-foreground hover:bg-primary/90",
-      outline: "border border-input bg-background hover:bg-accent",
-    },
-    size: {
-      default: "h-10 px-4 py-2",
-      lg: "h-11 px-8",
-    }
-  },
-  compoundVariants: [
-    {
-      variant: "outline",
-      size: "lg",
-      className: "border-2" // Stronger border for large outlined buttons
-    }
-  ],
-  defaultVariants: { variant: "default", size: "default" }
-})
-```
-
-**Why:** Type-safe variants. Compound variants for edge cases. Shadcn/ui uses this pattern extensively.
-
----
+| CMS platforms (Contentful, Sanity, Strapi) | $0 budget constraint. Convex provides all backend needs. CMS adds external dependency, breaks free tier goal. | Convex tables + queries |
+| File upload libraries (uploadthing, cloudinary) | External image URLs only (project constraint). Avoid storage costs. | Input field for imageUrl string |
+| Markdown-to-HTML parsers (marked, markdown-it) | Output raw HTML strings. Requires dangerouslySetInnerHTML. XSS risk if not sanitized. Not React-friendly. | react-markdown (renders to components) |
+| WYSIWYG editors (TinyMCE, CKEditor, Quill) | Rich text ≠ markdown. Heavyweight (100KB+). Designed for word processor UX, not markdown workflow. | @uiw/react-md-editor |
+| rehype-sanitize plugin | react-markdown is safe by default (ignores raw HTML). Sanitization adds bundle weight for no benefit. | None (react-markdown handles safety) |
+| Framer Motion for editor transitions | Already have CSS-only animation system. Framer Motion 50KB violates "no animation library" constraint from v1.1. | CSS transitions in globals.css |
 
 ## Version Compatibility
 
-| Package | Current in package.json | Recommended | Notes |
-|---------|-------------------------|-------------|-------|
-| tailwindcss | 4.1.18 | ✅ Current | Latest stable. Container queries, @property support. |
-| framer-motion | Not installed | 12.31.0 | Install. No breaking changes from v11. React 19 compatible. |
-| @phosphor-icons/react | Not installed | 2.1.7 (latest) | Optional. Strategic enhancement only. |
-| lucide-react | 0.563.0 | ✅ Current | Updated Dec 2024. 1000+ icons. |
-| class-variance-authority | 0.7.1 | ✅ Current | Stable. No breaking changes expected. |
-| next-themes | 0.4.6 | ✅ Current | Latest. Next.js 14+ compatible. |
-| react-hook-form | 7.71.1 | ✅ Current | Latest stable. React 19 compatible. |
-| zod | 4.3.6 | ✅ Current | Major version bump from v3. Check for breaking changes if upgrading from older project. |
+| Package | Compatible With | Notes |
+|---------|----------------|-------|
+| react-markdown ^10.1.0 | React 18+ | Requires React 18 for automatic batching |
+| remark-gfm ^4.0.0 | react-markdown ^9.0.0+ | Unified ecosystem v11 (ESM-only) |
+| rehype-highlight ^7.0.0 | react-markdown ^9.0.0+ | Unified ecosystem v11 |
+| @uiw/react-md-editor ^4.0.11 | React 16.8+, Next.js 14+ | Known issue: requires "use client", not SSR-safe |
+| slugify ^1.6.6 | All environments | No peer dependencies |
+| dayjs ^1.11.13 | All environments | No peer dependencies |
 
-**Compatibility Check:** All recommended packages work with:
-- Next.js 14+ (App Router)
-- React 19
-- Tailwind CSS v4
-- TypeScript 5.9+
+**Critical:** All unified packages (react-markdown, remark-gfm, rehype-highlight) are ESM-only. Next.js 14 handles this automatically - no configuration needed.
 
----
+## Convex Free Tier Impact
+
+| Operation | Free Tier Limit | Projected Usage | Risk Assessment |
+|-----------|----------------|-----------------|-----------------|
+| Function calls | 1M/month | +~50K/month (blog reads, searches) | LOW - Well within budget |
+| Database reads | Unlimited | No additional cost | NONE |
+| Search queries | Counts as function call | ~5K/month (assuming 10 searches/day) | LOW |
+| Storage | 1GB | +~5MB (500 blog posts × 10KB avg) | NONE - Negligible |
+
+**Conclusion:** Blog system adds ~5% to function call budget. Safe margin. Search index (1024 doc scan limit) prevents runaway queries.
+
+## Performance Budget
+
+| Metric | Current (v1.1) | After Blog Addition | Target | Status |
+|--------|---------------|---------------------|--------|--------|
+| LCP | 132ms | ~150ms (image lazy loading) | <200ms | PASS |
+| CLS | 0 | 0 (no layout shift) | 0 | PASS |
+| INP | 24ms | ~30ms (editor interaction) | <50ms | PASS |
+| Bundle size (client) | ~120KB | ~170KB (+50KB markdown) | <250KB | PASS |
+| Lighthouse Score | 100 | 98-100 (±2 variance) | 95+ | PASS |
+
+**Bundle breakdown:**
+- react-markdown: ~20KB gzipped
+- @uiw/react-md-editor: ~4.6KB gzipped (admin only, code-split)
+- remark-gfm: ~5KB gzipped
+- rehype-highlight: ~8KB gzipped
+- slugify: ~2KB gzipped
+- dayjs: ~6KB gzipped
+
+**Code-splitting:** Editor only loads on admin routes via dynamic import. Public blog pages load react-markdown + plugins (~33KB total).
+
+## Implementation Pattern
+
+### Public Blog Post Page
+
+```typescript
+// app/(home)/blog/[slug]/page.tsx
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  const post = useQuery(api.posts.getBySlug, { slug: params.slug });
+
+  return (
+    <article className="prose prose-lg dark:prose-invert">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeHighlight]}
+      >
+        {post.content}
+      </ReactMarkdown>
+    </article>
+  );
+}
+```
+
+### Admin Editor
+
+```typescript
+// app/admin/posts/new/page.tsx
+"use client";
+import MDEditor from "@uiw/react-md-editor";
+
+export default function NewPost() {
+  const [content, setContent] = useState("");
+  const createPost = useMutation(api.posts.create);
+
+  return (
+    <MDEditor
+      value={content}
+      onChange={(val) => setContent(val || "")}
+      height={600}
+    />
+  );
+}
+```
+
+### Convex Query with Search
+
+```typescript
+// convex/posts.ts
+export const search = query({
+  args: {
+    query: v.string(),
+    category: v.optional(v.string()),
+    paginationOpts: paginationOptsValidator,
+  },
+  handler: async (ctx, args) => {
+    let results = ctx.db
+      .query("posts")
+      .withSearchIndex("search_posts", (q) =>
+        q.search("content", args.query)
+          .eq("category", args.category)
+      );
+
+    return await results.paginate(args.paginationOpts);
+  },
+});
+```
+
+## Security Considerations
+
+**XSS Protection:**
+- react-markdown ignores raw HTML by default (safe)
+- Never set `allowDangerousHtml` flag
+- External imageUrl validated on backend (URL format check)
+- Content-Security-Policy header blocks inline scripts
+
+**Input Validation:**
+- Title: max 200 chars
+- Slug: validate against pattern /^[a-z0-9-]+$/ before DB write
+- Content: max 50KB (Convex document size limit is 1MB)
+- Category: enum validation ["local-business", "tech"]
+
+**Rate Limiting:**
+- Convex Auth protects admin mutations (authenticated users only)
+- Search queries: no rate limit needed (1024 doc scan cap prevents abuse)
+
+## Migration Path
+
+**Phase 1: Data model**
+- Add posts table to schema
+- Add search index on content field
+- Deploy Convex schema
+
+**Phase 2: Public rendering**
+- Install react-markdown, remark-gfm, rehype-highlight
+- Create blog list page with pagination
+- Create blog post page with markdown rendering
+- Add generateMetadata for SEO
+- Add JSON-LD for articles
+
+**Phase 3: Admin CRUD**
+- Install @uiw/react-md-editor
+- Create admin posts list with search
+- Create new/edit post forms
+- Add slug auto-generation from title
+- Add publish/draft status
+
+**Phase 4: Content migration**
+- Add testimonials, caseStudies tables
+- Create admin CRUD pages (reuse patterns from posts)
+- Migrate hardcoded content to Convex
+
+No breaking changes to existing code. All additions are isolated to new routes.
 
 ## Sources
 
-### Tailwind v4 Features
-- [Tailwind CSS v4.0 Official Blog](https://tailwindcss.com/blog/tailwindcss-v4)
-- [Tailwind CSS Best Practices 2025-2026](https://www.frontendtools.tech/blog/tailwind-css-best-practices-design-system-patterns)
-- [Tailwind v4 Container Queries](https://vueschool.io/lessons/tailwind-version-4-container-queries)
+**Markdown Libraries:**
+- [react-markdown documentation](https://github.com/remarkjs/react-markdown)
+- [Strapi: 5 Best Markdown Editors for React Compared](https://strapi.io/blog/top-5-markdown-editors-for-react)
+- [Techolyze: Best Next.js WYSIWYG Editors in 2026](https://techolyze.com/open/blog/best-nextjs-wysiwyg-editors/)
+- [@uiw/react-md-editor npm package](https://www.npmjs.com/package/@uiw/react-md-editor)
 
-### Animation Libraries
-- [Beyond Eye Candy: Top 7 React Animation Libraries for 2026](https://www.syncfusion.com/blogs/post/top-react-animation-libraries)
-- [Comparing React Animation Libraries for 2026](https://blog.logrocket.com/best-react-animation-libraries/)
-- [Framer Motion npm page](https://www.npmjs.com/package/framer-motion)
-- [Motion v12 Documentation](https://motion.dev/)
+**Syntax Highlighting:**
+- [npm-compare: Syntax Highlighting Libraries](https://npm-compare.com/highlight.js,prismjs,react-syntax-highlighter,shiki)
+- [chsm.dev: Comparing web code highlighters](https://chsm.dev/blog/2025/01/08/shiki-code-highlighting)
+- [Better Syntax Highlighting](https://dbushell.com/2024/03/14/better-syntax-highlighting/)
 
-### Typography & Fonts
-- [20+ Beautiful Google Font Pairings for 2026](https://www.landingpageflow.com/post/google-font-pairings-for-websites)
-- [Font Pairing Chart for Web Design 2026](https://elementor.com/blog/font-pairing-chart/)
-- [The 40 Best Google Fonts 2026](https://www.typewolf.com/google-fonts)
-- [Best Free Google Fonts for 2026](https://muz.li/blog/best-free-google-fonts-for-2026/)
+**Unified Plugins:**
+- [remarkjs GitHub discussions](https://github.com/orgs/remarkjs/discussions/718)
+- [remark-gfm documentation](https://github.com/remarkjs/remark-gfm)
 
-### Icon Systems
-- [Better Than Lucide: 8 Icon Libraries](https://hugeicons.com/blog/design/8-lucide-icons-alternatives-that-offer-better-icons)
-- [5 Best Icon Libraries for shadcn/ui](https://www.shadcndesign.com/blog/5-best-icon-libraries-for-shadcn-ui)
-- [Best React Icon Libraries for 2026](https://mighil.com/best-react-icon-libraries)
+**SEO:**
+- [Next.js Metadata API documentation](https://nextjs.org/docs/app/api-reference/functions/generate-metadata)
+- [Next.js SEO Optimization Guide (2026 Edition)](https://www.djamware.com/post/697a19b07c935b6bb054313e/next-js-seo-optimization-guide--2026-edition)
+- [Next.js JSON-LD Guide](https://nextjs.org/docs/app/guides/json-ld)
 
-### shadcn/ui & Component Patterns
-- [Radix UI vs Shadcn UI Comparison](https://shadcnstudio.com/blog/radix-ui-vs-shadcn-ui)
-- [What are Radix Primitives?](https://vercel.com/academy/shadcn-ui/what-are-radix-primitives)
-- [Building Forms with React Hook Form & Zod](https://ui.shadcn.com/docs/forms/react-hook-form)
-- [Class Variance Authority Documentation](https://cva.style/docs)
+**Security:**
+- [Strapi: React Markdown Complete Guide 2025 - Security](https://strapi.io/blog/react-markdown-complete-guide-security-styling)
+- [PullRequest: Secure Markdown Rendering in React](https://www.pullrequest.com/blog/secure-markdown-rendering-in-react-balancing-flexibility-and-safety/)
 
-### Micro-Interactions & Design Patterns
-- [Micro Interactions 2025 Best Practices](https://www.stan.vision/journal/micro-interactions-2025-in-web-design)
-- [10 Micro-interaction Examples to Improve UX](https://www.designstudiouiux.com/blog/micro-interactions-examples/)
-- [Dark Mode Best Practices 2026](https://natebal.com/best-practices-for-dark-mode/)
-- [Next.js Dark Mode with next-themes](https://ui.shadcn.com/docs/dark-mode/next)
+**Convex:**
+- [Convex Full Text Search documentation](https://docs.convex.dev/search/text-search)
+- [Convex Pagination documentation](https://docs.convex.dev/database/pagination)
+- [Convex Best Practices](https://docs.convex.dev/understanding/best-practices/)
 
-### Utility Functions
-- [Tailwind Merge & clsx Guide](https://dzone.com/articles/mastering-tailwind-css-with-tailwind-merge-and-clsx)
-- [The Story Behind Tailwind's CN Function](https://tigerabrodi.blog/the-story-behind-tailwinds-cn-function)
-
----
-
-*Stack research for: jpgerton.com design polish milestone*
-*Researched: 2026-02-04*
-*Focus: Design enhancement tools, animation, typography, component patterns*
-*Confidence: HIGH (verified with Context7, official docs, and current 2026 sources)*
+**Utilities:**
+- [slugify npm package](https://www.npmjs.com/package/slugify)
+- [npm-compare: date-fns vs dayjs](https://npm-compare.com/date-fns,dayjs,moment)
+- [DhiWise: date-fns vs dayjs comparison](https://www.dhiwise.com/post/date-fns-vs-dayjs-the-battle-of-javascript-date-libraries)
