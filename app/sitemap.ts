@@ -26,6 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${BASE_URL}/blog`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${BASE_URL}/about`,
       lastModified: new Date(),
       changeFrequency: "monthly",
@@ -54,5 +60,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.warn("Sitemap: Could not fetch projects from Convex");
   }
 
-  return [...staticPages, ...projectPages];
+  // Dynamic blog post pages
+  let blogPages: MetadataRoute.Sitemap = [];
+  try {
+    const posts = await fetchQuery(api.blogPosts.listPublished, {});
+    blogPages = posts.map((post) => ({
+      url: `${BASE_URL}/blog/${post.slug}`,
+      lastModified: post.publishedAt
+        ? new Date(post.publishedAt)
+        : new Date(post._creationTime),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+  } catch {
+    console.warn("Sitemap: Could not fetch blog posts from Convex");
+  }
+
+  return [...staticPages, ...projectPages, ...blogPages];
 }
