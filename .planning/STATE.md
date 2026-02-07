@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 16 - Admin Content Management
-Plan: 02 of 03 complete
-Status: In progress
-Last activity: 2026-02-07 - Completed 16-02-PLAN.md
+Plan: 03 of 03 complete (Phase complete)
+Status: Phase complete
+Last activity: 2026-02-07 - Completed 16-03-PLAN.md
 
-Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 12% (4 of 33 plans complete in v1.2)
+Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 15% (5 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -46,6 +46,9 @@ Progress: [████░░░░░░░░░░░░░░░░░░░
 | 16 | 02 | Filter tabs operate on client-side filtered view | Status filtering in component, reorder mutation receives only visible items |
 | 16 | 02 | Slug field disabled on create, editable on edit for drafts | Server auto-generates slug on create; edit page disables if published for URL stability |
 | 16 | 02 | Conditional alt text validation via zod refine() | Alt text required when coverImageId present, enforced at schema level |
+| 16 | 03 | Single markdown editor with section dividers | User decision: ONE editor with headings, not separate editors per section |
+| 16 | 03 | Index-based section parsing | Find heading indices, extract content between - more robust than regex or text matching |
+| 16 | 03 | Heading sync on blur event | Track previous heading values, replace in markdown when input loses focus |
 
 ### Research Flags
 
@@ -68,9 +71,9 @@ Progress: [████░░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 16-02-PLAN.md (blog admin CRUD interface)
+Stopped at: Completed 16-03-PLAN.md (case study admin CRUD interface - Phase 16 complete)
 Resume file: None
-Next action: /gsd:execute-plan 16-03 (case study admin - may already be complete from wave-parallel execution)
+Next action: /gsd:phase 17 (Public Content Pages)
 
 ## Deployment Info
 
