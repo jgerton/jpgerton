@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 18 - Content Integration
-Plan: 01 of 03 complete
+Plan: 02 of 03 complete
 Status: In progress
-Last activity: 2026-02-07 - Completed 18-01-PLAN.md
+Last activity: 2026-02-07 - Completed 18-02-PLAN.md
 
-Progress: [█████████░░░░░░░░░░░░░░░░░░░░░░░░] 30% (10 of 33 plans complete in v1.2)
+Progress: [█████████░░░░░░░░░░░░░░░░░░░░░░░░] 33% (11 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -59,6 +59,10 @@ Progress: [█████████░░░░░░░░░░░░░░
 | 17 | 02 | Blog nav link between Projects and Services | Logical flow - portfolio first, then blog, then services/conversion |
 | 18 | 01 | Testimonials table is lightweight | No status/publishedAt fields (simpler than blog/case studies) - managed via isDeleted only |
 | 18 | 01 | Seed mutation is idempotent | Checks for existing data first to prevent duplicate inserts on multiple runs |
+| 18 | 02 | Display only first case study when multiple exist | Show most recent by displayOrder to keep project detail pages focused |
+| 18 | 02 | Metrics transformation pattern | Transform {label, value} objects to "Label: Value" strings for CaseStudyVisual component |
+| 18 | 02 | Section heading based on data source | "Case Study" for real linked data, "Project Highlights" for fallback - transparency for users |
+| 18 | 02 | Fallback data intentionally similar | Maintains consistency for projects without case studies using project.descriptionLong and techStack |
 
 ### Research Flags
 
@@ -81,9 +85,9 @@ Progress: [█████████░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 18-01-PLAN.md
+Stopped at: Completed 18-02-PLAN.md
 Resume file: None
-Next action: Execute 18-02-PLAN.md (testimonials admin) or 18-03-PLAN.md (home integration)
+Next action: Execute 18-03-PLAN.md (home page integration) to complete Phase 18
 
 ## Deployment Info
 
