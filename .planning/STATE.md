@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 17 - Public Blog Pages
-Plan: 01 of 02 complete
-Status: In progress
-Last activity: 2026-02-07 - Completed 17-01-PLAN.md
+Plan: 02 of 02 complete
+Status: Phase complete
+Last activity: 2026-02-07 - Completed 17-02-PLAN.md
 
-Progress: [█████░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 18% (6 of 33 plans complete in v1.2)
+Progress: [██████░░░░░░░░░░░░░░░░░░░░░░░░░░░] 21% (7 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -53,6 +53,10 @@ Progress: [█████░░░░░░░░░░░░░░░░░░
 | 17 | 01 | Custom prose styles instead of plugin | Full control using existing design tokens; avoids @tailwindcss/typography dependency |
 | 17 | 01 | github-dark syntax theme for all modes | Good contrast in both light and dark modes; familiar GitHub aesthetic |
 | 17 | 01 | Category filter shows only categories with posts | Cleaner UI; avoids confusion from empty category results |
+| 17 | 02 | Server Component for BlogPostContent | react-markdown is RSC-compatible; no client-side state needed |
+| 17 | 02 | Dynamic OG images via ImageResponse | No external service needed; generates at build/runtime; uses gradient branding |
+| 17 | 02 | Inline styles only for OG images | ImageResponse limitation - no Tailwind, no CSS variables, only flexbox subset |
+| 17 | 02 | Blog nav link between Projects and Services | Logical flow - portfolio first, then blog, then services/conversion |
 
 ### Research Flags
 
@@ -75,9 +79,9 @@ Progress: [█████░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 17-01-PLAN.md (blog list page with category filtering and pagination)
+Stopped at: Completed 17-02-PLAN.md (blog post detail pages with markdown, SEO, OG images)
 Resume file: None
-Next action: Continue Phase 17 - Plan 02 (Blog Detail Page)
+Next action: Phase 17 complete - ready for next phase in v1.2
 
 ## Deployment Info
 
