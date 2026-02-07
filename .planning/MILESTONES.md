@@ -1,5 +1,34 @@
 # Project Milestones: jpgerton.com
 
+## v1.1 Design Polish (Shipped: 2026-02-06)
+
+**Delivered:** Complete design system overhaul transforming the site from a generic shadcn/ui template into a professionally crafted portfolio with warm typography, WCAG AA accessibility, conversion-optimized layouts, and excellent Core Web Vitals.
+
+**Phases completed:** 8-14 (22 plans total)
+
+**Key accomplishments:**
+
+- Complete design token architecture (spacing, shadows, durations, colors) using Tailwind v4 CSS-first @theme configuration
+- Accessible color and typography system with Lora + Inter font pairing, warm blue-gray dark mode, and amber accent
+- Component library with CVA variants plus 6 portfolio-specific composition components (CTAButton, TestimonialCard, CaseStudyVisual, SocialProofDisplay, ProjectCardEnhanced, HeroWithGradient)
+- CSS-only animation system with scroll-triggered fade-ups, button press micro-interactions, and prefers-reduced-motion support
+- All 5 public pages redesigned with conversion flows, benefit-focused CTA copy, and dual CTA pattern (warm WordPress / outline custom)
+- WCAG 2.1 AA compliance with keyboard navigation, focus trap, 44px touch targets, and Core Web Vitals (LCP 132ms, CLS 0, INP 24ms)
+
+**Stats:**
+
+- 82 code files created/modified (6,700 lines added)
+- ~7,800 lines of TypeScript/CSS total
+- 7 phases, 22 plans, 49 requirements (all satisfied)
+- 3 days from start to ship (2026-02-04 to 2026-02-06)
+- 98 commits in milestone
+
+**Git range:** `docs(08): capture phase context` to `docs: v1.1 milestone audit`
+
+**What's next:** Production launch prep and first client outreach, then v1.2 content/data layer
+
+---
+
 ## v1.0 MVP (Shipped: 2026-02-04)
 
 **Delivered:** Full-stack portfolio and services site with admin dashboard, SEO/AEO treatment, WordPress delivery documentation, and business protection suite enabling Jon to market $500 WordPress sites to local businesses.

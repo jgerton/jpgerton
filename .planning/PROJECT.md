@@ -2,7 +2,7 @@
 
 ## What This Is
 
-A personal portfolio and services site for Jon Gerton that serves as both a showcase for indie projects and a marketing hub for $500 WordPress sites targeting local service businesses. Built with Next.js 14 and Convex, it includes a full admin dashboard for content management, complete SEO/AEO treatment for discoverability, and a documented WordPress delivery system with business protection safeguards.
+A personal portfolio and services site for Jon Gerton that serves as both a showcase for indie projects and a marketing hub for $500 WordPress sites targeting local service businesses. Built with Next.js 14 and Convex, it features a professionally crafted design system with warm typography (Lora + Inter), WCAG AA accessibility, conversion-optimized page layouts, and a full admin dashboard. Includes complete SEO/AEO treatment, documented WordPress delivery system, and business protection safeguards.
 
 ## Core Value
 
@@ -52,19 +52,22 @@ Everything else (admin dashboard, delivery docs, business protection) supports t
 - Shipped Image optimization via Next.js Image component
 - Shipped Mobile responsive design
 
+**Design System (v1.1):**
+
+- Shipped Design token architecture (spacing, shadows, durations, easing) in Tailwind v4 @theme
+- Shipped WCAG AA verified color palette with warm blue-gray dark mode and amber accent
+- Shipped Lora + Inter typography system with fluid type scale (CSS clamp)
+- Shipped Component library with CVA variants (Button 5 levels, Card 4 elevations, Badge categories)
+- Shipped 6 portfolio composition components (CTAButton, ProjectCardEnhanced, TestimonialCard, CaseStudyVisual, SocialProofDisplay, HeroWithGradient)
+- Shipped CSS-only animation system with scroll-triggered fade-ups and prefers-reduced-motion
+- Shipped Unified SiteNav with sticky header, backdrop blur, mobile menu with focus trap
+- Shipped Conversion-optimized page layouts with dual CTA pattern and benefit-focused copy
+- Shipped WCAG 2.1 AA compliance (landmarks, heading hierarchy, keyboard nav, 44px touch targets)
+- Shipped Core Web Vitals: LCP 132ms, CLS 0, INP 24ms
+
 ### Active
 
-**Design Polish (v1.1):**
-
-- [ ] Full UI/UX audit across all public pages and admin dashboard
-- [ ] Color palette evaluation and potential update for warm, approachable, professional feel
-- [ ] Typography system review and refinement
-- [ ] Spacing and visual rhythm consistency across all pages
-- [ ] Proper leverage of shadcn/ui component library (beyond defaults)
-- [ ] Tailwind v4 usage optimization for consistent design system
-- [ ] Visual hierarchy improvements for conversion flow
-- [ ] Component polish (cards, buttons, forms, navigation)
-- [ ] Mobile responsive refinement
+(None yet. Run `/gsd:new-milestone` to define next milestone requirements.)
 
 ### Out of Scope
 
@@ -78,8 +81,8 @@ Everything else (admin dashboard, delivery docs, business protection) supports t
 
 ## Context
 
-**Shipped v1.0 with ~6,000 LOC TypeScript + ~6,200 lines documentation.**
-Tech stack: Next.js 14, Convex, Tailwind v4, shadcn/ui, Docker, GitHub Actions, Vercel.
+**Shipped v1.0 + v1.1 with ~7,800 LOC TypeScript/CSS.**
+Tech stack: Next.js 14, Convex, Tailwind v4 (CSS-first), shadcn/ui, Docker, GitHub Actions, Vercel.
 
 **Background:**
 
@@ -94,7 +97,15 @@ Tech stack: Next.js 14, Convex, Tailwind v4, shadcn/ui, Docker, GitHub Actions, 
 - Businesses with no website, Facebook-only presence, or broken/outdated sites
 - Fixed-scope: 5-7 page site in 5 days
 
-**Pre-launch items (13 tech debt from audit):**
+**Known tech debt (from v1.1 audit):**
+
+- Orphaned HeroSection component (replaced by HeroWithGradient)
+- Calendly URL hardcoded in 3 page files (move to env var)
+- Placeholder testimonials and case study content (need admin/data layer)
+- Formal Lighthouse audit not run (expected 95+ based on CWV metrics)
+- 4 Safari items for eventual real-device visual spot-check
+
+**Pre-launch items (from v1.0 audit):**
 
 - Create OG image (1200x630 JPEG)
 - Set NEXT_PUBLIC_GA_ID in Vercel
@@ -111,22 +122,30 @@ Tech stack: Next.js 14, Convex, Tailwind v4, shadcn/ui, Docker, GitHub Actions, 
 
 ## Key Decisions
 
-| Decision                     | Rationale                                                                | Outcome    |
-| ---------------------------- | ------------------------------------------------------------------------ | ---------- |
-| Next.js 14 App Router        | Modern React patterns, great Vercel integration, familiar stack          | Good       |
-| Convex over Supabase         | Better DX, reactive queries, generous free tier, TypeScript-first        | Good       |
-| Convex Auth over Clerk       | Keeps auth in same ecosystem, simpler integration                        | Good       |
-| Full AEO treatment           | Differentiator, future-proofing for AI search                            | Good       |
-| Both Calendly + form         | Calendly for $500 bookings (qualified), form for everything else         | Good       |
-| Admin dashboard vs Convex UI | Long-term maintainability without touching code                          | Good       |
-| Dockerized local dev         | Consistent environment, port isolation (3400-3499), reproducible setup   | Good       |
-| Git workflow (develop/main)  | Develop branch for work, PRs to main for releases, limits Vercel deploys | Good       |
-| Bun over npm                 | 10-25x faster installs, fully compatible                                 | Good       |
-| Tailwind v4 CSS-first        | Simpler config, HSL variables, @theme directive                          | Good       |
-| dnd-kit for drag-drop        | Accessibility-first, smaller bundle than alternatives                    | Good       |
-| Kadence as WP standard       | Block editor native, no page builder lock-in                             | Good       |
-| 11-section contract          | Comprehensive protection without lawyer fees                             | Revisit    |
+| Decision | Rationale | Outcome |
+|----------|-----------|---------|
+| Next.js 14 App Router | Modern React patterns, great Vercel integration, familiar stack | Good |
+| Convex over Supabase | Better DX, reactive queries, generous free tier, TypeScript-first | Good |
+| Convex Auth over Clerk | Keeps auth in same ecosystem, simpler integration | Good |
+| Full AEO treatment | Differentiator, future-proofing for AI search | Good |
+| Both Calendly + form | Calendly for $500 bookings (qualified), form for everything else | Good |
+| Admin dashboard vs Convex UI | Long-term maintainability without touching code | Good |
+| Dockerized local dev | Consistent environment, port isolation (3400-3499), reproducible setup | Good |
+| Git workflow (develop/main) | Develop branch for work, PRs to main for releases, limits Vercel deploys | Good |
+| Bun over npm | 10-25x faster installs, fully compatible | Good |
+| Tailwind v4 CSS-first | Simpler config, HSL variables, @theme directive | Good |
+| dnd-kit for drag-drop | Accessibility-first, smaller bundle than alternatives | Good |
+| Kadence as WP standard | Block editor native, no page builder lock-in | Good |
+| 11-section contract | Comprehensive protection without lawyer fees | Revisit |
+| Lora + Inter font pairing | Warm professional personality, serif display + sans body | Good |
+| CSS-only animations | Zero bundle cost, GPU-accelerated, protects Lighthouse 100 | Good |
+| CVA composition pattern | Extend shadcn/ui without modifying primitives | Good |
+| Warm blue-gray dark mode | Premium aesthetic vs pure black, 220 hue 15% sat | Good |
+| Amber accent with dark text | 8.16:1 contrast, consistent with accent/accent-warm pattern | Good |
+| Dual CTA pattern | Warm/amber = WordPress, outline/blue = custom inquiry, instant differentiation | Good |
+| Benefit-focused CTA copy | "Get Your Business Online" converts better than "Learn More" | Good |
+| Callback ref over useRef | Handles conditional rendering (loading -> content) correctly | Good |
 
 ---
 
-*Last updated: 2026-02-04 after v1.1 milestone start*
+*Last updated: 2026-02-06 after v1.1 milestone*
