@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 15 - Content Schema + Backend
-Plan: 01 of 02 complete
-Status: Phase 15 in progress
-Last activity: 2026-02-07 - Completed 15-01-PLAN.md
+Plan: 02 of 02 complete
+Status: Phase 15 complete
+Last activity: 2026-02-07 - Completed 15-02-PLAN.md
 
-Progress: [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3% (1 of 33 plans complete in v1.2)
+Progress: [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 6% (2 of 33 plans complete in v1.2)
 
 ## Milestones
 
@@ -33,6 +33,11 @@ Progress: [█░░░░░░░░░░░░░░░░░░░░░░
 | 15 | 01 | Customizable case study section headings | Section headings stored as strings, not fixed values; defaults set in admin UI |
 | 15 | 01 | Optional projectId link for case studies | Allows case studies for client work outside portfolio projects table |
 | 15 | 01 | Compound status+publishedAt index | Enables efficient "published by date" queries without application-level filtering |
+| 15 | 02 | Reading time calculated in queries | Computed from word count (200 wpm) not stored; keeps fresh as content changes |
+| 15 | 02 | Slug collision includes deleted items | Prevents SEO confusion from slug reuse on deleted content |
+| 15 | 02 | Published slug immutability | URL stability for published content (SEO, external links) - enforced in update mutations |
+| 15 | 02 | Publish validation before state change | Cover image, alt text, minimums checked; descriptive errors thrown before patch |
+| 15 | 02 | Soft delete preserves storage files | Allows restore without losing uploaded images (cover images intact) |
 
 ### Research Flags
 
@@ -55,9 +60,9 @@ Progress: [█░░░░░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 15-01-PLAN.md
+Stopped at: Completed 15-02-PLAN.md (Phase 15 complete)
 Resume file: None
-Next action: /gsd:execute-plan 15-02
+Next action: /gsd:execute-phase 16
 
 ## Deployment Info
 
