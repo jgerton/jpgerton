@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-02-06)
 ## Current Position
 
 Phase: 16 - Admin Content Management
-Plan: 01 of 03 complete
+Plan: 02 of 03 complete
 Status: In progress
-Last activity: 2026-02-07 - Completed 16-01-PLAN.md
+Last activity: 2026-02-07 - Completed 16-02-PLAN.md
 
-Progress: [███░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9% (3 of 33 plans complete in v1.2)
+Progress: [████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 12% (4 of 33 plans complete in v1.2)
 
 ## Milestones
 
 - v1.0 MVP - SHIPPED 2026-02-04 (7 phases, 39 plans)
 - v1.1 Design Polish - SHIPPED 2026-02-06 (7 phases, 22 plans)
-- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 1 of 33 plans complete)
+- v1.2 Content Layer + Launch - IN PROGRESS (5 phases, 2 of 33 plans complete)
 
 ## Accumulated Context
 
@@ -42,6 +42,10 @@ Progress: [███░░░░░░░░░░░░░░░░░░░░
 | 16 | 01 | Click-to-upload only (no drag-drop) | Simpler UX; set noDrag: true in useDropzone config |
 | 16 | 01 | Backward-compatible ImageUploadZone | Optional generateUploadUrlFn prop with fallback to api.projects.generateUploadUrl |
 | 16 | 01 | Remove 'as const' from siteConfig | Enable dynamic env variable usage for calendly.discoveryCallUrl |
+| 16 | 02 | Row-level ConfirmDialog pattern | Delete confirmation in SortableBlogRow, simpler than page-level state management |
+| 16 | 02 | Filter tabs operate on client-side filtered view | Status filtering in component, reorder mutation receives only visible items |
+| 16 | 02 | Slug field disabled on create, editable on edit for drafts | Server auto-generates slug on create; edit page disables if published for URL stability |
+| 16 | 02 | Conditional alt text validation via zod refine() | Alt text required when coverImageId present, enforced at schema level |
 
 ### Research Flags
 
@@ -64,9 +68,9 @@ Progress: [███░░░░░░░░░░░░░░░░░░░░
 ## Session Continuity
 
 Last session: 2026-02-07
-Stopped at: Completed 16-01-PLAN.md (shared admin infrastructure)
+Stopped at: Completed 16-02-PLAN.md (blog admin CRUD interface)
 Resume file: None
-Next action: /gsd:execute-plan 16-02 or 16-03 (wave-parallel compatible)
+Next action: /gsd:execute-plan 16-03 (case study admin - may already be complete from wave-parallel execution)
 
 ## Deployment Info
 
