@@ -122,4 +122,81 @@ export default defineSchema({
     isDeleted: v.boolean(),
     createdAt: v.number(),
   }).index("by_order", ["displayOrder"]),
+
+  // Website audit results (lead generation tool)
+  siteAudits: defineTable({
+    url: v.string(),
+    normalizedUrl: v.string(),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("running"),
+      v.literal("complete"),
+      v.literal("partial"),
+      v.literal("failed")
+    ),
+    performance: v.optional(
+      v.object({
+        score: v.number(),
+        grade: v.string(),
+        lcp: v.optional(v.number()),
+        fid: v.optional(v.number()),
+        cls: v.optional(v.number()),
+        fcp: v.optional(v.number()),
+      })
+    ),
+    accessibility: v.optional(
+      v.object({
+        score: v.number(),
+        grade: v.string(),
+      })
+    ),
+    seo: v.optional(
+      v.object({
+        score: v.number(),
+        grade: v.string(),
+      })
+    ),
+    bestPractices: v.optional(
+      v.object({
+        score: v.number(),
+        grade: v.string(),
+      })
+    ),
+    security: v.optional(
+      v.object({
+        score: v.number(),
+        grade: v.string(),
+        headersPresent: v.array(v.string()),
+        headersMissing: v.array(v.string()),
+      })
+    ),
+    overallGrade: v.optional(v.string()),
+    topIssues: v.optional(v.array(v.string())),
+    errors: v.optional(v.array(v.string())),
+    createdAt: v.number(),
+    completedAt: v.optional(v.number()),
+  })
+    .index("by_url", ["normalizedUrl"])
+    .index("by_status", ["status"])
+    .index("by_created", ["createdAt"]),
+
+  // Audit lead captures (email gate for detailed reports)
+  auditLeads: defineTable({
+    auditId: v.id("siteAudits"),
+    name: v.string(),
+    email: v.string(),
+    businessName: v.optional(v.string()),
+    phone: v.optional(v.string()),
+    honeypot: v.string(),
+    status: v.union(
+      v.literal("new"),
+      v.literal("contacted"),
+      v.literal("converted"),
+      v.literal("archived")
+    ),
+    createdAt: v.number(),
+  })
+    .index("by_audit", ["auditId"])
+    .index("by_status", ["status"])
+    .index("by_created", ["createdAt"]),
 });

@@ -231,8 +231,8 @@ export default function HomePage() {
           intent: "warm",
         }}
         secondaryCta={{
-          text: "See My Work",
-          href: "/projects",
+          text: "Free Website Audit",
+          href: "/free-website-audit",
         }}
       />
 

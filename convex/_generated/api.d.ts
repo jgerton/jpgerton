@@ -9,6 +9,9 @@
  */
 
 import type * as actions from "../actions.js";
+import type * as auditActions from "../auditActions.js";
+import type * as auditLeads from "../auditLeads.js";
+import type * as auditMutations from "../auditMutations.js";
 import type * as auth from "../auth.js";
 import type * as blogPosts from "../blogPosts.js";
 import type * as caseStudies from "../caseStudies.js";
@@ -17,6 +20,7 @@ import type * as functions_health from "../functions/health.js";
 import type * as http from "../http.js";
 import type * as projects from "../projects.js";
 import type * as seed from "../seed.js";
+import type * as siteAudits from "../siteAudits.js";
 import type * as testimonials from "../testimonials.js";
 
 import type {
@@ -27,6 +31,9 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   actions: typeof actions;
+  auditActions: typeof auditActions;
+  auditLeads: typeof auditLeads;
+  auditMutations: typeof auditMutations;
   auth: typeof auth;
   blogPosts: typeof blogPosts;
   caseStudies: typeof caseStudies;
@@ -35,6 +42,7 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   projects: typeof projects;
   seed: typeof seed;
+  siteAudits: typeof siteAudits;
   testimonials: typeof testimonials;
 }>;
 
