@@ -35,12 +35,15 @@ export default function FreeWebsiteAuditPage() {
   );
 
   const handleLoadingComplete = useCallback(() => {
-    if (audit?.status === "complete" || audit?.status === "partial") {
+    if (
+      (audit?.status === "complete" || audit?.status === "partial") &&
+      audit?.overallGrade
+    ) {
       setStep("results");
     } else if (audit?.status === "failed") {
       setStep("results");
     }
-  }, [audit?.status]);
+  }, [audit?.status, audit?.overallGrade]);
 
   const handleTimeout = useCallback(() => {
     // Reset to input step on timeout

@@ -328,12 +328,6 @@ export const runAudit = internalAction({
     url: v.string(),
   },
   handler: async (ctx, args) => {
-    // Mark as running
-    await ctx.runMutation(internal.auditMutations.updateAuditResults, {
-      auditId: args.auditId,
-      status: "partial", // Will be updated to complete/partial/failed at end
-    });
-
     const errors: string[] = [];
 
     // Run all API checks concurrently
