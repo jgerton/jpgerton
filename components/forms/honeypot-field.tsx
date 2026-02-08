@@ -1,17 +1,20 @@
 import { FormField, FormItem, FormControl } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { Control } from "react-hook-form";
-import type { ContactFormData } from "@/lib/validations/contact-schema";
+import type { Control, FieldValues, Path } from "react-hook-form";
 
-interface HoneypotFieldProps {
-  control: Control<ContactFormData>;
+interface HoneypotFieldProps<T extends FieldValues> {
+  control: Control<T>;
+  name?: Path<T>;
 }
 
-export function HoneypotField({ control }: HoneypotFieldProps) {
+export function HoneypotField<T extends FieldValues>({
+  control,
+  name = "honeypot" as Path<T>,
+}: HoneypotFieldProps<T>) {
   return (
     <FormField
       control={control}
-      name="honeypot"
+      name={name}
       render={({ field }) => (
         <FormItem
           className="absolute -left-[9999px] -top-[9999px]"

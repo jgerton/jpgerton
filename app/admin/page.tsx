@@ -11,12 +11,13 @@ import {
 } from "@/components/ui/card";
 import { StatsCard } from "@/components/admin/stats-card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Folder, Calendar } from "lucide-react";
+import { Mail, Folder, Calendar, BarChart3 } from "lucide-react";
 import Link from "next/link";
 
 export default function AdminDashboardPage() {
   const contacts = useQuery(api.contacts.list);
   const projects = useQuery(api.projects.list);
+  const auditLeadStats = useQuery(api.auditLeads.stats);
   const [now, setNow] = useState(() => Date.now());
 
   // Update current time when contacts change
@@ -69,7 +70,7 @@ export default function AdminDashboardPage() {
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatsCard
           label="Unread Messages"
           value={isLoading ? "..." : unreadCount}
@@ -84,6 +85,11 @@ export default function AdminDashboardPage() {
           label="This Week"
           value={isLoading ? "..." : weekCount}
           icon={<Calendar className="h-8 w-8" />}
+        />
+        <StatsCard
+          label="Audit Leads"
+          value={auditLeadStats === undefined ? "..." : auditLeadStats.new}
+          icon={<BarChart3 className="h-8 w-8" />}
         />
       </div>
 

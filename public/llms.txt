@@ -1,49 +1,71 @@
 # Get Your Business Online
 
-This website provides professional web development services focused on helping local businesses establish their online presence quickly and effectively. With an emphasis on straightforward communication and fixed pricing, it caters to small business owners who need reliable, user-friendly websites, such as WordPress sites, as well as custom web applications.
+This website provides professional web development services primarily targeting local businesses looking to establish or enhance their online presence. With a focus on delivering high-quality, fast, and affordable solutions, it offers a range of services from WordPress sites to custom web applications, accompanied by personalized support and transparent pricing.
 
 ## About My Work
 
-The "How I Work" page outlines a simple four-step process to help clients get online efficiently:
-1. **Discovery Call** - A brief chat to understand the client's goals and needs.
-2. **Content & Design** - Building the site using client-provided content and brand elements, with a chance for one round of revisions.
-3. **Launch** - The site goes live within 5 business days, with all technical details managed.
-4. **Ongoing Support** - Clients receive 30 days of support post-launch with continued availability for questions.
+This section outlines the straightforward process used to get clients' businesses online quickly and professionally. It features a four-step approach:
 
-**What You Can Expect:**
-- **No Jargon:** Clear explanations without technical jargon.
-- **Fixed Pricing:** Transparent costs with no hidden fees.
-- **Real Experience:** Over 18 years in web development, offering insights into effective solutions.
+1. **Discovery Call**: A brief chat to discuss business goals and website needs.
+2. **Content & Design**: Building the site based on client-provided content with an opportunity for one round of revisions.
+3. **Launch**: The website goes live within five business days, handling all technical aspects.
+4. **Ongoing Support**: Clients receive 30 days of support after launch, with continued availability for questions.
 
-## Services Offered
+**Key Expectations:**
+- **No Jargon**: Clear communication without technical complexity.
+- **Fixed Pricing**: Transparent costs without hidden fees.
+- **Real Experience**: Over 27 years in tech, with significant web development expertise.
 
-The services page provides detailed information on offerings, including:
-- **$500 WordPress Sites:** Professional, mobile-friendly websites delivered in 5 business days, inclusive of SEO and customer support.
-- **Custom Web Applications:** Tailored solutions for unique business requirements with modern technology stacks.
-- **Team Growth Accelerator:** Mentorship and support for development teams to enhance skills and best practices.
+## Services
 
-### Features of WordPress Sites
-- Mobile-responsive designs.
-- Basic search engine optimization for better visibility.
-- Contact forms to enhance customer communication.
+This section highlights the various services offered, each tailored to meet different client needs, with a key emphasis on transparency and no hidden fees.
 
-## Contact Me
+### $500 WordPress Sites
+- Launched within 5 business days.
+- Mobile-friendly design with basic SEO.
+- Includes contact form, one round of revisions, and 30 days of post-launch support.
 
-The contact page invites visitors to discuss their projects. It includes options for:
-- **Sending a Message:** Clients can describe their needs and expect a response within one business day.
-- **Booking a Call:** Scheduling a free 15-minute discovery call.
-- **Other Connections:** Direct email and social media links to facilitate communication.
+### Custom Web Applications
+- Tailored solutions to fit unique business needs.
+- Built with modern tech stacks.
+- Includes ongoing maintenance and training.
 
-## FAQ
+### Team Growth Accelerator
+- Mentorship for development teams.
+- Focus on code review and modern web practices.
 
-This section answers common questions related to the services, including delivery timelines, what’s included in the WordPress package, and support for post-launch updates. It clarifies that the services are available to businesses outside Alaska and emphasizes the ease of updating the website following a brief training.
+## Free Website Audit
+
+Users can enter their website URL to receive a health check on performance, SEO, security, and accessibility within 30 seconds. The service is aimed at helping businesses identify areas for improvement and enhancing their online presence.
+
+## Contact
+
+This section offers various ways for potential clients to get in touch regarding their projects. 
+
+### Get in Touch
+- **Send a Message**: Users can fill out a form to describe their project.
+- **Schedule a Call**: An option for a quick 15-minute discovery call.
+- **Other Contact Methods**:
+  - Email: [jon@jpgerton.com](mailto:jon@jpgerton.com)
+  - GitHub: [@jgerton](https://github.com/jgerton)
+  - LinkedIn: [Jon Gerton](https://www.linkedin.com/in/jon-gerton-8009a9393/)
 
 ## Thank You Page
 
-After a contact form submission, clients receive confirmation that their message has been received, along with next steps for project discussion.
+After a client submits a message, they receive a confirmation and an outline of what to expect next. This includes reviewing the project details, receiving a response, and possibly scheduling a call to discuss the project further. Clients are also encouraged to check out recent work outputs.
 
-## Links
-- [Get Your Business Online](/services)
-- [View My Work](/projects)
-- [Send a Message](/contact)
-- [Book a Call](/contact)
+## Blog
+
+*Loading...* This section is intended for sharing insights, case studies, or updates regarding web development, but currently lacks content.
+
+## Projects
+
+*Loading...* A showcase of previous projects demonstrating capabilities and client satisfaction, currently unavailable.
+
+## Admin Pages
+
+Certain backend pages are included but do not contain relevant public information and are thus not discussed in detail.
+
+---
+
+This structure aims to provide clarity on the offerings of the site while emphasizing user engagement through calls to action.

@@ -63,6 +63,30 @@ export function trackBlogCategoryFilter(category: string): void {
  * @param slug - The blog post slug
  * @param readTimeMinutes - Estimated reading time from post metadata
  */
+/**
+ * Track when a user starts a website audit
+ */
+export function trackAuditStarted(url: string): void {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "audit_started", {
+      audit_url: url,
+      page_location: window.location.href,
+    });
+  }
+}
+
+/**
+ * Track when a user submits their info after an audit (lead captured)
+ */
+export function trackAuditLeadCaptured(grade: string): void {
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "audit_lead_captured", {
+      overall_grade: grade,
+      page_location: window.location.href,
+    });
+  }
+}
+
 export function trackBlogReadComplete(
   slug: string,
   readTimeMinutes: number
