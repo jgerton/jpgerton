@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileMenu } from "@/components/navigation/mobile-menu";
+import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -17,23 +18,13 @@ const navLinks = [
 ];
 
 export function SiteNav() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   function isActive(href: string) {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   }
-
-  // Focus restoration: return focus to hamburger button when menu closes
-  const handleClose = useCallback(() => {
-    setMobileMenuOpen(false);
-    // Delay focus to allow menu close transition to begin
-    requestAnimationFrame(() => {
-      menuButtonRef.current?.focus();
-    });
-  }, []);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/65 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 before:absolute before:inset-0 before:-z-10 before:backdrop-blur-md transition-colors duration-[var(--duration-base)]">
@@ -67,29 +58,19 @@ export function SiteNav() {
         {/* Mobile area */}
         <div className="md:hidden flex items-center gap-sm">
           <ThemeToggle />
-          <button
-            ref={menuButtonRef}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-accent rounded-md transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
-            ) : (
-              <Menu className="h-5 w-5" />
-            )}
-          </button>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild>
+              <button
+                className="min-h-[44px] min-w-[44px] flex items-center justify-center hover:bg-accent rounded-md transition-colors"
+                aria-label="Open menu"
+              >
+                <Menu className="h-5 w-5" />
+              </button>
+            </SheetTrigger>
+            <MobileMenu />
+          </Sheet>
         </div>
       </nav>
-
-      {/* Mobile menu - hidden on desktop via md:hidden */}
-      <div className="md:hidden">
-        <MobileMenu
-          isOpen={mobileMenuOpen}
-          onClose={handleClose}
-        />
-      </div>
     </header>
   );
 }
